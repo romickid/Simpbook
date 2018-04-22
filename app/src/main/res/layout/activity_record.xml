@@ -4,6 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activity.RecordActivity">
+    tools:context=".record.RecordActivity">
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/record_tablayout"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:background="@color/colorDefaultBlue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/record_toolbar"
+        app:tabSelectedTextColor="@android:color/background_light"
+        app:tabTextColor="?attr/colorButtonNormal">
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="模板" />
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="支出" />
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="收入" />
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="转账" />
+
+    </android.support.design.widget.TabLayout>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/record_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="56dp"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toTopOf="@+id/record_tablayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/record_viewpager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/record_tablayout" />
 
 </android.support.constraint.ConstraintLayout>
