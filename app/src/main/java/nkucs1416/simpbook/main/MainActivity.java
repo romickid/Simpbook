@@ -1,6 +1,5 @@
 package nkucs1416.simpbook.main;
 
-import android.accounts.Account;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,24 +14,28 @@ import nkucs1416.simpbook.record.RecordActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FloatingActionButton button_record;
-    private Button button_account;
-    private Button button_collection;
-    private Button button_list;
+    private FloatingActionButton buttonRecord;
+    private Button buttonAccount;
+    private Button buttonCollection;
+    private Button buttonList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initFindById();
         initButtonRecord();
         initButtonAccount();
     }
 
-    private void initButtonRecord() {
-        button_record = findViewById(R.id.main_button_record);
+    private void initFindById() {
+        buttonRecord = findViewById(R.id.main_button_record);
+        buttonAccount = findViewById(R.id.main_button_account);
+    }
 
-        button_record.setOnClickListener(new View.OnClickListener() {
+    private void initButtonRecord() {
+        buttonRecord.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
@@ -44,17 +47,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButtonAccount() {
-        button_account = findViewById(R.id.main_button_account);
-
-        button_account.setOnClickListener(new View.OnClickListener() {
+        buttonAccount.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                Intent intent = new Intent(MainActivity.this, AccountActivity.class);
-                startActivity(intent);
+            // TODO Auto-generated method stub
+            Intent intent = new Intent(MainActivity.this, AccountActivity.class);
+            startActivity(intent);
             }
         });
     }
-
 }
