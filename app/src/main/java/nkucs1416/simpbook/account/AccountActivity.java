@@ -14,11 +14,15 @@ public class AccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
+        initFindById();
         initToolbar();
     }
 
-    private void initToolbar(){
+    private void initFindById() {
         toolbar = findViewById(R.id.account_toolbar);
+    }
+
+    private void initToolbar(){
         toolbar.setTitle("账户");
 
         setSupportActionBar(toolbar);
