@@ -97,7 +97,7 @@
         app:srcCompat="@color/colorDefaultYellow" />
 
     <Button
-        android:id="@+id/main_button_list"
+        android:id="@+id/main_button_statement"
         android:layout_width="31dp"
         android:layout_height="43dp"
         android:layout_marginBottom="4dp"
@@ -135,7 +135,7 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/main_button_account"
-        app:layout_constraintStart_toEndOf="@+id/main_button_list" />
+        app:layout_constraintStart_toEndOf="@+id/main_button_statement" />
 
     <ImageView
         android:id="@+id/main_button_setting"
