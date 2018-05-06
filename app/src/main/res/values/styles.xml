@@ -2,10 +2,7 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorDefaultBlue</item>
-        <item name="colorPrimaryDark">@color/colorDefaultDarkBlue</item>
-        <item name="colorAccent">@color/colorDefaultYellow</item>
+
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
