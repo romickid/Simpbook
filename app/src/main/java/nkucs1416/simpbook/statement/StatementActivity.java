@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,12 +36,17 @@ public class StatementActivity extends AppCompatActivity {
     }
 
     private void initToolbar(){
-        toolbar.setTitle("流水");
-
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_chevron_left_white_36dp);
-        toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
+
 
     private void initRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

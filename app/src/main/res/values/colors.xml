@@ -18,4 +18,6 @@
     <color name="colorText87">#d3000000</color>
     <color name="colorText54">#89000000</color>
     <color name="colorText38">#61000000</color>
+
+    <color name="colorWhite">#ffffff</color>
 </resources>
