@@ -2,6 +2,7 @@ package nkucs1416.simpbook.record;
 
 import java.util.*;
 
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.app.Fragment;
@@ -11,12 +12,17 @@ import android.os.Bundle;
 
 import nkucs1416.simpbook.R;
 
-public class RecordActivity extends AppCompatActivity {
+public class RecordActivity extends AppCompatActivity implements
+        RecordCollectionFragment.OnFragmentInteractionListener,
+        RecordIncomeFragment.OnFragmentInteractionListener,
+        RecordExpenseFragment.OnFragmentInteractionListener,
+        RecordTranferFragment.OnFragmentInteractionListener {
     private Toolbar toolbar;
     private TabLayout tablayout;
     private ViewPager viewpager;
-    private ArrayList<Fragment> array_fragments = new ArrayList<>();
-    private RecordPagerAdapter myPagerAdapter = new RecordPagerAdapter(getSupportFragmentManager());
+    private ArrayList<Fragment> listFragments;
+    private ArrayList<String> listIndicators;
+    private RecordPagerAdapter pageradapter;
 
 
     @Override
@@ -24,12 +30,19 @@ public class RecordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
 
+        initFindById();
         initToolbar();
+        initViewpager();
         initTablayout();
     }
 
-    private void initToolbar(){
+    private void initFindById() {
         toolbar = findViewById(R.id.record_toolbar);
+        tablayout = findViewById(R.id.record_tablayout);
+        viewpager = findViewById(R.id.record_viewpager);
+    }
+
+    private void initToolbar(){
         toolbar.setTitle("记录");
 
         setSupportActionBar(toolbar);
@@ -38,8 +51,33 @@ public class RecordActivity extends AppCompatActivity {
     }
 
     private void initTablayout(){
-        tablayout = findViewById(R.id.record_tablayout);
-        // tablayout.setupWithViewPager(viewpager);
+        tablayout.setupWithViewPager(viewpager);
+    }
+
+    private void initViewpager(){
+        listFragments = new ArrayList<>();
+        listIndicators = new ArrayList<>();
+        String s = "a"; // todo
+
+        listIndicators.add("模板");
+        listFragments.add(RecordCollectionFragment.newInstance(s,s));
+        listIndicators.add("支出");
+        listFragments.add(RecordExpenseFragment.newInstance(s,s));
+        listIndicators.add("收入");
+        listFragments.add(RecordIncomeFragment.newInstance(s,s));
+        listIndicators.add("转账");
+        listFragments.add(RecordTranferFragment.newInstance(s,s));
+
+        pageradapter = new RecordPagerAdapter(getSupportFragmentManager());
+        pageradapter.setFragments(listFragments);
+        pageradapter.setIndicators(listIndicators);
+        viewpager.setAdapter(pageradapter);
+    }
+
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
 
