@@ -18,7 +18,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+
+        app:navigationIcon="@drawable/ic_chevron_left_white_36dp"
+        app:title="账户"
+        app:titleTextColor="@color/colorWhite"
+        app:contentInsetStartWithNavigation="0dp" />
 
     <ImageView
         android:id="@+id/account_imageview_topdata"

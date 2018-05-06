@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
+import android.view.View;
 
 import nkucs1416.simpbook.R;
 
@@ -44,11 +45,15 @@ public class RecordActivity extends AppCompatActivity implements
     }
 
     private void initToolbar(){
-        toolbar.setTitle("记录");
-
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_chevron_left_white_36dp);
-        toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void initTablayout(){

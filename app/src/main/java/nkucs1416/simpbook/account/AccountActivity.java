@@ -3,6 +3,7 @@ package nkucs1416.simpbook.account;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import nkucs1416.simpbook.R;
 
@@ -23,10 +24,14 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     private void initToolbar(){
-        toolbar.setTitle("账户");
-
         setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_chevron_left_white_36dp);
-        toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }
