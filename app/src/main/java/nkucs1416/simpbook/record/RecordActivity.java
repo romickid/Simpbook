@@ -2,6 +2,7 @@ package nkucs1416.simpbook.record;
 
 import java.util.*;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -71,9 +72,25 @@ public class RecordActivity extends AppCompatActivity implements
         pageradapter = new RecordPagerAdapter(getSupportFragmentManager());
         pageradapter.setFragments(listFragments);
         pageradapter.setIndicators(listIndicators);
+
         viewpager.setAdapter(pageradapter);
+
+        setCurrentTab();
     }
 
+
+    private void setCurrentTab() {
+        Intent intent = getIntent();
+        String currentTab = intent.getStringExtra("tabID");
+        switch (currentTab) {
+            case "1":
+                viewpager.setCurrentItem(1);
+                break;
+            case "0":
+            default:
+                viewpager.setCurrentItem(0);
+        }
+    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
