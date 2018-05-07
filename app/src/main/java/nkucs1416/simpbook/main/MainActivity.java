@@ -7,10 +7,12 @@ import android.view.View;
 
 import android.support.design.widget.FloatingActionButton;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.account.AccountActivity;
 import nkucs1416.simpbook.record.RecordActivity;
+import nkucs1416.simpbook.setting.SettingActivity;
 import nkucs1416.simpbook.statement.StatementActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonAccount;
     private Button buttonCollection;
     private Button buttonStatement;
+    private ImageView imageSetting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         buttonAccount = findViewById(R.id.main_button_account);
         buttonStatement = findViewById(R.id.main_button_statement);
         buttonCollection = findViewById(R.id.main_button_collection);
+        imageSetting = findViewById(R.id.main_button_setting);
     }
 
     private void initButton() {
@@ -41,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         initButtonAccount();
         initButtonStatement();
         initButtonCollection();
+        initImageSetting();
     }
 
     private void initButtonRecord() {
@@ -84,6 +89,17 @@ public class MainActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 Intent intent = new Intent(MainActivity.this, RecordActivity.class);
                 intent.putExtra("tabID","0");
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void initImageSetting() {
+        imageSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
                 startActivity(intent);
             }
         });

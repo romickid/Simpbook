@@ -17,11 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".record.RecordActivity"></activity>
-        <activity
-            android:name=".account.AccountActivity"
-            android:label="@string/title_activity_account"
-            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".account.AccountActivity"></activity>
         <activity android:name=".statement.StatementActivity"></activity>
+        <activity android:name=".setting.SettingActivity"></activity>
     </application>
 
 </manifest>
