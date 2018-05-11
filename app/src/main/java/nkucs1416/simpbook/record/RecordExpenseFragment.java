@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.app.Dialog;
@@ -26,6 +25,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 import nkucs1416.simpbook.R;
+import nkucs1416.simpbook.util.MyDate;
 
 public class RecordExpenseFragment extends Fragment {
     private View view;
@@ -210,11 +210,11 @@ public class RecordExpenseFragment extends Fragment {
 
     // 设置时间
     private void setDefaultDate() {
-        setTextViewDate(new Date());
+        setTextViewDate(new MyDate());
     }
 
-    private void setTextViewDate(Date date) {
-        textViewDateTime.setText(date.year + "年" + date.month + "月" + date.day + "日");
+    private void setTextViewDate(MyDate myDate) {
+        textViewDateTime.setText(myDate.getYear() + "年" + myDate.getMonth() + "月" + myDate.getDay() + "日");
     }
 
     private void setDateTimeListener() {
@@ -231,17 +231,17 @@ public class RecordExpenseFragment extends Fragment {
     private Dialog createDialogDate() {
         Dialog dialog = null;
         OnDateSetListener listener = null;
-        Date date = new Date();
+        MyDate myDate = new MyDate();
 
         listener = new OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                setTextViewDate(new Date(year, month+1, dayOfMonth));
+                setTextViewDate(new MyDate(year, month+1, dayOfMonth));
             }
         };
 
 
-        dialog = new DatePickerDialog(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, listener, date.year, date.month, date.day);
+        dialog = new DatePickerDialog(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, listener, myDate.getYear(), myDate.getMonth(), myDate.getDay());
         return dialog;
     }
 
