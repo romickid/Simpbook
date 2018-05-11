@@ -26,6 +26,7 @@ import java.util.HashMap;
 
 import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.util.MyDate;
+import nkucs1416.simpbook.util.MySpinnerAdapter;
 
 public class RecordExpenseFragment extends Fragment {
     private View view;
@@ -35,9 +36,9 @@ public class RecordExpenseFragment extends Fragment {
     private EditText editTextMoney;
     private TextView textViewDateTime;
     private TextView textViewRemark;
-    private SpinnerAdapter adapterClass1;
-    private SpinnerAdapter adapterClass2;
-    private SpinnerAdapter adapterAccount;
+    private MySpinnerAdapter adapterClass1;
+    private MySpinnerAdapter adapterClass2;
+    private MySpinnerAdapter adapterAccount;
     private ArrayList<Map<String,Object>> listClass1;
     private ArrayList<Map<String,Object>> listClass2;
     private ArrayList<Map<String,Object>> listAccount;
@@ -118,15 +119,15 @@ public class RecordExpenseFragment extends Fragment {
         listClass1 = new ArrayList<>();
         demoSetSpinnerList();
 
-        adapterClass1 = new SpinnerAdapter(getActivity(), listClass1);
+        adapterClass1 = new MySpinnerAdapter(getActivity(), listClass1);
         spinnerClass1.setAdapter(adapterClass1);
 
-        adapterClass2 = new SpinnerAdapter(getActivity(), listClass1);
+        adapterClass2 = new MySpinnerAdapter(getActivity(), listClass1);
         spinnerClass2.setAdapter(adapterClass2);
     }
 
     private void initAccount() {
-        adapterAccount = new SpinnerAdapter(getActivity(), listClass1);
+        adapterAccount = new MySpinnerAdapter(getActivity(), listClass1);
         spinnerAccount.setAdapter(adapterAccount);
     }
 
