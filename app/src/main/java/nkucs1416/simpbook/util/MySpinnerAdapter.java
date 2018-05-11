@@ -1,4 +1,4 @@
-package nkucs1416.simpbook.record;
+package nkucs1416.simpbook.util;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,11 +13,11 @@ import java.util.Map;
 
 import nkucs1416.simpbook.R;
 
-public class SpinnerAdapter extends BaseAdapter {
+public class MySpinnerAdapter extends BaseAdapter {
     private ArrayList<Map<String,Object>> listMap;
     private Context context;
 
-    public SpinnerAdapter(Context mContext, ArrayList<Map<String,Object>> mlistMap) {
+    public MySpinnerAdapter(Context mContext, ArrayList<Map<String,Object>> mlistMap) {
         super();
         this.listMap = mlistMap;
         this.context = mContext;

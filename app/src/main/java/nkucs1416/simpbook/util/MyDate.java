@@ -1,7 +1,6 @@
 package nkucs1416.simpbook.util;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class MyDate {
     private int year;
