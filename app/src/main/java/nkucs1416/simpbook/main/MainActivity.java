@@ -8,12 +8,14 @@ import android.view.View;
 import android.support.design.widget.FloatingActionButton;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.account.AccountActivity;
 import nkucs1416.simpbook.record.RecordActivity;
 import nkucs1416.simpbook.setting.SettingActivity;
 import nkucs1416.simpbook.statement.StatementActivity;
+import nkucs1416.simpbook.util.MyDate;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +23,15 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonAccount;
     private Button buttonCollection;
     private Button buttonStatement;
-    private ImageView imageSetting;
+    private ImageView buttonSetting;
+
+    private ImageView imageViewDay;
+    private ImageView imageViewWeek;
+    private ImageView imageViewMonth;
+    private ImageView imageViewYear;
+    private ImageView imageViewBasicInfo;
+
+    private TextView textViewDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
         initFindById();
         initButton();
+        initImageView();
+        updateData();
     }
 
     private void initFindById() {
@@ -37,7 +49,15 @@ public class MainActivity extends AppCompatActivity {
         buttonAccount = findViewById(R.id.main_button_account);
         buttonStatement = findViewById(R.id.main_button_statement);
         buttonCollection = findViewById(R.id.main_button_collection);
-        imageSetting = findViewById(R.id.main_button_setting);
+        buttonSetting = findViewById(R.id.main_button_setting);
+
+        imageViewDay = findViewById(R.id.main_imageview_info1);
+        imageViewWeek = findViewById(R.id.main_imageview_info2);
+        imageViewMonth = findViewById(R.id.main_imageview_info3);
+        imageViewYear = findViewById(R.id.main_imageview_info4);
+        imageViewBasicInfo = findViewById(R.id.main_tpimageview_basicinfo);
+
+        textViewDate = findViewById(R.id.main_textview_date);
     }
 
     private void initButton() {
@@ -45,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         initButtonAccount();
         initButtonStatement();
         initButtonCollection();
-        initImageSetting();
+        initButtonSetting();
     }
 
     private void initButtonRecord() {
@@ -94,8 +114,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void initImageSetting() {
-        imageSetting.setOnClickListener(new View.OnClickListener() {
+    private void initButtonSetting() {
+        buttonSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
@@ -104,4 +124,104 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void initImageView() {
+        initImageViewBasicInfo();
+        initImageViewDay();
+        initImageViewWeek();
+        initImageViewMonth();
+        initImageViewYear();
+    }
+
+    private void initImageViewBasicInfo() {
+        imageViewBasicInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(MainActivity.this, StatementActivity.class);
+                intent.putExtra("filter","main_month");
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void initImageViewDay() {
+        imageViewDay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(MainActivity.this, StatementActivity.class);
+                intent.putExtra("filter","main_day");
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void initImageViewWeek() {
+        imageViewWeek.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(MainActivity.this, StatementActivity.class);
+                intent.putExtra("filter","main_week");
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void initImageViewMonth() {
+        imageViewMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(MainActivity.this, StatementActivity.class);
+                intent.putExtra("filter","main_month");
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void initImageViewYear() {
+        imageViewYear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(MainActivity.this, StatementActivity.class);
+                intent.putExtra("filter","main_year");
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void updateData() {
+        updateDate();
+    }
+
+    private void updateDate() {
+        MyDate today = new MyDate();
+        String strToday = today.getYear() + "/" + today.getMonth() + "/" + today.getDay() + "  " + today.getWeekOfDate();
+        textViewDate.setText(strToday);
+    }
+
+    private void updateBasicInfo() {
+        // TODO: 12/5/18
+    }
+    
+    private void updateToday() {
+        // TODO: 12/5/18
+    }
+    
+    private void updateWeek(){
+        // TODO: 12/5/18 
+    }
+    
+    private void updateMonth() {
+        // TODO: 12/5/18  
+    }
+    
+    private void updateYear() {
+        // TODO: 12/5/18
+    }
+
+
 }
