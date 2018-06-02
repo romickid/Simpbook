@@ -49,6 +49,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:text="时间段"
+        android:textColor="@color/colorText54"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dstatementfilter_spinner_account" />
+
+    <TextView
+        android:id="@+id/dstatementfilter_textview_static"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="账户"
         android:textColor="@color/colorText54"
         android:textSize="16sp"
@@ -59,14 +71,49 @@
         android:id="@+id/dstatementfilter_spinner_account"
         android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginBottom="12dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:background="@null"
         android:overlapAnchor="false"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dstatementfilter_textview_static" />
+
+    <TextView
+        android:id="@+id/dstatementfilter_textview_datefrom"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dstatementfilter_textview_static2" />
+
+    <TextView
+        android:id="@+id/dstatementfilter_statictextview_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text=" - "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dstatementfilter_textview_datefrom"
+        app:layout_constraintTop_toBottomOf="@+id/dstatementfilter_textview_static2" />
+
+    <TextView
+        android:id="@+id/dstatementfilter_textview_dateto"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dstatementfilter_statictextview_to"
+        app:layout_constraintTop_toBottomOf="@+id/dstatementfilter_textview_static2" />
+
 </android.support.constraint.ConstraintLayout>

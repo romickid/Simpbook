@@ -1,6 +1,7 @@
 package nkucs1416.simpbook.statement;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.support.design.widget.FloatingActionButton;
@@ -10,13 +11,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import nkucs1416.simpbook.R;
+import nkucs1416.simpbook.util.MyDate;
 import nkucs1416.simpbook.util.MySpinnerAdapter;
 
 public class StatementActivity extends AppCompatActivity {
@@ -127,9 +131,13 @@ public class StatementActivity extends AppCompatActivity {
         final Spinner spinnerClass1 = viewRemarkDialog.findViewById(R.id.dstatementfilter_spinner_class1);
         final Spinner spinnerClass2 = viewRemarkDialog.findViewById(R.id.dstatementfilter_spinner_class2);
         final Spinner spinnerAccount = viewRemarkDialog.findViewById(R.id.dstatementfilter_spinner_account);
+        final TextView textViewDateFrom = viewRemarkDialog.findViewById(R.id.dstatementfilter_textview_datefrom);
+        final TextView textViewDateTo = viewRemarkDialog.findViewById(R.id.dstatementfilter_textview_dateto);
         spinnerClass1.setAdapter(adapterClass1);
         spinnerClass2.setAdapter(adapterClass2);
         spinnerAccount.setAdapter(adapterAccount);
+        setDateTimeListener(textViewDateFrom);
+        setDateTimeListener(textViewDateTo);
 
         builder.setTitle("筛选");
         builder.setView(viewRemarkDialog);
@@ -177,5 +185,44 @@ public class StatementActivity extends AppCompatActivity {
         map.put("color", R.drawable.ic_lens_blue_a400_24dp);
         listClass1.add(map);
     }
+
+    /**
+     * 设置筛选框内时间
+     */
+    private void setTextViewDate(MyDate myDate, TextView textView) {
+        textView.setText(myDate.getYear() + "年" + myDate.getMonth() + "月" + myDate.getDay() + "日");
+    }
+
+    private void setDateTimeListener(final TextView textView) {
+        setTextViewDate(new MyDate(), textView);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                createDialogDate(textView).show();
+            }
+        });
+
+    }
+
+    private Dialog createDialogDate(TextView tv) {
+        final TextView textView = tv;
+        Dialog dialog = null;
+        DatePickerDialog.OnDateSetListener listener = null;
+        MyDate myDate = new MyDate();
+
+        listener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                setTextViewDate(new MyDate(year, month+1, dayOfMonth), textView);
+            }
+        };
+
+
+        dialog = new DatePickerDialog(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, listener, myDate.getYear(), myDate.getMonth(), myDate.getDay());
+        return dialog;
+    }
+
+
 
 }
