@@ -89,7 +89,7 @@
         app:layout_constraintTop_toBottomOf="@+id/fexpense_static2" />
 
     <TextView
-        android:id="@+id/fexpense_text_datetime"
+        android:id="@+id/fexpense_text_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -227,6 +227,6 @@
         android:src="@color/colorGrey300"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fexpense_text_datetime" />
+        app:layout_constraintTop_toBottomOf="@+id/fexpense_text_date" />
 
 </android.support.constraint.ConstraintLayout>

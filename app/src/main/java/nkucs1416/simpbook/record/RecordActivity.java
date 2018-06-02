@@ -20,13 +20,14 @@ public class RecordActivity extends AppCompatActivity implements
         RecordExpenseFragment.OnFragmentInteractionListener,
         RecordTranferFragment.OnFragmentInteractionListener {
     private Toolbar toolbar;
-    private TabLayout tablayout;
-    private ViewPager viewpager;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
     private ArrayList<Fragment> listFragments;
     private ArrayList<String> listIndicators;
-    private RecordPagerAdapter pageradapter;
+    private RecordPagerAdapter pagerAdapter;
 
 
+    // Activity相关
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,12 +39,27 @@ public class RecordActivity extends AppCompatActivity implements
         initTablayout();
     }
 
-    private void initFindById() {
-        toolbar = findViewById(R.id.record_toolbar);
-        tablayout = findViewById(R.id.record_tablayout);
-        viewpager = findViewById(R.id.record_viewpager);
+
+    // Fragment相关
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 
+
+    // 初始化相关
+    /**
+     * 初始化Id
+     */
+    private void initFindById() {
+        toolbar = findViewById(R.id.record_toolbar);
+        tabLayout = findViewById(R.id.record_tablayout);
+        viewPager = findViewById(R.id.record_viewpager);
+    }
+
+    /**
+     * 初始化Toolbar
+     */
     private void initToolbar(){
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -56,10 +72,16 @@ public class RecordActivity extends AppCompatActivity implements
         });
     }
 
+    /**
+     * 初始化Tablayout
+     */
     private void initTablayout(){
-        tablayout.setupWithViewPager(viewpager);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
+    /**
+     * 初始化Viewpager
+     */
     private void initViewpager(){
         listFragments = new ArrayList<>();
         listIndicators = new ArrayList<>();
@@ -74,32 +96,31 @@ public class RecordActivity extends AppCompatActivity implements
         listIndicators.add("转账");
         listFragments.add(RecordTranferFragment.newInstance(s,s));
 
-        pageradapter = new RecordPagerAdapter(getSupportFragmentManager());
-        pageradapter.setFragments(listFragments);
-        pageradapter.setIndicators(listIndicators);
+        pagerAdapter = new RecordPagerAdapter(getSupportFragmentManager());
+        pagerAdapter.setFragments(listFragments);
+        pagerAdapter.setIndicators(listIndicators);
 
-        viewpager.setAdapter(pageradapter);
+        viewPager.setAdapter(pagerAdapter);
 
         setCurrentTab();
     }
 
 
+    // 其他
+    /**
+     * 设置默认显示的tab页面(模板/支出)
+     */
     private void setCurrentTab() {
         Intent intent = getIntent();
         String currentTab = intent.getStringExtra("tabID");
         switch (currentTab) {
             case "1":
-                viewpager.setCurrentItem(1);
+                viewPager.setCurrentItem(1);
                 break;
             case "0":
             default:
-                viewpager.setCurrentItem(0);
+                viewPager.setCurrentItem(0);
         }
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 }
 

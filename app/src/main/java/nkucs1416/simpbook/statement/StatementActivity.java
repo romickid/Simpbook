@@ -35,9 +35,8 @@ public class StatementActivity extends AppCompatActivity {
 
     private FloatingActionButton buttonFilter;
 
-    /**
-     * 重载函数
-     */
+
+    // Activity相关
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,19 +46,19 @@ public class StatementActivity extends AppCompatActivity {
         initToolbar();
         initRecycleView();
         initSpinnerAdapter();
-        setFilterListener();
+        setListenerFilter();
     }
 
 
+    // 初始化相关
     /**
-     * 初始化id
+     * 初始化Id
      */
     private void initFindById() {
         toolbar = findViewById(R.id.statement_toolbar);
         recyclerView = findViewById(R.id.statement_recyclerview);
         buttonFilter = findViewById(R.id.statement_button_filter);
     }
-
 
     /**
      * 初始化Toolbar
@@ -76,7 +75,6 @@ public class StatementActivity extends AppCompatActivity {
         });
     }
 
-
     /**
      * 初始化RecycleView
      */
@@ -90,6 +88,11 @@ public class StatementActivity extends AppCompatActivity {
         recyclerView.setAdapter(statementAdapter);
     }
 
+
+    // 流水相关
+    /**
+     * 测试用StatementList
+     */
     private void demoSetStatementList() {
         listMapStatement =new ArrayList<Map<String,Object>>();
         Map map=new HashMap<String, Object>();
@@ -112,10 +115,11 @@ public class StatementActivity extends AppCompatActivity {
     }
 
 
+    // 查询筛选相关
     /**
-     * 设置筛选按钮及对话框
+     * 设置筛选按钮的Listener
      */
-    private void setFilterListener() {
+    private void setListenerFilter() {
         buttonFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -125,6 +129,10 @@ public class StatementActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 构建筛选的Dialog
+     * @return
+     */
     private Dialog createDialogFilter() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this,3);
         View viewRemarkDialog = View.inflate(this, R.layout.dialog_statementfilter, null);
@@ -157,6 +165,9 @@ public class StatementActivity extends AppCompatActivity {
         return builder.create();
     }
 
+    /**
+     * 初始化筛选框中,分类和账户的SpinnerAdapter
+     */
     private void initSpinnerAdapter() {
         listClass1 = new ArrayList<>();
         demoSetSpinnerList();
@@ -166,6 +177,9 @@ public class StatementActivity extends AppCompatActivity {
         adapterAccount = new MySpinnerAdapter(this, listClass1);
     }
 
+    /**
+     * 测试用SpinnerList
+     */
     private void demoSetSpinnerList() {
         listClass1=new ArrayList<Map<String,Object>>();
         Map map=new HashMap<String, Object>();
@@ -193,6 +207,10 @@ public class StatementActivity extends AppCompatActivity {
         textView.setText(myDate.getYear() + "年" + myDate.getMonth() + "月" + myDate.getDay() + "日");
     }
 
+    /**
+     * 设置筛选框内, 日期的Listener
+     * @param textView 显示日期的textView
+     */
     private void setDateTimeListener(final TextView textView) {
         setTextViewDate(new MyDate(), textView);
         textView.setOnClickListener(new View.OnClickListener() {
@@ -205,8 +223,13 @@ public class StatementActivity extends AppCompatActivity {
 
     }
 
-    private Dialog createDialogDate(TextView tv) {
-        final TextView textView = tv;
+    /**
+     * 构建筛选框内, 选择日期的Dialog
+     * @param ttextView 显示日期的textView
+     * @return 返回Dialog
+     */
+    private Dialog createDialogDate(TextView ttextView) {
+        final TextView textView = ttextView;
         Dialog dialog = null;
         DatePickerDialog.OnDateSetListener listener = null;
         MyDate myDate = new MyDate();
@@ -218,11 +241,8 @@ public class StatementActivity extends AppCompatActivity {
             }
         };
 
-
-        dialog = new DatePickerDialog(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, listener, myDate.getYear(), myDate.getMonth(), myDate.getDay());
+        dialog = new DatePickerDialog(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, listener, myDate.getYear(), myDate.getMonth() - 1, myDate.getDay());
         return dialog;
     }
-
-
 
 }

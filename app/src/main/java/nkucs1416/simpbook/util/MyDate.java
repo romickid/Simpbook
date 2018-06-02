@@ -7,12 +7,21 @@ public class MyDate {
     private int month;
     private int day;
 
+    /**
+     * 使用年/月/日作为参数的构造函数
+     * @param y 年
+     * @param m 月
+     * @param d 日
+     */
     public MyDate(int y, int m, int d) {
         year = y;
         month = m;
         day = d;
     }
 
+    /**
+     * 调用系统当前日期的构造函数
+     */
     public MyDate() {
         Calendar calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
@@ -20,18 +29,34 @@ public class MyDate {
         day = calendar.get(Calendar.DAY_OF_MONTH);
     }
 
+    /**
+     * 获取"日"
+     * @return 日
+     */
     public int getDay() {
         return day;
     }
 
+    /**
+     * 获取"月"
+     * @return 月
+     */
     public int getMonth() {
         return month;
     }
 
+    /**
+     * 获取"年"
+     * @return 年
+     */
     public int getYear() {
         return year;
     }
 
+    /**
+     * 获取"星期"
+     * @return 星期的字符串
+     */
     public String getWeekOfDate() {
         String[] weekDays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
         Calendar cal = Calendar.getInstance();
