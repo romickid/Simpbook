@@ -34,7 +34,7 @@ public class RecordExpenseFragment extends Fragment {
     private Spinner spinnerClass2;
     private Spinner spinnerAccount;
     private EditText editTextMoney;
-    private TextView textViewDateTime;
+    private TextView textViewDate;
     private TextView textViewRemark;
     private MySpinnerAdapter adapterClass1;
     private MySpinnerAdapter adapterClass2;
@@ -43,8 +43,10 @@ public class RecordExpenseFragment extends Fragment {
     private ArrayList<Map<String,Object>> listClass2;
     private ArrayList<Map<String,Object>> listAccount;
 
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener fragmentInteractionListener;
 
+
+    // Fragment相关
     public RecordExpenseFragment() {
         // Required empty public constructor
     }
@@ -82,7 +84,7 @@ public class RecordExpenseFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            fragmentInteractionListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -92,29 +94,37 @@ public class RecordExpenseFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        fragmentInteractionListener = null;
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 
 
-    // init
+    // 初始化相关
+    /**
+     * 初始化Id
+     */
     private void initFindById() {
         editTextMoney = view.findViewById(R.id.fexpense_text_money);
         spinnerClass1 = view.findViewById(R.id.fexpense_spinner_class1);
         spinnerClass2 = view.findViewById(R.id.fexpense_spinner_class2);
         spinnerAccount = view.findViewById(R.id.fexpense_spinner_account);
-        textViewDateTime = view.findViewById(R.id.fexpense_text_datetime);
+        textViewDate = view.findViewById(R.id.fexpense_text_date);
         textViewRemark = view.findViewById(R.id.fexpense_text_remark);
     }
 
+    /**
+     * 初始化金额
+     */
     private void initMoney() {
         setEditTextMoneyDecimal();
     }
 
+    /**
+     * 初始化分类
+     */
     private void initClass() {
         listClass1 = new ArrayList<>();
         demoSetSpinnerList();
@@ -126,24 +136,35 @@ public class RecordExpenseFragment extends Fragment {
         spinnerClass2.setAdapter(adapterClass2);
     }
 
+    /**
+     * 初始化账户
+     */
     private void initAccount() {
         adapterAccount = new MySpinnerAdapter(getActivity(), listClass1);
         spinnerAccount.setAdapter(adapterAccount);
     }
 
+    /**
+     * 初始化日期
+     */
     private void initDate() {
         setDefaultDate();
-        setDateTimeListener();
+        setListenerDate();
     }
 
+    /**
+     * 初始化备注
+     */
     private void initRemark() {
         setDefaultRemark();
-        setRemarkListener();
+        setListenerRemark();
     }
 
 
-    // 设置金额
-    // 将金额输入框设置为仅2位小数
+    // 金额相关
+    /**
+     * 设置金额的格式化(输入框设置为2位小数)
+     */
     public void setEditTextMoneyDecimal() {
         editTextMoney.addTextChangedListener(new TextWatcher() {
             @Override
@@ -187,7 +208,10 @@ public class RecordExpenseFragment extends Fragment {
     }
 
 
-    // 设置分类
+    // 分类相关
+    /**
+     * 测试用SpinnerList
+     */
     private void demoSetSpinnerList() {
         listClass1=new ArrayList<Map<String,Object>>();
         Map map=new HashMap<String, Object>();
@@ -209,17 +233,30 @@ public class RecordExpenseFragment extends Fragment {
     }
 
 
-    // 设置时间
+    // 账户相关
+
+
+    // 日期相关
+    /**
+     * 设置日期的默认形式(使用者使用的当天日期)
+     */
     private void setDefaultDate() {
         setTextViewDate(new MyDate());
     }
 
+    /**
+     * 设置日期的显示
+     * @param myDate 被设置的日期
+     */
     private void setTextViewDate(MyDate myDate) {
-        textViewDateTime.setText(myDate.getYear() + "年" + myDate.getMonth() + "月" + myDate.getDay() + "日");
+        textViewDate.setText(myDate.getYear() + "年" + myDate.getMonth() + "月" + myDate.getDay() + "日");
     }
 
-    private void setDateTimeListener() {
-        textViewDateTime.setOnClickListener(new View.OnClickListener() {
+    /**
+     * 设置日期的Listener
+     */
+    private void setListenerDate() {
+        textViewDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
@@ -229,6 +266,10 @@ public class RecordExpenseFragment extends Fragment {
 
     }
 
+    /**
+     * 构建选择日期的Dialog
+     * @return 返回Dialog
+     */
     private Dialog createDialogDate() {
         Dialog dialog = null;
         OnDateSetListener listener = null;
@@ -247,12 +288,18 @@ public class RecordExpenseFragment extends Fragment {
     }
 
 
-    // 设置备注
+    // 备注相关
+    /**
+     * 设置备注的默认形式
+     */
     private void setDefaultRemark() {
         textViewRemark.setText("None");
     }
 
-    private void setRemarkListener() {
+    /**
+     * 设置备注的Listener
+     */
+    private void setListenerRemark() {
         textViewRemark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -262,6 +309,10 @@ public class RecordExpenseFragment extends Fragment {
         });
     }
 
+    /**
+     * 构建备注的Dialog
+     * @return 返回Dialog
+     */
     private Dialog createDialogRemark() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),3);
         View viewRemarkDialog = View.inflate(getActivity(), R.layout.dialog_remark, null);
@@ -274,7 +325,7 @@ public class RecordExpenseFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 textViewRemark.setText(editTextDialog.getText());
-                turnoffKb();
+                turnoffKeyboard();
             }
         });
 
@@ -282,7 +333,7 @@ public class RecordExpenseFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
-                turnoffKb();
+                turnoffKeyboard();
             }
         });
 
@@ -290,9 +341,11 @@ public class RecordExpenseFragment extends Fragment {
     }
 
 
-    // others
-    // 关闭软键盘
-    private void turnoffKb() {
+    // 其它
+    /**
+     * 关闭软键盘
+     */
+    private void turnoffKeyboard() {
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         if(imm.isActive()&& getActivity().getCurrentFocus()!=null){
             if ( getActivity().getCurrentFocus().getWindowToken()!=null) {

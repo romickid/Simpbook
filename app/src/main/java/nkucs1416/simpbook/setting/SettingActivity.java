@@ -10,6 +10,8 @@ import nkucs1416.simpbook.R;
 public class SettingActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
+
+    // Activity相关
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,10 +21,18 @@ public class SettingActivity extends AppCompatActivity {
         initToolbar();
     }
 
+
+    // 初始化相关
+    /**
+     * 初始化Id
+     */
     private void initFindById() {
         toolbar = findViewById(R.id.setting_toolbar);
     }
 
+    /**
+     * 初始化Toolbar
+     */
     private void initToolbar(){
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

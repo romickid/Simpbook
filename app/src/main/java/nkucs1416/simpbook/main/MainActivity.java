@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView textViewDate;
 
+
+    // Activity相关
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
         updateData();
     }
 
+
+    // 初始化相关
+    /**
+     * 初始化Id
+     */
     private void initFindById() {
         buttonRecord = findViewById(R.id.main_button_record);
         buttonAccount = findViewById(R.id.main_button_account);
@@ -60,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
         textViewDate = findViewById(R.id.main_textview_date);
     }
 
+    /**
+     * 初始化各类按钮
+     */
     private void initButton() {
         initButtonRecord();
         initButtonAccount();
@@ -68,6 +78,9 @@ public class MainActivity extends AppCompatActivity {
         initButtonSetting();
     }
 
+    /**
+     * 初始化记录按钮
+     */
     private void initButtonRecord() {
         buttonRecord.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +93,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 初始化"账户"按钮
+     */
     private void initButtonAccount() {
         buttonAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +107,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 初始化"流水"按钮
+     */
     private void initButtonStatement() {
         buttonStatement.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +121,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 初始化"模板"按钮
+     */
     private void initButtonCollection() {
         buttonCollection.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +136,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 初始化设置按钮
+     */
     private void initButtonSetting() {
         buttonSetting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +150,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 初始化各类显示框
+     */
     private void initImageView() {
         initImageViewBasicInfo();
         initImageViewDay();
@@ -133,6 +161,9 @@ public class MainActivity extends AppCompatActivity {
         initImageViewYear();
     }
 
+    /**
+     * 初始化顶部综合信息
+     */
     private void initImageViewBasicInfo() {
         imageViewBasicInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +176,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 初始化本日收支信息
+     */
     private void initImageViewDay() {
         imageViewDay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,6 +191,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 初始化本周收支信息
+     */
     private void initImageViewWeek() {
         imageViewWeek.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,6 +206,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 初始化本月收支信息
+     */
     private void initImageViewMonth() {
         imageViewMonth.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,6 +221,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 初始化本年收支信息
+     */
     private void initImageViewYear() {
         imageViewYear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,35 +236,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+    // 更新数据相关
+    /**
+     * 更新数据
+     */
     private void updateData() {
         updateDate();
     }
 
+    /**
+     * 更新日期
+     */
     private void updateDate() {
         MyDate today = new MyDate();
         String strToday = today.getYear() + "/" + today.getMonth() + "/" + today.getDay() + "  " + today.getWeekOfDate();
         textViewDate.setText(strToday);
     }
-
-    private void updateBasicInfo() {
-        // TODO: 12/5/18
-    }
-    
-    private void updateToday() {
-        // TODO: 12/5/18
-    }
-    
-    private void updateWeek(){
-        // TODO: 12/5/18 
-    }
-    
-    private void updateMonth() {
-        // TODO: 12/5/18  
-    }
-    
-    private void updateYear() {
-        // TODO: 12/5/18
-    }
-
 
 }

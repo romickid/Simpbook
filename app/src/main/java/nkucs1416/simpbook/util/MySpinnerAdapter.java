@@ -16,28 +16,49 @@ import nkucs1416.simpbook.R;
 public class MySpinnerAdapter extends BaseAdapter {
     private ArrayList<Map<String,Object>> listMap;
     private Context context;
-
-    public MySpinnerAdapter(Context mContext, ArrayList<Map<String,Object>> mlistMap) {
+    
+    /**
+     * 构造函数, 读取需要绘制的Spinner变量
+     * @param tcontext
+     * @param tlistMap
+     */
+    public MySpinnerAdapter(Context tcontext, ArrayList<Map<String,Object>> tlistMap) {
         super();
-        this.listMap = mlistMap;
-        this.context = mContext;
+        this.listMap = tlistMap;
+        this.context = tcontext;
     }
 
+    /**
+     * 获取Spinner子项的数量
+     * @return 数量
+     */
     @Override
     public int getCount() {
         return listMap.size();
     }
 
+    /**
+     * 获取Spinner子项的实例
+     * @return 实例
+     */
     @Override
     public Object getItem(int position) {
         return null;
     }
 
+    /**
+     * 获取Spinner子项的Id
+     * @return Id
+     */
     @Override
     public long getItemId(int position) {
         return 0;
     }
 
+    /**
+     * 获取Spinner子项的绘制形式(view)
+     * @return view
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
