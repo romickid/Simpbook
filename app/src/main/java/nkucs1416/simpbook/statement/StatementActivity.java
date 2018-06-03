@@ -20,20 +20,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 import nkucs1416.simpbook.R;
-import nkucs1416.simpbook.util.MyDate;
-import nkucs1416.simpbook.util.MySpinnerAdapter;
+import nkucs1416.simpbook.util.Account;
+import nkucs1416.simpbook.util.AccountSpinnerAdapter;
+import nkucs1416.simpbook.util.Class1;
+import nkucs1416.simpbook.util.Class2;
+import nkucs1416.simpbook.util.Class2SpinnerAdapter;
+import nkucs1416.simpbook.util.Date;
+import nkucs1416.simpbook.util.Class1SpinnerAdapter;
 
 public class StatementActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private RecyclerView recyclerView;
-    private StatementAdapter statementAdapter;
     private ArrayList<Map<String,Object>> listMapStatement;
-    private ArrayList<Map<String,Object>> listClass1;
-    private MySpinnerAdapter adapterClass1;
-    private MySpinnerAdapter adapterClass2;
-    private MySpinnerAdapter adapterAccount;
-
     private FloatingActionButton buttonFilter;
+
+    private ArrayList<Class1> listClass1;
+    private ArrayList<Class2> listClass2;
+    private ArrayList<Account> listAccount;
+
+    private Class1SpinnerAdapter adapterClass1;
+    private Class2SpinnerAdapter adapterClass2;
+    private AccountSpinnerAdapter adapterAccount;
+
+    private StatementFilter statementFilter;
 
 
     // Activity相关
@@ -141,6 +150,7 @@ public class StatementActivity extends AppCompatActivity {
         final Spinner spinnerAccount = viewRemarkDialog.findViewById(R.id.dstatementfilter_spinner_account);
         final TextView textViewDateFrom = viewRemarkDialog.findViewById(R.id.dstatementfilter_textview_datefrom);
         final TextView textViewDateTo = viewRemarkDialog.findViewById(R.id.dstatementfilter_textview_dateto);
+
         spinnerClass1.setAdapter(adapterClass1);
         spinnerClass2.setAdapter(adapterClass2);
         spinnerAccount.setAdapter(adapterAccount);
@@ -155,7 +165,6 @@ public class StatementActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
             }
         });
-
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -169,42 +178,65 @@ public class StatementActivity extends AppCompatActivity {
      * 初始化筛选框中,分类和账户的SpinnerAdapter
      */
     private void initSpinnerAdapter() {
-        listClass1 = new ArrayList<>();
-        demoSetSpinnerList();
+        demoSetListClass1();
+        demoSetListClass2();
+        demoSetListAccount();
 
-        adapterClass1 = new MySpinnerAdapter(this, listClass1);
-        adapterClass2 = new MySpinnerAdapter(this, listClass1);
-        adapterAccount = new MySpinnerAdapter(this, listClass1);
+        adapterClass1 = new Class1SpinnerAdapter(this, listClass1);
+        adapterClass2 = new Class2SpinnerAdapter(this, listClass2);
+        adapterAccount = new AccountSpinnerAdapter(this, listAccount);
     }
 
     /**
-     * 测试用SpinnerList
+     * 测试用ListClass1
      */
-    private void demoSetSpinnerList() {
-        listClass1=new ArrayList<Map<String,Object>>();
-        Map map=new HashMap<String, Object>();
-        map.put("text", "1");
-        map.put("color", R.drawable.ic_lens_yellow_a400_24dp);
-        listClass1.add(map);
-        map=new HashMap<String, Object>();
-        map.put("text", "2");
-        listClass1.add(map);
-        map.put("color", R.drawable.ic_lens_blue_a400_24dp);
-        map=new HashMap<String, Object>();
-        map.put("text", "3");
-        map.put("color", R.drawable.ic_lens_yellow_a400_24dp);
-        listClass1.add(map);
-        map=new HashMap<String, Object>();
-        map.put("text", "4");
-        map.put("color", R.drawable.ic_lens_blue_a400_24dp);
-        listClass1.add(map);
+    private void demoSetListClass1() {
+        listClass1 = new ArrayList<Class1>();
+        Class1 class1 = new Class1("1", R.drawable.ic_lens_yellow_a400_24dp, 1);
+        listClass1.add(class1);
+
+        class1 = new Class1("2", R.drawable.ic_lens_blue_a400_24dp, 2);
+        listClass1.add(class1);
+
+        class1 = new Class1("3", R.drawable.ic_lens_yellow_a400_24dp, 3);
+        listClass1.add(class1);
+    }
+
+    /**
+     * 测试用ListClass2
+     */
+    private void demoSetListClass2() {
+        listClass2 = new ArrayList<Class2>();
+        Class2 class2 = new Class2("1", R.drawable.ic_lens_yellow_a400_24dp, 1);
+        listClass2.add(class2);
+
+        class2 = new Class2("2", R.drawable.ic_lens_blue_a400_24dp, 2);
+        listClass2.add(class2);
+
+        class2 = new Class2("3", R.drawable.ic_lens_yellow_a400_24dp, 3);
+        listClass2.add(class2);
+    }
+
+    /**
+     * 测试用ListAccount
+     */
+    private void demoSetListAccount() {
+        listAccount = new ArrayList<Account>();
+        Account account = new Account("1", R.drawable.ic_lens_yellow_a400_24dp, 1);
+        listAccount.add(account);
+
+        account = new Account("2", R.drawable.ic_lens_blue_a400_24dp, 2);
+        listAccount.add(account);
+
+        account = new Account("3", R.drawable.ic_lens_yellow_a400_24dp, 3);
+        listAccount.add(account);
     }
 
     /**
      * 设置筛选框内时间
      */
-    private void setTextViewDate(MyDate myDate, TextView textView) {
-        textView.setText(myDate.getYear() + "年" + myDate.getMonth() + "月" + myDate.getDay() + "日");
+    private void setTextViewDate(Date date, TextView textView) {
+        textView.setText(date.getYear() + "年" + date.getMonth() + "月" + date.getDay() + "日");
     }
 
     /**
@@ -212,7 +244,7 @@ public class StatementActivity extends AppCompatActivity {
      * @param textView 显示日期的textView
      */
     private void setDateTimeListener(final TextView textView) {
-        setTextViewDate(new MyDate(), textView);
+        setTextViewDate(new Date(), textView);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -232,16 +264,16 @@ public class StatementActivity extends AppCompatActivity {
         final TextView textView = ttextView;
         Dialog dialog = null;
         DatePickerDialog.OnDateSetListener listener = null;
-        MyDate myDate = new MyDate();
+        Date date = new Date();
 
         listener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                setTextViewDate(new MyDate(year, month+1, dayOfMonth), textView);
+                setTextViewDate(new Date(year, month+1, dayOfMonth), textView);
             }
         };
 
-        dialog = new DatePickerDialog(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, listener, myDate.getYear(), myDate.getMonth() - 1, myDate.getDay());
+        dialog = new DatePickerDialog(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, listener, date.getYear(), date.getMonth() - 1, date.getDay());
         return dialog;
     }
 

@@ -15,7 +15,7 @@ import nkucs1416.simpbook.account.AccountActivity;
 import nkucs1416.simpbook.record.RecordActivity;
 import nkucs1416.simpbook.setting.SettingActivity;
 import nkucs1416.simpbook.statement.StatementActivity;
-import nkucs1416.simpbook.util.MyDate;
+import nkucs1416.simpbook.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -249,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
      * 更新日期
      */
     private void updateDate() {
-        MyDate today = new MyDate();
+        Date today = new Date();
         String strToday = today.getYear() + "/" + today.getMonth() + "/" + today.getDay() + "  " + today.getWeekOfDate();
         textViewDate.setText(strToday);
     }
