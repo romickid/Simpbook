@@ -25,8 +25,13 @@ import java.util.Map;
 import java.util.HashMap;
 
 import nkucs1416.simpbook.R;
-import nkucs1416.simpbook.util.MyDate;
-import nkucs1416.simpbook.util.MySpinnerAdapter;
+import nkucs1416.simpbook.util.Account;
+import nkucs1416.simpbook.util.AccountSpinnerAdapter;
+import nkucs1416.simpbook.util.Class1;
+import nkucs1416.simpbook.util.Class2;
+import nkucs1416.simpbook.util.Class2SpinnerAdapter;
+import nkucs1416.simpbook.util.Date;
+import nkucs1416.simpbook.util.Class1SpinnerAdapter;
 
 public class RecordExpenseFragment extends Fragment {
     private View view;
@@ -36,12 +41,11 @@ public class RecordExpenseFragment extends Fragment {
     private EditText editTextMoney;
     private TextView textViewDate;
     private TextView textViewRemark;
-    private MySpinnerAdapter adapterClass1;
-    private MySpinnerAdapter adapterClass2;
-    private MySpinnerAdapter adapterAccount;
-    private ArrayList<Map<String,Object>> listClass1;
-    private ArrayList<Map<String,Object>> listClass2;
-    private ArrayList<Map<String,Object>> listAccount;
+    private FloatingActionButton buttonAdd;
+
+    private ArrayList<Class1> listClass1;
+    private ArrayList<Class2> listClass2;
+    private ArrayList<Account> listAccount;
 
     private OnFragmentInteractionListener fragmentInteractionListener;
 
@@ -126,13 +130,13 @@ public class RecordExpenseFragment extends Fragment {
      * 初始化分类
      */
     private void initClass() {
-        listClass1 = new ArrayList<>();
-        demoSetSpinnerList();
+        demoSetListClass1();
+        demoSetListClass2();
 
-        adapterClass1 = new MySpinnerAdapter(getActivity(), listClass1);
+        Class1SpinnerAdapter adapterClass1 = new Class1SpinnerAdapter(getActivity(), listClass1);
         spinnerClass1.setAdapter(adapterClass1);
 
-        adapterClass2 = new MySpinnerAdapter(getActivity(), listClass1);
+        Class2SpinnerAdapter adapterClass2 = new Class2SpinnerAdapter(getActivity(), listClass2);
         spinnerClass2.setAdapter(adapterClass2);
     }
 
@@ -140,7 +144,9 @@ public class RecordExpenseFragment extends Fragment {
      * 初始化账户
      */
     private void initAccount() {
-        adapterAccount = new MySpinnerAdapter(getActivity(), listClass1);
+        demoSetListAccount();
+
+        AccountSpinnerAdapter adapterAccount = new AccountSpinnerAdapter(getActivity(), listAccount);
         spinnerAccount.setAdapter(adapterAccount);
     }
 
@@ -206,34 +212,55 @@ public class RecordExpenseFragment extends Fragment {
             }
         });
     }
-
+    
 
     // 分类相关
     /**
-     * 测试用SpinnerList
+     * 测试用ListClass1
      */
-    private void demoSetSpinnerList() {
-        listClass1=new ArrayList<Map<String,Object>>();
-        Map map=new HashMap<String, Object>();
-        map.put("text", "1");
-        map.put("color", R.drawable.ic_lens_yellow_a400_24dp);
-        listClass1.add(map);
-        map=new HashMap<String, Object>();
-        map.put("text", "2");
-        listClass1.add(map);
-        map.put("color", R.drawable.ic_lens_blue_a400_24dp);
-        map=new HashMap<String, Object>();
-        map.put("text", "3");
-        map.put("color", R.drawable.ic_lens_yellow_a400_24dp);
-        listClass1.add(map);
-        map=new HashMap<String, Object>();
-        map.put("text", "4");
-        map.put("color", R.drawable.ic_lens_blue_a400_24dp);
-        listClass1.add(map);
+    private void demoSetListClass1() {
+        listClass1 = new ArrayList<Class1>();
+        Class1 class1 = new Class1("1", R.drawable.ic_lens_yellow_a400_24dp, 1);
+        listClass1.add(class1);
+
+        class1 = new Class1("2", R.drawable.ic_lens_blue_a400_24dp, 2);
+        listClass1.add(class1);
+
+        class1 = new Class1("3", R.drawable.ic_lens_yellow_a400_24dp, 3);
+        listClass1.add(class1);
+    }
+
+    /**
+     * 测试用ListClass2
+     */
+    private void demoSetListClass2() {
+        listClass2 = new ArrayList<Class2>();
+        Class2 class2 = new Class2("1", R.drawable.ic_lens_yellow_a400_24dp, 1);
+        listClass2.add(class2);
+
+        class2 = new Class2("2", R.drawable.ic_lens_blue_a400_24dp, 2);
+        listClass2.add(class2);
+
+        class2 = new Class2("3", R.drawable.ic_lens_yellow_a400_24dp, 3);
+        listClass2.add(class2);
     }
 
 
     // 账户相关
+    /**
+     * 测试用ListAccount
+     */
+    private void demoSetListAccount() {
+        listAccount = new ArrayList<Account>();
+        Account account = new Account("1", R.drawable.ic_lens_yellow_a400_24dp, 1);
+        listAccount.add(account);
+
+        account = new Account("2", R.drawable.ic_lens_blue_a400_24dp, 2);
+        listAccount.add(account);
+
+        account = new Account("3", R.drawable.ic_lens_yellow_a400_24dp, 3);
+        listAccount.add(account);
+    }
 
 
     // 日期相关
@@ -241,15 +268,15 @@ public class RecordExpenseFragment extends Fragment {
      * 设置日期的默认形式(使用者使用的当天日期)
      */
     private void setDefaultDate() {
-        setTextViewDate(new MyDate());
+        setTextViewDate(new Date());
     }
 
     /**
      * 设置日期的显示
-     * @param myDate 被设置的日期
+     * @param date 被设置的日期
      */
-    private void setTextViewDate(MyDate myDate) {
-        textViewDate.setText(myDate.getYear() + "年" + myDate.getMonth() + "月" + myDate.getDay() + "日");
+    private void setTextViewDate(Date date) {
+        textViewDate.setText(date.getYear() + "年" + date.getMonth() + "月" + date.getDay() + "日");
     }
 
     /**
@@ -273,17 +300,17 @@ public class RecordExpenseFragment extends Fragment {
     private Dialog createDialogDate() {
         Dialog dialog = null;
         OnDateSetListener listener = null;
-        MyDate myDate = new MyDate();
+        Date date = new Date();
 
         listener = new OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                setTextViewDate(new MyDate(year, month+1, dayOfMonth));
+                setTextViewDate(new Date(year, month+1, dayOfMonth));
             }
         };
 
 
-        dialog = new DatePickerDialog(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, listener, myDate.getYear(), myDate.getMonth(), myDate.getDay());
+        dialog = new DatePickerDialog(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, listener, date.getYear(), date.getMonth(), date.getDay());
         return dialog;
     }
 

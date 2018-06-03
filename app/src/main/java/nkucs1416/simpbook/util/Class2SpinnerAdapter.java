@@ -9,54 +9,53 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import nkucs1416.simpbook.R;
 
-public class MySpinnerAdapter extends BaseAdapter {
-    private ArrayList<Map<String,Object>> listMap;
+public class Class2SpinnerAdapter extends BaseAdapter {
+    private ArrayList<Class2> listClass2;
     private Context context;
-    
+
     /**
-     * 构造函数, 读取需要绘制的Spinner变量
-     * @param tcontext
-     * @param tlistMap
+     * 构造函数, 读取需要绘制的Class2列表
+     * @param tcontext 传入的Context
+     * @param tlistClass2 传入的Class2列表
      */
-    public MySpinnerAdapter(Context tcontext, ArrayList<Map<String,Object>> tlistMap) {
+    public Class2SpinnerAdapter(Context tcontext, ArrayList<Class2> tlistClass2) {
         super();
-        this.listMap = tlistMap;
+        this.listClass2 = tlistClass2;
         this.context = tcontext;
     }
 
     /**
-     * 获取Spinner子项的数量
+     * 获取Class2的数量
      * @return 数量
      */
     @Override
     public int getCount() {
-        return listMap.size();
+        return listClass2.size();
     }
 
     /**
-     * 获取Spinner子项的实例
+     * 获取指定位置的Class2的实例
      * @return 实例
      */
     @Override
-    public Object getItem(int position) {
-        return null;
+    public Class2 getItem(int position) {
+        return listClass2.get(position);
     }
 
     /**
-     * 获取Spinner子项的Id
+     * 获取指定位置的Class2的Id
      * @return Id
      */
     @Override
     public long getItemId(int position) {
-        return 0;
+        return listClass2.get(position).getId();
     }
 
     /**
-     * 获取Spinner子项的绘制形式(view)
+     * 获取Class2的绘制形式(view)
      * @return view
      */
     @Override
@@ -66,9 +65,10 @@ public class MySpinnerAdapter extends BaseAdapter {
         TextView textView = (TextView) view.findViewById(R.id.ispinner_text);
         ImageView imageView = (ImageView) view.findViewById(R.id.ispinner_color);
 
-        Map<String,Object> map = listMap.get(position);
-        String text = (String) map.get("text");
-        int color = (int) map.get("color");
+        Class2 Class2 = listClass2.get(position);
+        String text = Class2.getName();
+        int color = Class2.getColor();
+
         textView.setText(text);
         imageView.setImageResource(color);
 
