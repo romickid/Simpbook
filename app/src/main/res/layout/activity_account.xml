@@ -19,30 +19,55 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
         app:navigationIcon="@drawable/ic_chevron_left_white_36dp"
         app:title="账户"
         app:titleTextColor="@color/colorWhite"
         app:contentInsetStartWithNavigation="0dp" />
 
     <ImageView
-        android:id="@+id/account_imageview_topdata"
+        android:id="@+id/account_imageview_top"
         android:layout_width="0dp"
-        android:layout_height="128dp"
+        android:layout_height="92dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/account_toolbar"
         app:srcCompat="@color/colorDefaultBlue" />
 
-    <ImageView
-        android:id="@+id/account_imageview_background"
+    <TextView
+        android:id="@+id/account_statictextview_netassets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="净资产"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/account_textview_netassets"
+        app:layout_constraintStart_toStartOf="@+id/account_imageview_top" />
+
+    <TextView
+        android:id="@+id/account_textview_netassets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="1.23"
+        android:textColor="@color/colorWhite"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@+id/account_imageview_top"
+        app:layout_constraintStart_toStartOf="@+id/account_statictextview_netassets" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/account_recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/account_imageview_topdata"
-        app:srcCompat="@android:color/background_light" />
+        app:layout_constraintTop_toBottomOf="@+id/account_imageview_top" />
+
 </android.support.constraint.ConstraintLayout>
