@@ -13,9 +13,10 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import nkucs1416.simpbook.R;
+import nkucs1416.simpbook.util.StatementElement;
 
 public class StatementAdapter extends RecyclerView.Adapter<StatementViewHolder> {
-    private ArrayList<Map<String,Object>> listMap;
+    private ArrayList<StatementElement> listStatementElements;
     private Context context;
 
     @NonNull
@@ -29,25 +30,25 @@ public class StatementAdapter extends RecyclerView.Adapter<StatementViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull StatementViewHolder holder, int position) {
-        Map<String,Object> map = listMap.get(position);
-        String text = (String) map.get("text");
-        String money = (String) map.get("money");
-        int color = (int) map.get("color");
+        StatementElement statementElement = listStatementElements.get(position);
+        Integer color = statementElement.getColor();
+        String text = statementElement.getText();
+        Float money = statementElement.getMoney();
 
         holder.textViewText.setText(text);
-        holder.textViewMoney.setText(money);
+        holder.textViewMoney.setText(money.toString());
         holder.imageView.setImageResource(color);
     }
 
     @Override
     public int getItemCount() {
-        return listMap.size();
+        return listStatementElements.size();
     }
 
-    public StatementAdapter(Context mContext, ArrayList<Map<String,Object>> mlistMap) {
+    StatementAdapter(Context mContext, ArrayList<StatementElement> tlistStatementElement) {
         super();
         this.context = mContext;
-        this.listMap = mlistMap;
+        this.listStatementElements = tlistStatementElement;
     }
 }
 
@@ -56,7 +57,7 @@ class StatementViewHolder extends RecyclerView.ViewHolder {
     TextView textViewMoney;
     ImageView imageView;
 
-    public StatementViewHolder(View view) {
+    StatementViewHolder(View view) {
         super(view);
         textViewText = (TextView) view.findViewById(R.id.istatement_text);
         textViewMoney = (TextView) view.findViewById(R.id.istatement_money);
