@@ -1,4 +1,4 @@
-package nkucs1416.simpbook.util;
+package nkucs1416.simpbook.account;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import nkucs1416.simpbook.R;
+import nkucs1416.simpbook.util.Account;
 
 public class AccountSpinnerAdapter extends BaseAdapter {
     private ArrayList<Account> listAccount;
