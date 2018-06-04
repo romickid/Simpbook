@@ -51,182 +51,147 @@
     <Spinner
         android:id="@+id/fexpense_spinner_class1"
         style="@android:style/Widget.Material.Light.Spinner"
-        android:layout_marginTop="4dp"
         android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
         android:background="@null"
         android:overlapAnchor="false"
         app:layout_constraintEnd_toStartOf="@+id/fexpense_spinner_class2"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/fexpense_text_money"
         app:layout_constraintTop_toBottomOf="@+id/fexpense_static1" />
 
     <Spinner
         android:id="@+id/fexpense_spinner_class2"
         style="@android:style/Widget.Material.Light.Spinner"
-        android:layout_marginTop="4dp"
         android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginTop="4dp"
         android:background="@null"
         android:overlapAnchor="false"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/fexpense_text_money"
         app:layout_constraintStart_toEndOf="@+id/fexpense_spinner_class1"
         app:layout_constraintTop_toBottomOf="@+id/fexpense_static1" />
 
     <Spinner
         android:id="@+id/fexpense_spinner_account"
-        android:layout_marginTop="4dp"
-        android:layout_width="186dp"
+        android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
         android:background="@null"
         android:overlapAnchor="false"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/fexpense_spinner_class2"
+        app:layout_constraintStart_toStartOf="@+id/fexpense_text_money"
         app:layout_constraintTop_toBottomOf="@+id/fexpense_static2" />
 
     <TextView
         android:id="@+id/fexpense_text_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/fexpense_text_money"
         app:layout_constraintTop_toBottomOf="@+id/fexpense_static3" />
 
     <TextView
         android:id="@+id/fexpense_text_remark"
-        android:layout_width="0dp"
+        android:layout_width="346dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:textColor="@color/colorText54"
         android:textColorLink="@android:color/darker_gray"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/fexpense_text_money"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/fexpense_text_money"
         app:layout_constraintTop_toBottomOf="@+id/fexpense_static4" />
 
     <TextView
         android:id="@+id/fexpense_static1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
         android:text="分类"
         android:textColor="@color/colorText54"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/fexpense_text_money"
         app:layout_constraintTop_toBottomOf="@+id/imageView1" />
 
     <TextView
         android:id="@+id/fexpense_static2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
         android:text="账户"
         android:textColor="@color/colorText54"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/fexpense_text_money"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <TextView
         android:id="@+id/fexpense_static3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
         android:text="时间"
         android:textColor="@color/colorText54"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/fexpense_text_money"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <TextView
         android:id="@+id/fexpense_static4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
         android:text="备注"
         android:textColor="@color/colorText54"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/fexpense_text_money"
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
         android:src="@color/colorGrey300"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/fexpense_text_money"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/fexpense_text_money"
         app:layout_constraintTop_toBottomOf="@+id/fexpense_text_money" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
         android:src="@color/colorGrey300"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/fexpense_text_money"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/fexpense_text_money"
         app:layout_constraintTop_toBottomOf="@+id/fexpense_spinner_class1" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginStart="20dp"
-        android:src="@color/colorGrey300"
         android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@color/colorGrey300"
+        app:layout_constraintEnd_toEndOf="@+id/fexpense_text_money"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/fexpense_text_money"
         app:layout_constraintTop_toBottomOf="@+id/fexpense_spinner_account" />
 
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:src="@color/colorGrey300"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/fexpense_text_money"
+        app:layout_constraintStart_toStartOf="@+id/fexpense_text_money"
         app:layout_constraintTop_toBottomOf="@+id/fexpense_text_date" />
 
 </android.support.constraint.ConstraintLayout>

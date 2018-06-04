@@ -48,13 +48,13 @@
     <TextView
         android:id="@+id/statement_textview_remain"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="51dp"
         android:layout_weight="5"
         android:text="1.23"
         android:textColor="@color/colorWhite"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/statement_statictextview_remain"
-        app:layout_constraintStart_toStartOf="@+id/statement_statictextview_remain" />
+        app:layout_constraintStart_toStartOf="@+id/statement_statictextview_income" />
 
     <TextView
         android:id="@+id/statement_statictextview_income"
