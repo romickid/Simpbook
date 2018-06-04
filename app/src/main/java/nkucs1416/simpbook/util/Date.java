@@ -1,5 +1,7 @@
 package nkucs1416.simpbook.util;
 
+import android.widget.TextView;
+
 import java.util.Calendar;
 
 public class Date {
@@ -66,5 +68,55 @@ public class Date {
         if (w < 0)
             w = 0;
         return weekDays[w];
+    }
+
+    /**
+     * 设置日期为文本框显示内容
+     * @param textView 传入的textView
+     * @param date 日期
+     */
+    public static void setTextViewDate(TextView textView, Date date) {
+        textView.setText(date.getYear() + "/" + date.getMonth() + "/" + date.getDay());
+    }
+
+    /**
+     * 获取相对天数的日期实例
+     * @param date 基准日期
+     * @param days 相对天数
+     * @return 相对天数的实例
+     */
+    public static Date getDateAdd(Date date, Integer days) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(date.getYear(),date.getMonth()-1,date.getDay());
+        cal.add(Calendar.DAY_OF_MONTH, days);
+        return getDate(cal);
+    }
+
+    /**
+     * 从textView中获取日期信息
+     * @param textView 被获取的textView
+     * @return 日期实例
+     */
+    public static Date getDate(TextView textView) {
+        String strDate = textView.getText().toString();
+        String[] listStrDate = strDate.split("/");
+        return new Date(
+                Integer.parseInt(listStrDate[0]),
+                Integer.parseInt(listStrDate[1]),
+                Integer.parseInt(listStrDate[2])
+        );
+    }
+
+    /**
+     * 从calendar中获取日期信息
+     * @param calendar 被获取的calendar
+     * @return 日期实例
+     */
+    private static Date getDate(Calendar calendar) {
+        return new Date(
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH)+1,
+                calendar.get(Calendar.DAY_OF_MONTH)
+        );
     }
 }

@@ -27,20 +27,27 @@ import nkucs1416.simpbook.util.Class2;
 import nkucs1416.simpbook.util.Class2SpinnerAdapter;
 import nkucs1416.simpbook.util.Date;
 import nkucs1416.simpbook.util.Class1SpinnerAdapter;
+import nkucs1416.simpbook.util.StatementElement;
+
+import static nkucs1416.simpbook.util.Date.*;
 
 public class StatementActivity extends AppCompatActivity {
     private Toolbar toolbar;
+    private TextView textViewRemain;
+    private TextView textViewIncome;
+    private TextView textViewExpence;
     private RecyclerView recyclerView;
-    private ArrayList<Map<String,Object>> listMapStatement;
     private FloatingActionButton buttonFilter;
 
-    private ArrayList<Class1> listClass1;
-    private ArrayList<Class2> listClass2;
-    private ArrayList<Account> listAccount;
+    private ArrayList<Class1> listFilterClass1;
+    private ArrayList<Class2> listFilterClass2;
+    private ArrayList<Account> listFilterAccount;
 
-    private Class1SpinnerAdapter adapterClass1;
-    private Class2SpinnerAdapter adapterClass2;
-    private AccountSpinnerAdapter adapterAccount;
+    private Class1SpinnerAdapter adapterFilterClass1;
+    private Class2SpinnerAdapter adapterFilterClass2;
+    private AccountSpinnerAdapter adapterFilterAccount;
+
+    private ArrayList<StatementElement> liststatementElements;
 
     private StatementFilter statementFilter;
 
@@ -65,6 +72,9 @@ public class StatementActivity extends AppCompatActivity {
      */
     private void initFindById() {
         toolbar = findViewById(R.id.statement_toolbar);
+        textViewRemain = findViewById(R.id.statement_textview_remain);
+        textViewIncome = findViewById(R.id.statement_textview_income);
+        textViewExpence = findViewById(R.id.statement_textview_expense);
         recyclerView = findViewById(R.id.statement_recyclerview);
         buttonFilter = findViewById(R.id.statement_button_filter);
     }
@@ -72,7 +82,7 @@ public class StatementActivity extends AppCompatActivity {
     /**
      * 初始化Toolbar
      */
-    private void initToolbar(){
+    private void initToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -90,41 +100,38 @@ public class StatementActivity extends AppCompatActivity {
     private void initRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        listMapStatement = new ArrayList<>();
         demoSetStatementList();
 
-        statementAdapter = new StatementAdapter(this, listMapStatement);
+        StatementAdapter statementAdapter = new StatementAdapter(this, liststatementElements);
         recyclerView.setAdapter(statementAdapter);
     }
 
 
-    // 流水相关
+    // Statement相关
     /**
      * 测试用StatementList
      */
     private void demoSetStatementList() {
-        listMapStatement =new ArrayList<Map<String,Object>>();
-        Map map=new HashMap<String, Object>();
-        map.put("text", "A一");
-        map.put("money", "123.12");
-        map.put("color", R.drawable.ic_lens_yellow_a400_24dp);
-        listMapStatement.add(map);
+        liststatementElements = new ArrayList<StatementElement>();
+        StatementElement statementElement = new StatementElement( R.drawable.ic_lens_yellow_a400_24dp, "1", 1.0f);
+        liststatementElements.add(statementElement);
 
-        map=new HashMap<String, Object>();
-        map.put("text", "B二");
-        map.put("money", "123.12");
-        map.put("color", R.drawable.ic_lens_blue_a400_24dp);
-        listMapStatement.add(map);
+        statementElement = new StatementElement( R.drawable.ic_lens_blue_a400_24dp, "2", 2.0f);
+        liststatementElements.add(statementElement);
 
-        map=new HashMap<String, Object>();
-        map.put("text", "C");
-        map.put("money", "123.12");
-        map.put("color", R.drawable.ic_lens_yellow_a400_24dp);
-        listMapStatement.add(map);
+        statementElement = new StatementElement( R.drawable.ic_lens_red_a400_24dp, "3", 3.0f);
+        liststatementElements.add(statementElement);
+    }
+
+    /**
+     * 依据statementFilter的参数, 更新statement列表
+     */
+    private void updateStatement() {
+
     }
 
 
-    // 查询筛选相关
+    // 筛选Dialog相关
     /**
      * 设置筛选按钮的Listener
      */
@@ -139,112 +146,11 @@ public class StatementActivity extends AppCompatActivity {
     }
 
     /**
-     * 构建筛选的Dialog
-     * @return
-     */
-    private Dialog createDialogFilter() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this,3);
-        View viewRemarkDialog = View.inflate(this, R.layout.dialog_statementfilter, null);
-        final Spinner spinnerClass1 = viewRemarkDialog.findViewById(R.id.dstatementfilter_spinner_class1);
-        final Spinner spinnerClass2 = viewRemarkDialog.findViewById(R.id.dstatementfilter_spinner_class2);
-        final Spinner spinnerAccount = viewRemarkDialog.findViewById(R.id.dstatementfilter_spinner_account);
-        final TextView textViewDateFrom = viewRemarkDialog.findViewById(R.id.dstatementfilter_textview_datefrom);
-        final TextView textViewDateTo = viewRemarkDialog.findViewById(R.id.dstatementfilter_textview_dateto);
-
-        spinnerClass1.setAdapter(adapterClass1);
-        spinnerClass2.setAdapter(adapterClass2);
-        spinnerAccount.setAdapter(adapterAccount);
-        setDateTimeListener(textViewDateFrom);
-        setDateTimeListener(textViewDateTo);
-
-        builder.setTitle("筛选");
-        builder.setView(viewRemarkDialog);
-
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-
-        return builder.create();
-    }
-
-    /**
-     * 初始化筛选框中,分类和账户的SpinnerAdapter
-     */
-    private void initSpinnerAdapter() {
-        demoSetListClass1();
-        demoSetListClass2();
-        demoSetListAccount();
-
-        adapterClass1 = new Class1SpinnerAdapter(this, listClass1);
-        adapterClass2 = new Class2SpinnerAdapter(this, listClass2);
-        adapterAccount = new AccountSpinnerAdapter(this, listAccount);
-    }
-
-    /**
-     * 测试用ListClass1
-     */
-    private void demoSetListClass1() {
-        listClass1 = new ArrayList<Class1>();
-        Class1 class1 = new Class1("1", R.drawable.ic_lens_yellow_a400_24dp, 1);
-        listClass1.add(class1);
-
-        class1 = new Class1("2", R.drawable.ic_lens_blue_a400_24dp, 2);
-        listClass1.add(class1);
-
-        class1 = new Class1("3", R.drawable.ic_lens_yellow_a400_24dp, 3);
-        listClass1.add(class1);
-    }
-
-    /**
-     * 测试用ListClass2
-     */
-    private void demoSetListClass2() {
-        listClass2 = new ArrayList<Class2>();
-        Class2 class2 = new Class2("1", R.drawable.ic_lens_yellow_a400_24dp, 1);
-        listClass2.add(class2);
-
-        class2 = new Class2("2", R.drawable.ic_lens_blue_a400_24dp, 2);
-        listClass2.add(class2);
-
-        class2 = new Class2("3", R.drawable.ic_lens_yellow_a400_24dp, 3);
-        listClass2.add(class2);
-    }
-
-    /**
-     * 测试用ListAccount
-     */
-    private void demoSetListAccount() {
-        listAccount = new ArrayList<Account>();
-        Account account = new Account("1", R.drawable.ic_lens_yellow_a400_24dp, 1);
-        listAccount.add(account);
-
-        account = new Account("2", R.drawable.ic_lens_blue_a400_24dp, 2);
-        listAccount.add(account);
-
-        account = new Account("3", R.drawable.ic_lens_yellow_a400_24dp, 3);
-        listAccount.add(account);
-    }
-
-    /**
-     * 设置筛选框内时间
-     */
-    private void setTextViewDate(Date date, TextView textView) {
-        textView.setText(date.getYear() + "年" + date.getMonth() + "月" + date.getDay() + "日");
-    }
-
-    /**
      * 设置筛选框内, 日期的Listener
      * @param textView 显示日期的textView
      */
-    private void setDateTimeListener(final TextView textView) {
-        setTextViewDate(new Date(), textView);
+    private void setListenerDate(final TextView textView) {
+        setTextViewDate(textView, new Date());
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -256,7 +162,48 @@ public class StatementActivity extends AppCompatActivity {
     }
 
     /**
+     * 构建筛选的Dialog
+     *
+     * @return
+     */
+    private Dialog createDialogFilter() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this, 3);
+        View viewRemarkDialog = View.inflate(this, R.layout.dialog_statementfilter, null);
+        final Spinner spinnerClass1 = viewRemarkDialog.findViewById(R.id.dstatementfilter_spinner_class1);
+        final Spinner spinnerClass2 = viewRemarkDialog.findViewById(R.id.dstatementfilter_spinner_class2);
+        final Spinner spinnerAccount = viewRemarkDialog.findViewById(R.id.dstatementfilter_spinner_account);
+        final TextView textViewDateFrom = viewRemarkDialog.findViewById(R.id.dstatementfilter_textview_datefrom);
+        final TextView textViewDateTo = viewRemarkDialog.findViewById(R.id.dstatementfilter_textview_dateto);
+
+        spinnerClass1.setAdapter(adapterFilterClass1);
+        spinnerClass2.setAdapter(adapterFilterClass2);
+        spinnerAccount.setAdapter(adapterFilterAccount);
+        setListenerDate(textViewDateFrom);
+        setListenerDate(textViewDateTo);
+
+        builder.setTitle("筛选");
+        builder.setView(viewRemarkDialog);
+
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                updateStatementFilter(spinnerClass1, spinnerClass2, spinnerAccount, textViewDateFrom, textViewDateTo);
+            }
+        });
+
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        return builder.create();
+    }
+
+    /**
      * 构建筛选框内, 选择日期的Dialog
+     *
      * @param ttextView 显示日期的textView
      * @return 返回Dialog
      */
@@ -269,12 +216,115 @@ public class StatementActivity extends AppCompatActivity {
         listener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                setTextViewDate(new Date(year, month+1, dayOfMonth), textView);
+                setTextViewDate(textView, new Date(year, month + 1, dayOfMonth));
             }
         };
 
         dialog = new DatePickerDialog(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, listener, date.getYear(), date.getMonth() - 1, date.getDay());
         return dialog;
+    }
+
+    /**
+     * 初始化筛选框中,分类和账户的SpinnerAdapter
+     */
+    private void initSpinnerAdapter() {
+        demoSetListClass1();
+        demoSetListClass2();
+        demoSetListAccount();
+
+        adapterFilterClass1 = new Class1SpinnerAdapter(this, listFilterClass1);
+        adapterFilterClass2 = new Class2SpinnerAdapter(this, listFilterClass2);
+        adapterFilterAccount = new AccountSpinnerAdapter(this, listFilterAccount);
+    }
+
+    /**
+     * 测试用ListClass1
+     */
+    private void demoSetListClass1() {
+        listFilterClass1 = new ArrayList<Class1>();
+        Class1 class1 = new Class1("1", R.drawable.ic_lens_yellow_a400_24dp, 1);
+        listFilterClass1.add(class1);
+
+        class1 = new Class1("2", R.drawable.ic_lens_blue_a400_24dp, 2);
+        listFilterClass1.add(class1);
+
+        class1 = new Class1("3", R.drawable.ic_lens_yellow_a400_24dp, 3);
+        listFilterClass1.add(class1);
+    }
+
+    /**
+     * 测试用ListClass2
+     */
+    private void demoSetListClass2() {
+        listFilterClass2 = new ArrayList<Class2>();
+        Class2 class2 = new Class2("1", R.drawable.ic_lens_yellow_a400_24dp, 1);
+        listFilterClass2.add(class2);
+
+        class2 = new Class2("2", R.drawable.ic_lens_blue_a400_24dp, 2);
+        listFilterClass2.add(class2);
+
+        class2 = new Class2("3", R.drawable.ic_lens_yellow_a400_24dp, 3);
+        listFilterClass2.add(class2);
+    }
+
+    /**
+     * 测试用ListAccount
+     */
+    private void demoSetListAccount() {
+        listFilterAccount = new ArrayList<Account>();
+        Account account = new Account("1", R.drawable.ic_lens_yellow_a400_24dp, 1);
+        listFilterAccount.add(account);
+
+        account = new Account("2", R.drawable.ic_lens_blue_a400_24dp, 2);
+        listFilterAccount.add(account);
+
+        account = new Account("3", R.drawable.ic_lens_yellow_a400_24dp, 3);
+        listFilterAccount.add(account);
+    }
+
+
+    // 筛选相关
+    /**
+     * 设置默认的statementFilter
+     */
+    private void setDefaultStatementFilter() {
+        statementFilter = new StatementFilter(
+                -1,
+                -1,
+                -1,
+                new Date(),
+                new Date()
+        );
+    }
+
+    /**
+     * 读取Dialog中的信息, 并更新statementFilter
+     *
+     * @param spinnerClass1    dialog中的spinnerClass1
+     * @param spinnerClass2    dialog中的spinnerClass2
+     * @param spinnerAccount   dialog中的spinnerAccount
+     * @param textViewDateFrom dialog中的textViewDateFrom
+     * @param textViewDateTo   dialog中的textViewDateTo
+     */
+    private void updateStatementFilter(
+            Spinner spinnerClass1,
+            Spinner spinnerClass2,
+            Spinner spinnerAccount,
+            TextView textViewDateFrom,
+            TextView textViewDateTo
+    ) {
+        Class1 class1 = (Class1) spinnerClass1.getSelectedItem();
+        Class2 class2 = (Class2) spinnerClass2.getSelectedItem();
+        Account account = (Account) spinnerAccount.getSelectedItem();
+        statementFilter = new StatementFilter(
+                class1.getId(),
+                class2.getId(),
+                account.getId(),
+                getDate(textViewDateFrom),
+                getDate(textViewDateTo)
+        );
+
+        updateStatement();
     }
 
 }
