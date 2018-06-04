@@ -1,17 +1,17 @@
 package nkucs1416.simpbook.util;
 
 public class StatementElement {
-    private Integer color;
+    private int color;
     private String text;
-    private Float money;
+    private float money;
 
-    public StatementElement(Integer tColor, String tText, Float tMoney) {
+    public StatementElement(int tColor, String tText, float tMoney) {
         color = tColor;
         text = tText;
         money = tMoney;
     }
 
-    public Integer getColor() {
+    public int getColor() {
         return color;
     }
 
@@ -19,7 +19,7 @@ public class StatementElement {
         return text;
     }
 
-    public Float getMoney() {
+    public float getMoney() {
         return money;
     }
 }

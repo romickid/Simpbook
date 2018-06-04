@@ -1,9 +1,9 @@
 package nkucs1416.simpbook.util;
 
 public class Class1 {
-    private String name;
-    private int color;
     private int id;
+    private int color;
+    private String name;
 
     /**
      * 构造一个Class1实例

@@ -85,7 +85,7 @@ public class Date {
      * @param days 相对天数
      * @return 相对天数的实例
      */
-    public static Date getDateAdd(Date date, Integer days) {
+    public static Date getDateAdd(Date date, int days) {
         Calendar cal = Calendar.getInstance();
         cal.set(date.getYear(),date.getMonth()-1,date.getDay());
         cal.add(Calendar.DAY_OF_MONTH, days);
