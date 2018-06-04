@@ -46,67 +46,56 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="4dp"
-        android:layout_marginStart="16dp"
         android:gravity="center"
         android:includeFontPadding="false"
         android:text="200.00"
         android:textColor="@color/colorWhite"
         android:textSize="42sp"
         app:layout_constraintBottom_toTopOf="@+id/main_statictextview_remain"
-        app:layout_constraintStart_toStartOf="@+id/main_imageview_basicinfo" />
+        app:layout_constraintStart_toStartOf="@+id/main_statictextview_spent" />
 
     <TextView
         android:id="@+id/main_statictextview_remain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
         android:text="当月剩余："
         android:textColor="@color/colorWhite"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/main_imageview_basicinfo"
-        app:layout_constraintStart_toStartOf="@+id/main_imageview_basicinfo" />
+        app:layout_constraintStart_toStartOf="@+id/main_statictextview_spent" />
 
     <TextView
         android:id="@+id/main_textview_remain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:text="200.00"
         android:textColor="@color/colorWhite"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/main_imageview_basicinfo"
+        app:layout_constraintBottom_toBottomOf="@+id/main_statictextview_remain"
         app:layout_constraintStart_toEndOf="@+id/main_statictextview_remain" />
 
     <ImageView
         android:id="@+id/main_tpimageview_basicinfo"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="16dp"
         android:clickable="true"
-        app:layout_constraintTop_toTopOf="@+id/main_statictextview_spent"
-        app:layout_constraintBottom_toBottomOf="@+id/main_imageview_basicinfo"
-        app:layout_constraintStart_toStartOf="@+id/main_imageview_basicinfo"
+        app:layout_constraintBottom_toBottomOf="@+id/main_statictextview_remain"
         app:layout_constraintEnd_toEndOf="@+id/main_textview_remain"
+        app:layout_constraintStart_toStartOf="@+id/main_statictextview_spent"
+        app:layout_constraintTop_toTopOf="@+id/main_statictextview_spent"
         app:srcCompat="@android:color/transparent" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/main_button_record"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:layout_marginBottom="352dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="40dp"
         android:clickable="true"
         app:backgroundTint="@color/colorDefaultYellow"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintVertical_bias="1.0"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/main_imageview_info1"
+        app:layout_constraintEnd_toEndOf="@+id/main_imageview_datetime"
         app:srcCompat="@drawable/ic_add_grey_500_24dp" />
 
     <ImageView
@@ -181,14 +170,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:layout_weight="5"
         android:text="1.23"
         android:textColor="@color/colorRecordGreen"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/main_imageview_info1"
-        app:layout_constraintEnd_toEndOf="@+id/main_imageview_info1" />
+        app:layout_constraintEnd_toEndOf="@+id/main_textview_todayexpense" />
 
     <ImageView
         android:id="@+id/main_imageview_line1"
@@ -215,42 +202,36 @@
         android:id="@+id/main_statictextview_week"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
         android:text="本周"
         android:textColor="@color/colorText54"
         android:textSize="22sp"
-        app:layout_constraintTop_toTopOf="@+id/main_imageview_info2"
         app:layout_constraintBottom_toBottomOf="@+id/main_imageview_info2"
-        app:layout_constraintStart_toStartOf="@+id/main_imageview_info2"/>
+        app:layout_constraintStart_toStartOf="@+id/main_statictextview_today"
+        app:layout_constraintTop_toTopOf="@+id/main_imageview_info2" />
 
     <TextView
         android:id="@+id/main_textview_weekexpense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:layout_marginTop="10dp"
         android:layout_weight="5"
         android:text="1.23"
         android:textColor="@color/colorRecordRed"
         android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="@+id/main_imageview_info2"
-        app:layout_constraintEnd_toEndOf="@+id/main_imageview_info2" />
+        app:layout_constraintEnd_toEndOf="@+id/main_textview_todayexpense"
+        app:layout_constraintTop_toTopOf="@+id/main_imageview_info2" />
 
     <TextView
         android:id="@+id/main_textview_weekincome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:layout_weight="5"
         android:text="1.23"
         android:textColor="@color/colorRecordGreen"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/main_imageview_info2"
-        app:layout_constraintEnd_toEndOf="@+id/main_imageview_info2" />
+        app:layout_constraintEnd_toEndOf="@+id/main_textview_todayexpense" />
 
     <ImageView
         android:id="@+id/main_imageview_line2"
@@ -277,42 +258,36 @@
         android:id="@+id/main_statictextview_month"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
         android:text="本月"
         android:textColor="@color/colorText54"
         android:textSize="22sp"
-        app:layout_constraintTop_toTopOf="@+id/main_imageview_info3"
         app:layout_constraintBottom_toBottomOf="@+id/main_imageview_info3"
-        app:layout_constraintStart_toStartOf="@+id/main_imageview_info3" />
+        app:layout_constraintStart_toStartOf="@+id/main_statictextview_today"
+        app:layout_constraintTop_toTopOf="@+id/main_imageview_info3" />
 
     <TextView
         android:id="@+id/main_textview_monthexpense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:layout_marginTop="10dp"
         android:layout_weight="5"
         android:text="1.23"
         android:textColor="@color/colorRecordRed"
         android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="@+id/main_imageview_info3"
-        app:layout_constraintEnd_toEndOf="@+id/main_imageview_info3" />
+        app:layout_constraintEnd_toEndOf="@+id/main_textview_todayexpense"
+        app:layout_constraintTop_toTopOf="@+id/main_imageview_info3" />
 
     <TextView
         android:id="@+id/main_textview_monthincome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:layout_weight="5"
         android:text="1.23"
         android:textColor="@color/colorRecordGreen"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/main_imageview_info3"
-        app:layout_constraintEnd_toEndOf="@+id/main_imageview_info3" />
+        app:layout_constraintEnd_toEndOf="@+id/main_textview_todayexpense" />
 
     <ImageView
         android:id="@+id/main_imageview_line3"
@@ -339,42 +314,36 @@
         android:id="@+id/main_statictextview_year"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
         android:text="本年"
         android:textColor="@color/colorText54"
         android:textSize="22sp"
-        app:layout_constraintTop_toTopOf="@+id/main_imageview_info4"
         app:layout_constraintBottom_toBottomOf="@+id/main_imageview_info4"
-        app:layout_constraintStart_toStartOf="@+id/main_imageview_info4"/>
+        app:layout_constraintStart_toStartOf="@+id/main_statictextview_today"
+        app:layout_constraintTop_toTopOf="@+id/main_imageview_info4" />
 
     <TextView
         android:id="@+id/main_textview_yearexpense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:layout_marginTop="10dp"
         android:layout_weight="5"
         android:text="1.23"
         android:textColor="@color/colorRecordRed"
         android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="@+id/main_imageview_info4"
-        app:layout_constraintEnd_toEndOf="@+id/main_imageview_info4"/>
+        app:layout_constraintEnd_toEndOf="@+id/main_textview_todayexpense"
+        app:layout_constraintTop_toTopOf="@+id/main_imageview_info4" />
 
     <TextView
         android:id="@+id/main_textview_yearincome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:layout_weight="5"
         android:text="1.23"
         android:textColor="@color/colorRecordGreen"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/main_imageview_info4"
-        app:layout_constraintEnd_toEndOf="@+id/main_imageview_info4" />
+        app:layout_constraintEnd_toEndOf="@+id/main_textview_todayexpense" />
 
     <ImageView
         android:id="@+id/main_imageview_line4"
@@ -398,14 +367,12 @@
         android:id="@+id/main_button_statement"
         android:layout_width="31dp"
         android:layout_height="43dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginLeft="64dp"
         android:layout_marginStart="64dp"
         android:background="@android:color/transparent"
         android:drawableTop="@drawable/ic_list_black_24dp"
         android:text="流水"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/main_imageview_navi"
+        app:layout_constraintBottom_toBottomOf="@+id/main_button_collection"
         app:layout_constraintStart_toStartOf="@+id/main_imageview_navi" />
 
     <Button
@@ -425,14 +392,12 @@
         android:id="@+id/main_button_account"
         android:layout_width="31dp"
         android:layout_height="43dp"
-        android:layout_marginBottom="4dp"
         android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
         android:background="@android:color/transparent"
         android:drawableTop="@drawable/ic_account_balance_wallet_black_24dp"
         android:text="账户"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/main_imageview_navi"
+        app:layout_constraintBottom_toBottomOf="@+id/main_button_collection"
         app:layout_constraintEnd_toEndOf="@+id/main_imageview_navi" />
 
 </android.support.constraint.ConstraintLayout>

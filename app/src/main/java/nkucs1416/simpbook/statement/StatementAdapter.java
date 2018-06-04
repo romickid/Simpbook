@@ -31,7 +31,7 @@ public class StatementAdapter extends RecyclerView.Adapter<StatementViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull StatementViewHolder holder, int position) {
         StatementElement statementElement = listStatementElements.get(position);
-        Integer color = statementElement.getColor();
+        int color = statementElement.getColor();
         String text = statementElement.getText();
         Float money = statementElement.getMoney();
 
