@@ -20,7 +20,7 @@ public class AccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private ArrayList<HashMap<String, Object>> listAccountObjects;
     private Context context;
 
-    // RecycleView.Adapter相关
+    // RecyclerView.Adapter相关
     /**
      * 构造函数, 读取需要绘制的AccountObjects列表
      *
@@ -90,10 +90,10 @@ public class AccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 final String text1 = accountElement.getText();
                 final String money1 = accountElement.getStrMoney();
 
-                final ImageView imageViewBackground = accountElementViewHolder.imageViewBackground;
+                final ImageView imageViewBackground1 = accountElementViewHolder.imageViewBackground;
                 final Context context1 = accountElementViewHolder.context;
 
-                imageViewBackground.setOnClickListener(new View.OnClickListener() {
+                imageViewBackground1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View arg0) {
                         Intent intent = new Intent(context1, StatementActivity.class);
@@ -115,7 +115,7 @@ public class AccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     /**
-     * 获取ItemView的类型
+     * 获取View的类型
      *
      * @param position 数组的位置
      * @return 类型(1:AccountElement, 0:AccountSummarize, -1:AccountSplitLine)
@@ -166,6 +166,7 @@ class AccountElementViewHolder extends RecyclerView.ViewHolder {
 class AccountSummarizeViewHolder extends RecyclerView.ViewHolder {
     TextView textViewText;
     TextView textViewMoney;
+
     AccountSummarizeViewHolder(View view) {
         super(view);
         textViewText = view.findViewById(R.id.iaccountsummerize_text);

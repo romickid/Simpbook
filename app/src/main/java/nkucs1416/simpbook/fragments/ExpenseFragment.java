@@ -1,4 +1,4 @@
-package nkucs1416.simpbook.record;
+package nkucs1416.simpbook.fragments;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -34,7 +34,7 @@ import nkucs1416.simpbook.util.Class1SpinnerAdapter;
 
 import static nkucs1416.simpbook.util.Date.*;
 
-public class RecordExpenseFragment extends Fragment {
+public class ExpenseFragment extends Fragment {
     private View view;
     private Spinner spinnerClass1;
     private Spinner spinnerClass2;
@@ -52,12 +52,12 @@ public class RecordExpenseFragment extends Fragment {
 
 
     // Fragment相关
-    public RecordExpenseFragment() {
+    public ExpenseFragment() {
         // Required empty public constructor
     }
 
-    public static RecordExpenseFragment newInstance(String param1, String param2) {
-        RecordExpenseFragment fragment = new RecordExpenseFragment();
+    public static ExpenseFragment newInstance(String param1, String param2) {
+        ExpenseFragment fragment = new ExpenseFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;

@@ -1,4 +1,4 @@
-package nkucs1416.simpbook.record;
+package nkucs1416.simpbook.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -14,12 +14,12 @@ import nkucs1416.simpbook.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link RecordIncomeFragment.OnFragmentInteractionListener} interface
+ * {@link IncomeFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link RecordIncomeFragment#newInstance} factory method to
+ * Use the {@link IncomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RecordIncomeFragment extends Fragment {
+public class IncomeFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,7 +31,7 @@ public class RecordIncomeFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public RecordIncomeFragment() {
+    public IncomeFragment() {
         // Required empty public constructor
     }
 
@@ -41,11 +41,11 @@ public class RecordIncomeFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment RecordIncomeFragment.
+     * @return A new instance of fragment IncomeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static RecordIncomeFragment newInstance(String param1, String param2) {
-        RecordIncomeFragment fragment = new RecordIncomeFragment();
+    public static IncomeFragment newInstance(String param1, String param2) {
+        IncomeFragment fragment = new IncomeFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
