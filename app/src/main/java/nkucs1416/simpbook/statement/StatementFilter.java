@@ -13,27 +13,29 @@ class StatementFilter {
 
     /**
      * 构造函数, 传入筛选信息
-     * @param tclass1Id class1Id
-     * @param tclass2Id class2Id
-     * @param taccountId accountId
-     * @param tdateFrom dateFrom
-     * @param tdateTo dateTo
+     *
+     * @param tClass1Id class1Id
+     * @param tClass2Id class2Id
+     * @param tAccountId accountId
+     * @param tDateFrom dateFrom
+     * @param tDateTo dateTo
      */
     StatementFilter(
-            int tclass1Id,
-            int tclass2Id,
-            int taccountId,
-            Date tdateFrom,
-            Date tdateTo) {
-        class1Id = tclass1Id;
-        class2Id = tclass2Id;
-        accountId = taccountId;
-        dateFrom = tdateFrom;
-        dateTo = tdateTo;
+            int tClass1Id,
+            int tClass2Id,
+            int tAccountId,
+            Date tDateFrom,
+            Date tDateTo) {
+        class1Id = tClass1Id;
+        class2Id = tClass2Id;
+        accountId = tAccountId;
+        dateFrom = tDateFrom;
+        dateTo = tDateTo;
     }
 
     /**
      * 获取Class1的Id
+     *
      * @return Id
      */
     public int getClass1Id() {
@@ -42,6 +44,7 @@ class StatementFilter {
 
     /**
      * 获取Class2的Id
+     *
      * @return Id
      */
     public int getClass2Id() {
@@ -50,6 +53,7 @@ class StatementFilter {
 
     /**
      * 获取Account的Id
+     *
      * @return Id
      */
     public int getAccountId() {
@@ -58,6 +62,7 @@ class StatementFilter {
 
     /**
      * 获取筛选的起始日期
+     *
      * @return 起始日期
      */
     public Date getDateFrom() {
@@ -66,6 +71,7 @@ class StatementFilter {
 
     /**
      * 获取筛选的结束日期
+     *
      * @return 结束日期
      */
     public Date getDateTo() {
