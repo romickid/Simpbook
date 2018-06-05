@@ -41,18 +41,21 @@
         android:layout_marginBottom="8dp"
         android:text="结余"
         android:textColor="@color/colorWhite"
-        android:textSize="12sp"
+        android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@+id/statement_textview_income"
         app:layout_constraintStart_toStartOf="@+id/statement_statictextview_income" />
 
     <TextView
         android:id="@+id/statement_textview_remain"
         android:layout_width="wrap_content"
-        android:layout_height="51dp"
+        android:layout_height="wrap_content"
         android:layout_weight="5"
         android:text="1.23"
         android:textColor="@color/colorWhite"
-        android:textSize="36sp"
+        android:textSize="40sp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:includeFontPadding="false"
         app:layout_constraintBottom_toTopOf="@+id/statement_statictextview_remain"
         app:layout_constraintStart_toStartOf="@+id/statement_statictextview_income" />
 
@@ -60,11 +63,11 @@
         android:id="@+id/statement_statictextview_income"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginStart="16dp"
         android:text="收入"
         android:textColor="@color/colorWhite"
-        android:textSize="12sp"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@+id/statement_imageview_top"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -78,6 +81,9 @@
         android:text="1.23"
         android:textColor="@color/colorWhite"
         android:textSize="22sp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:includeFontPadding="false"
         app:layout_constraintBottom_toTopOf="@+id/statement_statictextview_income"
         app:layout_constraintStart_toStartOf="@+id/statement_statictextview_income" />
 
@@ -89,7 +95,7 @@
         android:layout_marginStart="16dp"
         android:text="支出"
         android:textColor="@color/colorWhite"
-        android:textSize="12sp"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@+id/statement_statictextview_income"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -104,6 +110,9 @@
         android:text="1.23"
         android:textColor="@color/colorWhite"
         android:textSize="22sp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:includeFontPadding="false"
         app:layout_constraintBottom_toTopOf="@+id/statement_statictextview_expence"
         app:layout_constraintStart_toStartOf="@+id/statement_statictextview_expence" />
 

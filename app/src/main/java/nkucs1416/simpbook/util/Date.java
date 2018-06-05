@@ -70,26 +70,25 @@ public class Date {
         return weekDays[w];
     }
 
+
+    // static函数
+    /**
+     * 获取String形式的日期
+     *
+     * @param date 日期
+     * @return String
+     */
+    public static String getStrDate(Date date) {
+        return date.getYear() + "/" + date.getMonth() + "/" + date.getDay();
+    }
+
     /**
      * 设置日期为文本框显示内容
      * @param textView 传入的textView
      * @param date 日期
      */
     public static void setTextViewDate(TextView textView, Date date) {
-        textView.setText(date.getYear() + "/" + date.getMonth() + "/" + date.getDay());
-    }
-
-    /**
-     * 获取相对天数的日期实例
-     * @param date 基准日期
-     * @param days 相对天数
-     * @return 相对天数的实例
-     */
-    public static Date getDateAdd(Date date, int days) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(date.getYear(),date.getMonth()-1,date.getDay());
-        cal.add(Calendar.DAY_OF_MONTH, days);
-        return getDate(cal);
+        textView.setText(getStrDate(date));
     }
 
     /**
@@ -119,4 +118,18 @@ public class Date {
                 calendar.get(Calendar.DAY_OF_MONTH)
         );
     }
+
+    /**
+     * 获取相对天数的日期实例
+     * @param date 基准日期
+     * @param days 相对天数
+     * @return 相对天数的实例
+     */
+    public static Date getDateAdd(Date date, int days) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(date.getYear(),date.getMonth()-1,date.getDay());
+        cal.add(Calendar.DAY_OF_MONTH, days);
+        return getDate(cal);
+    }
+
 }

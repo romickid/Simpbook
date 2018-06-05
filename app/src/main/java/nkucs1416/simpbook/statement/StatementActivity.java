@@ -17,17 +17,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.util.Account;
-import nkucs1416.simpbook.util.AccountSpinnerAdapter;
+import nkucs1416.simpbook.account.AccountSpinnerAdapter;
 import nkucs1416.simpbook.util.Class1;
 import nkucs1416.simpbook.util.Class2;
 import nkucs1416.simpbook.util.Class2SpinnerAdapter;
 import nkucs1416.simpbook.util.Date;
 import nkucs1416.simpbook.util.Class1SpinnerAdapter;
-import nkucs1416.simpbook.util.StatementElement;
 
 import static nkucs1416.simpbook.util.Date.*;
 
@@ -39,15 +37,15 @@ public class StatementActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FloatingActionButton buttonFilter;
 
-    private ArrayList<Class1> listFilterClass1;
-    private ArrayList<Class2> listFilterClass2;
-    private ArrayList<Account> listFilterAccount;
+    private ArrayList<Class1> listFilterClass1s;
+    private ArrayList<Class2> listFilterClass2s;
+    private ArrayList<Account> listFilterAccounts;
 
     private Class1SpinnerAdapter adapterFilterClass1;
     private Class2SpinnerAdapter adapterFilterClass2;
     private AccountSpinnerAdapter adapterFilterAccount;
 
-    private ArrayList<StatementElement> liststatementElements;
+    private ArrayList<HashMap<String, Object>> listStatementObjects;
 
     private StatementFilter statementFilter;
 
@@ -102,7 +100,7 @@ public class StatementActivity extends AppCompatActivity {
 
         demoSetStatementList();
 
-        StatementAdapter statementAdapter = new StatementAdapter(this, liststatementElements);
+        StatementAdapter statementAdapter = new StatementAdapter(this, listStatementObjects);
         recyclerView.setAdapter(statementAdapter);
     }
 
@@ -112,15 +110,47 @@ public class StatementActivity extends AppCompatActivity {
      * 测试用StatementList
      */
     private void demoSetStatementList() {
-        liststatementElements = new ArrayList<StatementElement>();
-        StatementElement statementElement = new StatementElement( R.drawable.ic_lens_yellow_a400_24dp, "1", 1.0f);
-        liststatementElements.add(statementElement);
+        listStatementObjects = new ArrayList<HashMap<String, Object>>();
 
-        statementElement = new StatementElement( R.drawable.ic_lens_blue_a400_24dp, "2", 2.0f);
-        liststatementElements.add(statementElement);
+        HashMap hashMap = null;
+        StatementElement statementElement = null;
+        StatementDate statementDate = null;
+        Integer isElement = null;
 
-        statementElement = new StatementElement( R.drawable.ic_lens_red_a400_24dp, "3", 3.0f);
-        liststatementElements.add(statementElement);
+        isElement = 0;
+        statementDate = new StatementDate(new Date());
+        hashMap = new HashMap<String, Object>();
+        hashMap.put("isElement", isElement);
+        hashMap.put("object", statementDate);
+        listStatementObjects.add(hashMap);
+
+        isElement = 1;
+        statementElement = new StatementElement( R.drawable.ic_lens_yellow_a400_24dp, "支付宝", 1.0f, 1);
+        hashMap = new HashMap<String, Object>();
+        hashMap.put("isElement", isElement);
+        hashMap.put("object", statementElement);
+        listStatementObjects.add(hashMap);
+
+        isElement = 0;
+        statementDate = new StatementDate(new Date());
+        hashMap = new HashMap<String, Object>();
+        hashMap.put("isElement", isElement);
+        hashMap.put("object", statementDate);
+        listStatementObjects.add(hashMap);
+
+        isElement = 1;
+        statementElement = new StatementElement( R.drawable.ic_lens_yellow_a400_24dp, "信用卡", 1.0f, 2);
+        hashMap = new HashMap<String, Object>();
+        hashMap.put("isElement", isElement);
+        hashMap.put("object", statementElement);
+        listStatementObjects.add(hashMap);
+
+        isElement = 1;
+        statementElement = new StatementElement( R.drawable.ic_lens_blue_a400_24dp, "信用卡2", 1.0f, 3);
+        hashMap = new HashMap<String, Object>();
+        hashMap.put("isElement", isElement);
+        hashMap.put("object", statementElement);
+        listStatementObjects.add(hashMap);
     }
 
     /**
@@ -147,6 +177,7 @@ public class StatementActivity extends AppCompatActivity {
 
     /**
      * 设置筛选框内, 日期的Listener
+     *
      * @param textView 显示日期的textView
      */
     private void setListenerDate(final TextView textView) {
@@ -204,11 +235,11 @@ public class StatementActivity extends AppCompatActivity {
     /**
      * 构建筛选框内, 选择日期的Dialog
      *
-     * @param ttextView 显示日期的textView
+     * @param tTextView 显示日期的textView
      * @return 返回Dialog
      */
-    private Dialog createDialogDate(TextView ttextView) {
-        final TextView textView = ttextView;
+    private Dialog createDialogDate(TextView tTextView) {
+        final TextView textView = tTextView;
         Dialog dialog = null;
         DatePickerDialog.OnDateSetListener listener = null;
         Date date = new Date();
@@ -232,54 +263,54 @@ public class StatementActivity extends AppCompatActivity {
         demoSetListClass2();
         demoSetListAccount();
 
-        adapterFilterClass1 = new Class1SpinnerAdapter(this, listFilterClass1);
-        adapterFilterClass2 = new Class2SpinnerAdapter(this, listFilterClass2);
-        adapterFilterAccount = new AccountSpinnerAdapter(this, listFilterAccount);
+        adapterFilterClass1 = new Class1SpinnerAdapter(this, listFilterClass1s);
+        adapterFilterClass2 = new Class2SpinnerAdapter(this, listFilterClass2s);
+        adapterFilterAccount = new AccountSpinnerAdapter(this, listFilterAccounts);
     }
 
     /**
      * 测试用ListClass1
      */
     private void demoSetListClass1() {
-        listFilterClass1 = new ArrayList<Class1>();
+        listFilterClass1s = new ArrayList<Class1>();
         Class1 class1 = new Class1("1", R.drawable.ic_lens_yellow_a400_24dp, 1);
-        listFilterClass1.add(class1);
+        listFilterClass1s.add(class1);
 
         class1 = new Class1("2", R.drawable.ic_lens_blue_a400_24dp, 2);
-        listFilterClass1.add(class1);
+        listFilterClass1s.add(class1);
 
         class1 = new Class1("3", R.drawable.ic_lens_yellow_a400_24dp, 3);
-        listFilterClass1.add(class1);
+        listFilterClass1s.add(class1);
     }
 
     /**
      * 测试用ListClass2
      */
     private void demoSetListClass2() {
-        listFilterClass2 = new ArrayList<Class2>();
+        listFilterClass2s = new ArrayList<Class2>();
         Class2 class2 = new Class2("1", R.drawable.ic_lens_yellow_a400_24dp, 1);
-        listFilterClass2.add(class2);
+        listFilterClass2s.add(class2);
 
         class2 = new Class2("2", R.drawable.ic_lens_blue_a400_24dp, 2);
-        listFilterClass2.add(class2);
+        listFilterClass2s.add(class2);
 
         class2 = new Class2("3", R.drawable.ic_lens_yellow_a400_24dp, 3);
-        listFilterClass2.add(class2);
+        listFilterClass2s.add(class2);
     }
 
     /**
      * 测试用ListAccount
      */
     private void demoSetListAccount() {
-        listFilterAccount = new ArrayList<Account>();
+        listFilterAccounts = new ArrayList<Account>();
         Account account = new Account("1", R.drawable.ic_lens_yellow_a400_24dp, 1);
-        listFilterAccount.add(account);
+        listFilterAccounts.add(account);
 
         account = new Account("2", R.drawable.ic_lens_blue_a400_24dp, 2);
-        listFilterAccount.add(account);
+        listFilterAccounts.add(account);
 
         account = new Account("3", R.drawable.ic_lens_yellow_a400_24dp, 3);
-        listFilterAccount.add(account);
+        listFilterAccounts.add(account);
     }
 
 
