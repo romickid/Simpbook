@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.util.Account;
-import nkucs1416.simpbook.account.AccountSpinnerAdapter;
+import nkucs1416.simpbook.util.AccountSpinnerAdapter;
 import nkucs1416.simpbook.util.Class1;
 import nkucs1416.simpbook.util.Class2;
 import nkucs1416.simpbook.util.Class2SpinnerAdapter;

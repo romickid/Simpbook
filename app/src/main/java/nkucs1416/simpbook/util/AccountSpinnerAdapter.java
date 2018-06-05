@@ -1,4 +1,4 @@
-package nkucs1416.simpbook.account;
+package nkucs1416.simpbook.util;
 
 import android.content.Context;
 import android.view.LayoutInflater;

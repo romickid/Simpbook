@@ -81,47 +81,46 @@ public class AccountActivity extends AppCompatActivity {
         HashMap hashMap = null;
         AccountElement accountElement = null;
         AccountSummarize accountSummarize = null;
-        Integer isElement = null;
+        Integer type = null;
 
-        isElement = 0;
+        type = 0;
         accountSummarize = new AccountSummarize("资产账户", 2.0f);
         hashMap = new HashMap<String, Object>();
-        hashMap.put("isElement", isElement);
+        hashMap.put("type", type);
         hashMap.put("object", accountSummarize);
         listAccountObjects.add(hashMap);
 
-        isElement = 1;
+        type = 1;
         accountElement = new AccountElement( R.drawable.ic_lens_yellow_a400_24dp, "支付宝", 1.0f, true, 1);
         hashMap = new HashMap<String, Object>();
-        hashMap.put("isElement", isElement);
+        hashMap.put("type", type);
         hashMap.put("object", accountElement);
         listAccountObjects.add(hashMap);
 
-        isElement = 0;
-        accountSummarize = new AccountSummarize();
+        type = -1;
         hashMap = new HashMap<String, Object>();
-        hashMap.put("isElement", isElement);
-        hashMap.put("object", accountSummarize);
+        hashMap.put("type", type);
+        hashMap.put("object", null);
         listAccountObjects.add(hashMap);
 
-        isElement = 0;
+        type = 0;
         accountSummarize = new AccountSummarize("负债账户", 2.0f);
         hashMap = new HashMap<String, Object>();
-        hashMap.put("isElement", isElement);
+        hashMap.put("type", type);
         hashMap.put("object", accountSummarize);
         listAccountObjects.add(hashMap);
 
-        isElement = 1;
+        type = 1;
         accountElement = new AccountElement( R.drawable.ic_lens_yellow_a400_24dp, "信用卡", 1.0f, true, 2);
         hashMap = new HashMap<String, Object>();
-        hashMap.put("isElement", isElement);
+        hashMap.put("type", type);
         hashMap.put("object", accountElement);
         listAccountObjects.add(hashMap);
 
-        isElement = 1;
+        type = 1;
         accountElement = new AccountElement( R.drawable.ic_lens_blue_a400_24dp, "信用卡2", 1.0f, true, 3);
         hashMap = new HashMap<String, Object>();
-        hashMap.put("isElement", isElement);
+        hashMap.put("type", type);
         hashMap.put("object", accountElement);
         listAccountObjects.add(hashMap);
     }

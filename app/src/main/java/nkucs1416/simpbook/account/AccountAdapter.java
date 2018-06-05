@@ -1,6 +1,7 @@
 package nkucs1416.simpbook.account;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import nkucs1416.simpbook.R;
+import nkucs1416.simpbook.statement.StatementActivity;
 
 public class AccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<HashMap<String, Object>> listAccountObjects;
@@ -35,7 +37,7 @@ public class AccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      * 根据不同的viewType构建不同的ViewHolder
      *
      * @param parent default
-     * @param viewType 1:AccountElement, 0:AccountSummarize
+     * @param viewType 1:AccountElement, 0:AccountSummarize, -1:AccountSplitLine
      * @return viewHolder
      */
     @NonNull
@@ -51,6 +53,10 @@ public class AccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 view = LayoutInflater.from(context)
                         .inflate(R.layout.item_account, parent, false);
                 return new AccountElementViewHolder(view);
+            case -1:
+                view = LayoutInflater.from(context)
+                        .inflate(R.layout.item_account_splitline, parent, false);
+                return new AccountSplitLineViewHolder(view);
         }
         return null;
     }
@@ -63,31 +69,47 @@ public class AccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      */
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        String text = null;
-        String money = null;
-        Integer color = null;
         switch (getItemViewType(position)) {
             case 0:
                 AccountSummarizeViewHolder accountSummarizeViewHolder = (AccountSummarizeViewHolder) holder;
                 AccountSummarize accountSummarize = (AccountSummarize)listAccountObjects.get(position).get("object");
 
-                text = accountSummarize.getText();
-                money = accountSummarize.getStrMoney();
+                final String text0 = accountSummarize.getText();
+                final String money0 = accountSummarize.getStrMoney();
 
-                accountSummarizeViewHolder.textViewText.setText(text);
-                accountSummarizeViewHolder.textViewMoney.setText(money);
+                accountSummarizeViewHolder.textViewText.setText(text0);
+                accountSummarizeViewHolder.textViewMoney.setText(money0);
+
                 break;
+
             case 1:
                 AccountElementViewHolder accountElementViewHolder = (AccountElementViewHolder) holder;
                 AccountElement accountElement = (AccountElement)listAccountObjects.get(position).get("object");
 
-                color = accountElement.getColor();
-                text = accountElement.getText();
-                money = accountElement.getStrMoney();
+                final int color1 = accountElement.getColor();
+                final String text1 = accountElement.getText();
+                final String money1 = accountElement.getStrMoney();
 
-                accountElementViewHolder.textViewText.setText(text);
-                accountElementViewHolder.textViewMoney.setText(money);
-                accountElementViewHolder.imageView.setImageResource(color);
+                final ImageView imageViewBackground = accountElementViewHolder.imageViewBackground;
+                final Context context1 = accountElementViewHolder.context;
+
+                imageViewBackground.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View arg0) {
+                        Intent intent = new Intent(context1, StatementActivity.class);
+                        intent.putExtra("account",text1);
+                        context1.startActivity(intent);
+                    }
+                });
+
+                accountElementViewHolder.textViewText.setText(text1);
+                accountElementViewHolder.textViewMoney.setText(money1);
+                accountElementViewHolder.imageViewColor.setImageResource(color1);
+
+                break;
+
+            case -1:
+                AccountSplitLineViewHolder accountSplitLineViewHolder = (AccountSplitLineViewHolder) holder;
                 break;
         }
     }
@@ -96,11 +118,11 @@ public class AccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      * 获取ItemView的类型
      *
      * @param position 数组的位置
-     * @return 类型(1:AccountElement, 0:AccountSummarize)
+     * @return 类型(1:AccountElement, 0:AccountSummarize, -1:AccountSplitLine)
      */
     @Override
     public int getItemViewType(int position) {
-        return (int)listAccountObjects.get(position).get("isElement");
+        return (int)listAccountObjects.get(position).get("type");
     }
 
     /**
@@ -112,6 +134,7 @@ public class AccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public int getItemCount() {
         return listAccountObjects.size();
     }
+
 }
 
 
@@ -121,15 +144,19 @@ public class AccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 class AccountElementViewHolder extends RecyclerView.ViewHolder {
     TextView textViewText;
     TextView textViewMoney;
-    ImageView imageView;
-
+    ImageView imageViewColor;
+    ImageView imageViewBackground;
+    Context context;
 
     AccountElementViewHolder(View view) {
         super(view);
-        textViewText = (TextView) view.findViewById(R.id.iaccount_text);
-        textViewMoney = (TextView) view.findViewById(R.id.iaccount_money);
-        imageView = (ImageView) view.findViewById(R.id.iaccount_color);
+        context = view.getContext();
+        textViewText = view.findViewById(R.id.iaccount_text);
+        textViewMoney = view.findViewById(R.id.iaccount_money);
+        imageViewColor = view.findViewById(R.id.iaccount_color);
+        imageViewBackground = view.findViewById(R.id.iaccount_background);
     }
+
 }
 
 
@@ -143,5 +170,18 @@ class AccountSummarizeViewHolder extends RecyclerView.ViewHolder {
         super(view);
         textViewText = view.findViewById(R.id.iaccountsummerize_text);
         textViewMoney = view.findViewById(R.id.iaccountsummerize_money);
+    }
+}
+
+
+/**
+ * AccountSplitLine的Holder, 与iaccountsplitline相关
+ */
+class AccountSplitLineViewHolder extends RecyclerView.ViewHolder {
+    ImageView imageView;
+
+    AccountSplitLineViewHolder(View view) {
+        super(view);
+        imageView = view.findViewById(R.id.iaccountsplitline_imageview);
     }
 }
