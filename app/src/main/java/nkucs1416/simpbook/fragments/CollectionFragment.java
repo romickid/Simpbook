@@ -1,4 +1,4 @@
-package nkucs1416.simpbook.record;
+package nkucs1416.simpbook.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -9,18 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import nkucs1416.simpbook.R;
+import nkucs1416.simpbook.record.CollectionAdapter;
 
 
-
-public class RecordCollectionFragment extends Fragment {
+public class CollectionFragment extends Fragment {
     private View view;
     private RecyclerView recyclerView;
     private ArrayList<Map<String,Object>> listClass1;
@@ -28,12 +26,12 @@ public class RecordCollectionFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public RecordCollectionFragment() {
+    public CollectionFragment() {
         // Required empty public constructor
     }
 
-    public static RecordCollectionFragment newInstance(String param1, String param2) {
-        RecordCollectionFragment fragment = new RecordCollectionFragment();
+    public static CollectionFragment newInstance(String param1, String param2) {
+        CollectionFragment fragment = new CollectionFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;

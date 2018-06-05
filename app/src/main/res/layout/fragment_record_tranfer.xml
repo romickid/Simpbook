@@ -5,6 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".record.RecordTranferFragment">
+    tools:context=".fragments.TranferFragment">
 
 </android.support.constraint.ConstraintLayout>

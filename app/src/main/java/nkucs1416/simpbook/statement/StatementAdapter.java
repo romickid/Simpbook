@@ -1,6 +1,7 @@
 package nkucs1416.simpbook.statement;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import nkucs1416.simpbook.R;
+import nkucs1416.simpbook.edit.EditActivity;
 
 import static nkucs1416.simpbook.util.Date.getStrDate;
 
@@ -20,7 +22,7 @@ public class StatementAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private ArrayList<HashMap<String, Object>> listStatementObjects;
     private Context context;
 
-    // RecyclerView.ViewHolder相关
+    // RecyclerView.Adapter相关
     /**
      * 构造函数, 读取需要绘制的AccountObjects列表
      *
@@ -65,29 +67,40 @@ public class StatementAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
      */
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        String text = null;
-        String money = null;
-        Integer color = null;
         switch (getItemViewType(position)) {
             case 0:
                 StatementDateViewHolder statementDateViewHolder = (StatementDateViewHolder) holder;
                 StatementDate statementDate = (StatementDate)listStatementObjects.get(position).get("object");
 
-                text = getStrDate(statementDate.getDate());
+                final String text0 = getStrDate(statementDate.getDate());
 
-                statementDateViewHolder.textViewText.setText(text);
+                statementDateViewHolder.textViewText.setText(text0);
+
                 break;
             case 1:
                 StatementElementViewHolder statementElementViewHolder = (StatementElementViewHolder) holder;
                 StatementElement statementElement = (StatementElement)listStatementObjects.get(position).get("object");
 
-                color = statementElement.getColor();
-                text = statementElement.getText();
-                money = statementElement.getStrMoney();
+                final int color1 = statementElement.getColor();
+                final String text1 = statementElement.getText();
+                final String money1 = statementElement.getStrMoney();
 
-                statementElementViewHolder.textViewText.setText(text);
-                statementElementViewHolder.textViewMoney.setText(money);
-                statementElementViewHolder.imageView.setImageResource(color);
+                final ImageView imageViewBackground1 = statementElementViewHolder.imageViewBackground;
+                final Context context1 = statementElementViewHolder.context;
+
+                imageViewBackground1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View arg0) {
+                        Intent intent = new Intent(context1, EditActivity.class);
+                        intent.putExtra("type","expense");
+                        context1.startActivity(intent);
+                    }
+                });
+
+                statementElementViewHolder.imageView.setImageResource(color1);
+                statementElementViewHolder.textViewText.setText(text1);
+                statementElementViewHolder.textViewMoney.setText(money1);
+
                 break;
         }
     }
@@ -123,12 +136,16 @@ class StatementElementViewHolder extends RecyclerView.ViewHolder {
     TextView textViewText;
     TextView textViewMoney;
     ImageView imageView;
+    ImageView imageViewBackground;
+    Context context;
 
     StatementElementViewHolder(View view) {
         super(view);
-        textViewText = (TextView) view.findViewById(R.id.istatement_text);
-        textViewMoney = (TextView) view.findViewById(R.id.istatement_money);
-        imageView = (ImageView) view.findViewById(R.id.istatement_color);
+        context = view.getContext();
+        textViewText = view.findViewById(R.id.istatement_text);
+        textViewMoney = view.findViewById(R.id.istatement_money);
+        imageView = view.findViewById(R.id.istatement_color);
+        imageViewBackground = view.findViewById(R.id.istatement_background);
     }
 }
 

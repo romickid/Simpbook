@@ -13,12 +13,16 @@ import android.os.Bundle;
 import android.view.View;
 
 import nkucs1416.simpbook.R;
+import nkucs1416.simpbook.fragments.CollectionFragment;
+import nkucs1416.simpbook.fragments.ExpenseFragment;
+import nkucs1416.simpbook.fragments.IncomeFragment;
+import nkucs1416.simpbook.fragments.TranferFragment;
 
 public class RecordActivity extends AppCompatActivity implements
-        RecordCollectionFragment.OnFragmentInteractionListener,
-        RecordIncomeFragment.OnFragmentInteractionListener,
-        RecordExpenseFragment.OnFragmentInteractionListener,
-        RecordTranferFragment.OnFragmentInteractionListener {
+        CollectionFragment.OnFragmentInteractionListener,
+        IncomeFragment.OnFragmentInteractionListener,
+        ExpenseFragment.OnFragmentInteractionListener,
+        TranferFragment.OnFragmentInteractionListener {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -88,13 +92,13 @@ public class RecordActivity extends AppCompatActivity implements
         String s = "a"; // todo
 
         listIndicators.add("模板");
-        listFragments.add(RecordCollectionFragment.newInstance(s,s));
+        listFragments.add(CollectionFragment.newInstance(s,s));
         listIndicators.add("支出");
-        listFragments.add(RecordExpenseFragment.newInstance(s,s));
+        listFragments.add(ExpenseFragment.newInstance(s,s));
         listIndicators.add("收入");
-        listFragments.add(RecordIncomeFragment.newInstance(s,s));
+        listFragments.add(IncomeFragment.newInstance(s,s));
         listIndicators.add("转账");
-        listFragments.add(RecordTranferFragment.newInstance(s,s));
+        listFragments.add(TranferFragment.newInstance(s,s));
 
         pagerAdapter = new RecordPagerAdapter(getSupportFragmentManager());
         pagerAdapter.setFragments(listFragments);

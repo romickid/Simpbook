@@ -1,4 +1,4 @@
-package nkucs1416.simpbook.record;
+package nkucs1416.simpbook.fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -13,12 +13,12 @@ import nkucs1416.simpbook.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link RecordTranferFragment.OnFragmentInteractionListener} interface
+ * {@link TranferFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link RecordTranferFragment#newInstance} factory method to
+ * Use the {@link TranferFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RecordTranferFragment extends Fragment {
+public class TranferFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,7 +30,7 @@ public class RecordTranferFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public RecordTranferFragment() {
+    public TranferFragment() {
         // Required empty public constructor
     }
 
@@ -40,11 +40,11 @@ public class RecordTranferFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment RecordTranferFragment.
+     * @return A new instance of fragment TranferFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static RecordTranferFragment newInstance(String param1, String param2) {
-        RecordTranferFragment fragment = new RecordTranferFragment();
+    public static TranferFragment newInstance(String param1, String param2) {
+        TranferFragment fragment = new TranferFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
