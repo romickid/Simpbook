@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,17 +22,17 @@ import android.text.TextWatcher;
 import android.text.Editable;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
 
 import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.util.Account;
-import nkucs1416.simpbook.util.AccountSpinnerAdapter;
+import nkucs1416.simpbook.account.AccountSpinnerAdapter;
 import nkucs1416.simpbook.util.Class1;
 import nkucs1416.simpbook.util.Class2;
 import nkucs1416.simpbook.util.Class2SpinnerAdapter;
 import nkucs1416.simpbook.util.Date;
 import nkucs1416.simpbook.util.Class1SpinnerAdapter;
+
+import static nkucs1416.simpbook.util.Date.*;
 
 public class RecordExpenseFragment extends Fragment {
     private View view;
@@ -117,6 +118,7 @@ public class RecordExpenseFragment extends Fragment {
         spinnerAccount = view.findViewById(R.id.fexpense_spinner_account);
         textViewDate = view.findViewById(R.id.fexpense_text_date);
         textViewRemark = view.findViewById(R.id.fexpense_text_remark);
+        buttonAdd = view.findViewById(R.id.fexpense_button_add);
     }
 
     /**
@@ -268,15 +270,7 @@ public class RecordExpenseFragment extends Fragment {
      * 设置日期的默认形式(使用者使用的当天日期)
      */
     private void setDefaultDate() {
-        setTextViewDate(new Date());
-    }
-
-    /**
-     * 设置日期的显示
-     * @param date 被设置的日期
-     */
-    private void setTextViewDate(Date date) {
-        textViewDate.setText(date.getYear() + "年" + date.getMonth() + "月" + date.getDay() + "日");
+        setTextViewDate(textViewDate, new Date());
     }
 
     /**
@@ -305,12 +299,11 @@ public class RecordExpenseFragment extends Fragment {
         listener = new OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                setTextViewDate(new Date(year, month+1, dayOfMonth));
+                setTextViewDate(textViewDate, new Date(year, month+1, dayOfMonth));
             }
         };
 
-
-        dialog = new DatePickerDialog(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, listener, date.getYear(), date.getMonth(), date.getDay());
+        dialog = new DatePickerDialog(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, listener, date.getYear(), date.getMonth()-1, date.getDay());
         return dialog;
     }
 
@@ -344,9 +337,11 @@ public class RecordExpenseFragment extends Fragment {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),3);
         View viewRemarkDialog = View.inflate(getActivity(), R.layout.dialog_remark, null);
         final EditText editTextDialog = viewRemarkDialog.findViewById(R.id.dremark_edittext);
+
+        editTextDialog.setText(textViewRemark.getText());
+
         builder.setTitle("备注");
         builder.setView(viewRemarkDialog);
-        editTextDialog.setText(textViewRemark.getText());
 
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
