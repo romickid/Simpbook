@@ -16,10 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".record.RecordActivity"></activity>
-        <activity android:name=".account.AccountActivity"></activity>
-        <activity android:name=".statement.StatementActivity"></activity>
-        <activity android:name=".setting.SettingActivity"></activity>
+        <activity android:name=".record.RecordActivity" />
+        <activity android:name=".account.AccountActivity" />
+        <activity android:name=".statement.StatementActivity" />
+        <activity android:name=".setting.SettingActivity" />
+        <activity android:name=".edit.EditActivity" />
     </application>
 
 </manifest>
