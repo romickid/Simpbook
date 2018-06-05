@@ -1,7 +1,5 @@
 package nkucs1416.simpbook.statement;
 
-import java.util.Map;
-
 import nkucs1416.simpbook.util.Date;
 
 class StatementFilter {
