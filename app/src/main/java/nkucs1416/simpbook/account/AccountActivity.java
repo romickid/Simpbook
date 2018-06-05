@@ -97,12 +97,6 @@ public class AccountActivity extends AppCompatActivity {
         hashMap.put("object", accountElement);
         listAccountObjects.add(hashMap);
 
-        type = -1;
-        hashMap = new HashMap<String, Object>();
-        hashMap.put("type", type);
-        hashMap.put("object", null);
-        listAccountObjects.add(hashMap);
-
         type = 0;
         accountSummarize = new AccountSummarize("负债账户", 2.0f);
         hashMap = new HashMap<String, Object>();

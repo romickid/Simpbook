@@ -6,7 +6,7 @@
     android:layout_height="10dp">
 
     <ImageView
-        android:id="@+id/iaccountsplitline_imageview"
+        android:id="@+id/isplitline_imageview"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -16,7 +16,7 @@
         app:srcCompat="@color/colorGrey200" />
 
     <ImageView
-        android:id="@+id/iaccountsplitline_topline"
+        android:id="@+id/isplitline_topline"
         android:layout_width="0dp"
         android:layout_height="1dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,10 +25,10 @@
         app:srcCompat="@color/colorGrey300" />
 
     <ImageView
-        android:id="@+id/iaccountsplitline_bottomline"
+        android:id="@+id/isplitline_bottomline"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        app:layout_constraintBottom_toBottomOf="@+id/iaccountsplitline_imageview"
+        app:layout_constraintBottom_toBottomOf="@+id/isplitline_imageview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@color/colorGrey300" />
