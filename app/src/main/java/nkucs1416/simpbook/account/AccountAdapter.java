@@ -55,8 +55,8 @@ public class AccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 return new AccountElementViewHolder(view);
             case -1:
                 view = LayoutInflater.from(context)
-                        .inflate(R.layout.item_account_splitline, parent, false);
-                return new AccountSplitLineViewHolder(view);
+                        .inflate(R.layout.item_splitline, parent, false);
+                return new SplitLineViewHolder(view);
         }
         return null;
     }
@@ -109,7 +109,7 @@ public class AccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 break;
 
             case -1:
-                AccountSplitLineViewHolder accountSplitLineViewHolder = (AccountSplitLineViewHolder) holder;
+                SplitLineViewHolder splitLineViewHolder = (SplitLineViewHolder) holder;
                 break;
         }
     }
@@ -176,13 +176,13 @@ class AccountSummarizeViewHolder extends RecyclerView.ViewHolder {
 
 
 /**
- * AccountSplitLine的Holder, 与iaccountsplitline相关
+ * AccountSplitLine的Holder, 与isplitline相关
  */
-class AccountSplitLineViewHolder extends RecyclerView.ViewHolder {
+class SplitLineViewHolder extends RecyclerView.ViewHolder {
     ImageView imageView;
 
-    AccountSplitLineViewHolder(View view) {
+    SplitLineViewHolder(View view) {
         super(view);
-        imageView = view.findViewById(R.id.iaccountsplitline_imageview);
+        imageView = view.findViewById(R.id.isplitline_imageview);
     }
 }
