@@ -15,6 +15,7 @@ import java.util.HashMap;
 
 import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.edit.EditActivity;
+import nkucs1416.simpbook.util.StatementRecord;
 
 import static nkucs1416.simpbook.util.Date.getStrDate;
 
@@ -39,7 +40,7 @@ public class StatementAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
      * 根据不同的viewType构建不同的ViewHolder
      *
      * @param parent default
-     * @param viewType 1:StatementElement, 0:StatementDate
+     * @param viewType 1:StatementRecord, 0:StatementDate
      * @return viewHolder
      */
     @NonNull
@@ -79,11 +80,11 @@ public class StatementAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 break;
             case 1:
                 StatementElementViewHolder statementElementViewHolder = (StatementElementViewHolder) holder;
-                StatementElement statementElement = (StatementElement)listStatementObjects.get(position).get("object");
+                StatementRecord statementRecord = (StatementRecord)listStatementObjects.get(position).get("object");
 
-                final int color1 = statementElement.getColor();
-                final String text1 = statementElement.getText();
-                final String money1 = statementElement.getStrMoney();
+                final int color1 = R.drawable.ic_lens_blue_a400_24dp;
+                final String text1 = "abc";
+                final String money1 = statementRecord.getStrMoney();
 
                 final ImageView imageViewBackground1 = statementElementViewHolder.imageViewBackground;
                 final Context context1 = statementElementViewHolder.context;

@@ -1,22 +1,21 @@
 package nkucs1416.simpbook.util;
 
-public class Class1 {
+public class User {
     private int id;
     private String name;
-    private int color;
-
+    private String email;
 
     /**
-     * 构建一个Class1实例
+     * 构建User的一个实例
      *
      * @param tId id
      * @param tName 名称
-     * @param tColor 标识颜色
+     * @param tEmail email
      */
-    public Class1(int tId, String tName, int tColor) {
+    User(int tId, String tName, String tEmail) {
         id = tId;
         name = tName;
-        color = tColor;
+        email = tEmail;
     }
 
 
@@ -39,12 +38,12 @@ public class Class1 {
     }
 
     /**
-     * 获取标识颜色
+     * 获取Email
      *
-     * @return 标识颜色
+     * @return Email
      */
-    public int getColor() {
-        return color;
+    public String getEmail() {
+        return email;
     }
-
+    
 }

@@ -222,13 +222,13 @@ public class ExpenseFragment extends Fragment {
      */
     private void demoSetListClass1() {
         listClass1 = new ArrayList<Class1>();
-        Class1 class1 = new Class1("1", R.drawable.ic_lens_yellow_a400_24dp, 1);
+        Class1 class1 = new Class1(1, "早餐", R.drawable.ic_lens_yellow_a400_24dp);
         listClass1.add(class1);
 
-        class1 = new Class1("2", R.drawable.ic_lens_blue_a400_24dp, 2);
+        class1 = new Class1(2, "午餐", R.drawable.ic_lens_blue_a400_24dp);
         listClass1.add(class1);
 
-        class1 = new Class1("3", R.drawable.ic_lens_yellow_a400_24dp, 3);
+        class1 = new Class1(3, "晚餐", R.drawable.ic_lens_red_a400_24dp);
         listClass1.add(class1);
     }
 
@@ -237,13 +237,13 @@ public class ExpenseFragment extends Fragment {
      */
     private void demoSetListClass2() {
         listClass2 = new ArrayList<Class2>();
-        Class2 class2 = new Class2("1", R.drawable.ic_lens_yellow_a400_24dp, 1);
+        Class2 class2 = new Class2(1, "早餐", R.drawable.ic_lens_yellow_a400_24dp);
         listClass2.add(class2);
 
-        class2 = new Class2("2", R.drawable.ic_lens_blue_a400_24dp, 2);
+        class2 = new Class2(2, "午餐", R.drawable.ic_lens_blue_a400_24dp);
         listClass2.add(class2);
 
-        class2 = new Class2("3", R.drawable.ic_lens_yellow_a400_24dp, 3);
+        class2 = new Class2(3, "晚餐", R.drawable.ic_lens_red_a400_24dp);
         listClass2.add(class2);
     }
 
@@ -254,13 +254,13 @@ public class ExpenseFragment extends Fragment {
      */
     private void demoSetListAccount() {
         listAccount = new ArrayList<Account>();
-        Account account = new Account("1", R.drawable.ic_lens_yellow_a400_24dp, 1);
+        Account account = new Account(1, "支付宝", 20f, R.drawable.ic_lens_blue_a400_24dp);
         listAccount.add(account);
 
-        account = new Account("2", R.drawable.ic_lens_blue_a400_24dp, 2);
+        account = new Account(2, "现金", 30f, R.drawable.ic_lens_red_a400_24dp);
         listAccount.add(account);
 
-        account = new Account("3", R.drawable.ic_lens_yellow_a400_24dp, 3);
+        account = new Account(3, "信用卡", 40f, R.drawable.ic_lens_green_a400_24dp);
         listAccount.add(account);
     }
 
