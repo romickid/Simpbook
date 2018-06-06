@@ -13,7 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import nkucs1416.simpbook.R;
-import nkucs1416.simpbook.fragments.CollectionFragment;
+import nkucs1416.simpbook.fragments.CollectionFragment.CollectionFragment;
 import nkucs1416.simpbook.fragments.ExpenseFragment;
 import nkucs1416.simpbook.fragments.IncomeFragment;
 import nkucs1416.simpbook.fragments.TranferFragment;
@@ -112,18 +112,26 @@ public class RecordActivity extends AppCompatActivity implements
 
     // 其他
     /**
-     * 设置默认显示的tab页面(模板/支出)
+     * 设置默认显示的tab页面(模板/支出/收入/转账)
      */
     private void setCurrentTab() {
         Intent intent = getIntent();
-        String currentTab = intent.getStringExtra("tabID");
+        String currentTab = intent.getStringExtra("type");
         switch (currentTab) {
-            case "1":
+            case "collection":
+                viewPager.setCurrentItem(0);
+                break;
+            case "expense":
                 viewPager.setCurrentItem(1);
                 break;
-            case "0":
+            case "income":
+                viewPager.setCurrentItem(2);
+                break;
+            case "transfer":
+                viewPager.setCurrentItem(3);
+                break;
             default:
-                viewPager.setCurrentItem(0);
+                viewPager.setCurrentItem(1);
         }
     }
 }
