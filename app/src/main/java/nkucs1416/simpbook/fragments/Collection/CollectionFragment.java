@@ -1,4 +1,4 @@
-package nkucs1416.simpbook.fragments.CollectionFragment;
+package nkucs1416.simpbook.fragments.Collection;
 
 import android.content.Context;
 import android.net.Uri;
