@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -25,7 +24,7 @@
         app:titleTextColor="@color/colorWhite" />
 
     <ImageView
-        android:id="@+id/statement_imageview_top"
+        android:id="@+id/statement_staticview_top"
         android:layout_width="0dp"
         android:layout_height="128dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +34,7 @@
         app:srcCompat="@color/colorDefaultBlue" />
 
     <TextView
-        android:id="@+id/statement_statictextview_remain"
+        android:id="@+id/statement_statictext1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -43,24 +42,10 @@
         android:textColor="@color/colorWhite"
         android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@+id/statement_textview_income"
-        app:layout_constraintStart_toStartOf="@+id/statement_statictextview_income" />
+        app:layout_constraintStart_toStartOf="@+id/statement_statictext2" />
 
     <TextView
-        android:id="@+id/statement_textview_remain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:text="1.23"
-        android:textColor="@color/colorWhite"
-        android:textSize="40sp"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:includeFontPadding="false"
-        app:layout_constraintBottom_toTopOf="@+id/statement_statictextview_remain"
-        app:layout_constraintStart_toStartOf="@+id/statement_statictextview_income" />
-
-    <TextView
-        android:id="@+id/statement_statictextview_income"
+        android:id="@+id/statement_statictext2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -68,27 +53,11 @@
         android:text="收入"
         android:textColor="@color/colorWhite"
         android:textSize="13sp"
-        app:layout_constraintBottom_toBottomOf="@+id/statement_imageview_top"
+        app:layout_constraintBottom_toBottomOf="@+id/statement_staticview_top"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/statement_textview_income"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="5"
-        android:text="1.23"
-        android:textColor="@color/colorWhite"
-        android:textSize="22sp"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:includeFontPadding="false"
-        app:layout_constraintBottom_toTopOf="@+id/statement_statictextview_income"
-        app:layout_constraintStart_toStartOf="@+id/statement_statictextview_income" />
-
-    <TextView
-        android:id="@+id/statement_statictextview_expence"
+        android:id="@+id/statement_statictext3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -96,25 +65,55 @@
         android:text="支出"
         android:textColor="@color/colorWhite"
         android:textSize="13sp"
-        app:layout_constraintBottom_toBottomOf="@+id/statement_statictextview_income"
+        app:layout_constraintBottom_toBottomOf="@+id/statement_statictext2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/statement_textview_remain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="5"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="1.23"
+        android:textColor="@color/colorWhite"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/statement_statictext1"
+        app:layout_constraintStart_toStartOf="@+id/statement_statictext2" />
+
+    <TextView
+        android:id="@+id/statement_textview_income"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="5"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="1.23"
+        android:textColor="@color/colorWhite"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/statement_statictext2"
+        app:layout_constraintStart_toStartOf="@+id/statement_statictext2" />
 
     <TextView
         android:id="@+id/statement_textview_expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginEnd="32dp"
         android:layout_marginTop="10dp"
         android:layout_weight="5"
+        android:gravity="center"
+        android:includeFontPadding="false"
         android:text="1.23"
         android:textColor="@color/colorWhite"
         android:textSize="22sp"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:includeFontPadding="false"
-        app:layout_constraintBottom_toTopOf="@+id/statement_statictextview_expence"
-        app:layout_constraintStart_toStartOf="@+id/statement_statictextview_expence" />
+        app:layout_constraintBottom_toTopOf="@+id/statement_statictext3"
+        app:layout_constraintStart_toStartOf="@+id/statement_statictext3" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/statement_recyclerview"
@@ -123,7 +122,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statement_imageview_top" />
+        app:layout_constraintTop_toBottomOf="@+id/statement_staticview_top" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/statement_button_filter"

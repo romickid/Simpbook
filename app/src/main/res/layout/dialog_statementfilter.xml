@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/dstatementfilter_textview_static1"
+        android:id="@+id/dstatementfilter_statictext1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -17,17 +17,50 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/dstatementfilter_statictext2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="账户"
+        android:textColor="@color/colorText54"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/dstatementfilter_statictext1"
+        app:layout_constraintTop_toBottomOf="@+id/dstatementfilter_spinner_class1" />
+
+    <TextView
+        android:id="@+id/dstatementfilter_statictext3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="时间段"
+        android:textColor="@color/colorText54"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/dstatementfilter_statictext1"
+        app:layout_constraintTop_toBottomOf="@+id/dstatementfilter_spinner_account" />
+
+    <ImageView
+        android:id="@+id/dstatementfilter_staticimage1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toEndOf="@+id/dstatementfilter_textview_datefrom"
+        app:layout_constraintTop_toTopOf="@+id/dstatementfilter_textview_datefrom"
+        app:srcCompat="@drawable/ic_chevron_right_black_18dp" />
+
     <Spinner
         android:id="@+id/dstatementfilter_spinner_class1"
         style="@android:style/Widget.Material.Light.Spinner"
         android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
         android:background="@null"
         android:overlapAnchor="false"
         app:layout_constraintEnd_toStartOf="@+id/dstatementfilter_spinner_class2"
-        app:layout_constraintStart_toStartOf="@+id/dstatementfilter_textview_static1"
-        app:layout_constraintTop_toBottomOf="@+id/dstatementfilter_textview_static1" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dstatementfilter_statictext1" />
 
     <Spinner
         android:id="@+id/dstatementfilter_spinner_class2"
@@ -41,67 +74,36 @@
         app:layout_constraintStart_toEndOf="@+id/dstatementfilter_spinner_class1"
         app:layout_constraintTop_toTopOf="@+id/dstatementfilter_spinner_class1" />
 
-    <TextView
-        android:id="@+id/dstatementfilter_textview_static2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="时间段"
-        android:textColor="@color/colorText54"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/dstatementfilter_textview_static1"
-        app:layout_constraintTop_toBottomOf="@+id/dstatementfilter_spinner_account" />
-
-    <TextView
-        android:id="@+id/dstatementfilter_textview_static"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="账户"
-        android:textColor="@color/colorText54"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/dstatementfilter_textview_static1"
-        app:layout_constraintTop_toBottomOf="@+id/dstatementfilter_spinner_class1" />
-
     <Spinner
         android:id="@+id/dstatementfilter_spinner_account"
         android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="4dp"
         android:background="@null"
         android:overlapAnchor="false"
         app:layout_constraintEnd_toEndOf="@+id/dstatementfilter_spinner_class2"
-        app:layout_constraintStart_toStartOf="@+id/dstatementfilter_textview_static1"
-        app:layout_constraintTop_toBottomOf="@+id/dstatementfilter_textview_static" />
+        app:layout_constraintStart_toStartOf="@+id/dstatementfilter_spinner_class1"
+        app:layout_constraintTop_toBottomOf="@+id/dstatementfilter_statictext2" />
 
     <TextView
         android:id="@+id/dstatementfilter_textview_datefrom"
         android:layout_width="wrap_content"
         android:layout_height="22dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginTop="8dp"
-        android:textSize="18sp"
+        android:layout_marginTop="4dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/dstatementfilter_textview_static1"
-        app:layout_constraintTop_toBottomOf="@+id/dstatementfilter_textview_static2" />
-
-    <TextView
-        android:id="@+id/dstatementfilter_statictextview_to"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
-        android:text=" - "
-        app:layout_constraintStart_toEndOf="@+id/dstatementfilter_textview_datefrom"
-        app:layout_constraintTop_toTopOf="@+id/dstatementfilter_textview_datefrom" />
+        app:layout_constraintStart_toStartOf="@+id/dstatementfilter_statictext1"
+        app:layout_constraintTop_toBottomOf="@+id/dstatementfilter_statictext3" />
 
     <TextView
         android:id="@+id/dstatementfilter_textview_dateto"
         android:layout_width="wrap_content"
         android:layout_height="22dp"
         android:layout_marginStart="8dp"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/dstatementfilter_statictextview_to"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/dstatementfilter_staticimage1"
         app:layout_constraintTop_toTopOf="@+id/dstatementfilter_textview_datefrom" />
 
 </android.support.constraint.ConstraintLayout>

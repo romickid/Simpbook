@@ -47,7 +47,7 @@ public class CollectionFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        view = inflater.inflate(R.layout.fragment_record_collection, container, false);
+        view = inflater.inflate(R.layout.fragment_collection, container, false);
         initFindById();
         initRecycleView();
 

@@ -27,9 +27,9 @@
         android:layout_marginStart="4dp"
         android:gravity="center"
         android:includeFontPadding="false"
-        android:paddingBottom="2dp"
-        android:paddingTop="2dp"
-        android:textSize="22sp"
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ispinner_color"
         app:layout_constraintTop_toTopOf="parent" />

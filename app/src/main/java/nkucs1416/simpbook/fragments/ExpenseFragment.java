@@ -73,7 +73,7 @@ public class ExpenseFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        view = inflater.inflate(R.layout.fragment_record_expense, container, false);
+        view = inflater.inflate(R.layout.fragment_expense, container, false);
         initFindById();
 
         initMoney();
@@ -112,11 +112,11 @@ public class ExpenseFragment extends Fragment {
      * 初始化Id
      */
     private void initFindById() {
-        editTextMoney = view.findViewById(R.id.fexpense_text_money);
+        editTextMoney = view.findViewById(R.id.fexpense_editview_money);
         spinnerClass1 = view.findViewById(R.id.fexpense_spinner_class1);
         spinnerClass2 = view.findViewById(R.id.fexpense_spinner_class2);
         spinnerAccount = view.findViewById(R.id.fexpense_spinner_account);
-        textViewDate = view.findViewById(R.id.fexpense_text_date);
+        textViewDate = view.findViewById(R.id.fexpense_textview_date);
         textViewRemark = view.findViewById(R.id.fexpense_text_remark);
         buttonAdd = view.findViewById(R.id.fexpense_button_add);
     }
