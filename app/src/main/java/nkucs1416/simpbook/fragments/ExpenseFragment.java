@@ -117,7 +117,7 @@ public class ExpenseFragment extends Fragment {
         spinnerClass2 = view.findViewById(R.id.fexpense_spinner_class2);
         spinnerAccount = view.findViewById(R.id.fexpense_spinner_account);
         textViewDate = view.findViewById(R.id.fexpense_textview_date);
-        textViewRemark = view.findViewById(R.id.fexpense_text_remark);
+        textViewRemark = view.findViewById(R.id.fexpense_textview_remark);
         buttonAdd = view.findViewById(R.id.fexpense_button_add);
     }
 

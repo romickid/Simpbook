@@ -51,7 +51,7 @@ public class AccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 return new AccountSummarizeViewHolder(view);
             case 1:
                 view = LayoutInflater.from(context)
-                        .inflate(R.layout.item_account, parent, false);
+                        .inflate(R.layout.item_account_element, parent, false);
                 return new AccountElementViewHolder(view);
             case -1:
                 view = LayoutInflater.from(context)
@@ -151,10 +151,10 @@ class AccountElementViewHolder extends RecyclerView.ViewHolder {
     AccountElementViewHolder(View view) {
         super(view);
         context = view.getContext();
-        textViewText = view.findViewById(R.id.iaccount_text);
-        textViewMoney = view.findViewById(R.id.iaccount_money);
-        imageViewColor = view.findViewById(R.id.iaccount_color);
-        imageViewBackground = view.findViewById(R.id.iaccount_background);
+        textViewText = view.findViewById(R.id.iaccountelement_text);
+        textViewMoney = view.findViewById(R.id.iaccountelement_money);
+        imageViewColor = view.findViewById(R.id.iaccountelement_color);
+        imageViewBackground = view.findViewById(R.id.iaccountelement_background);
     }
 
 }
