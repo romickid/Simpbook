@@ -16,13 +16,13 @@ import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.fragments.Collection.CollectionFragment;
 import nkucs1416.simpbook.fragments.ExpenseFragment;
 import nkucs1416.simpbook.fragments.IncomeFragment;
-import nkucs1416.simpbook.fragments.TranferFragment;
+import nkucs1416.simpbook.fragments.TransferFragment;
 
 public class RecordActivity extends AppCompatActivity implements
         CollectionFragment.OnFragmentInteractionListener,
         IncomeFragment.OnFragmentInteractionListener,
         ExpenseFragment.OnFragmentInteractionListener,
-        TranferFragment.OnFragmentInteractionListener {
+        TransferFragment.OnFragmentInteractionListener {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -98,7 +98,7 @@ public class RecordActivity extends AppCompatActivity implements
         listIndicators.add("收入");
         listFragments.add(IncomeFragment.newInstance(s,s));
         listIndicators.add("转账");
-        listFragments.add(TranferFragment.newInstance(s,s));
+        listFragments.add(TransferFragment.newInstance(s,s));
 
         pagerAdapter = new RecordPagerAdapter(getSupportFragmentManager());
         pagerAdapter.setFragments(listFragments);

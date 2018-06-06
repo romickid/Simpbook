@@ -13,12 +13,12 @@ import android.view.View;
 import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.fragments.ExpenseFragment;
 import nkucs1416.simpbook.fragments.IncomeFragment;
-import nkucs1416.simpbook.fragments.TranferFragment;
+import nkucs1416.simpbook.fragments.TransferFragment;
 
 public class EditActivity extends AppCompatActivity implements
         IncomeFragment.OnFragmentInteractionListener,
         ExpenseFragment.OnFragmentInteractionListener,
-        TranferFragment.OnFragmentInteractionListener {
+        TransferFragment.OnFragmentInteractionListener {
 
     private Toolbar toolbar;
 
@@ -95,7 +95,7 @@ public class EditActivity extends AppCompatActivity implements
                 fragmentTransaction.commit();
                 break;
             case "transfer":
-                fragment = new TranferFragment();
+                fragment = new TransferFragment();
                 fragmentTransaction.replace(R.id.edit_framelayout, fragment);
                 fragmentTransaction.commit();
                 break;
