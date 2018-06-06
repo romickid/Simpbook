@@ -7,4 +7,186 @@
     android:layout_height="match_parent"
     tools:context=".fragments.IncomeFragment">
 
+    <EditText
+        android:id="@+id/fincome_editview_money"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:hint="0.00"
+        android:inputType="numberDecimal"
+        android:textAllCaps="false"
+        android:textColor="@color/colorRecordRed"
+        android:textColorHint="@color/colorRecordRed"
+        android:textColorLink="@color/colorRecordRed"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/fincome_spinner_class1"
+        style="@android:style/Widget.Material.Light.Spinner"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="4dp"
+        android:background="@null"
+        android:overlapAnchor="false"
+        app:layout_constraintEnd_toStartOf="@+id/fincome_spinner_class2"
+        app:layout_constraintStart_toStartOf="@+id/fincome_editview_money"
+        app:layout_constraintTop_toBottomOf="@+id/fincome_statictext1" />
+
+    <Spinner
+        android:id="@+id/fincome_spinner_class2"
+        style="@android:style/Widget.Material.Light.Spinner"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="4dp"
+        android:background="@null"
+        android:overlapAnchor="false"
+        app:layout_constraintEnd_toEndOf="@+id/fincome_editview_money"
+        app:layout_constraintStart_toEndOf="@+id/fincome_spinner_class1"
+        app:layout_constraintTop_toBottomOf="@+id/fincome_statictext1" />
+
+    <Spinner
+        android:id="@+id/fincome_spinner_account"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="4dp"
+        android:background="@null"
+        android:overlapAnchor="false"
+        app:layout_constraintEnd_toStartOf="@+id/fincome_spinner_class2"
+        app:layout_constraintStart_toStartOf="@+id/fincome_editview_money"
+        app:layout_constraintTop_toBottomOf="@+id/fincome_statictext2" />
+
+    <TextView
+        android:id="@+id/fincome_textview_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/fincome_editview_money"
+        app:layout_constraintTop_toBottomOf="@+id/fincome_statictext3" />
+
+    <TextView
+        android:id="@+id/fincome_textview_remark"
+        android:layout_width="346dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:textColor="@color/colorText54"
+        android:textColorLink="@android:color/darker_gray"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/fincome_editview_money"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/fincome_editview_money"
+        app:layout_constraintTop_toBottomOf="@+id/fincome_statictext4" />
+
+    <TextView
+        android:id="@+id/fincome_statictext1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="分类"
+        android:textColor="@color/colorText54"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/fincome_editview_money"
+        app:layout_constraintTop_toBottomOf="@+id/fincome_staticline1" />
+
+    <TextView
+        android:id="@+id/fincome_statictext2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="账户"
+        android:textColor="@color/colorText54"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/fincome_editview_money"
+        app:layout_constraintTop_toBottomOf="@+id/fincome_staticline2" />
+
+    <TextView
+        android:id="@+id/fincome_statictext3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="时间"
+        android:textColor="@color/colorText54"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/fincome_editview_money"
+        app:layout_constraintTop_toBottomOf="@+id/fincome_staticline3" />
+
+    <TextView
+        android:id="@+id/fincome_statictext4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="备注"
+        android:textColor="@color/colorText54"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/fincome_editview_money"
+        app:layout_constraintTop_toBottomOf="@+id/fincome_staticline4" />
+
+    <ImageView
+        android:id="@+id/fincome_staticline1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:src="@color/colorGrey300"
+        app:layout_constraintEnd_toEndOf="@+id/fincome_editview_money"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/fincome_editview_money"
+        app:layout_constraintTop_toBottomOf="@+id/fincome_editview_money" />
+
+    <ImageView
+        android:id="@+id/fincome_staticline2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:src="@color/colorGrey300"
+        app:layout_constraintEnd_toEndOf="@+id/fincome_editview_money"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/fincome_editview_money"
+        app:layout_constraintTop_toBottomOf="@+id/fincome_spinner_class1" />
+
+    <ImageView
+        android:id="@+id/fincome_staticline3"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:src="@color/colorGrey300"
+        app:layout_constraintEnd_toEndOf="@+id/fincome_editview_money"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/fincome_editview_money"
+        app:layout_constraintTop_toBottomOf="@+id/fincome_spinner_account" />
+
+    <ImageView
+        android:id="@+id/fincome_staticline4"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:src="@color/colorGrey300"
+        app:layout_constraintEnd_toEndOf="@+id/fincome_editview_money"
+        app:layout_constraintStart_toStartOf="@+id/fincome_editview_money"
+        app:layout_constraintTop_toBottomOf="@+id/fincome_textview_date" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fincome_button_add"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="32dp"
+        android:clickable="true"
+        android:src="@drawable/ic_add_grey_500_24dp"
+        app:backgroundTint="@color/colorDefaultYellow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+    
 </android.support.constraint.ConstraintLayout>
