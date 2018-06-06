@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageViewWeek;
     private ImageView imageViewMonth;
     private ImageView imageViewYear;
-    private ImageView imageViewBasicInfo;
+    private ImageView imageViewTopInfo;
 
     private TextView textViewDate;
 
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         imageViewWeek = findViewById(R.id.main_imageview_info2);
         imageViewMonth = findViewById(R.id.main_imageview_info3);
         imageViewYear = findViewById(R.id.main_imageview_info4);
-        imageViewBasicInfo = findViewById(R.id.main_tpimageview_basicinfo);
+        imageViewTopInfo = findViewById(R.id.main_imageview_topinfo);
 
         textViewDate = findViewById(R.id.main_textview_date);
     }
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
      * 初始化顶部综合信息
      */
     private void initImageViewBasicInfo() {
-        imageViewBasicInfo.setOnClickListener(new View.OnClickListener() {
+        imageViewTopInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub

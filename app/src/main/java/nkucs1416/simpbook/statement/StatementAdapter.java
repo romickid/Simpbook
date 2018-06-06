@@ -54,7 +54,7 @@ public class StatementAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 return new StatementDateViewHolder(view);
             case 1:
                 view = LayoutInflater.from(context)
-                        .inflate(R.layout.item_statement, parent, false);
+                        .inflate(R.layout.item_statement_record, parent, false);
                 return new StatementElementViewHolder(view);
         }
         return null;
