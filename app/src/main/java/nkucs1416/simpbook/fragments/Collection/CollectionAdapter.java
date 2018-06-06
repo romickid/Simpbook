@@ -1,4 +1,4 @@
-package nkucs1416.simpbook.fragments.CollectionFragment;
+package nkucs1416.simpbook.fragments.Collection;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import nkucs1416.simpbook.R;
-import nkucs1416.simpbook.edit.EditActivity;
 import nkucs1416.simpbook.record.RecordActivity;
 import nkucs1416.simpbook.util.CollectionElement;
 
@@ -109,7 +108,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
      * 获取View的类型
      *
      * @param position 数组的位置
-     * @return 类型(1:CollectionElement, 0:CollectionSummarize, -1:CollectionSplitLine)
+     * @return 类型(1:CollectionElement, 0:CollectionSummarize)
      */
     @Override
     public int getItemViewType(int position) {
@@ -130,7 +129,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
 /**
- * CollectionElement的Holder, 与icollection相关
+ * CollectionElement的Holder, 与icollectionelement相关
  */
 class CollectionElementViewHolder extends RecyclerView.ViewHolder {
     TextView textViewText;

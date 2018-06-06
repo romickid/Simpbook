@@ -13,7 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import nkucs1416.simpbook.R;
-import nkucs1416.simpbook.fragments.CollectionFragment.CollectionFragment;
+import nkucs1416.simpbook.fragments.Collection.CollectionFragment;
 import nkucs1416.simpbook.fragments.ExpenseFragment;
 import nkucs1416.simpbook.fragments.IncomeFragment;
 import nkucs1416.simpbook.fragments.TranferFragment;
