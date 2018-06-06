@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
                 Intent intent = new Intent(MainActivity.this, RecordActivity.class);
-                intent.putExtra("tabID","1");
+                intent.putExtra("type","expense");
                 startActivity(intent);
             }
         });
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
                 Intent intent = new Intent(MainActivity.this, RecordActivity.class);
-                intent.putExtra("tabID","0");
+                intent.putExtra("type","collection");
                 startActivity(intent);
             }
         });
