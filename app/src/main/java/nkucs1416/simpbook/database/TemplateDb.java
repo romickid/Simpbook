@@ -40,9 +40,9 @@ public class TemplateDb {
      * @param account_toId 发送账户id
      * @param template_time 日期
      *
-     * @return "SUCCESS" or "UNKNOW ERROR"
+     * @return "成功" or "UNKNOW ERROR"
      */
-    public String insertTemplate(int  account_id, int template_type, float template_money,
+    private String insertTemplate(int  account_id, int template_type, float template_money,
                                   String template_note, int category_id, int subcategory_id,
                                   int account_toId, Date template_time) {
 
@@ -71,41 +71,17 @@ public class TemplateDb {
 
     }
 
-    /**
-     * 插入一条template数据
-     *
-     * @param account_id 账户id
-     * @param template_type 种类
-     * @param template_money 金额
-     * @param template_note 备注
-     * @param category_id 一级分类id
-     * @param subcategory_id 二级分类id
-     * @param template_time 日期
-     *
-     * @return "SUCCESS" or "UNKNOW ERROR"
-     */
-    public String insertTemplate(int  account_id, int template_type, float template_money,
-                                  String template_note, int category_id, int subcategory_id, Date template_time) {
-        String result = insertTemplate(account_id, template_type, template_money, template_note, category_id, subcategory_id, 0, template_time);
-        return result;
-    }
 
     /**
      * 插入一条template数据
      *
-     * @param account_id 账户id
-     * @param template_type 种类
-     * @param template_money 金额
-     * @param template_note 备注
-     * @param account_toId 发送账户id
-     * @param template_time 日期
+     * @param collection 模版实例
      *
      * @return "SUCCESS" or "UNKNOW ERROR"
      */
-
-    public String insertTemplate(int  account_id, int template_type, float template_money,
-                                  String template_note, int account_toId, Date template_time) {
-        return insertTemplate(account_id, template_type, template_money, template_note, 0, 0, account_toId, template_time);
+    public String insertTemplate(Collection collection) {
+        return insertTemplate(collection.getAccountId(), collection.getType(), collection.getMoney(), collection.getRemark(), collection.getClass1Id(),
+                collection.getClass2Id(), collection.getToAccountId(), collection.getDate());
     }
 
     /**
@@ -165,6 +141,18 @@ public class TemplateDb {
         db.execSQL(DELETE_ALL);
     }
 
+
+    /**
+     * 更新一条template数据
+     *
+     * @param collection 模版实例
+     *
+     * @return "SUCCESS" or "UNKNOW ERROR"
+     */
+    public String updateTemplate(Collection collection) {
+        return updateTemplate(collection.getId(), collection.getAccountId(), collection.getType(), collection.getMoney(), collection.getRemark(),
+        collection.getClass1Id(),collection.getClass2Id(),collection.getToAccountId(), collection.getDate());
+    }
     /**
      * 更新一条template数据
      *
@@ -178,9 +166,9 @@ public class TemplateDb {
      * @param account_toId 发送账户id
      * @param template_time 日期
      *
-     * @return "SUCCESS" or "UNKNOW ERROR"
+     * @return "成功" or ""
      */
-    public String updateTemplate(int template_id, int  account_id, int template_type, float template_money,
+    private String updateTemplate(int template_id, int  account_id, int template_type, float template_money,
                                   String template_note, int category_id, int subcategory_id,
                                   int account_toId, Date template_time) {
 
@@ -203,53 +191,26 @@ public class TemplateDb {
         int result = db.update("c_template", values, "template_id = ?", new String[]{template_id+""});
 
         if (result > 0)
-            return "SUCCESS";
-        else return "UNKNOW ERROR";
-    }
-
-    /**
-     * 更新一条template数据
-     *
-     * @param template_id 模版Id
-     * @param account_id 账户id
-     * @param template_type 种类
-     * @param template_money 金额
-     * @param template_note 备注
-     * @param category_id 一级分类id
-     * @param subcategory_id 二级分类id
-     * @param template_time 日期
-     *
-     * @return "SUCCESS" or "UNKNOW ERROR"
-     */
-    public String updateTemplate(int template_id, int  account_id, int template_type, float template_money,
-                                  String template_note, int category_id, int subcategory_id, Date template_time) {
-        return updateTemplate(template_id, account_id, template_type, template_money, template_note, category_id, subcategory_id, 0, template_time);
-    }
-
-    /**
-     * 更新一条template数据
-     *
-     * @param template_id 模版Id
-     * @param account_id 账户id
-     * @param template_type 种类
-     * @param template_money 金额
-     * @param template_note 备注
-     * @param account_toId 发送账户id
-     * @param template_time 日期
-     *
-     * @return "SUCCESS" or "UNKNOW ERROR"
-     */
-    public String updateTemplate(int template_id, int  account_id, int template_type, float template_money,
-                                  String template_note, int account_toId, Date template_time) {
-        return updateTemplate(template_id, account_id, template_type, template_money, template_note, 0,0, account_toId, template_time);
+            return "成功";
+        else return "修改失败";
     }
 
     /**
      * 删除一条template数据
      *
+     * @param collection 模版实例
+     *
+     * @return "成功" or "删除失败"
+     */
+    public String deleteTemplate(Collection collection) {
+        return deleteTemplate(collection.getId());
+    }
+    /**
+     * 删除一条template数据
+     *
      * @param template_id 模版Id
      *
-     * @return "SUCCESS" or "UNKNOW ERROR"
+     * @return "成功" or "删除失败"
      */
     public String deleteTemplate(int template_id) {
         ContentValues values = new ContentValues();
@@ -258,8 +219,8 @@ public class TemplateDb {
         int result = db.update("c_template", values, "template_id = ?", new String[]{template_id+""});
 
         if (result > 0)
-            return "SUCCESS";
-        else return "UNKNOW ERROR";
+            return "成功";
+        else return "删除失败";
     }
 
     /**

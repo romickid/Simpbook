@@ -33,7 +33,7 @@ public class AccountDb {
      * 插入一条account数据
      *
      * @param account 账户名
-     * @return "SUCCESS" or "DUPLICATE ERROR" or "UNKNOW SQL ERROR"
+     * @return "成功" or "账户名重复" or "未知错误"
      */
     public String insertAccount(Account account) {
         return insertAccount(account.getName(),account.getColor(),  account.getMoney(), account.getType());
@@ -52,7 +52,7 @@ public class AccountDb {
                     new String[]{account_name}, null, null, null);
             int count = cursor.getCount();
             if (count > 0)
-                return "DUPLICATE ERROR";
+                return "账户名重复";
 
             ContentValues values = new ContentValues();
             values.put("account_name", account_name);
@@ -75,10 +75,10 @@ public class AccountDb {
                 updateAccountSum(accountId);
             }
             if (result > -1)
-                return "SUCCESS";
-            else return "UNKNOW SQL ERROR";
+                return "成功";
+            else return "未知错误";
         } catch (SQLException e) {
-            return "UNKNOW SQL ERROR";
+            return "未知错误";
         }
     }
 
@@ -101,7 +101,7 @@ public class AccountDb {
                     new String[]{account_name, account_id+""}, null, null, null);
             int count = cursor.getCount();
             if (count > 0)
-                return "DUPLICATE ERROR";
+                return "账户名重复";
 
             ContentValues values = new ContentValues();
             values.put("account_name", account_name);
@@ -124,10 +124,10 @@ public class AccountDb {
 
 
             if (result > 0)
-                return "SUCCESS";
-            else return "UNKNOW ERROR";
+                return "成功";
+            else return "未知错误";
         } catch (SQLException e) {
-            return "UNKNOW SQL ERROR";
+            return "未知错误";
         }
 
     }
@@ -254,7 +254,7 @@ public class AccountDb {
      *
      * @param account_id 账户id
      */
-    public String deleteAccount(int account_id) {
+    private String deleteAccount(int account_id) {
         try {
 
             RecordDb recordDb = new RecordDb(db);
@@ -262,10 +262,11 @@ public class AccountDb {
             TemplateDb templateDb = new TemplateDb(db);
 
             boolean access1 = recordDb.isHaveRecord("c_account", account_id);
-
+            if (access1)
+                return "该账户下有流水记录";
             boolean access2 = templateDb.isHaveTemplate("c_account", account_id);
-            if (access1 || access2)
-                return "HAVE RECORD ON ACCOUNT";
+            if (access2)
+                return "该账户下有模版记录";
 
             ContentValues values = new ContentValues();
             values.put("status", -1);
@@ -273,10 +274,10 @@ public class AccountDb {
             int result = db.update("c_account", values, "account_id = ?", new String[]{account_id + ""});
 
             if (result > 0)
-                return "SUCCESS";
-            else return "UNKNOW SQL ERROR";
+                return "成功";
+            else return "未知错误";
         } catch (SQLException e) {
-            return "UNKNOW SQL ERROR";
+            return "未知错误";
         }
     }
 

@@ -28,6 +28,16 @@ public class SubcategoryDb {
         db = db_instance;
     }
 
+
+    /**
+     *  插入一条subcategory数据
+     *
+     *  @param class2 二级分类实例
+     */
+
+    public String insertSubcategory(Class2 class2) {
+        return insertSubcategory(class2.getName(), class2.getColor(), class2.getFatherId());
+    }
     /**
      *  插入一条subcategory数据
      *
@@ -36,7 +46,7 @@ public class SubcategoryDb {
      *  @param fatherId 所属一级分类id
      */
 
-    public String insertSubcategory(String  subcategory_name, int subcategory_color, int fatherId) {
+    private String insertSubcategory(String  subcategory_name, int subcategory_color, int fatherId) {
         int category_id = fatherId;
         try {
             Cursor cursor = db.query("c_subcategory", new String[]{"subcategory_name"},
@@ -44,7 +54,7 @@ public class SubcategoryDb {
                     new String[]{subcategory_name, category_id + ""}, null, null, null);
             int count = cursor.getCount();
             if (count > 0)
-                return "DUPLICATE ERROR";
+                return "分类名重复";
 
             ContentValues values = new ContentValues();
             values.put("subcategory_name", subcategory_name);
@@ -55,10 +65,10 @@ public class SubcategoryDb {
             long result = db.insert("c_subcategory", null, values);
 
             if (result > -1)
-                return "SUCCESS";
-            else return "UNKNOW SQL ERROR";
+                return "成功";
+            else return "未知错误";
         } catch (SQLException e) {
-            return "UNKNOW SQL ERROR";
+            return "未知错误";
         }
     }
     /**
@@ -112,14 +122,25 @@ public class SubcategoryDb {
     /**
      * 更新一条subcategory
      *
+     * @param class2
+     *
+     * @return "成功" or "分类名重复" or "未知错误"
+     */
+    public String updateSubcategory(Class2 class2) {
+        return updateSubcategory(class2.getId(),class2.getName(),class2.getColor(),class2.getFatherId());
+    }
+
+    /**
+     * 更新一条subcategory
+     *
      * @param subcategory_id subcategoryId
      * @param subcategory_name 二级分类名
      * @param subcategory_color 二级分类颜色
      * @param fatherId 一级分类Id
      *
-     * @return "SUCCESS" or "DUPLICATE ERROR" or "UNKNOW SQL ERROR"
+     * @return "成功" or "分类名重复" or "未知错误"
      */
-    public String updateSubcategory(int subcategory_id, String subcategory_name, int subcategory_color, int fatherId) {
+    private String updateSubcategory(int subcategory_id, String subcategory_name, int subcategory_color, int fatherId) {
         int category_id = fatherId;
         try {
             Cursor cursor = db.query("c_subcategory", new String[]{"subcategory_name"},
@@ -127,7 +148,7 @@ public class SubcategoryDb {
                     new String[]{subcategory_name, category_id + "", subcategory_id+""}, null, null, null);
             int count = cursor.getCount();
             if (count > 0)
-                return "DUPLICATE ERROR";
+                return "分类名重复";
 
             ContentValues values = new ContentValues();
             values.put("subcategory_name", subcategory_name);
@@ -138,22 +159,35 @@ public class SubcategoryDb {
             int result = db.update("c_subcategory", values, "subcategory_id = ?",
                     new String[]{subcategory_id + ""});
             if (result > 0)
-                return "SUCCESS";
-            else return "UNKNOW SQL ERROR";
+                return "成功";
+            else return "未知错误";
         } catch (SQLException e) {
-            return "UNKNOW SQL ERROR";
+            return "未知错误";
         }
+    }
+
+    /**
+     * 删除一条subcategory
+     *
+     * @param class2 二级分类实例
+     */
+    public String  deleteSubcategory(Class2 class2) {
+        return deleteSubcategory(class2.getId());
     }
     /**
      * 删除一条subcategory
      *
      * @param subcategory_id 二级分类Id
      */
-    public String  deleteSubcategory(int subcategory_id) {
-        RecordDb recorddb = new RecordDb(db);
-        boolean access = recorddb.isHaveRecord("c_subcategory", subcategory_id);
+    private String  deleteSubcategory(int subcategory_id) {
+        RecordDb recordDb = new RecordDb(db);
+        TemplateDb templateDb = new TemplateDb(db);
+        boolean access = recordDb.isHaveRecord("c_subcategory", subcategory_id);
         if (access)
-            return "HAVE RECORD";
+            return "该分类下有流水记录，无法删除";
+        boolean access2 = templateDb.isHaveTemplate("c_subcategory", subcategory_id);
+        if (access2)
+            return "该分类下有模版记录，无法删除";
 
         ContentValues values = new ContentValues();
         values.put("status", -1);
@@ -161,8 +195,8 @@ public class SubcategoryDb {
         int result = db.update("c_subcategory", values, "subcategory_id = ?", new String[]{subcategory_id+""});
 
         if (result > 0)
-            return "SUCCESS";
-        else return "UNKNOW ERROR";
+            return "成功";
+        else return "未知错误";
     }
     /**
      * 查看是否有子分类
