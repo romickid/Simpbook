@@ -68,9 +68,9 @@ public class ActivityClass2Expense extends AppCompatActivity {
      * 初始化Id
      */
     private void initFindById() {
-        toolbar = findViewById(R.id.classexpense_toolbar);
-        recyclerView = findViewById(R.id.classexpense_recyclerview);
-        buttonAdd = findViewById(R.id.classexpense_button_add);
+        toolbar = findViewById(R.id.class_toolbar);
+        recyclerView = findViewById(R.id.class_recyclerview);
+        buttonAdd = findViewById(R.id.class_button_add);
     }
 
     /**

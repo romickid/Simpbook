@@ -58,6 +58,7 @@ public class ActivitySetting extends AppCompatActivity {
      */
     private void initImageView() {
         initImageViewClassExpense();
+        initImageViewClassIncome();
     }
 
     /**
@@ -68,6 +69,19 @@ public class ActivitySetting extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(ActivitySetting.this, ActivityClass1Expense.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    /**
+     * 初始化"收入分类设置"信息
+     */
+    private void initImageViewClassIncome() {
+        imageViewClassIncome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent intent = new Intent(ActivitySetting.this, ActivityClass1Income.class);
                 startActivity(intent);
             }
         });

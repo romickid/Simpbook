@@ -174,7 +174,7 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass1> {
                 }
 
                 Class1 class1 = null;
-                class1 = getClass1(class1Id, name, colorId);
+                class1 = getClass1(class1Id, name, colorId, 1); // TODO: 6/16/2018  
                 String message = updateClass1(class1);
 
                 if (message.equals("成功")) {
@@ -205,8 +205,8 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass1> {
      * @param colorId 颜色id
      * @return 实例
      */
-    private Class1 getClass1(int id, String name, int colorId) {
-        return new Class1(id, name, colorId);
+    private Class1 getClass1(int id, String name, int colorId, int type) {
+        return new Class1(id, name, colorId, type);
     }
 
 

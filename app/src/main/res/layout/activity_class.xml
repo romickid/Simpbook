@@ -5,10 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".class.ClassExpenseActivity">
+    tools:context=".class.classActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/classexpense_toolbar"
+        android:id="@+id/class_toolbar"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:background="@color/colorDefaultBlue"
@@ -24,17 +24,17 @@
         app:titleTextColor="@color/colorWhite" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/classexpense_recyclerview"
+        android:id="@+id/class_recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/classexpense_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/class_toolbar" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/classexpense_button_add"
+        android:id="@+id/class_button_add"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginBottom="32dp"
