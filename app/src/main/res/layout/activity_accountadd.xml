@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".account.AccountActivity">
+    tools:context=".account.AccountAddActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/accountadd_toolbar"
@@ -146,9 +146,6 @@
         app:layout_constraintEnd_toEndOf="@+id/accountadd_edittext_name"
         app:layout_constraintStart_toStartOf="@+id/accountadd_edittext_name"
         app:layout_constraintTop_toBottomOf="@+id/accoundadd_statictext3" />
-
-
-
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/accountadd_button_add"

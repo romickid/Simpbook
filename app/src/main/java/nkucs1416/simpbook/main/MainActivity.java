@@ -153,17 +153,11 @@ public class MainActivity extends AppCompatActivity {
      * 初始化设置按钮
      */
     private void initButtonSetting() {
-        // TODO: 6/16/2018
-        CustomSQLiteOpenHelper customSQLiteOpenHelper = new CustomSQLiteOpenHelper(this);
-        sqLiteDatabase = customSQLiteOpenHelper.getWritableDatabase();
-        accountDb = new AccountDb(sqLiteDatabase);
-        recordDb = new RecordDb(sqLiteDatabase);
-
         buttonSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                accountDb.deleteAllLocalData();
-                recordDb.deleteAllLocalData();
+                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+                startActivity(intent);
             }
         });
     }

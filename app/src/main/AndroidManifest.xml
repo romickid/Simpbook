@@ -24,6 +24,8 @@
         <activity android:name=".statement.StatementActivity" />
         <activity android:name=".setting.SettingActivity" />
         <activity android:name=".edit.EditActivity" />
+        <activity android:name=".setting.Class1ExpenseActivity" />
+        <activity android:name=".setting.Class2ExpenseActivity" />
     </application>
 
 </manifest>

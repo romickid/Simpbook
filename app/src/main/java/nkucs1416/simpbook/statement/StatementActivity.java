@@ -292,14 +292,6 @@ public class StatementActivity extends AppCompatActivity {
      */
     private void demoSetListClass2() {
         listFilterClass2s = new ArrayList<Class2>();
-        Class2 class2 = new Class2(1, "早餐", R.drawable.ic_lens_yellow_a400_24dp);
-        listFilterClass2s.add(class2);
-
-        class2 = new Class2(2, "午餐", R.drawable.ic_lens_blue_a400_24dp);
-        listFilterClass2s.add(class2);
-
-        class2 = new Class2(3, "晚餐", R.drawable.ic_lens_red_a400_24dp);
-        listFilterClass2s.add(class2);
     }
 
     /**

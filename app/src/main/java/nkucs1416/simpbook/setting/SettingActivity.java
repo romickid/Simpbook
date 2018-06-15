@@ -1,14 +1,19 @@
 package nkucs1416.simpbook.setting;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 
 import nkucs1416.simpbook.R;
 
 public class SettingActivity extends AppCompatActivity {
     private Toolbar toolbar;
+
+    private ImageView imageViewClassExpense;
+    private ImageView imageViewClassIncome;
 
 
     // Activity相关
@@ -19,6 +24,7 @@ public class SettingActivity extends AppCompatActivity {
 
         initFindById();
         initToolbar();
+        initImageView();
     }
 
 
@@ -28,6 +34,8 @@ public class SettingActivity extends AppCompatActivity {
      */
     private void initFindById() {
         toolbar = findViewById(R.id.setting_toolbar);
+        imageViewClassExpense = findViewById(R.id.setting_imageview_classexpense);
+        imageViewClassIncome = findViewById(R.id.setting_imageview_classincome);
     }
 
     /**
@@ -44,4 +52,25 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * 初始化各类显示框
+     */
+    private void initImageView() {
+        initImageViewClassExpense();
+    }
+
+    /**
+     * 初始化"支出分类设置"信息
+     */
+    private void initImageViewClassExpense() {
+        imageViewClassExpense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent intent = new Intent(SettingActivity.this, Class1ExpenseActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
 }

@@ -11,6 +11,27 @@ public class Class1 {
      * 构建一个Class1实例
      *
      * @param tId id
+     */
+    public Class1(int tId) {
+        id = tId;
+    }
+
+    /**
+     * 构建一个Class1实例
+     *
+     * @param tName 名称
+     * @param tColor 标识颜色
+     */
+    public Class1(String tName, int tColor) {
+        id = -1;
+        name = tName;
+        color = tColor;
+    }
+
+    /**
+     * 构建一个Class1实例
+     *
+     * @param tId id
      * @param tName 名称
      * @param tColor 标识颜色
      */
@@ -19,7 +40,6 @@ public class Class1 {
         name = tName;
         color = tColor;
     }
-
 
     /**
      * 构建一个Class1实例
@@ -35,6 +55,7 @@ public class Class1 {
         color = tColor;
         status = tStatus;
     }
+
 
     /**
      * 获取Id

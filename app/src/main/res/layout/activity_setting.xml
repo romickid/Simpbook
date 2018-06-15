@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -21,5 +22,86 @@
         app:title="设置"
         app:titleTextColor="@color/colorWhite"
         app:contentInsetStartWithNavigation="0dp" />
+
+    <ImageView
+        android:id="@+id/setting_imageview_classexpense"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setting_toolbar"
+        app:srcCompat="@android:color/background_light" />
+
+    <ImageView
+        android:id="@+id/setting_staticimg1"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/setting_imageview_classexpense"
+        app:layout_constraintStart_toStartOf="@+id/setting_imageview_classexpense"
+        app:layout_constraintTop_toTopOf="@+id/setting_imageview_classexpense"
+        app:srcCompat="@drawable/ic_remove_circle_outline_grey_500_36dp" />
+
+    <TextView
+        android:id="@+id/setting_statictext1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_weight="5"
+        android:text="支出分类设置"
+        android:textColor="@color/colorText54"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/setting_imageview_classexpense"
+        app:layout_constraintStart_toEndOf="@+id/setting_staticimg1"
+        app:layout_constraintTop_toTopOf="@+id/setting_imageview_classexpense" />
+
+    <ImageView
+        android:id="@+id/setting_imageview_classincome"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setting_imageview_classexpense"
+        app:srcCompat="@android:color/background_light" />
+
+    <ImageView
+        android:id="@+id/setting_staticimg2"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/setting_imageview_classincome"
+        app:layout_constraintStart_toStartOf="@+id/setting_imageview_classincome"
+        app:layout_constraintTop_toTopOf="@+id/setting_imageview_classincome"
+        app:srcCompat="@drawable/ic_add_circle_outline_grey_500_36dp" />
+
+    <TextView
+        android:id="@+id/setting_statictext2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_weight="5"
+        android:text="收入分类设置"
+        android:textColor="@color/colorText54"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/setting_imageview_classincome"
+        app:layout_constraintStart_toEndOf="@+id/setting_staticimg2"
+        app:layout_constraintTop_toTopOf="@+id/setting_imageview_classincome" />
+
+    <ImageView
+        android:id="@+id/setting_staticline1"
+        android:layout_width="0dp"
+        android:layout_height="1sp"
+        app:layout_constraintBottom_toTopOf="@+id/setting_imageview_classincome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@color/colorGrey300" />
+
 
 </android.support.constraint.ConstraintLayout>

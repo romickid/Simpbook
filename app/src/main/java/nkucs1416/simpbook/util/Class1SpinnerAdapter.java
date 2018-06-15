@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 import nkucs1416.simpbook.R;
 
+import static nkucs1416.simpbook.util.Color.getColorIcon;
+
 public class Class1SpinnerAdapter extends BaseAdapter {
     private ArrayList<Class1> listClass1;
     private Context context;
@@ -67,7 +69,8 @@ public class Class1SpinnerAdapter extends BaseAdapter {
 
         Class1 class1 = listClass1.get(position);
         String text = class1.getName();
-        int color = class1.getColor();
+        int colorId = class1.getColor();
+        int color = getColorIcon(colorId);
 
         textView.setText(text);
         imageView.setImageResource(color);
