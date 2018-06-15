@@ -4,6 +4,7 @@ public class Class1 {
     private int id;
     private String name;
     private int color;
+    private int status;
 
 
     /**
@@ -19,6 +20,21 @@ public class Class1 {
         color = tColor;
     }
 
+
+    /**
+     * 构建一个Class1实例
+     *
+     * @param tId id
+     * @param tName 名称
+     * @param tColor 标识颜色
+     * @param tStatus 状态
+     */
+    public Class1(int tId, String tName, int tColor, int tStatus) {
+        id = tId;
+        name = tName;
+        color = tColor;
+        status = tStatus;
+    }
 
     /**
      * 获取Id
@@ -45,6 +61,15 @@ public class Class1 {
      */
     public int getColor() {
         return color;
+    }
+
+    /**
+     * 获取状态
+     *
+     * @return 状态
+     */
+    public int getStatus() {
+        return status;
     }
 
 }
