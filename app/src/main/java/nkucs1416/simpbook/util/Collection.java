@@ -10,6 +10,7 @@ public class Collection {
     private Integer class1Id;
     private Integer class2Id;
     private Integer toAccountId;
+    private int status;
 
 
     /**
@@ -58,6 +59,35 @@ public class Collection {
         date = tDate;
         remark = tRemark;
         toAccountId = tToAccountId;
+    }
+
+    /**
+     * 构建Collection的实例
+     *
+     * @param tId id
+     * @param tAccountId 账户id
+     * @param tMoney 金额
+     * @param tType 类型(1:支出, 2:收入, 3:转账)
+     * @param tDate 日期
+     * @param tRemark 备注
+     * @param tClass1Id 一级分类id
+     * @param tClass2Id 二级分类id
+     * @param tToAccountId 发送账户id
+     * @param tStatus 状态
+     */
+    public Collection(
+            int tId, int tAccountId, float tMoney, int tType, Date tDate, String tRemark,
+            int tClass1Id, int tClass2Id, int tToAccountId, int tStatus) {
+        id = tId;
+        accountId = tAccountId;
+        money = tMoney;
+        type = tType;
+        date = tDate;
+        remark = tRemark;
+        toAccountId = tToAccountId;
+        status = tStatus;
+        class1Id = tClass1Id;
+        class2Id = tClass2Id;
     }
 
 
@@ -151,5 +181,12 @@ public class Collection {
     public Integer getToAccountId() {
         return toAccountId;
     }
+
+    /**
+     * 获取状态
+     *
+     * @return 发送状态
+     */
+    public int getStatus() { return status; }
 
 }

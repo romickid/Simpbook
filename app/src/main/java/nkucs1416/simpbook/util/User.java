@@ -4,6 +4,7 @@ public class User {
     private int id;
     private String name;
     private String email;
+    private String password;
 
     /**
      * 构建User的一个实例
@@ -11,11 +12,13 @@ public class User {
      * @param tId id
      * @param tName 名称
      * @param tEmail email
+     * @param tPassword password
      */
-    User(int tId, String tName, String tEmail) {
+    public User(int tId, String tName, String tEmail, String tPassword) {
         id = tId;
         name = tName;
         email = tEmail;
+        password = tPassword;
     }
 
 
@@ -44,6 +47,15 @@ public class User {
      */
     public String getEmail() {
         return email;
+    }
+
+    /**
+     * 获取Password
+     *
+     * @return Password
+     */
+    public String getPassword() {
+        return password;
     }
     
 }
