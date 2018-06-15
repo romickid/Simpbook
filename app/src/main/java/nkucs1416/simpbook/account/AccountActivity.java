@@ -1,6 +1,8 @@
 package nkucs1416.simpbook.account;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +19,7 @@ public class AccountActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView textViewNetAssets;
     private RecyclerView recyclerView;
+    private FloatingActionButton buttonAddAccount;
 
     private ArrayList<HashMap<String, Object>> listAccountObjects;
 
@@ -30,6 +33,7 @@ public class AccountActivity extends AppCompatActivity {
         initFindById();
         initToolbar();
         initRecycleView();
+        initButtonAddAccount();
     }
 
 
@@ -41,6 +45,7 @@ public class AccountActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.account_toolbar);
         textViewNetAssets = findViewById(R.id.account_textview_netassets);
         recyclerView = findViewById(R.id.account_recyclerview);
+        buttonAddAccount = findViewById(R.id.account_button_addaccount);
     }
 
     /**
@@ -68,6 +73,20 @@ public class AccountActivity extends AppCompatActivity {
 
         AccountAdapter accountAdapter = new AccountAdapter(this, listAccountObjects);
         recyclerView.setAdapter(accountAdapter);
+    }
+
+    /**
+     * 初始化添加Account按钮
+     */
+    private void initButtonAddAccount() {
+        buttonAddAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(AccountActivity.this, AccountAddActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
