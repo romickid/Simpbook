@@ -4,9 +4,47 @@ public class Class2 {
     private int id;
     private String name;
     private int color;
-    private int status;
     private int fatherId;
+    private int status;
 
+
+    /**
+     * 构造一个Class2实例
+     *
+     * @param tId id
+     */
+    public Class2(int tId) {
+        id = tId;
+    }
+
+    /**
+     * 构造一个Class2实例
+     *
+     * @param tName 名称
+     * @param tColor 标识颜色
+     * @param tFatherId 所属类1Id
+     */
+    public Class2(String tName, int tColor, int tFatherId) {
+        id = -1;
+        name = tName;
+        color = tColor;
+        fatherId = tFatherId;
+    }
+
+    /**
+     * 构造一个Class2实例
+     *
+     * @param tId Id
+     * @param tName 名称
+     * @param tColor 标识颜色
+     * @param tFatherId 所属类Id
+     */
+    public Class2(int tId, String tName, int tColor, int tFatherId) {
+        id = tId;
+        name = tName;
+        color = tColor;
+        fatherId = tFatherId;
+    }
 
     /**
      * 构造一个Class2实例
@@ -17,25 +55,12 @@ public class Class2 {
      * @param tFatherId 所属类1Id
      * @param tStatus 状态
      */
-    public Class2(int tId, String tName, int tColor,int tFatherId,int tStatus) {
+    public Class2(int tId, String tName, int tColor,int tFatherId, int tStatus) {
         id = tId;
         name = tName;
         color = tColor;
         status = tStatus;
         fatherId = tFatherId;
-    }
-
-    /**
-     * 构造一个Class2实例
-     *
-     * @param tId Id
-     * @param tName 名称
-     * @param tColor 标识颜色
-     */
-    public Class2(int tId, String tName, int tColor) {
-        id = tId;
-        name = tName;
-        color = tColor;
     }
 
 

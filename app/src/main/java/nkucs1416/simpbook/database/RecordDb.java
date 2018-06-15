@@ -52,7 +52,7 @@ public class RecordDb {
      * @param account_toId 发送账户id
      * @param record_time 记录时间
      */
-    private String insertRecord(int  account_id, int record_type, float record_money,
+    public String insertRecord(int  account_id, int record_type, float record_money,
                                 String record_note, int category_id, int subcategory_id,
                                 int account_toId, Date record_time) {
 
@@ -139,7 +139,7 @@ public class RecordDb {
      * 删除所有record数据
      *
      */
-    private void deleteAllLocalData() {
+    public void deleteAllLocalData() {
         String DELETE_ALL = "delete from c_record";
         db.execSQL(DELETE_ALL);
     }

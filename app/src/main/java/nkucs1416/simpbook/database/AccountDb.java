@@ -221,7 +221,7 @@ public class AccountDb {
      * 删除所有account数据
      *
      */
-    private void deleteAllLocalData() {
+    public void deleteAllLocalData() {
         String DELETE_ALL = "delete from c_account";
         db.execSQL(DELETE_ALL);
     }

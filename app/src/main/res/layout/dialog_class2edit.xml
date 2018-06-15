@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/dclass2edit_statictext1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:text="二级分类名称"
+        android:textColor="@color/colorText54"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dclass2edit_edittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:maxLength="50"
+        android:singleLine="false"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dclass2edit_statictext1" />
+
+    <TextView
+        android:id="@+id/dclass2edit_statictext2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="上级分类"
+        android:textColor="@color/colorText54"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/dclass2edit_statictext1"
+        app:layout_constraintTop_toBottomOf="@+id/dclass2edit_edittext" />
+
+    <Spinner
+        android:id="@+id/dclass2edit_spinner_class1"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:overlapAnchor="false"
+        app:layout_constraintEnd_toEndOf="@+id/dclass2edit_edittext"
+        app:layout_constraintStart_toStartOf="@+id/dclass2edit_statictext1"
+        app:layout_constraintTop_toBottomOf="@+id/dclass2edit_statictext2" />
+
+    <TextView
+        android:id="@+id/dclass2edit_statictext3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="分类标识色"
+        android:textColor="@color/colorText54"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/dclass2edit_statictext1"
+        app:layout_constraintTop_toBottomOf="@+id/dclass2edit_spinner_class1" />
+
+    <Spinner
+        android:id="@+id/dclass2edit_spinner_color"
+        style="@android:style/Widget.Material.Light.Spinner"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:overlapAnchor="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/dclass2edit_edittext"
+        app:layout_constraintStart_toStartOf="@+id/dclass2edit_statictext1"
+        app:layout_constraintTop_toBottomOf="@+id/dclass2edit_statictext3" />
+
+</android.support.constraint.ConstraintLayout>

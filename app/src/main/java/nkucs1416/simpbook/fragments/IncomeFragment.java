@@ -236,15 +236,6 @@ public class IncomeFragment extends Fragment {
      * 测试用ListClass2
      */
     private void demoSetListClass2() {
-        listClass2 = new ArrayList<Class2>();
-        Class2 class2 = new Class2(1, "早餐", R.drawable.ic_lens_yellow_a400_24dp);
-        listClass2.add(class2);
-
-        class2 = new Class2(2, "午餐", R.drawable.ic_lens_blue_a400_24dp);
-        listClass2.add(class2);
-
-        class2 = new Class2(3, "晚餐", R.drawable.ic_lens_red_a400_24dp);
-        listClass2.add(class2);
     }
 
 
