@@ -205,14 +205,6 @@ public class TransferFragment extends Fragment {
      */
     private void demoSetListAccount() {
         listAccount = new ArrayList<Account>();
-        Account account = new Account(1, "支付宝", 20f, R.drawable.ic_lens_blue_a400_24dp);
-        listAccount.add(account);
-
-        account = new Account(2, "现金", 30f, R.drawable.ic_lens_red_a400_24dp);
-        listAccount.add(account);
-
-        account = new Account(3, "信用卡", 40f, R.drawable.ic_lens_green_a400_24dp);
-        listAccount.add(account);
     }
 
 

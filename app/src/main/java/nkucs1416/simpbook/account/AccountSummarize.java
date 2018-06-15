@@ -41,18 +41,4 @@ public class AccountSummarize {
         return money;
     }
 
-    /**
-     * 获取字符串的金额表示
-     *
-     * @return 金额
-     */
-    public String getStrMoney() {
-        if (money != null) {
-            Float fmoney = money;
-            return fmoney.toString();
-        }
-        else {
-            return "";
-        }
-    }
 }

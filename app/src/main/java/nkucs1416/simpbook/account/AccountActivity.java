@@ -1,6 +1,7 @@
 package nkucs1416.simpbook.account;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import nkucs1416.simpbook.R;
+import nkucs1416.simpbook.database.AccountDb;
+import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
+import nkucs1416.simpbook.util.Account;
+
+import static nkucs1416.simpbook.account.AccountType.getAccountTypeName;
+import static nkucs1416.simpbook.util.Account.getSumMoney;
+import static nkucs1416.simpbook.util.Account.sortListAccounts;
+import static nkucs1416.simpbook.util.Money.setTextViewMoneyDecimal;
 
 public class AccountActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -21,7 +30,11 @@ public class AccountActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FloatingActionButton buttonAddAccount;
 
+    private SQLiteDatabase sqLiteDatabase;
+    private AccountDb accountDb;
+
     private ArrayList<HashMap<String, Object>> listAccountObjects;
+    private ArrayList<Account> listAccounts;
 
 
     // Activity相关
@@ -32,8 +45,11 @@ public class AccountActivity extends AppCompatActivity {
 
         initFindById();
         initToolbar();
-        initRecycleView();
         initButtonAddAccount();
+        initDatabase();
+        initData();
+
+        initRecycleView();
     }
 
 
@@ -68,9 +84,6 @@ public class AccountActivity extends AppCompatActivity {
      */
     private void initRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        demoAccountObjectsList();
-
         AccountAdapter accountAdapter = new AccountAdapter(this, listAccountObjects);
         recyclerView.setAdapter(accountAdapter);
     }
@@ -89,53 +102,68 @@ public class AccountActivity extends AppCompatActivity {
         });
     }
 
-
-    // RecyclerView相关
     /**
-     * 测试用ListAccountObjects
+     * 初始化数据库
      */
-    private void demoAccountObjectsList() {
-        listAccountObjects = new ArrayList<HashMap<String, Object>>();
-
-        HashMap hashMap = null;
-        AccountElement accountElement = null;
-        AccountSummarize accountSummarize = null;
-        Integer type = null;
-
-        type = 0;
-        accountSummarize = new AccountSummarize("资产账户", 2.0f);
-        hashMap = new HashMap<String, Object>();
-        hashMap.put("type", type);
-        hashMap.put("object", accountSummarize);
-        listAccountObjects.add(hashMap);
-
-        type = 1;
-        accountElement = new AccountElement( R.drawable.ic_lens_yellow_a400_24dp, "支付宝", 1.0f, true, 1);
-        hashMap = new HashMap<String, Object>();
-        hashMap.put("type", type);
-        hashMap.put("object", accountElement);
-        listAccountObjects.add(hashMap);
-
-        type = 0;
-        accountSummarize = new AccountSummarize("负债账户", 2.0f);
-        hashMap = new HashMap<String, Object>();
-        hashMap.put("type", type);
-        hashMap.put("object", accountSummarize);
-        listAccountObjects.add(hashMap);
-
-        type = 1;
-        accountElement = new AccountElement( R.drawable.ic_lens_yellow_a400_24dp, "信用卡", 1.0f, true, 2);
-        hashMap = new HashMap<String, Object>();
-        hashMap.put("type", type);
-        hashMap.put("object", accountElement);
-        listAccountObjects.add(hashMap);
-
-        type = 1;
-        accountElement = new AccountElement( R.drawable.ic_lens_blue_a400_24dp, "信用卡2", 1.0f, true, 3);
-        hashMap = new HashMap<String, Object>();
-        hashMap.put("type", type);
-        hashMap.put("object", accountElement);
-        listAccountObjects.add(hashMap);
+    private void initDatabase() {
+        CustomSQLiteOpenHelper customSQLiteOpenHelper = new CustomSQLiteOpenHelper(this);
+        sqLiteDatabase = customSQLiteOpenHelper.getWritableDatabase();
+        accountDb = new AccountDb(sqLiteDatabase);
     }
 
+    /**
+     * 初始化数据
+     */
+    private void initData() {
+        updateListAccounts();
+        updateListAccountObjects();
+        updateNetAssets();
+    }
+
+
+    // 数据相关
+    /**
+     * 更新所有账户信息
+     */
+    private void updateListAccounts() {
+        listAccounts = accountDb.accountList();
+        sortListAccounts(listAccounts);
+    }
+
+    /**
+     * 更新ListAccountObjects
+     */
+    private void updateListAccountObjects() {
+        listAccountObjects = new ArrayList<>();
+
+        int accountTypeIndex = 0;
+        AccountElement accountElement = null;
+        AccountSummarize accountSummarize = null;
+        HashMap<String, Object> hashMap = null;
+
+        for(Account account: listAccounts) {
+            if (account.getType() > accountTypeIndex) {
+                // 增加一个Summarize
+                accountTypeIndex += 1;
+                accountSummarize = new AccountSummarize(getAccountTypeName(accountTypeIndex), getSumMoney(accountTypeIndex, listAccounts));
+                hashMap = new HashMap<>();
+                hashMap.put("type", 0); // 0->Summarize
+                hashMap.put("object", accountSummarize);
+                listAccountObjects.add(hashMap);
+            }
+            // 增加一个Element
+            accountElement = new AccountElement(account.getColor(), account.getName(), account.getMoney(), account.getId());
+            hashMap = new HashMap<>();
+            hashMap.put("type", 1); // 1->Element
+            hashMap.put("object", accountElement);
+            listAccountObjects.add(hashMap);
+        }
+    }
+
+    /**
+     * 更新净资产信息
+     */
+    private void updateNetAssets() {
+        setTextViewMoneyDecimal(textViewNetAssets, getSumMoney(listAccounts));
+    }
 }

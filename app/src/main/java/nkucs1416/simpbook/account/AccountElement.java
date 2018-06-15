@@ -1,11 +1,10 @@
 package nkucs1416.simpbook.account;
 
 public class AccountElement {
-    private int color;
+    private int colorId;
     private String text;
     private float money;
 
-    private boolean isAsset;
     private int id;
 
     /**
@@ -14,14 +13,12 @@ public class AccountElement {
      * @param tColor 标识颜色
      * @param tText 名称
      * @param tMoney 金额
-     * @param tIsAsset 是否是资产账户
      * @param tId id
      */
-    public AccountElement(int tColor, String tText, float tMoney, boolean tIsAsset, int tId) {
-        color = tColor;
+    public AccountElement(int tColor, String tText, float tMoney, int tId) {
+        colorId = tColor;
         text = tText;
         money = tMoney;
-        isAsset = tIsAsset;
         id = tId;
     }
 
@@ -30,8 +27,8 @@ public class AccountElement {
      *
      * @return 标识颜色
      */
-    public int getColor() {
-        return color;
+    public int getColorId() {
+        return colorId;
     }
 
     /**
@@ -50,25 +47,6 @@ public class AccountElement {
      */
     public float getMoney() {
         return money;
-    }
-
-    /**
-     * 获取字符串的金额表示
-     *
-     * @return 金额
-     */
-    public String getStrMoney() {
-        Float fmoney = money;
-        return fmoney.toString();
-    }
-
-    /**
-     * 判断是否是资产账户
-     *
-     * @return bool
-     */
-    public boolean getIsAsset() {
-        return isAsset;
     }
 
     /**
