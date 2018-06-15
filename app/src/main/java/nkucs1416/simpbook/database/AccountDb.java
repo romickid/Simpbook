@@ -82,7 +82,7 @@ public class AccountDb {
     public String updateAccount(int account_id, String account_name, int account_color, float account_sum) {
         try {
             Cursor cursor = db.query("c_account", new String[]{"account_name"},
-                    "account_name = ? AND status != -1 AND account_id != ?",
+                    "account_name = ? AND status > -1 AND account_id != ?",
                     new String[]{account_name, account_id+""}, null, null, null);
             int count = cursor.getCount();
             if (count > 0)
@@ -123,7 +123,7 @@ public class AccountDb {
      *
      */
     public void updateAccountSum(int account_id) {
-        Cursor cursor = db.query("c_record", new String[]{"record_type", "SUM(record_money) AS money"}, "record_accountID = ? AND status != -1",
+        Cursor cursor = db.query("c_record", new String[]{"record_type", "SUM(record_money) AS money"}, "record_accountID = ? AND status > -1",
                 new String[] {account_id+""}, "record_type", null, null);
         cursor.moveToFirst();
         int count = cursor.getCount();
@@ -146,7 +146,7 @@ public class AccountDb {
         }
 
         cursor = db.query("c_record", new String[]{"record_type", "SUM(record_money) AS money"},
-                "record_accountToID = ? AND record_type = -1 AND status != -1",
+                "record_accountToID = ? AND record_type = -1 AND status > -1",
                 new String[] {account_id+""}, null, null, null);
         cursor.moveToFirst();
         int moneyIndex = cursor.getColumnIndex("money");

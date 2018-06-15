@@ -15,14 +15,33 @@ import nkucs1416.simpbook.network.Utils;
 
 import java.util.ArrayList;
 
+/**
+ * 处理数据库template接口类
+ */
 public class TemplateDb {
 
     private SQLiteDatabase db;
-
+    /**
+     * 创建一个templateDb实例
+     * @param db_instance
+     */
     public TemplateDb(SQLiteDatabase db_instance) {
         db = db_instance;
     }
-
+    /**
+     * 插入一条template数据
+     *
+     * @param account_id 账户id
+     * @param template_type 种类
+     * @param template_money 金额
+     * @param template_note 备注
+     * @param category_id 一级分类id
+     * @param subcategory_id 二级分类id
+     * @param account_toId 发送账户id
+     * @param template_time 日期
+     *
+     * @return "SUCCESS" or "UNKNOW ERROR"
+     */
     public String insertTemplate(int  account_id, int template_type, float template_money,
                                   String template_note, int category_id, int subcategory_id,
                                   int account_toId, Date template_time) {
@@ -52,17 +71,51 @@ public class TemplateDb {
 
     }
 
+    /**
+     * 插入一条template数据
+     *
+     * @param account_id 账户id
+     * @param template_type 种类
+     * @param template_money 金额
+     * @param template_note 备注
+     * @param category_id 一级分类id
+     * @param subcategory_id 二级分类id
+     * @param template_time 日期
+     *
+     * @return "SUCCESS" or "UNKNOW ERROR"
+     */
     public String insertTemplate(int  account_id, int template_type, float template_money,
                                   String template_note, int category_id, int subcategory_id, Date template_time) {
         String result = insertTemplate(account_id, template_type, template_money, template_note, category_id, subcategory_id, 0, template_time);
         return result;
     }
 
+    /**
+     * 插入一条template数据
+     *
+     * @param account_id 账户id
+     * @param template_type 种类
+     * @param template_money 金额
+     * @param template_note 备注
+     * @param account_toId 发送账户id
+     * @param template_time 日期
+     *
+     * @return "SUCCESS" or "UNKNOW ERROR"
+     */
+
     public String insertTemplate(int  account_id, int template_type, float template_money,
                                   String template_note, int account_toId, Date template_time) {
         return insertTemplate(account_id, template_type, template_money, template_note, 0, 0, account_toId, template_time);
     }
 
+    /**
+     * 更新template状态数据
+     *
+     * @param templateIdList 数据
+     * @param isdelete 是否删除
+     *
+     *
+     */
     public void updateTemplateStatus(int[] templateIdList, int[] isdelete) {
         int length = templateIdList.length;
         for(int i = 0;i < length;i++) {
@@ -75,7 +128,12 @@ public class TemplateDb {
             db.update("c_template", values, "template_id = ?", new String[]{templateIdList[i]+""});
         }
     }
-
+    /**
+     * 更新从后端同步过来的template数据
+     *
+     * @param templateArrayList 数据
+     *
+     */
     public void updateTemplateData(ArrayList<Collection> templateArrayList) {
         deleteAllLocalData();
         int length = templateArrayList.size();
@@ -98,11 +156,30 @@ public class TemplateDb {
         }
     }
 
+    /**
+     * 删除所有template数据
+     *
+     */
     private void deleteAllLocalData() {
         String DELETE_ALL = "delete from c_template";
         db.execSQL(DELETE_ALL);
     }
 
+    /**
+     * 更新一条template数据
+     *
+     * @param template_id 模版Id
+     * @param account_id 账户id
+     * @param template_type 种类
+     * @param template_money 金额
+     * @param template_note 备注
+     * @param category_id 一级分类id
+     * @param subcategory_id 二级分类id
+     * @param account_toId 发送账户id
+     * @param template_time 日期
+     *
+     * @return "SUCCESS" or "UNKNOW ERROR"
+     */
     public String updateTemplate(int template_id, int  account_id, int template_type, float template_money,
                                   String template_note, int category_id, int subcategory_id,
                                   int account_toId, Date template_time) {
@@ -130,16 +207,50 @@ public class TemplateDb {
         else return "UNKNOW ERROR";
     }
 
+    /**
+     * 更新一条template数据
+     *
+     * @param template_id 模版Id
+     * @param account_id 账户id
+     * @param template_type 种类
+     * @param template_money 金额
+     * @param template_note 备注
+     * @param category_id 一级分类id
+     * @param subcategory_id 二级分类id
+     * @param template_time 日期
+     *
+     * @return "SUCCESS" or "UNKNOW ERROR"
+     */
     public String updateTemplate(int template_id, int  account_id, int template_type, float template_money,
                                   String template_note, int category_id, int subcategory_id, Date template_time) {
         return updateTemplate(template_id, account_id, template_type, template_money, template_note, category_id, subcategory_id, 0, template_time);
     }
 
+    /**
+     * 更新一条template数据
+     *
+     * @param template_id 模版Id
+     * @param account_id 账户id
+     * @param template_type 种类
+     * @param template_money 金额
+     * @param template_note 备注
+     * @param account_toId 发送账户id
+     * @param template_time 日期
+     *
+     * @return "SUCCESS" or "UNKNOW ERROR"
+     */
     public String updateTemplate(int template_id, int  account_id, int template_type, float template_money,
                                   String template_note, int account_toId, Date template_time) {
         return updateTemplate(template_id, account_id, template_type, template_money, template_note, 0,0, account_toId, template_time);
     }
 
+    /**
+     * 删除一条template数据
+     *
+     * @param template_id 模版Id
+     *
+     * @return "SUCCESS" or "UNKNOW ERROR"
+     */
     public String deleteTemplate(int template_id) {
         ContentValues values = new ContentValues();
         values.put("status", -1);
@@ -151,12 +262,20 @@ public class TemplateDb {
         else return "UNKNOW ERROR";
     }
 
+    /**
+     * 查看是否有关联的template数据
+     *
+     * @param table_name 表名
+     * @param seg_id 字段id
+     *
+     * @return 有： 1，没有：0
+     */
     public boolean isHaveTemplate(String table_name, int seg_id) {
         try {
             if (table_name == "c_account") {
                 int account_id = seg_id;
                 Cursor cursor = db.query("c_template", new String[]{"template_accountID"},
-                        "template_accountID = ? AND status != -1", new String[]{account_id + ""},
+                        "template_accountID = ? AND status > -1", new String[]{account_id + ""},
                         null, null, null);
                 int count = cursor.getCount();
                 if (count > 0)
@@ -165,7 +284,7 @@ public class TemplateDb {
             } else if (table_name == "c_category") {
                 int category_id = seg_id;
                 Cursor cursor = db.query("c_template", new String[]{"template_categoryID"},
-                        "template_categoryID = ? AND status != -1", new String[]{category_id + ""},
+                        "template_categoryID = ? AND status > -1", new String[]{category_id + ""},
                         null, null, null);
                 int count = cursor.getCount();
                 if (count > 0)
@@ -174,7 +293,7 @@ public class TemplateDb {
             } else if (table_name == "c_subcategory") {
                 int subcategory_id = seg_id;
                 Cursor cursor = db.query("c_template", new String[]{"template_subcategoryID"},
-                        "template_subcategoryID = ? AND status != -1", new String[]{subcategory_id + ""},
+                        "template_subcategoryID = ? AND status > -1", new String[]{subcategory_id + ""},
                         null, null, null);
                 int count = cursor.getCount();
                 if (count > 0)
@@ -187,6 +306,12 @@ public class TemplateDb {
         return false;
     }
 
+    /**
+     * 返回所有的template数据
+     *
+     *
+     * @return Collection数组
+     */
     public ArrayList<Collection> templateList () {
         Cursor cursor = db.query("c_template", null, "status > -1",
                 null, null, null, null);
@@ -240,6 +365,12 @@ public class TemplateDb {
         return templateArray;
     }
 
+    /**
+     * 返回所有需要更新的template数据
+     *
+     *
+     * @return Collection 数组
+     */
     public ArrayList<Collection> templateListUpdate () {
         Cursor cursor = db.query("c_template", null, "status > -2 AND status < 2",
                 null, null, null, null);
@@ -317,6 +448,12 @@ public class TemplateDb {
         }
     }
 
+    /**
+     * 调用同步服务器端template的接口
+     *
+     * @param context 运行时环境
+     *
+     */
     public void synchDataBackend(Context context) {
         UserDb userDb = new UserDb(context);
         String token = userDb.getUserToken();

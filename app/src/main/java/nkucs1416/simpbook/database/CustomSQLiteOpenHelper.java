@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 /**
  * 创建数据库类
  */
-class CustomSQLiteOpenHelper extends SQLiteOpenHelper {
+public class CustomSQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "simpbook.db";//数据库名字
     private static final int DATABASE_VERSION = 6;//数据库版本号
     private static final String CREATE_USER = "create table c_user ("
