@@ -41,17 +41,17 @@ public class UserDb {
      * 获取用户信息
      */
     public User getUserInfo() {
-        String userAccount = UserPreference.read(KeyConstance.IS_USER_ACCOUNT, null);
-        String userName = UserPreference.read(KeyConstance.IS_USER_NAME, null);
-        String userPassword = UserPreference.read(KeyConstance.IS_USER_PASSWORD, null);
-        String userid = UserPreference.read(KeyConstance.IS_USER_ID, null);
+        String userAccount = UserPreference.read(context, KeyConstance.IS_USER_ACCOUNT, null);
+        String userName = UserPreference.read(context, KeyConstance.IS_USER_NAME, null);
+        String userPassword = UserPreference.read(context, KeyConstance.IS_USER_PASSWORD, null);
+        String userid = UserPreference.read(context, KeyConstance.IS_USER_ID, null);
         int id = Integer.valueOf(userid).intValue();
         User user = new User(id ,userName, userAccount, userPassword);
         return user;
     }
 
     public String getUserToken() {
-        String token = UserPreference.read(KeyConstance.IS_TOKEN, null);
+        String token = UserPreference.read(context, KeyConstance.IS_TOKEN, null);
         return token;
     }
 }

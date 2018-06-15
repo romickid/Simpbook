@@ -40,7 +40,7 @@ public class SubcategoryDb {
         int category_id = fatherId;
         try {
             Cursor cursor = db.query("c_subcategory", new String[]{"subcategory_name"},
-                    "subcategory_name = ? AND status != -1 AND subcategory_fatherID = ?",
+                    "subcategory_name = ? AND status > -1 AND subcategory_fatherID = ?",
                     new String[]{subcategory_name, category_id + ""}, null, null, null);
             int count = cursor.getCount();
             if (count > 0)
@@ -61,7 +61,12 @@ public class SubcategoryDb {
             return "UNKNOW SQL ERROR";
         }
     }
-
+    /**
+     * 更新所有subcategory状态
+     *
+     * @param subcategoryIdList subcategory数据
+     * @param isdelete 是否删除
+     */
     public void updateSubcategoryStatus(int[] subcategoryIdList, int[] isdelete) {
         int length = subcategoryIdList.length;
         for(int i = 0;i < length;i++) {
@@ -74,7 +79,12 @@ public class SubcategoryDb {
             db.update("c_subcategory", values, "subcategory_id = ?", new String[]{subcategoryIdList[i]+""});
         }
     }
-
+    /**
+     * 更新所有subcategory数据
+     *
+     * @param subcategoryArrayList subcategory数据
+     *
+     */
     public void updateSubcategoryData(ArrayList<Class2> subcategoryArrayList) {
         deleteAllLocalData();
         int length = subcategoryArrayList.size();
@@ -89,18 +99,31 @@ public class SubcategoryDb {
             db.insert("c_subcategory", null, values);
         }
     }
-
+    /**
+     * 删除所有subcategory
+     *
+     *
+     */
     private void deleteAllLocalData() {
         String DELETE_ALL = "delete from c_subcategory";
         db.execSQL(DELETE_ALL);
     }
 
-
+    /**
+     * 更新一条subcategory
+     *
+     * @param subcategory_id subcategoryId
+     * @param subcategory_name 二级分类名
+     * @param subcategory_color 二级分类颜色
+     * @param fatherId 一级分类Id
+     *
+     * @return "SUCCESS" or "DUPLICATE ERROR" or "UNKNOW SQL ERROR"
+     */
     public String updateSubcategory(int subcategory_id, String subcategory_name, int subcategory_color, int fatherId) {
         int category_id = fatherId;
         try {
             Cursor cursor = db.query("c_subcategory", new String[]{"subcategory_name"},
-                    "subcategory_name = ? AND status != -1 AND subcategory_fatherID = ? AND subcategory_id != ?",
+                    "subcategory_name = ? AND status > -1 AND subcategory_fatherID = ? AND subcategory_id != ?",
                     new String[]{subcategory_name, category_id + "", subcategory_id+""}, null, null, null);
             int count = cursor.getCount();
             if (count > 0)
@@ -121,7 +144,11 @@ public class SubcategoryDb {
             return "UNKNOW SQL ERROR";
         }
     }
-
+    /**
+     * 删除一条subcategory
+     *
+     * @param subcategory_id 二级分类Id
+     */
     public String  deleteSubcategory(int subcategory_id) {
         RecordDb recorddb = new RecordDb(db);
         boolean access = recorddb.isHaveRecord("c_subcategory", subcategory_id);
@@ -137,11 +164,15 @@ public class SubcategoryDb {
             return "SUCCESS";
         else return "UNKNOW ERROR";
     }
-
+    /**
+     * 查看是否有子分类
+     *
+     * @param category_id 一级分类Id
+     */
     public boolean isHaveSubcategory (int category_id) {
         try {
             Cursor cursor = db.query("c_subcategory", new String[]{"subcategory_fatherID"},
-                    "subcategory_fatherID = ? AND status != -1", new String[]{category_id + ""},
+                    "subcategory_fatherID = ? AND status > -1", new String[]{category_id + ""},
                     null, null, null);
             int count = cursor.getCount();
             if (count > 0)
@@ -151,7 +182,13 @@ public class SubcategoryDb {
             return false;
         }
     }
-
+    /**
+     * 返回某个一级分类下的所有subcategory
+     *
+     * @param category_id 一级分类ID
+     *
+     * @return 二级分类数组
+     */
     public ArrayList<Class2> subcategoryList (int category_id) {
 
         Cursor cursor = db.query("c_subcategory", null,
@@ -174,6 +211,11 @@ public class SubcategoryDb {
         return subcatagoryArray;
     }
 
+    /**
+     * 返回所有需要更新的subcategory
+     *
+     *
+     */
     public ArrayList<Class2> subcategoryListUpdate () {
 
         Cursor cursor = db.query("c_subcategory", null,
@@ -210,7 +252,11 @@ public class SubcategoryDb {
             System.out.println(id +" "+ name +" "+ color);
         }
     }
-
+    /**
+     * 调用同步后端subcategory数据的接口
+     *
+     * @param context 运行时环境
+     */
     public void synchDataBackend(Context context) {
         UserDb userDb = new UserDb(context);
         String token = userDb.getUserToken();

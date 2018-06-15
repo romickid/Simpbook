@@ -36,7 +36,7 @@ public class CategoryDb {
      */
     private String insertCategory(String  category_name, int category_color) {
         try {
-            Cursor cursor = db.query("c_category", new String[]{"category_name"}, "category_name = ? AND status != -1",
+            Cursor cursor = db.query("c_category", new String[]{"category_name"}, "category_name = ? AND status > -1",
                     new String[]{category_name}, null, null, null);
             int count = cursor.getCount();
             if (count > 0)
@@ -115,7 +115,7 @@ public class CategoryDb {
     public String updateCategory(int category_id, String category_name, int category_color) {
         try {
             Cursor cursor = db.query("c_category", new String[]{"category_name"},
-                    "category_name = ? AND status != -1 AND category_id != ?",
+                    "category_name = ? AND status > -1 AND category_id != ?",
                     new String[]{category_name, category_id+""}, null, null, null);
             int count = cursor.getCount();
             if (count > 0)
