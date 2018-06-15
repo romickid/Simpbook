@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class CustomSQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "simpbook.db";//数据库名字
-    private static final int DATABASE_VERSION = 6;//数据库版本号
+    private static final int DATABASE_VERSION = 7;//数据库版本号
     private static final String CREATE_USER = "create table c_user ("
             + "user_id integer primary key,"
             + "user_name varchar(50) not null, "
@@ -21,6 +21,7 @@ public class CustomSQLiteOpenHelper extends SQLiteOpenHelper {
             + "account_name varchar(50) not null, "
             + "account_sum float ,"
             + "account_color int,"
+            + "account_type int,"
             + "status integer,"
             + "anchor integer)";
     private static final String CREATE_TEMPLATE = "create table c_template ("
@@ -108,13 +109,12 @@ public class CustomSQLiteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String DROP_TEMPLATE = "drop table c_template";
-        String DROP_RECORD = "drop table c_record";
-        db.execSQL(DROP_TEMPLATE);
+        String DROP_ACCOUNT = "drop table c_account";
+//        String DROP_RECORD = "drop table c_record";
+        db.execSQL(DROP_ACCOUNT);
 //            db.execSQL(DROP_RECORD);
-        db.execSQL(CREATE_TEMPLATE);
+        db.execSQL(CREATE_ACCOUNT);
 //            db.execSQL(CREATE_RECORD);
-        System.out.println("sss");
     }
 
     public void clearDatabaseBydbName(Context context) {

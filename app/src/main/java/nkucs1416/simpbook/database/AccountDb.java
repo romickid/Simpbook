@@ -32,13 +32,23 @@ public class AccountDb {
     /**
      * 插入一条account数据
      *
+     * @param account 账户名
+     * @return "SUCCESS" or "DUPLICATE ERROR" or "UNKNOW SQL ERROR"
+     */
+    public String insertAccount(Account account) {
+        return insertAccount(account.getName(),account.getColor(),  account.getMoney(), account.getType());
+    }
+
+    /**
+     * 插入一条account数据
+     *
      * @param account_name 账户名
      * @param account_color 账户颜色
      * @param account_sum 账户金额
      */
-    public String insertAccount(String  account_name, int account_color, float account_sum) {
+    private String insertAccount(String account_name, int account_color, float account_sum, int account_type) {
         try {
-            Cursor cursor = db.query("c_account", new String[]{"account_name"}, "account_name = ? AND status != -1",
+            Cursor cursor = db.query("c_account", new String[]{"account_name"}, "account_name = ? AND status > -1",
                     new String[]{account_name}, null, null, null);
             int count = cursor.getCount();
             if (count > 0)
@@ -47,6 +57,7 @@ public class AccountDb {
             ContentValues values = new ContentValues();
             values.put("account_name", account_name);
             values.put("account_color", account_color);
+            values.put("account_type", account_type);
             values.put("status", 0);
             values.put("anchor", 0);
             long result = db.insert("c_account", null, values);
@@ -71,6 +82,10 @@ public class AccountDb {
         }
     }
 
+    public String updateAccount(Account account) {
+        return updateAccount(account.getId(), account.getName(), account.getColor(), account.getMoney(), account.getType());
+    }
+
     /**
      * 更新一条account数据
      *
@@ -79,7 +94,7 @@ public class AccountDb {
      * @param account_color 账户颜色
      * @param account_sum 账户金额
      */
-    public String updateAccount(int account_id, String account_name, int account_color, float account_sum) {
+    private String updateAccount(int account_id, String account_name, int account_color, float account_sum, int account_type) {
         try {
             Cursor cursor = db.query("c_account", new String[]{"account_name"},
                     "account_name = ? AND status > -1 AND account_id != ?",
@@ -91,6 +106,7 @@ public class AccountDb {
             ContentValues values = new ContentValues();
             values.put("account_name", account_name);
             values.put("account_color", account_color);
+            values.put("account_type", account_type);
             values.put("status", 1);
             values.put("anchor", 0);
             int result = db.update("c_account", values, "account_id = ?", new String[]{account_id + ""});
@@ -195,6 +211,7 @@ public class AccountDb {
             values.put("account_name", account.getName());
             values.put("account_color", account.getColor());
             values.put("account_sum", account.getMoney());
+            values.put("account_type", account.getType());
             values.put("status", account.getStatus());
             db.insert("c_account", null, values);
         }
@@ -222,6 +239,15 @@ public class AccountDb {
         float sum = cursor.getFloat(sumIndex);
         return sum;
     }
+    /**
+     * 删除一条account数据
+     *
+     * @param account 账户
+     */
+    public String deleteAccount(Account account) {
+        return deleteAccount(account.getId());
+    }
+
 
     /**
      * 删除一条account数据
@@ -274,7 +300,9 @@ public class AccountDb {
             int account_id = cursor.getInt(idIndex);
             int colorIndex = cursor.getColumnIndex("account_color");
             int account_color = cursor.getInt(colorIndex);
-            Account account = new Account(account_id, account_name, account_sum, account_color);
+            int typeIndex = cursor.getColumnIndex("account_type");
+            int account_type = cursor.getInt(typeIndex);
+            Account account = new Account(account_id, account_name, account_sum, account_color, account_type);
             accountArray.add(account);
             cursor.moveToNext();
         }
@@ -301,9 +329,11 @@ public class AccountDb {
             int account_id = cursor.getInt(idIndex);
             int colorIndex = cursor.getColumnIndex("account_color");
             int account_color = cursor.getInt(colorIndex);
+            int typeIndex = cursor.getColumnIndex("account_type");
+            int account_type = cursor.getInt(typeIndex);
             int statusIndex = cursor.getColumnIndex("status");
             int status = cursor.getInt(statusIndex);
-            Account account = new Account(account_id, account_name, account_sum, account_color, status);
+            Account account = new Account(account_id, account_name, account_sum, account_color, account_type, status);
             accountArray.add(account);
             cursor.moveToNext();
         }
