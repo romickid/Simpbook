@@ -28,6 +28,15 @@ public class CategoryDb {
         db = db_instance;
     }
 
+
+    /**
+     * 插入一条category数据
+     *
+     * @param class1 一级分类实例
+     */
+    public String insertCategory(Class1 class1) {
+        return insertCategory(class1.getName(), class1.getColor());
+    }
     /**
      * 插入一条category数据
      *
@@ -40,7 +49,7 @@ public class CategoryDb {
                     new String[]{category_name}, null, null, null);
             int count = cursor.getCount();
             if (count > 0)
-                return "DUPLICATE ERROR";
+                return "分类名重复";
 
             ContentValues values = new ContentValues();
             values.put("category_name", category_name);
@@ -50,10 +59,10 @@ public class CategoryDb {
             long result = db.insert("c_category", null, values);
 
             if (result > -1)
-                return "SUCCESS";
-            else return "UNKNOW SQL ERROR";
+                return "成功";
+            else return "未知错误";
         } catch (SQLException e) {
-            return "UNKNOW SQL ERROR";
+            return "未知错误";
         }
     }
 
@@ -107,19 +116,29 @@ public class CategoryDb {
     /**
      * 更新一条category数据
      *
+     * @param class1 一级分类实例
+     */
+
+    public String updateCategory(Class1 class1) {
+        return updateCategory(class1.getId(), class1.getName(), class1.getColor());
+    }
+
+    /**
+     * 更新一条category数据
+     *
      * @param category_id 分类id
      * @param category_name 分类名
      * @param category_color 分类颜色
      */
 
-    public String updateCategory(int category_id, String category_name, int category_color) {
+    private String updateCategory(int category_id, String category_name, int category_color) {
         try {
             Cursor cursor = db.query("c_category", new String[]{"category_name"},
                     "category_name = ? AND status > -1 AND category_id != ?",
                     new String[]{category_name, category_id+""}, null, null, null);
             int count = cursor.getCount();
             if (count > 0)
-                return "DUPLICATE ERROR";
+                return "分类名重复";
 
             ContentValues values = new ContentValues();
             values.put("category_name", category_name);
@@ -129,11 +148,20 @@ public class CategoryDb {
             int result = db.update("c_category", values, "category_id = ?", new String[]{category_id + ""});
 
             if (result > 0)
-                return "SUCCESS";
-            else return "UNKNOW SQL ERROR";
+                return "成功";
+            else return "未知错误";
         } catch (SQLException e) {
-            return "UNKNOW SQL ERROR";
+            return "未知错误";
         }
+    }
+
+    /**
+     * 删除一条category数据
+     *
+     * @param class1  一级分类实例
+     */
+    public String deleteCategory(Class1 class1) {
+        return deleteCategory(class1.getId());
     }
 
     /**
@@ -141,7 +169,7 @@ public class CategoryDb {
      *
      * @param category_id 分类id
      */
-    public String deleteCategory(int category_id) {
+    private String deleteCategory(int category_id) {
         try {
 
             RecordDb recordDb = new RecordDb(db);
@@ -149,10 +177,14 @@ public class CategoryDb {
             SubcategoryDb subcategoryDb = new SubcategoryDb(db);
 
             boolean access = recordDb.isHaveRecord("c_category", category_id);
+            if (access)
+                return "该分类下有流水记录，无法删除";
             boolean access2 = subcategoryDb.isHaveSubcategory(category_id);
+            if (access2)
+                return "该分类下有子分类，无法删除";
             boolean access3 = templateDb.isHaveTemplate("c_category", category_id);
-            if (access || access2 || access3)
-                return "HAVE RECORD ON CATEGORY";
+            if (access3)
+                return "该分类下有模版记录，无法删除";
 
 
             ContentValues values = new ContentValues();
@@ -161,10 +193,10 @@ public class CategoryDb {
             int result = db.update("c_category", values, "category_id = ?", new String[]{category_id + ""});
 
             if (result > 0)
-                return "SUCCESS";
-            else return "UNKNOW SQL ERROR";
+                return "成功";
+            else return "未知错误";
         } catch (SQLException e) {
-            return "UNKNOW SQL ERROR";
+            return "未知错误";
         }
     }
 

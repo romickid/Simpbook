@@ -32,6 +32,16 @@ public class RecordDb {
 
     /**
      * 插入一条record数据
+     * @param statementRecord
+     * @return "成功" or "未知错误"
+     */
+    public String insertRecord(StatementRecord statementRecord) {
+        return insertRecord(statementRecord.getAccountId(), statementRecord.getType(), statementRecord.getMoney(),
+                statementRecord.getRemark(), statementRecord.getClass1Id(), statementRecord.getClass2Id(),
+                statementRecord.getToAccountId(), statementRecord.getDate());
+    }
+    /**
+     * 插入一条record数据
      *
      * @param account_id 账号id
      * @param record_type 种类
@@ -42,7 +52,7 @@ public class RecordDb {
      * @param account_toId 发送账户id
      * @param record_time 记录时间
      */
-    public String insertRecord(int  account_id, int record_type, float record_money,
+    private String insertRecord(int  account_id, int record_type, float record_money,
                                 String record_note, int category_id, int subcategory_id,
                                 int account_toId, Date record_time) {
 
@@ -74,44 +84,8 @@ public class RecordDb {
         }
 
         if (result > -1)
-            return "SUCCESS";
-        else return "UNKNOW ERROR";
-    }
-
-    /**
-     * 插入一条record数据
-     *
-     * @param account_id 账号id
-     * @param record_type 种类
-     * @param record_money 金额
-     * @param record_note 备注
-     * @param category_id 一级分类id
-     * @param subcategory_id 二级分类id
-     * @param record_time 记录时间
-     */
-    public String insertRecord(int  account_id, int record_type, float record_money,
-                                String record_note, int category_id, int subcategory_id,
-                                Date record_time) {
-        String result = insertRecord(account_id, record_type, record_money, record_note, category_id, subcategory_id, 0, record_time);
-        return result;
-    }
-
-    /**
-     * 插入一条record数据
-     *
-     * @param account_id 账号id
-     * @param record_type 种类
-     * @param record_money 金额
-     * @param record_note 备注
-     * @param account_toId 发送账户id
-     * @param record_time 记录时间
-     */
-
-    public String insertRecord(int  account_id, int record_type, float record_money,
-                                String record_note, int account_toId,
-                                Date record_time) {
-        String result = insertRecord(account_id, record_type, record_money, record_note, 0, 0, account_toId, record_time);
-        return result;
+            return "成功";
+        else return "未知错误";
     }
 
     /**
@@ -169,6 +143,16 @@ public class RecordDb {
         String DELETE_ALL = "delete from c_record";
         db.execSQL(DELETE_ALL);
     }
+    /**
+     * 更新一条record数据
+     *
+     * @param statementRecord 流水记录实例
+     */
+    public String updateRecord(StatementRecord statementRecord) {
+        return updateRecord(statementRecord.getId(), statementRecord.getAccountId(), statementRecord.getType(),
+                statementRecord.getMoney(), statementRecord.getRemark(), statementRecord.getClass1Id(),
+                statementRecord.getClass2Id(), statementRecord.getToAccountId(), statementRecord.getDate());
+    }
 
     /**
      * 更新一条record数据
@@ -183,7 +167,7 @@ public class RecordDb {
      * @param account_toId 发送账户id
      * @param record_time 记录时间
      */
-    public String updateRecord(int record_id, int account_id, int record_type, float record_money,
+    private String updateRecord(int record_id, int account_id, int record_type, float record_money,
                                 String record_note, int category_id, int subcategory_id,
                                 int account_toId, Date record_time) {
 
@@ -214,45 +198,8 @@ public class RecordDb {
         }
 
         if (result > 0)
-            return "SUCCESS";
-        else return "UNKNOW ERROR";
-    }
-
-    /**
-     * 插入一条record数据
-     *
-     * @param record_id 记录id
-     * @param account_id 账号id
-     * @param record_type 种类
-     * @param record_money 金额
-     * @param record_note 备注
-     * @param category_id 一级分类id
-     * @param subcategory_id 二级分类id
-     * @param record_time 记录时间
-     */
-    public String updateRecord(int record_id, int account_id, int record_type, float record_money,
-                                String record_note, int category_id, int subcategory_id, Date record_time) {
-        String result = updateRecord(record_id, account_id, record_type, record_money, record_note, category_id, subcategory_id, 0, record_time);
-        return result;
-
-    }
-
-    /**
-     * 插入一条record数据
-     *
-     * @param record_id 记录id
-     * @param account_id 账号id
-     * @param record_type 种类
-     * @param record_money 金额
-     * @param record_note 备注
-     * @param account_toId 发送账户id
-     * @param record_time 记录时间
-     */
-    public String updateRecord(int record_id, int account_id, int record_type, float record_money,
-                                String record_note, int account_toId, Date record_time) {
-        String result = updateRecord(record_id, account_id, record_type, record_money, record_note, 0, 0, account_toId, record_time);
-        return result;
-
+            return "成功";
+        else return "未知错误";
     }
 
     /**
@@ -298,7 +245,16 @@ public class RecordDb {
         int type = cursor.getInt(typeIndex);
         return type;
     }
+    /**
+     * 删除一条record数据
+     *
+     * @param statementRecord 流水实例
+     *
+     */
 
+    public String  deleteRecord(StatementRecord statementRecord) {
+        return deleteRecord(statementRecord.getId());
+    }
     /**
      * 删除一条record数据
      *
@@ -322,8 +278,8 @@ public class RecordDb {
         }
 
         if (result > 0)
-            return "SUCCESS";
-        else return "UNKNOW ERROR";
+            return "成功";
+        else return "未知错误";
     }
 
     /**

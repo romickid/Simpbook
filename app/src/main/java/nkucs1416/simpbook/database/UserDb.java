@@ -23,17 +23,30 @@ public class UserDb {
         context = context_instance;
     }
 
+
     /**
      * 创建用户
      */
-    public void createUser(String name, String password, String email) {
+    public void createUser(User user) {
+       createUser(user.getName(), user.getPassword(), user.getEmail());
+    }
+    /**
+     * 创建用户
+     */
+    private void createUser(String name, String password, String email) {
         Register register = new Register(context);
         register.createUser(name, password, email);
     }
     /**
      * 用户登录
      */
-    public void loginUser(String email, String password) {
+    public void loginUser(User user) {
+        loginUser(user.getEmail(),user.getPassword());
+    }
+    /**
+     * 用户登录
+     */
+    private void loginUser(String email, String password) {
         Login login = new Login(context);
         login.userLogin(email, password);
     }
