@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".account.AccountActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/accountadd_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@color/colorDefaultBlue"
+        android:minHeight="56dp"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_chevron_left_white_36dp"
+        app:title="账户添加"
+        app:titleTextColor="@color/colorWhite"
+        app:contentInsetStartWithNavigation="0dp" />
+
+    <EditText
+        android:id="@+id/accountadd_edittext_name"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:textAllCaps="false"
+        android:textColor="@color/colorGrey500"
+        android:textColorHint="@color/colorGrey500"
+        android:textColorLink="@color/colorGrey500"
+        android:textSize="42sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accountadd_toolbar" />
+
+    <ImageView
+        android:id="@+id/accoundadd_staticline1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="4dp"
+        android:src="@color/colorGrey300"
+        app:layout_constraintEnd_toEndOf="@+id/accountadd_edittext_name"
+        app:layout_constraintStart_toStartOf="@+id/accountadd_edittext_name"
+        app:layout_constraintTop_toBottomOf="@+id/accountadd_edittext_name" />
+
+    <TextView
+        android:id="@+id/accoundadd_statictext1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="账户类型"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/colorText54"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/accountadd_edittext_name"
+        app:layout_constraintTop_toBottomOf="@+id/accoundadd_staticline1" />
+
+    <Spinner
+        android:id="@+id/accoundadd_spinner_accounttype"
+        style="@android:style/Widget.Material.Light.Spinner"
+        android:layout_width="0dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="4dp"
+        android:background="@null"
+        android:overlapAnchor="false"
+        app:layout_constraintEnd_toEndOf="@+id/accountadd_edittext_name"
+        app:layout_constraintStart_toStartOf="@+id/accountadd_edittext_name"
+        app:layout_constraintTop_toBottomOf="@+id/accoundadd_statictext1" />
+
+    <ImageView
+        android:id="@+id/accoundadd_staticline2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="4dp"
+        android:src="@color/colorGrey300"
+        app:layout_constraintEnd_toEndOf="@+id/accountadd_edittext_name"
+        app:layout_constraintStart_toStartOf="@+id/accountadd_edittext_name"
+        app:layout_constraintTop_toBottomOf="@+id/accoundadd_spinner_accounttype" />
+
+    <TextView
+        android:id="@+id/accoundadd_statictext2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="账户标识色"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/colorText54"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/accountadd_edittext_name"
+        app:layout_constraintTop_toBottomOf="@+id/accoundadd_staticline2" />
+
+    <Spinner
+        android:id="@+id/accoundadd_spinner_color"
+        style="@android:style/Widget.Material.Light.Spinner"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="4dp"
+        android:background="@null"
+        android:overlapAnchor="false"
+        app:layout_constraintEnd_toEndOf="@+id/accountadd_edittext_name"
+        app:layout_constraintStart_toStartOf="@+id/accountadd_edittext_name"
+        app:layout_constraintTop_toBottomOf="@+id/accoundadd_statictext2" />
+
+    <ImageView
+        android:id="@+id/accoundadd_staticline3"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="4dp"
+        android:src="@color/colorGrey300"
+        app:layout_constraintEnd_toEndOf="@+id/accountadd_edittext_name"
+        app:layout_constraintStart_toStartOf="@+id/accountadd_edittext_name"
+        app:layout_constraintTop_toBottomOf="@+id/accoundadd_spinner_color" />
+
+    <TextView
+        android:id="@+id/accoundadd_statictext3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="账户初始金额"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/colorText54"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/accountadd_edittext_name"
+        app:layout_constraintTop_toBottomOf="@+id/accoundadd_staticline3" />
+
+    <EditText
+        android:id="@+id/accountadd_edittext_money"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:hint="0.00"
+        android:textAllCaps="false"
+        android:textColor="@color/colorGrey500"
+        android:textColorHint="@color/colorGrey500"
+        android:textColorLink="@color/colorGrey500"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/accountadd_edittext_name"
+        app:layout_constraintStart_toStartOf="@+id/accountadd_edittext_name"
+        app:layout_constraintTop_toBottomOf="@+id/accoundadd_statictext3" />
+
+
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/accountadd_button_add"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="32dp"
+        android:clickable="true"
+        android:src="@drawable/ic_add_grey_500_24dp"
+        app:backgroundTint="@color/colorDefaultYellow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
