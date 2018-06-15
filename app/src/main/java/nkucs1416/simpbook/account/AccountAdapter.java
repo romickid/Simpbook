@@ -16,6 +16,9 @@ import java.util.HashMap;
 import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.statement.StatementActivity;
 
+import static nkucs1416.simpbook.util.Color.getColorIcon;
+import static nkucs1416.simpbook.util.Money.setTextViewMoneyDecimal;
+
 public class AccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<HashMap<String, Object>> listAccountObjects;
     private Context context;
@@ -75,10 +78,10 @@ public class AccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 AccountSummarize accountSummarize = (AccountSummarize)listAccountObjects.get(position).get("object");
 
                 final String text0 = accountSummarize.getText();
-                final String money0 = accountSummarize.getStrMoney();
+                final float money0 = accountSummarize.getMoney();
 
                 accountSummarizeViewHolder.textViewText.setText(text0);
-                accountSummarizeViewHolder.textViewMoney.setText(money0);
+                setTextViewMoneyDecimal(accountSummarizeViewHolder.textViewMoney, money0);
 
                 break;
 
@@ -86,9 +89,9 @@ public class AccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 AccountElementViewHolder accountElementViewHolder = (AccountElementViewHolder) holder;
                 AccountElement accountElement = (AccountElement)listAccountObjects.get(position).get("object");
 
-                final int color1 = accountElement.getColor();
+                final int colorIcon1 = getColorIcon(accountElement.getColorId());
                 final String text1 = accountElement.getText();
-                final String money1 = accountElement.getStrMoney();
+                final float money1 = accountElement.getMoney();
 
                 final ImageView imageViewBackground1 = accountElementViewHolder.imageViewBackground;
                 final Context context1 = accountElementViewHolder.context;
@@ -103,13 +106,9 @@ public class AccountAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 });
 
                 accountElementViewHolder.textViewText.setText(text1);
-                accountElementViewHolder.textViewMoney.setText(money1);
-                accountElementViewHolder.imageViewColor.setImageResource(color1);
+                setTextViewMoneyDecimal(accountElementViewHolder.textViewMoney, money1);
+                accountElementViewHolder.imageViewColor.setImageResource(colorIcon1);
 
-                break;
-
-            case -1:
-                SplitLineViewHolder splitLineViewHolder = (SplitLineViewHolder) holder;
                 break;
         }
     }

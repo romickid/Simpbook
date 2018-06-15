@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -23,6 +21,7 @@ import nkucs1416.simpbook.util.ColorSpinnerAdapter;
 
 import static nkucs1416.simpbook.account.AccountType.getListAccountTypes;
 import static nkucs1416.simpbook.util.Color.*;
+import static nkucs1416.simpbook.util.Money.setEditTextMoneyDecimal;
 
 public class AccountAddActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -30,7 +29,7 @@ public class AccountAddActivity extends AppCompatActivity {
     private Spinner spinnerAccountType;
     private Spinner spinnerAccountColor;
     private EditText editTextMoney;
-    private FloatingActionButton buttonAdd;
+    private FloatingActionButton buttonAddAccount;
 
     private SQLiteDatabase sqLiteDatabase;
     private AccountDb accountDb;
@@ -45,6 +44,9 @@ public class AccountAddActivity extends AppCompatActivity {
         initFindById();
         initToolbar();
         initSpinner();
+        initMoney();
+        initButton();
+        initDatabase();
     }
 
 
@@ -58,7 +60,7 @@ public class AccountAddActivity extends AppCompatActivity {
         spinnerAccountType = findViewById(R.id.accoundadd_spinner_accounttype);
         spinnerAccountColor = findViewById(R.id.accoundadd_spinner_color);
         editTextMoney = findViewById(R.id.accountadd_edittext_money);
-        buttonAdd = findViewById(R.id.accountadd_button_add);
+        buttonAddAccount = findViewById(R.id.accountadd_button_add);
     }
 
     /**
@@ -106,14 +108,14 @@ public class AccountAddActivity extends AppCompatActivity {
      * 初始化金额
      */
     private void initMoney() {
-        setEditTextMoneyDecimal();
+        setEditTextMoneyDecimal(editTextMoney);
     }
 
     /**
      * 初始化按钮
      */
     private void initButton() {
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
+        buttonAddAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 String message = saveAccount();
@@ -135,53 +137,7 @@ public class AccountAddActivity extends AppCompatActivity {
     private void initDatabase() {
         CustomSQLiteOpenHelper customSQLiteOpenHelper = new CustomSQLiteOpenHelper(this);
         sqLiteDatabase = customSQLiteOpenHelper.getWritableDatabase();
-    }
-
-
-    // 金额相关
-    /**
-     * 设置金额的格式化(输入框设置为2位小数)
-     */
-    public void setEditTextMoneyDecimal() {
-        editTextMoney.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                if (s.toString().contains(".")) {
-                    if (s.length() - 1 - s.toString().indexOf(".") > 2) {
-                        s = s.toString().subSequence(0,
-                                s.toString().indexOf(".") + 3);
-                        editTextMoney.setText(s);
-                        editTextMoney.setSelection(s.length());
-                    }
-                }
-                if (s.toString().trim().substring(0).equals(".")) {
-                    s = "0" + s;
-                    editTextMoney.setText(s);
-                    editTextMoney.setSelection(2);
-                }
-
-                if (s.toString().startsWith("0")
-                        && s.toString().trim().length() > 1) {
-                    if (!s.toString().substring(1, 2).equals(".")) {
-                        editTextMoney.setText(s.subSequence(0, 1));
-                        editTextMoney.setSelection(1);
-                        return;
-                    }
-                }
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
-            }
-        });
+        accountDb = new AccountDb(sqLiteDatabase);
     }
 
 
@@ -193,10 +149,14 @@ public class AccountAddActivity extends AppCompatActivity {
      */
     private Account getAccount() {
         String name = editTextName.getText().toString();
-        int type = spinnerAccountType.getId();
-        int color = spinnerAccountColor.getId();
-        float money = Float.parseFloat(editTextMoney.getText().toString());
-        return new Account(name, money, type, color);
+        int type = (int)spinnerAccountType.getSelectedItem();
+        int color = (int)spinnerAccountColor.getSelectedItem();
+        String strMoney = editTextMoney.getText().toString();
+        float money = 0.0f;
+        if (!strMoney.isEmpty())
+            money = Float.parseFloat(strMoney);
+
+        return new Account(name, money, color, type);
     }
 
     /**
@@ -204,7 +164,6 @@ public class AccountAddActivity extends AppCompatActivity {
      */
     private String saveAccount() {
         Account accountSave = getAccount();
-        accountDb = new AccountDb(sqLiteDatabase);
         return accountDb.insertAccount(accountSave);
     }
 
