@@ -233,6 +233,32 @@ public class CategoryDb {
         return categoryArray;
     }
     /**
+     * 根据类型返回category数据
+     * @param category_type 一级分类类型
+     * @return Class1的ArrayList
+     */
+    public ArrayList<Class1> getCategoryListByType (int category_type) {
+        Cursor cursor = db.query("c_category", null,
+                "category_type = ?", new String[]{category_type+""},
+                null, null, null);
+        cursor.moveToFirst();
+        int count = cursor.getCount();
+        ArrayList<Class1> categoryArray = new ArrayList();
+        for (int i=0;i<count;i++){
+            int nameIndex = cursor.getColumnIndex("category_name");
+            String  category_name = cursor.getString(nameIndex);
+            int colorIndex = cursor.getColumnIndex("category_color");
+            int category_color = cursor.getInt(colorIndex);
+            int idIndex = cursor.getColumnIndex("category_id");
+            int category_id = cursor.getInt(idIndex);
+            Class1 category = new Class1(category_id, category_name, category_color, category_type);
+            categoryArray.add(category);
+            cursor.moveToNext();
+        }
+        return categoryArray;
+    }
+
+    /**
      * 根据id返回category数据
      * @param category_id 一级分类id
      * @return Class1的ArrayList
