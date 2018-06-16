@@ -438,6 +438,16 @@ public class RecordDb {
      * 返回所有的record数据
      *
      */
+    public ArrayList<StatementRecord> getRecordListById (int record_id) {
+        Cursor cursor = db.query("c_record", null, "record_id = ?",
+                new String[]{record_id+""}, null, null, null);
+        return addRecordList(cursor);
+    }
+
+    /**
+     * 返回所有的record数据
+     *
+     */
     public ArrayList<StatementRecord> recordList () {
         Cursor cursor = db.query("c_record", null, "record_type != 4 AND status > -1",
                 null, null, null, "record_time DESC");

@@ -131,6 +131,7 @@ public class RequestApiData {
 				account[i].put("account_id", a.getId());
 				account[i].put("account_color", a.getColor());
 				account[i].put("account_money", a.getMoney());
+				account[i].put("account_type", a.getType());
 				account[i].put("status", a.getStatus());
 				accountList.put(i, account[i]);
 			}
@@ -169,6 +170,7 @@ public class RequestApiData {
 				category[i].put("category_name", a.getName());
 				category[i].put("category_id", a.getId());
 				category[i].put("category_color", a.getColor());
+				category[i].put("category_type", a.getType());
 				category[i].put("status", a.getStatus());
 				categoryList.put(i, category[i]);
 			}

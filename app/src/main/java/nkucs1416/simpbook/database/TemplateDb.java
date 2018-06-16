@@ -266,6 +266,61 @@ public class TemplateDb {
         }
         return false;
     }
+    /**
+     * 根据id返回template数据
+     *
+     * @param template_id 模版id
+     * @return Collection数组
+     */
+    public ArrayList<Collection> getTemplateListById (int template_id) {
+        Cursor cursor = db.query("c_template", null, "template_id",
+                new String[]{template_id+""}, null, null, null);
+        cursor.moveToFirst();
+        int count = cursor.getCount();
+        ArrayList<Collection> templateArray = new ArrayList();
+        for (int i=0;i<count;i++) {
+
+            int accountIdIndex = cursor.getColumnIndex("template_accountID");
+            int  template_accountId = cursor.getInt(accountIdIndex);
+
+            int moneyIndex = cursor.getColumnIndex("template_money");
+            float template_money = cursor.getFloat(moneyIndex);
+
+            int typeIndex = cursor.getColumnIndex("template_type");
+            int template_type = cursor.getInt(typeIndex);
+
+            int noteIndex = cursor.getColumnIndex("template_note");
+            String template_note = cursor.getString(noteIndex);
+
+            int categoryIDIndex = cursor.getColumnIndex("template_categoryID");
+            int template_categoryID = cursor.getInt(categoryIDIndex);
+
+            int subcategoryIdIndex = cursor.getColumnIndex("template_subcategoryID");
+            int template_subcategoryId = cursor.getInt(subcategoryIdIndex);
+
+            int accountToIdIndex = cursor.getColumnIndex("template_accountToID");
+            int template_accountToId = cursor.getInt(accountToIdIndex);
+
+            int timeIndex = cursor.getColumnIndex("template_time");
+            int template_time = cursor.getInt(timeIndex);
+
+            Utils util = new Utils();
+
+            Date datetime = util.switchTimetoDate(template_time);
+
+
+            if (typeIndex == -1) {
+                Collection template = new Collection(template_id, template_accountId, template_money, template_type, datetime, template_note, template_accountToId);
+                templateArray.add(template);
+            }
+            else {
+                Collection template = new Collection(template_id, template_accountId, template_money, template_type, datetime, template_note, template_categoryID, template_subcategoryId);
+                templateArray.add(template);
+            }
+            cursor.moveToNext();
+        }
+        return templateArray;
+    }
 
     /**
      * 返回所有的template数据

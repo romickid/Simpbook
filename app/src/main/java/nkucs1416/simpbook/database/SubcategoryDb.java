@@ -216,6 +216,34 @@ public class SubcategoryDb {
         }
     }
     /**
+     * 根据id返回subcategory
+     *
+     * @param subcategory_id 二级分类ID
+     *
+     * @return 二级分类数组
+     */
+    public ArrayList<Class2> getSubcategoryListById (int subcategory_id) {
+
+        Cursor cursor = db.query("c_subcategory", null,
+                "subcategory_id", new String[]{subcategory_id+""},
+                null, null, null);
+        cursor.moveToFirst();
+        int count = cursor.getCount();
+        ArrayList<Class2> subcatagoryArray = new ArrayList();
+        for (int i=0;i<count;i++){
+            int nameIndex = cursor.getColumnIndex("subcategory_name");
+            String  subcategory_name = cursor.getString(nameIndex);
+            int colorIndex = cursor.getColumnIndex("subcategory_color");
+            int subcategory_color = cursor.getInt(colorIndex);
+            int fatherIdIndex = cursor.getColumnIndex("subcategory_fatherID");
+            int fatherId = cursor.getInt(fatherIdIndex);
+            Class2 subcategory = new Class2(subcategory_id, subcategory_name, subcategory_color, fatherId);
+            subcatagoryArray.add(subcategory);
+            cursor.moveToNext();
+        }
+        return subcatagoryArray;
+    }
+    /**
      * 返回某个一级分类下的所有subcategory
      *
      * @param category_id 一级分类ID

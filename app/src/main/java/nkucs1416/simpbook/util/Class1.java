@@ -4,6 +4,7 @@ public class Class1 {
     private int id;
     private String name;
     private int color;
+    private int type;
     private int status;
 
 
@@ -21,11 +22,13 @@ public class Class1 {
      *
      * @param tName 名称
      * @param tColor 标识颜色
+     * @param tType 类型
      */
-    public Class1(String tName, int tColor) {
+    public Class1(String tName, int tColor, int tType) {
         id = -1;
         name = tName;
         color = tColor;
+        type = tType;
     }
 
     /**
@@ -34,11 +37,13 @@ public class Class1 {
      * @param tId id
      * @param tName 名称
      * @param tColor 标识颜色
+     * @param tType 类型
      */
-    public Class1(int tId, String tName, int tColor) {
+    public Class1(int tId, String tName, int tColor, int tType) {
         id = tId;
         name = tName;
         color = tColor;
+        type = tType;
     }
 
     /**
@@ -47,12 +52,14 @@ public class Class1 {
      * @param tId id
      * @param tName 名称
      * @param tColor 标识颜色
+     * @param tType 类型
      * @param tStatus 状态
      */
-    public Class1(int tId, String tName, int tColor, int tStatus) {
+    public Class1(int tId, String tName, int tColor, int tStatus, int tType) {
         id = tId;
         name = tName;
         color = tColor;
+        type = tType;
         status = tStatus;
     }
 
@@ -82,6 +89,15 @@ public class Class1 {
      */
     public int getColor() {
         return color;
+    }
+
+    /**
+     * 获取类型
+     *
+     * @return 类型
+     */
+    public int getType() {
+        return type;
     }
 
     /**

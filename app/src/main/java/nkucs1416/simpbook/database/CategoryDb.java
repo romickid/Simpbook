@@ -35,7 +35,7 @@ public class CategoryDb {
      * @param class1 一级分类实例
      */
     public String insertCategory(Class1 class1) {
-        return insertCategory(class1.getName(), class1.getColor());
+        return insertCategory(class1.getName(), class1.getColor(), class1.getType());
     }
     /**
      * 插入一条category数据
@@ -43,7 +43,7 @@ public class CategoryDb {
      * @param category_name 分类名
      * @param category_color 分类颜色
      */
-    private String insertCategory(String  category_name, int category_color) {
+    private String insertCategory(String  category_name, int category_color, int category_type) {
         try {
             Cursor cursor = db.query("c_category", new String[]{"category_name"}, "category_name = ? AND status > -1",
                     new String[]{category_name}, null, null, null);
@@ -54,6 +54,7 @@ public class CategoryDb {
             ContentValues values = new ContentValues();
             values.put("category_name", category_name);
             values.put("category_color", category_color);
+            values.put("category_type", category_type);
             values.put("status", 0);
             values.put("anchor", 0);
             long result = db.insert("c_category", null, values);
@@ -99,6 +100,7 @@ public class CategoryDb {
             values.put("category_id", category.getId());
             values.put("category_name", category.getName());
             values.put("category_color", category.getColor());
+            values.put("category_type", category.getType());
             values.put("status", category.getStatus());
             db.insert("c_category", null, values);
         }
@@ -120,7 +122,7 @@ public class CategoryDb {
      */
 
     public String updateCategory(Class1 class1) {
-        return updateCategory(class1.getId(), class1.getName(), class1.getColor());
+        return updateCategory(class1.getId(), class1.getName(), class1.getColor(), class1.getType());
     }
 
     /**
@@ -131,7 +133,7 @@ public class CategoryDb {
      * @param category_color 分类颜色
      */
 
-    private String updateCategory(int category_id, String category_name, int category_color) {
+    private String updateCategory(int category_id, String category_name, int category_color, int category_type) {
         try {
             Cursor cursor = db.query("c_category", new String[]{"category_name"},
                     "category_name = ? AND status > -1 AND category_id != ?",
@@ -143,6 +145,7 @@ public class CategoryDb {
             ContentValues values = new ContentValues();
             values.put("category_name", category_name);
             values.put("category_color", category_color);
+            values.put("category_type", category_type);
             values.put("status", 1);
             values.put("anchor", 0);
             int result = db.update("c_category", values, "category_id = ?", new String[]{category_id + ""});
@@ -219,14 +222,42 @@ public class CategoryDb {
             String  category_name = cursor.getString(nameIndex);
             int colorIndex = cursor.getColumnIndex("category_color");
             int category_color = cursor.getInt(colorIndex);
+            int typeIndex = cursor.getColumnIndex("category_type");
+            int category_type = cursor.getInt(typeIndex);
             int statusIndex = cursor.getColumnIndex("status");
             int status = cursor.getInt(statusIndex);
-            Class1 category = new Class1(category_id, category_name, category_color, status);
+            Class1 category = new Class1(category_id, category_name, category_color, category_type, status);
             categoryArray.add(category);
             cursor.moveToNext();
         }
         return categoryArray;
     }
+    /**
+     * 根据id返回category数据
+     * @param category_id 一级分类id
+     * @return Class1的ArrayList
+     */
+    public ArrayList<Class1> getCategoryListById (int category_id) {
+        Cursor cursor = db.query("c_category", null,
+                "category_id = ?", new String[]{category_id+""},
+                null, null, null);
+        cursor.moveToFirst();
+        int count = cursor.getCount();
+        ArrayList<Class1> categoryArray = new ArrayList();
+        for (int i=0;i<count;i++){
+            int nameIndex = cursor.getColumnIndex("category_name");
+            String  category_name = cursor.getString(nameIndex);
+            int colorIndex = cursor.getColumnIndex("category_color");
+            int category_color = cursor.getInt(colorIndex);
+            int typeIndex = cursor.getColumnIndex("category_type");
+            int category_type = cursor.getInt(typeIndex);
+            Class1 category = new Class1(category_id, category_name, category_color, category_type);
+            categoryArray.add(category);
+            cursor.moveToNext();
+        }
+        return categoryArray;
+    }
+
 
     /**
      * 返回所有category数据
@@ -247,7 +278,9 @@ public class CategoryDb {
             String  category_name = cursor.getString(nameIndex);
             int colorIndex = cursor.getColumnIndex("category_color");
             int category_color = cursor.getInt(colorIndex);
-            Class1 category = new Class1(category_id, category_name, category_color);
+            int typeIndex = cursor.getColumnIndex("category_type");
+            int category_type = cursor.getInt(typeIndex);
+            Class1 category = new Class1(category_id, category_name, category_color, category_type);
             categoryArray.add(category);
             cursor.moveToNext();
         }

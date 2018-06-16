@@ -282,6 +282,33 @@ public class AccountDb {
     }
 
     /**
+     * 根据id返回account数据
+     * @param account_id 账户Id
+     */
+    public ArrayList<Account> getAccountListById (int account_id) {
+        Cursor cursor = db.query("c_account", null,
+                "account_id = ?", new String[]{account_id+""},
+                null, null, null);
+        cursor.moveToFirst();
+        int count = cursor.getCount();
+        ArrayList<Account> accountArray = new ArrayList();
+        for (int i=0;i<count;i++){
+            int nameIndex = cursor.getColumnIndex("account_name");
+            String  account_name = cursor.getString(nameIndex);
+            int sumIndex = cursor.getColumnIndex("account_sum");
+            float account_sum = cursor.getFloat(sumIndex);
+            int colorIndex = cursor.getColumnIndex("account_color");
+            int account_color = cursor.getInt(colorIndex);
+            int typeIndex = cursor.getColumnIndex("account_type");
+            int account_type = cursor.getInt(typeIndex);
+            Account account = new Account(account_id, account_name, account_sum, account_color, account_type);
+            accountArray.add(account);
+            cursor.moveToNext();
+        }
+        return accountArray;
+    }
+
+    /**
      * 返回所有account数据
      *
      */
