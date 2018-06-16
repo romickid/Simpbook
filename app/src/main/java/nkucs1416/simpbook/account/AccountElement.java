@@ -4,8 +4,8 @@ public class AccountElement {
     private int colorId;
     private String text;
     private float money;
-
     private int id;
+
 
     /**
      * 构建AccountElement实例
@@ -15,7 +15,7 @@ public class AccountElement {
      * @param tMoney 金额
      * @param tId id
      */
-    public AccountElement(int tColor, String tText, float tMoney, int tId) {
+    AccountElement(int tColor, String tText, float tMoney, int tId) {
         colorId = tColor;
         text = tText;
         money = tMoney;
@@ -57,4 +57,5 @@ public class AccountElement {
     public int getId() {
         return id;
     }
+
 }

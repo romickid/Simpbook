@@ -8,30 +8,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import nkucs1416.simpbook.R;
-import nkucs1416.simpbook.record.RecordActivity;
-import nkucs1416.simpbook.util.CollectionElement;
+import nkucs1416.simpbook.record.ActivityRecord;
 
-public class CollectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AdapterCollection extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<HashMap<String, Object>> listCollectionObjects;
     private Context context;
+
 
     // RecyclerView.Adapter相关
     /**
      * 构造函数, 读取需要绘制的CollectionObjects列表
      *
      * @param tContext 传入的Context
-     * @param tListCollectionAdapter 传入的CollectionObjects列表
+     * @param tListCollectionObjects 传入的CollectionObjects列表
      */
-    CollectionAdapter(Context tContext, ArrayList<HashMap<String, Object>> tListCollectionAdapter) {
+    AdapterCollection(Context tContext, ArrayList<HashMap<String, Object>> tListCollectionObjects) {
         super();
         this.context = tContext;
-        this.listCollectionObjects = tListCollectionAdapter;
+        this.listCollectionObjects = tListCollectionObjects;
     }
 
     /**
@@ -44,16 +43,16 @@ public class CollectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = null;
+        View view;
         switch (viewType) {
             case 0:
                 view = LayoutInflater.from(context)
                         .inflate(R.layout.item_collection_summerize, parent, false);
-                return new CollectionSummarizeViewHolder(view);
+                return new ViewHolderCollectionSummarize(view);
             case 1:
                 view = LayoutInflater.from(context)
                         .inflate(R.layout.item_collection_element, parent, false);
-                return new CollectionElementViewHolder(view);
+                return new ViewHolderCollectionElement(view);
         }
         return null;
     }
@@ -68,37 +67,36 @@ public class CollectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
             case 0:
-                CollectionSummarizeViewHolder collectionSummarizeViewHolder = (CollectionSummarizeViewHolder) holder;
+                ViewHolderCollectionSummarize viewHolderCollectionSummarize = (ViewHolderCollectionSummarize) holder;
                 CollectionSummarize collectionSummarize = (CollectionSummarize)listCollectionObjects.get(position).get("object");
 
                 final String text0 = collectionSummarize.getText();
 
-                collectionSummarizeViewHolder.textViewText.setText(text0);
+                viewHolderCollectionSummarize.textViewText.setText(text0);
 
                 break;
             case 1:
-                CollectionElementViewHolder collectionElementViewHolder = (CollectionElementViewHolder) holder;
-                CollectionElement collectionElement = (CollectionElement)listCollectionObjects.get(position).get("object");
+                ViewHolderCollectionElement viewHolderCollectionElement = (ViewHolderCollectionElement) holder;
 
                 final String text1 = "abc";
                 final String money1 = "1.0";
                 final int color1 = R.drawable.ic_lens_blue_a400_24dp;
 
-                final ImageView imageViewBackground1 = collectionElementViewHolder.imageViewBackground;
-                final Context context1 = collectionElementViewHolder.context;
+                final ImageView imageViewBackground1 = viewHolderCollectionElement.imageViewBackground;
+                final Context context1 = viewHolderCollectionElement.context;
 
                 imageViewBackground1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View arg0) {
-                        Intent intent = new Intent(context1, RecordActivity.class);
+                        Intent intent = new Intent(context1, ActivityRecord.class);
                         intent.putExtra("type","expense");
                         context1.startActivity(intent);
                     }
                 });
 
-                collectionElementViewHolder.textViewText.setText(text1);
-                collectionElementViewHolder.textViewMoney.setText(money1);
-                collectionElementViewHolder.imageViewColor.setImageResource(color1);
+                viewHolderCollectionElement.textViewText.setText(text1);
+                viewHolderCollectionElement.textViewMoney.setText(money1);
+                viewHolderCollectionElement.imageViewColor.setImageResource(color1);
 
                 break;
         }
@@ -126,40 +124,3 @@ public class CollectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
 }
-
-
-/**
- * CollectionElement的Holder, 与icollectionelement相关
- */
-class CollectionElementViewHolder extends RecyclerView.ViewHolder {
-    TextView textViewText;
-    TextView textViewMoney;
-    ImageView imageViewColor;
-    ImageView imageViewBackground;
-    Context context;
-
-    CollectionElementViewHolder(View view) {
-        super(view);
-        context = view.getContext();
-        textViewText = view.findViewById(R.id.icollectionelement_text);
-        textViewMoney = view.findViewById(R.id.icollectionelement_money);
-        imageViewColor = view.findViewById(R.id.icollectionelement_color);
-        imageViewBackground = view.findViewById(R.id.icollectionelement_background);
-    }
-
-}
-
-
-/**
- * CollectionSummarize的Holder, 与icollectionsummerize相关
- */
-class CollectionSummarizeViewHolder extends RecyclerView.ViewHolder {
-    TextView textViewText;
-
-    CollectionSummarizeViewHolder(View view) {
-        super(view);
-        textViewText = view.findViewById(R.id.icollectionsummerize_text);
-    }
-}
-
-

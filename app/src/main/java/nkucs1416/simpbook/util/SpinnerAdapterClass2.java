@@ -11,52 +11,58 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import nkucs1416.simpbook.R;
-import nkucs1416.simpbook.util.Account;
 
-public class AccountSpinnerAdapter extends BaseAdapter {
-    private ArrayList<Account> listAccount;
+import static nkucs1416.simpbook.util.Color.getColorIcon;
+
+public class SpinnerAdapterClass2 extends BaseAdapter {
+    private ArrayList<Class2> listClass2s;
     private Context context;
 
     /**
-     * 构造函数, 读取需要绘制的Account列表
-     * @param tcontext 传入的Context
-     * @param tlistAccount 传入的Account列表
+     * 构造函数, 读取需要绘制的Class2列表
+     *
+     * @param tContext 传入的Context
+     * @param tListClass2s 传入的Class2列表
      */
-    public AccountSpinnerAdapter(Context tcontext, ArrayList<Account> tlistAccount) {
+    public SpinnerAdapterClass2(Context tContext, ArrayList<Class2> tListClass2s) {
         super();
-        this.listAccount = tlistAccount;
-        this.context = tcontext;
+        this.listClass2s = tListClass2s;
+        this.context = tContext;
     }
 
     /**
-     * 获取Account的数量
+     * 获取Class2的数量
+     *
      * @return 数量
      */
     @Override
     public int getCount() {
-        return listAccount.size();
+        return listClass2s.size();
     }
 
     /**
-     * 获取指定位置的Account的实例
+     * 获取指定位置的Class2的实例
+     *
      * @return 实例
      */
     @Override
-    public Account getItem(int position) {
-        return listAccount.get(position);
+    public Class2 getItem(int position) {
+        return listClass2s.get(position);
     }
 
     /**
-     * 获取指定位置的Account的Id
+     * 获取指定位置的Class2的Id
+     *
      * @return Id
      */
     @Override
     public long getItemId(int position) {
-        return listAccount.get(position).getId();
+        return listClass2s.get(position).getId();
     }
 
     /**
-     * 获取Account的绘制形式(view)
+     * 获取Class2的绘制形式(view)
+     *
      * @return view
      */
     @Override
@@ -66,13 +72,15 @@ public class AccountSpinnerAdapter extends BaseAdapter {
         TextView textView = (TextView) view.findViewById(R.id.ispinner_text);
         ImageView imageView = (ImageView) view.findViewById(R.id.ispinner_color);
 
-        Account Account = listAccount.get(position);
-        String text = Account.getName();
-        int color = Account.getColor();
+        Class2 class2 = listClass2s.get(position);
+        String text = class2.getName();
+        int colorId = class2.getColor();
+        int color = getColorIcon(colorId);
 
         textView.setText(text);
         imageView.setImageResource(color);
 
         return view;
     }
+
 }

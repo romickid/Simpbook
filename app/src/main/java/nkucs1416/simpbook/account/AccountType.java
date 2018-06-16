@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import nkucs1416.simpbook.R;
 
-public class AccountType {
+class AccountType {
     /**
      * id形式
      * 1->资产账户
@@ -12,13 +12,14 @@ public class AccountType {
      */
     private static int maxAccountType = 2;
 
+
     /**
      * 获取账户类型的Icon实例
      *
      * @param accountTypeId 账户类型id
      * @return Icon实例(id)
      */
-    public static int getAccountTypeIcon(int accountTypeId) {
+    static int getAccountTypeIcon(int accountTypeId) {
         switch (accountTypeId) {
             case 1:
                 return R.drawable.ic_lens_recordred_36dp;
@@ -34,7 +35,7 @@ public class AccountType {
      * @param accountTypeId 账户类型id
      * @return 账户类型名称
      */
-    public static String getAccountTypeName(int accountTypeId) {
+    static String getAccountTypeName(int accountTypeId) {
         switch (accountTypeId) {
             case 1:
                 return "资产账户";
@@ -49,7 +50,7 @@ public class AccountType {
      *
      * @return id列表
      */
-    public static ArrayList<Integer> getListAccountTypes() {
+    static ArrayList<Integer> getListAccountTypes() {
         ArrayList<Integer> listAccountType = new ArrayList<Integer>();
         for(int i = 1; i <= maxAccountType; i++) {
             listAccountType.add(i);

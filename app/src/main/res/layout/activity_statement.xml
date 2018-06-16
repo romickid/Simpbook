@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".statement.StatementActivity">
+    tools:context=".statement.ActivityStatement">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/statement_toolbar"

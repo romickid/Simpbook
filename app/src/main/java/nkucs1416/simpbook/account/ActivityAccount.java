@@ -24,7 +24,7 @@ import static nkucs1416.simpbook.util.Account.getSumMoney;
 import static nkucs1416.simpbook.util.Account.sortListAccounts;
 import static nkucs1416.simpbook.util.Money.setTextViewMoneyDecimal;
 
-public class AccountActivity extends AppCompatActivity {
+public class ActivityAccount extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView textViewNetAssets;
     private RecyclerView recyclerView;
@@ -84,8 +84,8 @@ public class AccountActivity extends AppCompatActivity {
      */
     private void initRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        AccountAdapter accountAdapter = new AccountAdapter(this, listAccountObjects);
-        recyclerView.setAdapter(accountAdapter);
+        AdapterAccount adapterAccount = new AdapterAccount(this, listAccountObjects);
+        recyclerView.setAdapter(adapterAccount);
     }
 
     /**
@@ -95,8 +95,7 @@ public class AccountActivity extends AppCompatActivity {
         buttonAddAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                Intent intent = new Intent(AccountActivity.this, AccountAddActivity.class);
+                Intent intent = new Intent(ActivityAccount.this, ActivityAccountAdd.class);
                 startActivity(intent);
             }
         });
@@ -137,9 +136,9 @@ public class AccountActivity extends AppCompatActivity {
         listAccountObjects = new ArrayList<>();
 
         int accountTypeIndex = 0;
-        AccountElement accountElement = null;
-        AccountSummarize accountSummarize = null;
-        HashMap<String, Object> hashMap = null;
+        AccountElement accountElement;
+        AccountSummarize accountSummarize;
+        HashMap<String, Object> hashMap;
 
         for(Account account: listAccounts) {
             if (account.getType() > accountTypeIndex) {
@@ -166,4 +165,5 @@ public class AccountActivity extends AppCompatActivity {
     private void updateNetAssets() {
         setTextViewMoneyDecimal(textViewNetAssets, getSumMoney(listAccounts));
     }
+
 }

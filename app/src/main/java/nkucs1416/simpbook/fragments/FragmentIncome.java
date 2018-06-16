@@ -18,23 +18,22 @@ import android.widget.TextView;
 import android.app.Dialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
-import android.text.TextWatcher;
-import android.text.Editable;
 
 import java.util.ArrayList;
 
 import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.util.Account;
-import nkucs1416.simpbook.util.AccountSpinnerAdapter;
+import nkucs1416.simpbook.util.SpinnerAdapterAccount;
 import nkucs1416.simpbook.util.Class1;
 import nkucs1416.simpbook.util.Class2;
-import nkucs1416.simpbook.util.Class2SpinnerAdapter;
+import nkucs1416.simpbook.util.SpinnerAdapterClass2;
 import nkucs1416.simpbook.util.Date;
-import nkucs1416.simpbook.util.Class1SpinnerAdapter;
+import nkucs1416.simpbook.util.SpinnerAdapterClass1;
 
 import static nkucs1416.simpbook.util.Date.*;
+import static nkucs1416.simpbook.util.Money.setEditTextMoneyDecimal;
 
-public class ExpenseFragment extends Fragment {
+public class FragmentIncome extends Fragment {
     private View view;
     private Spinner spinnerClass1;
     private Spinner spinnerClass2;
@@ -44,20 +43,20 @@ public class ExpenseFragment extends Fragment {
     private TextView textViewRemark;
     private FloatingActionButton buttonAdd;
 
-    private ArrayList<Class1> listClass1;
-    private ArrayList<Class2> listClass2;
-    private ArrayList<Account> listAccount;
+    private ArrayList<Class1> listClass1s;
+    private ArrayList<Class2> listClass2s;
+    private ArrayList<Account> listAccounts;
 
     private OnFragmentInteractionListener fragmentInteractionListener;
 
 
     // Fragment相关
-    public ExpenseFragment() {
+    public FragmentIncome() {
         // Required empty public constructor
     }
 
-    public static ExpenseFragment newInstance(String param1, String param2) {
-        ExpenseFragment fragment = new ExpenseFragment();
+    public static FragmentIncome newInstance() {
+        FragmentIncome fragment = new FragmentIncome();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -73,7 +72,7 @@ public class ExpenseFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        view = inflater.inflate(R.layout.fragment_expense, container, false);
+        view = inflater.inflate(R.layout.fragment_income, container, false);
         initFindById();
 
         initMoney();
@@ -112,20 +111,20 @@ public class ExpenseFragment extends Fragment {
      * 初始化Id
      */
     private void initFindById() {
-        editTextMoney = view.findViewById(R.id.fexpense_editview_money);
-        spinnerClass1 = view.findViewById(R.id.fexpense_spinner_class1);
-        spinnerClass2 = view.findViewById(R.id.fexpense_spinner_class2);
-        spinnerAccount = view.findViewById(R.id.fexpense_spinner_account);
-        textViewDate = view.findViewById(R.id.fexpense_textview_date);
-        textViewRemark = view.findViewById(R.id.fexpense_textview_remark);
-        buttonAdd = view.findViewById(R.id.fexpense_button_add);
+        editTextMoney = view.findViewById(R.id.fincome_editview_money);
+        spinnerClass1 = view.findViewById(R.id.fincome_spinner_class1);
+        spinnerClass2 = view.findViewById(R.id.fincome_spinner_class2);
+        spinnerAccount = view.findViewById(R.id.fincome_spinner_account);
+        textViewDate = view.findViewById(R.id.fincome_textview_date);
+        textViewRemark = view.findViewById(R.id.fincome_textview_remark);
+        buttonAdd = view.findViewById(R.id.fincome_button_add);
     }
 
     /**
      * 初始化金额
      */
     private void initMoney() {
-        setEditTextMoneyDecimal();
+        setEditTextMoneyDecimal(editTextMoney);
     }
 
     /**
@@ -135,10 +134,10 @@ public class ExpenseFragment extends Fragment {
         demoSetListClass1();
         demoSetListClass2();
 
-        Class1SpinnerAdapter adapterClass1 = new Class1SpinnerAdapter(getActivity(), listClass1);
+        SpinnerAdapterClass1 adapterClass1 = new SpinnerAdapterClass1(getActivity(), listClass1s);
         spinnerClass1.setAdapter(adapterClass1);
 
-        Class2SpinnerAdapter adapterClass2 = new Class2SpinnerAdapter(getActivity(), listClass2);
+        SpinnerAdapterClass2 adapterClass2 = new SpinnerAdapterClass2(getActivity(), listClass2s);
         spinnerClass2.setAdapter(adapterClass2);
     }
 
@@ -148,7 +147,7 @@ public class ExpenseFragment extends Fragment {
     private void initAccount() {
         demoSetListAccount();
 
-        AccountSpinnerAdapter adapterAccount = new AccountSpinnerAdapter(getActivity(), listAccount);
+        SpinnerAdapterAccount adapterAccount = new SpinnerAdapterAccount(getActivity(), listAccounts);
         spinnerAccount.setAdapter(adapterAccount);
     }
 
@@ -169,74 +168,19 @@ public class ExpenseFragment extends Fragment {
     }
 
 
-    // 金额相关
-    /**
-     * 设置金额的格式化(输入框设置为2位小数)
-     */
-    public void setEditTextMoneyDecimal() {
-        editTextMoney.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                if (s.toString().contains(".")) {
-                    if (s.length() - 1 - s.toString().indexOf(".") > 2) {
-                        s = s.toString().subSequence(0,
-                                s.toString().indexOf(".") + 3);
-                        editTextMoney.setText(s);
-                        editTextMoney.setSelection(s.length());
-                    }
-                }
-                if (s.toString().trim().substring(0).equals(".")) {
-                    s = "0" + s;
-                    editTextMoney.setText(s);
-                    editTextMoney.setSelection(2);
-                }
-
-                if (s.toString().startsWith("0")
-                        && s.toString().trim().length() > 1) {
-                    if (!s.toString().substring(1, 2).equals(".")) {
-                        editTextMoney.setText(s.subSequence(0, 1));
-                        editTextMoney.setSelection(1);
-                        return;
-                    }
-                }
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
-            }
-        });
-    }
-    
-
     // 分类相关
     /**
      * 测试用ListClass1
      */
     private void demoSetListClass1() {
-        listClass1 = new ArrayList<Class1>();
-        Class1 class1 = new Class1(1, "早餐", R.drawable.ic_lens_yellow_a400_24dp);
-        listClass1.add(class1);
-
-        class1 = new Class1(2, "午餐", R.drawable.ic_lens_blue_a400_24dp);
-        listClass1.add(class1);
-
-        class1 = new Class1(3, "晚餐", R.drawable.ic_lens_red_a400_24dp);
-        listClass1.add(class1);
+        listClass1s = new ArrayList<>();
     }
 
     /**
      * 测试用ListClass2
      */
     private void demoSetListClass2() {
-        listClass2 = new ArrayList<Class2>();
+        listClass2s = new ArrayList<>();
     }
 
 
@@ -245,7 +189,7 @@ public class ExpenseFragment extends Fragment {
      * 测试用ListAccount
      */
     private void demoSetListAccount() {
-        listAccount = new ArrayList<Account>();
+        listAccounts = new ArrayList<>();
     }
 
 
@@ -264,7 +208,6 @@ public class ExpenseFragment extends Fragment {
         textViewDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
                 createDialogDate().show();
             }
         });
@@ -273,6 +216,7 @@ public class ExpenseFragment extends Fragment {
 
     /**
      * 构建选择日期的Dialog
+     *
      * @return 返回Dialog
      */
     private Dialog createDialogDate() {
@@ -307,7 +251,6 @@ public class ExpenseFragment extends Fragment {
         textViewRemark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
                 createDialogRemark().show();
             }
         });
@@ -315,6 +258,7 @@ public class ExpenseFragment extends Fragment {
 
     /**
      * 构建备注的Dialog
+     *
      * @return 返回Dialog
      */
     private Dialog createDialogRemark() {
@@ -359,5 +303,5 @@ public class ExpenseFragment extends Fragment {
             }
         }
     }
-}
 
+}

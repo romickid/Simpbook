@@ -7,18 +7,19 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 
 
-class RecordPagerAdapter extends FragmentPagerAdapter {
+class PagerAdapterRecord extends FragmentPagerAdapter {
     private ArrayList<Fragment> listFragments;
     private ArrayList<String> listIndicators;
 
+
     // PagerAdapter相关
-    public RecordPagerAdapter(FragmentManager fm) {
+    PagerAdapterRecord(FragmentManager fm) {
         super(fm);
     }
 
     /**
      * 获取tab页面的实例
-     * @param position
+     * @param position 位置
      * @return 实例
      */
     @Override
@@ -49,18 +50,18 @@ class RecordPagerAdapter extends FragmentPagerAdapter {
     // 其他
     /**
      * 接收从Activity传入的listFragments变量
-     * @param tlistFragments 传入的listFragments
+     * @param tListFragments 传入的listFragments
      */
-    public void setFragments(ArrayList<Fragment> tlistFragments) {
-        listFragments = tlistFragments;
+    public void setFragments(ArrayList<Fragment> tListFragments) {
+        listFragments = tListFragments;
     }
 
     /**
      * 接收从Activity传入的listIndicators变量
-     * @param tlistIndicators 传入的listIndicators
+     * @param tlLstIndicators 传入的listIndicators
      */
-    public void setIndicators(ArrayList<String> tlistIndicators) {
-        listIndicators = tlistIndicators;
+    public void setIndicators(ArrayList<String> tlLstIndicators) {
+        listIndicators = tlLstIndicators;
     }
 
 }

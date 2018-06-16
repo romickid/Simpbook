@@ -8,20 +8,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import nkucs1416.simpbook.R;
-import nkucs1416.simpbook.edit.EditActivity;
+import nkucs1416.simpbook.edit.ActivityEdit;
 import nkucs1416.simpbook.util.StatementRecord;
 
 import static nkucs1416.simpbook.util.Date.getStrDate;
 
-public class StatementAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<HashMap<String, Object>> listStatementObjects;
     private Context context;
+
 
     // RecyclerView.Adapter相关
     /**
@@ -30,7 +30,7 @@ public class StatementAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
      * @param tContext 传入的Context
      * @param tListStatementObjects 传入的StatementObjects列表
      */
-    StatementAdapter(Context tContext, ArrayList<HashMap<String, Object>> tListStatementObjects) {
+    AdapterStatement(Context tContext, ArrayList<HashMap<String, Object>> tListStatementObjects) {
         super();
         this.context = tContext;
         this.listStatementObjects = tListStatementObjects;
@@ -51,11 +51,11 @@ public class StatementAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             case 0:
                 view = LayoutInflater.from(context)
                         .inflate(R.layout.item_statement_date, parent, false);
-                return new StatementDateViewHolder(view);
+                return new ViewHolderStatementDate(view);
             case 1:
                 view = LayoutInflater.from(context)
                         .inflate(R.layout.item_statement_record, parent, false);
-                return new StatementElementViewHolder(view);
+                return new ViewHolderStatementElement(view);
         }
         return null;
     }
@@ -70,37 +70,37 @@ public class StatementAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
             case 0:
-                StatementDateViewHolder statementDateViewHolder = (StatementDateViewHolder) holder;
+                ViewHolderStatementDate viewHolderStatementDate = (ViewHolderStatementDate) holder;
                 StatementDate statementDate = (StatementDate)listStatementObjects.get(position).get("object");
 
                 final String text0 = getStrDate(statementDate.getDate());
 
-                statementDateViewHolder.textViewText.setText(text0);
+                viewHolderStatementDate.textViewText.setText(text0);
 
                 break;
             case 1:
-                StatementElementViewHolder statementElementViewHolder = (StatementElementViewHolder) holder;
+                ViewHolderStatementElement viewHolderStatementElement = (ViewHolderStatementElement) holder;
                 StatementRecord statementRecord = (StatementRecord)listStatementObjects.get(position).get("object");
 
                 final int color1 = R.drawable.ic_lens_blue_a400_24dp;
                 final String text1 = "abc";
                 final String money1 = statementRecord.getStrMoney();
 
-                final ImageView imageViewBackground1 = statementElementViewHolder.imageViewBackground;
-                final Context context1 = statementElementViewHolder.context;
+                final ImageView imageViewBackground1 = viewHolderStatementElement.imageViewBackground;
+                final Context context1 = viewHolderStatementElement.context;
 
                 imageViewBackground1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View arg0) {
-                        Intent intent = new Intent(context1, EditActivity.class);
+                        Intent intent = new Intent(context1, ActivityEdit.class);
                         intent.putExtra("type","expense");
                         context1.startActivity(intent);
                     }
                 });
 
-                statementElementViewHolder.imageView.setImageResource(color1);
-                statementElementViewHolder.textViewText.setText(text1);
-                statementElementViewHolder.textViewMoney.setText(money1);
+                viewHolderStatementElement.imageView.setImageResource(color1);
+                viewHolderStatementElement.textViewText.setText(text1);
+                viewHolderStatementElement.textViewMoney.setText(money1);
 
                 break;
         }
@@ -127,38 +127,4 @@ public class StatementAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return listStatementObjects.size();
     }
 
-}
-
-
-/**
- * StatementElement的Holder, 与istatement相关
- */
-class StatementElementViewHolder extends RecyclerView.ViewHolder {
-    TextView textViewText;
-    TextView textViewMoney;
-    ImageView imageView;
-    ImageView imageViewBackground;
-    Context context;
-
-    StatementElementViewHolder(View view) {
-        super(view);
-        context = view.getContext();
-        textViewText = view.findViewById(R.id.istatement_text);
-        textViewMoney = view.findViewById(R.id.istatement_money);
-        imageView = view.findViewById(R.id.istatement_color);
-        imageViewBackground = view.findViewById(R.id.istatement_background);
-    }
-}
-
-
-/**
- * StatementDate的Holder, 与istatementdate相关
- */
-class StatementDateViewHolder extends RecyclerView.ViewHolder {
-    TextView textViewText;
-
-    StatementDateViewHolder(View view) {
-        super(view);
-        textViewText = view.findViewById(R.id.istatementdate_text);
-    }
 }

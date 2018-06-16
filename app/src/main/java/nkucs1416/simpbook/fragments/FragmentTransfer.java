@@ -18,23 +18,18 @@ import android.widget.TextView;
 import android.app.Dialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
-import android.text.TextWatcher;
-import android.text.Editable;
 
 import java.util.ArrayList;
 
 import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.util.Account;
-import nkucs1416.simpbook.util.AccountSpinnerAdapter;
-import nkucs1416.simpbook.util.Class1;
-import nkucs1416.simpbook.util.Class2;
-import nkucs1416.simpbook.util.Class2SpinnerAdapter;
+import nkucs1416.simpbook.util.SpinnerAdapterAccount;
 import nkucs1416.simpbook.util.Date;
-import nkucs1416.simpbook.util.Class1SpinnerAdapter;
 
 import static nkucs1416.simpbook.util.Date.*;
+import static nkucs1416.simpbook.util.Money.setEditTextMoneyDecimal;
 
-public class TransferFragment extends Fragment {
+public class FragmentTransfer extends Fragment {
     private View view;
     private Spinner spinnerAccount;
     private Spinner spinnerAccountTo;
@@ -43,18 +38,18 @@ public class TransferFragment extends Fragment {
     private TextView textViewRemark;
     private FloatingActionButton buttonAdd;
 
-    private ArrayList<Account> listAccount;
+    private ArrayList<Account> listAccounts;
 
     private OnFragmentInteractionListener fragmentInteractionListener;
 
 
     // Fragment相关
-    public TransferFragment() {
+    public FragmentTransfer() {
         // Required empty public constructor
     }
 
-    public static TransferFragment newInstance(String param1, String param2) {
-        TransferFragment fragment = new TransferFragment();
+    public static FragmentTransfer newInstance() {
+        FragmentTransfer fragment = new FragmentTransfer();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -120,7 +115,7 @@ public class TransferFragment extends Fragment {
      * 初始化金额
      */
     private void initMoney() {
-        setEditTextMoneyDecimal();
+        setEditTextMoneyDecimal(editTextMoney);
     }
 
     /**
@@ -129,8 +124,8 @@ public class TransferFragment extends Fragment {
     private void initAccount() {
         demoSetListAccount();
 
-        AccountSpinnerAdapter adapterAccount = new AccountSpinnerAdapter(getActivity(), listAccount);
-        AccountSpinnerAdapter adapterAccountTo = new AccountSpinnerAdapter(getActivity(), listAccount);
+        SpinnerAdapterAccount adapterAccount = new SpinnerAdapterAccount(getActivity(), listAccounts);
+        SpinnerAdapterAccount adapterAccountTo = new SpinnerAdapterAccount(getActivity(), listAccounts);
         spinnerAccount.setAdapter(adapterAccount);
         spinnerAccountTo.setAdapter(adapterAccountTo);
     }
@@ -152,59 +147,12 @@ public class TransferFragment extends Fragment {
     }
 
 
-    // 金额相关
-    /**
-     * 设置金额的格式化(输入框设置为2位小数)
-     */
-    public void setEditTextMoneyDecimal() {
-        editTextMoney.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                if (s.toString().contains(".")) {
-                    if (s.length() - 1 - s.toString().indexOf(".") > 2) {
-                        s = s.toString().subSequence(0,
-                                s.toString().indexOf(".") + 3);
-                        editTextMoney.setText(s);
-                        editTextMoney.setSelection(s.length());
-                    }
-                }
-                if (s.toString().trim().substring(0).equals(".")) {
-                    s = "0" + s;
-                    editTextMoney.setText(s);
-                    editTextMoney.setSelection(2);
-                }
-
-                if (s.toString().startsWith("0")
-                        && s.toString().trim().length() > 1) {
-                    if (!s.toString().substring(1, 2).equals(".")) {
-                        editTextMoney.setText(s.subSequence(0, 1));
-                        editTextMoney.setSelection(1);
-                        return;
-                    }
-                }
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
-            }
-        });
-    }
-
-
     // 账户相关
     /**
      * 测试用ListAccount
      */
     private void demoSetListAccount() {
-        listAccount = new ArrayList<Account>();
+        listAccounts = new ArrayList<>();
     }
 
 
@@ -223,7 +171,6 @@ public class TransferFragment extends Fragment {
         textViewDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
                 createDialogDate().show();
             }
         });
@@ -322,4 +269,3 @@ public class TransferFragment extends Fragment {
     }
 
 }
-

@@ -17,24 +17,23 @@ import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.util.CollectionElement;
 import nkucs1416.simpbook.util.Date;
 
-
-public class CollectionFragment extends Fragment {
+public class FragmentCollection extends Fragment {
     private View view;
     private RecyclerView recyclerView;
 
     private ArrayList<HashMap<String, Object>> listCollectionObjects;
-    private CollectionAdapter collectionAdapter;
+    private AdapterCollection adapterCollection;
 
     private OnFragmentInteractionListener fragmentInteractionListener;
 
 
     // Fragment相关
-    public CollectionFragment() {
+    public FragmentCollection() {
         // Required empty public constructor
     }
 
-    public static CollectionFragment newInstance(String param1, String param2) {
-        CollectionFragment fragment = new CollectionFragment();
+    public static FragmentCollection newInstance() {
+        FragmentCollection fragment = new FragmentCollection();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -95,9 +94,9 @@ public class CollectionFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         demoCollectionObjectsList();
-        collectionAdapter = new CollectionAdapter(getActivity(), listCollectionObjects);
+        adapterCollection = new AdapterCollection(getActivity(), listCollectionObjects);
 
-        recyclerView.setAdapter(collectionAdapter);
+        recyclerView.setAdapter(adapterCollection);
     }
 
 

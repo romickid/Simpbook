@@ -20,21 +20,21 @@ import java.util.HashMap;
 
 import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.util.Account;
-import nkucs1416.simpbook.util.AccountSpinnerAdapter;
+import nkucs1416.simpbook.util.SpinnerAdapterAccount;
 import nkucs1416.simpbook.util.Class1;
 import nkucs1416.simpbook.util.Class2;
-import nkucs1416.simpbook.util.Class2SpinnerAdapter;
+import nkucs1416.simpbook.util.SpinnerAdapterClass2;
 import nkucs1416.simpbook.util.Date;
-import nkucs1416.simpbook.util.Class1SpinnerAdapter;
+import nkucs1416.simpbook.util.SpinnerAdapterClass1;
 import nkucs1416.simpbook.util.StatementRecord;
 
 import static nkucs1416.simpbook.util.Date.*;
 
-public class StatementActivity extends AppCompatActivity {
+public class ActivityStatement extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView textViewRemain;
     private TextView textViewIncome;
-    private TextView textViewExpence;
+    private TextView textViewExpense;
     private RecyclerView recyclerView;
     private FloatingActionButton buttonFilter;
 
@@ -42,9 +42,9 @@ public class StatementActivity extends AppCompatActivity {
     private ArrayList<Class2> listFilterClass2s;
     private ArrayList<Account> listFilterAccounts;
 
-    private Class1SpinnerAdapter adapterFilterClass1;
-    private Class2SpinnerAdapter adapterFilterClass2;
-    private AccountSpinnerAdapter adapterFilterAccount;
+    private SpinnerAdapterClass1 adapterFilterClass1;
+    private SpinnerAdapterClass2 adapterFilterClass2;
+    private SpinnerAdapterAccount adapterFilterAccount;
 
     private ArrayList<HashMap<String, Object>> listStatementObjects;
 
@@ -73,7 +73,7 @@ public class StatementActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.statement_toolbar);
         textViewRemain = findViewById(R.id.statement_textview_remain);
         textViewIncome = findViewById(R.id.statement_textview_income);
-        textViewExpence = findViewById(R.id.statement_textview_expense);
+        textViewExpense = findViewById(R.id.statement_textview_expense);
         recyclerView = findViewById(R.id.statement_recyclerview);
         buttonFilter = findViewById(R.id.statement_button_filter);
     }
@@ -101,8 +101,8 @@ public class StatementActivity extends AppCompatActivity {
 
         demoSetStatementList();
 
-        StatementAdapter statementAdapter = new StatementAdapter(this, listStatementObjects);
-        recyclerView.setAdapter(statementAdapter);
+        AdapterStatement adapterStatement = new AdapterStatement(this, listStatementObjects);
+        recyclerView.setAdapter(adapterStatement);
     }
 
 
@@ -173,7 +173,6 @@ public class StatementActivity extends AppCompatActivity {
         buttonFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
                 createDialogFilter().show();
             }
         });
@@ -189,7 +188,6 @@ public class StatementActivity extends AppCompatActivity {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
                 createDialogDate(textView).show();
             }
         });
@@ -199,7 +197,7 @@ public class StatementActivity extends AppCompatActivity {
     /**
      * 构建筛选的Dialog
      *
-     * @return
+     * @return dialog
      */
     private Dialog createDialogFilter() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this, 3);
@@ -244,8 +242,8 @@ public class StatementActivity extends AppCompatActivity {
      */
     private Dialog createDialogDate(TextView tTextView) {
         final TextView textView = tTextView;
-        Dialog dialog = null;
-        DatePickerDialog.OnDateSetListener listener = null;
+        Dialog dialog;
+        DatePickerDialog.OnDateSetListener listener;
         Date date = new Date();
 
         listener = new DatePickerDialog.OnDateSetListener() {
@@ -267,38 +265,30 @@ public class StatementActivity extends AppCompatActivity {
         demoSetListClass2();
         demoSetListAccount();
 
-        adapterFilterClass1 = new Class1SpinnerAdapter(this, listFilterClass1s);
-        adapterFilterClass2 = new Class2SpinnerAdapter(this, listFilterClass2s);
-        adapterFilterAccount = new AccountSpinnerAdapter(this, listFilterAccounts);
+        adapterFilterClass1 = new SpinnerAdapterClass1(this, listFilterClass1s);
+        adapterFilterClass2 = new SpinnerAdapterClass2(this, listFilterClass2s);
+        adapterFilterAccount = new SpinnerAdapterAccount(this, listFilterAccounts);
     }
 
     /**
      * 测试用ListClass1
      */
     private void demoSetListClass1() {
-        listFilterClass1s = new ArrayList<Class1>();
-        Class1 class1 = new Class1(1, "早餐", R.drawable.ic_lens_yellow_a400_24dp);
-        listFilterClass1s.add(class1);
-
-        class1 = new Class1(2, "午餐", R.drawable.ic_lens_blue_a400_24dp);
-        listFilterClass1s.add(class1);
-
-        class1 = new Class1(3, "晚餐", R.drawable.ic_lens_red_a400_24dp);
-        listFilterClass1s.add(class1);
+        listFilterClass1s = new ArrayList<>();
     }
 
     /**
      * 测试用ListClass2
      */
     private void demoSetListClass2() {
-        listFilterClass2s = new ArrayList<Class2>();
+        listFilterClass2s = new ArrayList<>();
     }
 
     /**
      * 测试用ListAccount
      */
     private void demoSetListAccount() {
-        listFilterAccounts = new ArrayList<Account>();
+        listFilterAccounts = new ArrayList<>();
     }
 
 

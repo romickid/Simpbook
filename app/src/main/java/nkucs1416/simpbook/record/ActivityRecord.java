@@ -13,22 +13,22 @@ import android.os.Bundle;
 import android.view.View;
 
 import nkucs1416.simpbook.R;
-import nkucs1416.simpbook.fragments.Collection.CollectionFragment;
-import nkucs1416.simpbook.fragments.ExpenseFragment;
-import nkucs1416.simpbook.fragments.IncomeFragment;
-import nkucs1416.simpbook.fragments.TransferFragment;
+import nkucs1416.simpbook.fragments.Collection.FragmentCollection;
+import nkucs1416.simpbook.fragments.FragmentExpense;
+import nkucs1416.simpbook.fragments.FragmentIncome;
+import nkucs1416.simpbook.fragments.FragmentTransfer;
 
-public class RecordActivity extends AppCompatActivity implements
-        CollectionFragment.OnFragmentInteractionListener,
-        IncomeFragment.OnFragmentInteractionListener,
-        ExpenseFragment.OnFragmentInteractionListener,
-        TransferFragment.OnFragmentInteractionListener {
+public class ActivityRecord extends AppCompatActivity implements
+        FragmentCollection.OnFragmentInteractionListener,
+        FragmentIncome.OnFragmentInteractionListener,
+        FragmentExpense.OnFragmentInteractionListener,
+        FragmentTransfer.OnFragmentInteractionListener {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ArrayList<Fragment> listFragments;
     private ArrayList<String> listIndicators;
-    private RecordPagerAdapter pagerAdapter;
+    private PagerAdapterRecord pagerAdapter;
 
 
     // Activity相关
@@ -40,7 +40,7 @@ public class RecordActivity extends AppCompatActivity implements
         initFindById();
         initToolbar();
         initViewpager();
-        initTablayout();
+        initTabLayout();
     }
 
 
@@ -77,9 +77,9 @@ public class RecordActivity extends AppCompatActivity implements
     }
 
     /**
-     * 初始化Tablayout
+     * 初始化TabLayout
      */
-    private void initTablayout(){
+    private void initTabLayout(){
         tabLayout.setupWithViewPager(viewPager);
     }
 
@@ -89,18 +89,17 @@ public class RecordActivity extends AppCompatActivity implements
     private void initViewpager(){
         listFragments = new ArrayList<>();
         listIndicators = new ArrayList<>();
-        String s = "a"; // todo
 
         listIndicators.add("模板");
-        listFragments.add(CollectionFragment.newInstance(s,s));
+        listFragments.add(FragmentCollection.newInstance());
         listIndicators.add("支出");
-        listFragments.add(ExpenseFragment.newInstance(s,s));
+        listFragments.add(FragmentExpense.newInstance());
         listIndicators.add("收入");
-        listFragments.add(IncomeFragment.newInstance(s,s));
+        listFragments.add(FragmentIncome.newInstance());
         listIndicators.add("转账");
-        listFragments.add(TransferFragment.newInstance(s,s));
+        listFragments.add(FragmentTransfer.newInstance());
 
-        pagerAdapter = new RecordPagerAdapter(getSupportFragmentManager());
+        pagerAdapter = new PagerAdapterRecord(getSupportFragmentManager());
         pagerAdapter.setFragments(listFragments);
         pagerAdapter.setIndicators(listIndicators);
 
@@ -134,7 +133,5 @@ public class RecordActivity extends AppCompatActivity implements
                 viewPager.setCurrentItem(1);
         }
     }
+
 }
-
-
-

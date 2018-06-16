@@ -1,4 +1,4 @@
-package nkucs1416.simpbook.util;
+package nkucs1416.simpbook.account;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,52 +12,53 @@ import java.util.ArrayList;
 
 import nkucs1416.simpbook.R;
 
-import static nkucs1416.simpbook.util.Color.*;
+import static nkucs1416.simpbook.account.AccountType.*;
 
-public class ColorSpinnerAdapter extends BaseAdapter {
-    private ArrayList<Integer> listColor;
+public class SpinnerAdapterAccountType extends BaseAdapter {
+    private ArrayList<Integer> listAccountTypes;
     private Context context;
 
+
     /**
-     * 构造函数, 读取需要绘制的Color列表
+     * 构造函数, 读取需要绘制的AccountType列表
      * @param tContext 传入的Context
-     * @param tListColors 传入的Color列表
+     * @param tListAccountTypes 传入的AccountType列表
      */
-    public ColorSpinnerAdapter(Context tContext, ArrayList<Integer> tListColors) {
+    public SpinnerAdapterAccountType(Context tContext, ArrayList<Integer> tListAccountTypes) {
         super();
-        this.listColor = tListColors;
+        this.listAccountTypes = tListAccountTypes;
         this.context = tContext;
     }
 
     /**
-     * 获取Color的数量
+     * 获取AccountType的数量
      * @return 数量
      */
     @Override
     public int getCount() {
-        return listColor.size();
+        return listAccountTypes.size();
     }
 
     /**
-     * 获取指定位置的Color的实例
+     * 获取指定位置的AccountType的实例
      * @return 实例
      */
     @Override
     public Integer getItem(int position) {
-        return listColor.get(position);
+        return listAccountTypes.get(position);
     }
 
     /**
-     * 获取指定位置的Color的Id
+     * 获取指定位置的AccountType的Id
      * @return Id
      */
     @Override
     public long getItemId(int position) {
-        return listColor.get(position);
+        return listAccountTypes.get(position);
     }
 
     /**
-     * 获取Color的绘制形式(view)
+     * 获取AccountType的绘制形式(view)
      * @return view
      */
     @Override
@@ -65,15 +66,16 @@ public class ColorSpinnerAdapter extends BaseAdapter {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.item_spinner,null);
         TextView textViewText = view.findViewById(R.id.ispinner_text);
-        ImageView imageViewColor = view.findViewById(R.id.ispinner_color);
+        ImageView imageViewAccountType = view.findViewById(R.id.ispinner_color);
 
-        int colorId = listColor.get(position);
-        int colorIcon = getColorIcon(colorId);
-        String text = getColorName(colorId);
+        int accountTypeId = listAccountTypes.get(position);
+        int accountTypeIcon = getAccountTypeIcon(accountTypeId);
+        String text = getAccountTypeName(accountTypeId);
 
         textViewText.setText(text);
-        imageViewColor.setImageResource(colorIcon);
+        imageViewAccountType.setImageResource(accountTypeIcon);
 
         return view;
     }
+
 }

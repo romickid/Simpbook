@@ -12,52 +12,50 @@ import java.util.ArrayList;
 
 import nkucs1416.simpbook.R;
 
-import static nkucs1416.simpbook.util.Color.getColorIcon;
-
-public class Class2SpinnerAdapter extends BaseAdapter {
-    private ArrayList<Class2> listClass2;
+public class SpinnerAdapterAccount extends BaseAdapter {
+    private ArrayList<Account> listAccounts;
     private Context context;
 
     /**
-     * 构造函数, 读取需要绘制的Class2列表
-     * @param tcontext 传入的Context
-     * @param tlistClass2 传入的Class2列表
+     * 构造函数, 读取需要绘制的Account列表
+     * @param tContext 传入的Context
+     * @param tListAccounts 传入的Account列表
      */
-    public Class2SpinnerAdapter(Context tcontext, ArrayList<Class2> tlistClass2) {
+    public SpinnerAdapterAccount(Context tContext, ArrayList<Account> tListAccounts) {
         super();
-        this.listClass2 = tlistClass2;
-        this.context = tcontext;
+        this.listAccounts = tListAccounts;
+        this.context = tContext;
     }
 
     /**
-     * 获取Class2的数量
+     * 获取Account的数量
      * @return 数量
      */
     @Override
     public int getCount() {
-        return listClass2.size();
+        return listAccounts.size();
     }
 
     /**
-     * 获取指定位置的Class2的实例
+     * 获取指定位置的Account的实例
      * @return 实例
      */
     @Override
-    public Class2 getItem(int position) {
-        return listClass2.get(position);
+    public Account getItem(int position) {
+        return listAccounts.get(position);
     }
 
     /**
-     * 获取指定位置的Class2的Id
+     * 获取指定位置的Account的Id
      * @return Id
      */
     @Override
     public long getItemId(int position) {
-        return listClass2.get(position).getId();
+        return listAccounts.get(position).getId();
     }
 
     /**
-     * 获取Class2的绘制形式(view)
+     * 获取Account的绘制形式(view)
      * @return view
      */
     @Override
@@ -67,14 +65,14 @@ public class Class2SpinnerAdapter extends BaseAdapter {
         TextView textView = (TextView) view.findViewById(R.id.ispinner_text);
         ImageView imageView = (ImageView) view.findViewById(R.id.ispinner_color);
 
-        Class2 class2 = listClass2.get(position);
-        String text = class2.getName();
-        int colorId = class2.getColor();
-        int color = getColorIcon(colorId);
+        Account Account = listAccounts.get(position);
+        String text = Account.getName();
+        int color = Account.getColor();
 
         textView.setText(text);
         imageView.setImageResource(color);
 
         return view;
     }
+
 }

@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import nkucs1416.simpbook.R;
 
-public class SettingActivity extends AppCompatActivity {
+public class ActivitySetting extends AppCompatActivity {
     private Toolbar toolbar;
 
     private ImageView imageViewClassExpense;
@@ -67,7 +67,7 @@ public class SettingActivity extends AppCompatActivity {
         imageViewClassExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Intent intent = new Intent(SettingActivity.this, Class1ExpenseActivity.class);
+                Intent intent = new Intent(ActivitySetting.this, ActivityClass1Expense.class);
                 startActivity(intent);
             }
         });

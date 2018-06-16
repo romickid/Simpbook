@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,17 +21,17 @@ import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.database.CategoryDb;
 import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.util.Class1;
-import nkucs1416.simpbook.util.ColorSpinnerAdapter;
+import nkucs1416.simpbook.util.SpinnerAdapterColor;
 
 import static nkucs1416.simpbook.util.Color.getListColorIds;
 
-public class Class1ExpenseActivity extends AppCompatActivity {
+public class ActivityClass1Expense extends AppCompatActivity {
 
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private FloatingActionButton buttonAdd;
 
-    private ColorSpinnerAdapter spinnerAdapterColor;
+    private SpinnerAdapterColor spinnerAdapterColor;
 
     private SQLiteDatabase sqLiteDatabase;
     private CategoryDb class1Db;
@@ -87,7 +86,7 @@ public class Class1ExpenseActivity extends AppCompatActivity {
      */
     private void initRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        Class1Adapter statementAdapter = new Class1Adapter(this, listClass1);
+        AdapterClass1 statementAdapter = new AdapterClass1(this, listClass1);
         recyclerView.setAdapter(statementAdapter);
     }
 
@@ -108,7 +107,7 @@ public class Class1ExpenseActivity extends AppCompatActivity {
      */
     private void initSpinnerAdapter() {
         ArrayList<Integer> listColors = getListColorIds();
-        spinnerAdapterColor = new ColorSpinnerAdapter(this, listColors);
+        spinnerAdapterColor = new SpinnerAdapterColor(this, listColors);
     }
 
     /**
