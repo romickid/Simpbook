@@ -136,7 +136,7 @@ public class TemplateDb {
      * 删除所有template数据
      *
      */
-    private void deleteAllLocalData() {
+    public void deleteAllLocalData() {
         String DELETE_ALL = "delete from c_template";
         db.execSQL(DELETE_ALL);
     }
