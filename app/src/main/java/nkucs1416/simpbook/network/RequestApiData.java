@@ -1,6 +1,5 @@
 package nkucs1416.simpbook.network;
 
-import java.util.HashMap;
 import android.content.Context;
 import nkucs1416.simpbook.util.*;
 import java.util.ArrayList;
@@ -234,8 +233,8 @@ public class RequestApiData {
 	 * @param context 调用者运行环境
 	 * 请求方式：POST
 	 */
-	public void getUpdateRecordData( ArrayList<StatementRecord> recordArray, String token,
-										  HttpResponeCallBack callback, Context context) {
+	public void getUpdateRecordData(ArrayList<Record> recordArray, String token,
+                                    HttpResponeCallBack callback, Context context) {
 		mCallBack = callback;
 		//这是每一个接口的唯一标示
 		String tagUrl = UrlConstance.KEY_UPDATE_RECORD_INFO;
@@ -246,7 +245,7 @@ public class RequestApiData {
 			JSONArray recordList = new JSONArray();//实例一个JSON数组
 			JSONObject[] record = new JSONObject[recordArray.size()];
 			for(int i = 0;i < recordArray.size();i++) {
-				StatementRecord a = recordArray.get(i);
+				Record a = recordArray.get(i);
 				record[i] = new JSONObject();
 				record[i].put("record_type", a.getType());
 				record[i].put("record_id", a.getId());

@@ -30,9 +30,10 @@ public class Utils {
      * @param time int类型时间
      */
     public Date switchTimetoDate(int time) {
-        int year = time % 10000;
-        int month = time % 100 - year * 100;
-        int day = time - year * 10000 - month * 100;
+        String strTime = String.valueOf(time);
+        int year = Integer.valueOf(strTime.substring(0,4));
+        int month = Integer.valueOf(strTime.substring(4,6));
+        int day = Integer.valueOf(strTime.substring(6,8));;
         Date datetime = new Date(year, month, day);
         return datetime;
     }

@@ -31,7 +31,7 @@ public class UpdateRecord implements HttpResponeCallBack {
      * @param instance 运行环境实例
      * @param db_instance 数据库实例
      */
-    public UpdateRecord(ArrayList<StatementRecord> recordList, String token, Context instance, SQLiteDatabase db_instance) {
+    public UpdateRecord(ArrayList<Record> recordList, String token, Context instance, SQLiteDatabase db_instance) {
         context = instance;
         db = db_instance;
         RequestApiData.getInstance().getUpdateRecordData(recordList, token,

@@ -32,15 +32,15 @@ import nkucs1416.simpbook.database.RecordDb;
 import nkucs1416.simpbook.database.SubcategoryDb;
 import nkucs1416.simpbook.main.ActivityMain;
 import nkucs1416.simpbook.util.Account;
+import nkucs1416.simpbook.util.Record;
 import nkucs1416.simpbook.util.SpinnerAdapterAccount;
 import nkucs1416.simpbook.util.Class1;
 import nkucs1416.simpbook.util.Class2;
 import nkucs1416.simpbook.util.SpinnerAdapterClass2;
 import nkucs1416.simpbook.util.Date;
 import nkucs1416.simpbook.util.SpinnerAdapterClass1;
-import nkucs1416.simpbook.util.StatementRecord;
 
-import static nkucs1416.simpbook.util.Class1.sortListClass1;
+import static nkucs1416.simpbook.util.Class1.sortListClass1s;
 import static nkucs1416.simpbook.util.Date.*;
 import static nkucs1416.simpbook.util.Money.getEditTextMoney;
 import static nkucs1416.simpbook.util.Money.setEditTextDecimalMoney;
@@ -155,7 +155,7 @@ public class FragmentExpense extends Fragment {
     private void initRecordScheme() {
         recordScheme = getActivity().getIntent().getStringExtra("RecordScheme");
 
-        if(recordScheme.equals("Update")) {
+        if (recordScheme.equals("Update")) {
             updateRecordId = Integer.valueOf(getActivity().getIntent().getStringExtra("RecordUpdateId"));
         }
     }
@@ -210,7 +210,7 @@ public class FragmentExpense extends Fragment {
             @Override
             public void onClick(View arg0) {
                 if (recordScheme.equals("Insert")) {
-                    StatementRecord recordInsert = getRecordInsert();
+                    Record recordInsert = getRecordInsert();
                     String message = insertRecord(recordInsert);
                     if (message.equals("成功")) {
                         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
@@ -221,7 +221,7 @@ public class FragmentExpense extends Fragment {
                     }
                 }
                 else if (recordScheme.equals("Update")) {
-                    StatementRecord recordUpdate = getRecordUpdate(updateRecordId);
+                    Record recordUpdate = getRecordUpdate(updateRecordId);
                     String message = updateRecord(recordUpdate);
                     if (message.equals("成功")) {
                         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
@@ -391,7 +391,7 @@ public class FragmentExpense extends Fragment {
      */
     private void updateListClass1s() {
         listClass1s = class1Db.getCategoryListByType(1);
-        sortListClass1(listClass1s);
+        sortListClass1s(listClass1s);
         class1Id = listClass1s.get(0).getId();
     }
 
@@ -432,14 +432,14 @@ public class FragmentExpense extends Fragment {
      */
     private void updateDataForUpdateScheme() {
         if (recordScheme.equals("Update")) {
-            StatementRecord statementRecord = recordDb.getRecordListById(updateRecordId).get(0);
+            Record record = recordDb.getRecordListById(updateRecordId).get(0);
 
-            float money = statementRecord.getMoney();
-            int class1Id = statementRecord.getClass1Id();
-            int class2Id = statementRecord.getClass2Id();
-            int accountId = statementRecord.getAccountId();
-            Date date = statementRecord.getDate();
-            String remark = statementRecord.getRemark();
+            float money = record.getMoney();
+            int class1Id = record.getClass1Id();
+            int class2Id = record.getClass2Id();
+            int accountId = record.getAccountId();
+            Date date = record.getDate();
+            String remark = record.getRemark();
 
             setEditTextDecimalMoney(editTextMoney, money);
             setSpinnerClass1ById(class1Id);
@@ -455,15 +455,15 @@ public class FragmentExpense extends Fragment {
     /**
      * 向数据库中添加数据
      */
-    private String insertRecord(StatementRecord recordInsert) {
+    private String insertRecord(Record recordInsert) {
         return recordDb.insertRecord(recordInsert);
     }
 
     /**
      * 向数据库中更新数据
      */
-    private String updateRecord(StatementRecord recordUpdate) {
-        return recordDb.insertRecord(recordUpdate);
+    private String updateRecord(Record recordUpdate) {
+        return recordDb.updateRecord(recordUpdate);
     }
 
     /**
@@ -471,7 +471,7 @@ public class FragmentExpense extends Fragment {
      *
      * @return record数据
      */
-    private StatementRecord getRecordInsert() {
+    private Record getRecordInsert() {
         int tAccountId = ((Account)spinnerAccount.getSelectedItem()).getId();
         float tMoney = getEditTextMoney(editTextMoney);
         int tType = 1;
@@ -479,7 +479,7 @@ public class FragmentExpense extends Fragment {
         String tRemark = textViewRemark.getText().toString();
         int tClass1Id = ((Class1)spinnerClass1.getSelectedItem()).getId();
         int tClass2Id = ((Class2)spinnerClass2.getSelectedItem()).getId();
-        return new StatementRecord(tAccountId, tMoney, tType, tDate, tRemark, tClass1Id, tClass2Id);
+        return new Record(tAccountId, tMoney, tType, tDate, tRemark, tClass1Id, tClass2Id);
     }
 
     /**
@@ -487,7 +487,7 @@ public class FragmentExpense extends Fragment {
      *
      * @return record数据
      */
-    private StatementRecord getRecordUpdate(int tId) {
+    private Record getRecordUpdate(int tId) {
         int tAccountId = ((Account)spinnerAccount.getSelectedItem()).getId();
         float tMoney = getEditTextMoney(editTextMoney);
         int tType = 1;
@@ -495,7 +495,7 @@ public class FragmentExpense extends Fragment {
         String tRemark = textViewRemark.getText().toString();
         int tClass1Id = ((Class1)spinnerClass1.getSelectedItem()).getId();
         int tClass2Id = ((Class2)spinnerClass2.getSelectedItem()).getId();
-        return new StatementRecord(tId, tAccountId, tMoney, tType, tDate, tRemark, tClass1Id, tClass2Id);
+        return new Record(tId, tAccountId, tMoney, tType, tDate, tRemark, tClass1Id, tClass2Id);
     }
 
 

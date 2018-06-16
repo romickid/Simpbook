@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import nkucs1416.simpbook.R;
+import nkucs1416.simpbook.database.AccountDb;
+import nkucs1416.simpbook.database.CategoryDb;
+import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
+import nkucs1416.simpbook.database.RecordDb;
+import nkucs1416.simpbook.database.SubcategoryDb;
 import nkucs1416.simpbook.util.Account;
 import nkucs1416.simpbook.util.SpinnerAdapterAccount;
 import nkucs1416.simpbook.util.Class1;
@@ -26,8 +32,9 @@ import nkucs1416.simpbook.util.Class2;
 import nkucs1416.simpbook.util.SpinnerAdapterClass2;
 import nkucs1416.simpbook.util.Date;
 import nkucs1416.simpbook.util.SpinnerAdapterClass1;
-import nkucs1416.simpbook.util.StatementRecord;
+import nkucs1416.simpbook.util.Record;
 
+import static nkucs1416.simpbook.util.Class1.sortListClass1s;
 import static nkucs1416.simpbook.util.Date.*;
 
 public class ActivityStatement extends AppCompatActivity {
@@ -38,9 +45,17 @@ public class ActivityStatement extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FloatingActionButton buttonFilter;
 
+    private SQLiteDatabase sqLiteDatabase;
+    private CategoryDb class1Db;
+    private SubcategoryDb class2Db;
+    private AccountDb accountDb;
+    private RecordDb recordDb;
+
+    private ArrayList<Record> listRecords;
     private ArrayList<Class1> listFilterClass1s;
     private ArrayList<Class2> listFilterClass2s;
     private ArrayList<Account> listFilterAccounts;
+    private int class1Id;
 
     private SpinnerAdapterClass1 adapterFilterClass1;
     private SpinnerAdapterClass2 adapterFilterClass2;
@@ -59,6 +74,10 @@ public class ActivityStatement extends AppCompatActivity {
 
         initFindById();
         initToolbar();
+
+        initDatabase();
+        initData();
+
         initRecycleView();
         initSpinnerAdapter();
         setListenerFilter();
@@ -99,69 +118,117 @@ public class ActivityStatement extends AppCompatActivity {
     private void initRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        demoSetStatementList();
-
         AdapterStatement adapterStatement = new AdapterStatement(this, listStatementObjects);
         recyclerView.setAdapter(adapterStatement);
     }
 
-
-    // Statement相关
     /**
-     * 测试用StatementList
+     * 初始化数据库
      */
-    private void demoSetStatementList() {
-        listStatementObjects = new ArrayList<HashMap<String, Object>>();
-
-        HashMap hashMap = null;
-        StatementRecord statementRecord = null;
-        StatementDate statementDate = null;
-        Integer isElement = null;
-
-        isElement = 0;
-        statementDate = new StatementDate(new Date());
-        hashMap = new HashMap<String, Object>();
-        hashMap.put("isElement", isElement);
-        hashMap.put("object", statementDate);
-        listStatementObjects.add(hashMap);
-
-        isElement = 1;
-        statementRecord = new StatementRecord( 1, 1, 1.0f,
-                1,  new Date(), "早餐", 1, 1);
-        hashMap = new HashMap<String, Object>();
-        hashMap.put("isElement", isElement);
-        hashMap.put("object", statementRecord);
-        listStatementObjects.add(hashMap);
-
-        isElement = 0;
-        statementDate = new StatementDate(new Date());
-        hashMap = new HashMap<String, Object>();
-        hashMap.put("isElement", isElement);
-        hashMap.put("object", statementDate);
-        listStatementObjects.add(hashMap);
-
-        isElement = 1;
-        statementRecord = new StatementRecord( 1, 1, 1.0f,
-                1,  new Date(), "早餐", 1, 1);
-        hashMap = new HashMap<String, Object>();
-        hashMap.put("isElement", isElement);
-        hashMap.put("object", statementRecord);
-        listStatementObjects.add(hashMap);
-
-        isElement = 1;
-        statementRecord = new StatementRecord( 1, 1, 1.0f,
-                1,  new Date(), "早餐", 1, 1);
-        hashMap = new HashMap<String, Object>();
-        hashMap.put("isElement", isElement);
-        hashMap.put("object", statementRecord);
-        listStatementObjects.add(hashMap);
+    private void initDatabase() {
+        CustomSQLiteOpenHelper customSQLiteOpenHelper = new CustomSQLiteOpenHelper(this);
+        sqLiteDatabase = customSQLiteOpenHelper.getWritableDatabase();
+        class1Db = new CategoryDb(sqLiteDatabase);
+        class2Db = new SubcategoryDb(sqLiteDatabase);
+        accountDb = new AccountDb(sqLiteDatabase);
+        recordDb = new RecordDb(sqLiteDatabase);
     }
 
     /**
-     * 依据statementFilter的参数, 更新statement列表
+     * 初始化数据
      */
-    private void updateStatement() {
+    private void initData() {
+        updateListClass1s();
+        updateListClass2s();
+        updateListAccounts();
+        updateListRecords();
+    }
 
+
+    // 更新数据相关
+    /**
+     * 更新所有一级支出分类信息
+     */
+    private void updateListClass1s() {
+        listFilterClass1s = class1Db.getCategoryListByType(1);
+        sortListClass1s(listFilterClass1s);
+        class1Id = listFilterClass1s.get(0).getId();
+    }
+
+    /**
+     * 更新所有二级支出分类信息
+     */
+    private void updateListClass2s() {
+        listFilterClass2s = class2Db.subcategoryList(class1Id);
+    }
+
+    /**
+     * 更新所有账户信息
+     */
+    private void updateListAccounts() {
+        listFilterAccounts = accountDb.accountList();
+    }
+
+    /**
+     * 更新流水信息
+     */
+    private void updateListRecords() {
+        listRecords = recordDb.recordList();
+        listStatementObjects = getListStatementObjects(listRecords);
+    }
+
+
+    // 显示数据相关
+    /**
+     * 获取某个Record的RecordObject
+     *
+     * @param record 待获取的记录
+     * @return RecordObject
+     */
+    private HashMap<String, Object> getRecordObject(Record record) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("StatementObjectViewType", 1); // 1->Record
+        hashMap.put("Object", record);
+        return hashMap;
+    }
+
+    /**
+     * 获取某个日期的StatementDateObject
+     *
+     * @param date 待获取的日期
+     * @return StatementDateObject
+     */
+    private HashMap<String, Object> getStatementDateObject(Date date) {
+        StatementDate statementDate = new StatementDate(date);
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("StatementObjectViewType", 2); // 2->StatementDate
+        hashMap.put("Object", statementDate);
+        return hashMap;
+    }
+
+    /**
+     * 获取某个listRecords的listStatementObjects
+     *
+     * @param listRecords 待获取的listRecords
+     * @return listStatementObjects
+     */
+    private ArrayList<HashMap<String, Object>> getListStatementObjects(ArrayList<Record> listRecords) {
+        ArrayList<HashMap<String, Object>> listStatementObjects = new ArrayList<>();
+        Date currentDate = new Date(1900, 1, 1);
+
+        for (Record record: listRecords) {
+            if (compareDate(currentDate, record.getDate()) != 0) {
+                currentDate = record.getDate();
+                listStatementObjects.add(getStatementDateObject(currentDate));
+                listStatementObjects.add(getRecordObject(record));
+            }
+            else {
+                listStatementObjects.add(getRecordObject(record));
+            }
+        }
+
+        return listStatementObjects;
     }
 
 
@@ -261,34 +328,9 @@ public class ActivityStatement extends AppCompatActivity {
      * 初始化筛选框中,分类和账户的SpinnerAdapter
      */
     private void initSpinnerAdapter() {
-        demoSetListClass1();
-        demoSetListClass2();
-        demoSetListAccount();
-
         adapterFilterClass1 = new SpinnerAdapterClass1(this, listFilterClass1s);
         adapterFilterClass2 = new SpinnerAdapterClass2(this, listFilterClass2s);
         adapterFilterAccount = new SpinnerAdapterAccount(this, listFilterAccounts);
-    }
-
-    /**
-     * 测试用ListClass1
-     */
-    private void demoSetListClass1() {
-        listFilterClass1s = new ArrayList<>();
-    }
-
-    /**
-     * 测试用ListClass2
-     */
-    private void demoSetListClass2() {
-        listFilterClass2s = new ArrayList<>();
-    }
-
-    /**
-     * 测试用ListAccount
-     */
-    private void demoSetListAccount() {
-        listFilterAccounts = new ArrayList<>();
     }
 
 
@@ -333,7 +375,7 @@ public class ActivityStatement extends AppCompatActivity {
                 getDate(textViewDateTo)
         );
 
-        updateStatement();
+        // updateStatement();
     }
 
 }

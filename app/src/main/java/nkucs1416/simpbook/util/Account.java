@@ -134,6 +134,9 @@ public class Account {
                 if (a1.getType() < a2.getType()) {
                     return -1;
                 }
+                else if (a1.getType() > a2.getType()) {
+                    return 1;
+                }
                 else {
                     if (a1.getColor() < a2.getColor()) {
                         return -1;
@@ -148,7 +151,6 @@ public class Account {
                     }
                 }
             }
-
         });
     }
 

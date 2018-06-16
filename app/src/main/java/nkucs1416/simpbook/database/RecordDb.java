@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import nkucs1416.simpbook.network.UpdateRecord;
 import nkucs1416.simpbook.util.Date;
-import nkucs1416.simpbook.util.StatementRecord;
+import nkucs1416.simpbook.util.Record;
 
 import nkucs1416.simpbook.network.Utils;
 
@@ -32,13 +32,13 @@ public class RecordDb {
 
     /**
      * 插入一条record数据
-     * @param statementRecord
+     * @param record
      * @return "成功" or "未知错误"
      */
-    public String insertRecord(StatementRecord statementRecord) {
-        return insertRecord(statementRecord.getAccountId(), statementRecord.getType(), statementRecord.getMoney(),
-                statementRecord.getRemark(), statementRecord.getClass1Id(), statementRecord.getClass2Id(),
-                statementRecord.getToAccountId(), statementRecord.getDate());
+    public String insertRecord(Record record) {
+        return insertRecord(record.getAccountId(), record.getType(), record.getMoney(),
+                record.getRemark(), record.getClass1Id(), record.getClass2Id(),
+                record.getToAccountId(), record.getDate());
     }
     /**
      * 插入一条record数据
@@ -113,11 +113,11 @@ public class RecordDb {
      *
      * @param recordArrayList 数据
      */
-    public void updateRecordtData(ArrayList<StatementRecord> recordArrayList) {
+    public void updateRecordtData(ArrayList<Record> recordArrayList) {
         deleteAllLocalData();
         int length = recordArrayList.size();
         for(int i = 0;i < length;i++) {
-            StatementRecord record = recordArrayList.get(i);
+            Record record = recordArrayList.get(i);
             ContentValues values = new ContentValues();
             values.put("record_id", record.getId());
             values.put("record_type", record.getType());
@@ -146,12 +146,12 @@ public class RecordDb {
     /**
      * 更新一条record数据
      *
-     * @param statementRecord 流水记录实例
+     * @param record 流水记录实例
      */
-    public String updateRecord(StatementRecord statementRecord) {
-        return updateRecord(statementRecord.getId(), statementRecord.getAccountId(), statementRecord.getType(),
-                statementRecord.getMoney(), statementRecord.getRemark(), statementRecord.getClass1Id(),
-                statementRecord.getClass2Id(), statementRecord.getToAccountId(), statementRecord.getDate());
+    public String updateRecord(Record record) {
+        return updateRecord(record.getId(), record.getAccountId(), record.getType(),
+                record.getMoney(), record.getRemark(), record.getClass1Id(),
+                record.getClass2Id(), record.getToAccountId(), record.getDate());
     }
 
     /**
@@ -248,12 +248,12 @@ public class RecordDb {
     /**
      * 删除一条record数据
      *
-     * @param statementRecord 流水实例
+     * @param record 流水实例
      *
      */
 
-    public String  deleteRecord(StatementRecord statementRecord) {
-        return deleteRecord(statementRecord.getId());
+    public String  deleteRecord(Record record) {
+        return deleteRecord(record.getId());
     }
     /**
      * 删除一条record数据
@@ -329,10 +329,10 @@ public class RecordDb {
      *
      * @param cursor 数据库查询返回游标
      */
-    public ArrayList<StatementRecord> addRecordList (Cursor cursor) {
+    public ArrayList<Record> addRecordList (Cursor cursor) {
         cursor.moveToFirst();
         int count = cursor.getCount();
-        ArrayList<StatementRecord> recordArray = new ArrayList();
+        ArrayList<Record> recordArray = new ArrayList();
         for (int i=0;i<count;i++) {
             int idIndex = cursor.getColumnIndex("record_id");
             int  record_id = cursor.getInt(idIndex);
@@ -365,12 +365,13 @@ public class RecordDb {
 
             Date datetime = util.switchTimetoDate(record_time);
 
-            StatementRecord record;
+
+            Record record;
             if (record_type == -1) {
-                record = new StatementRecord(record_id, record_accountId, record_money, record_type, datetime, record_note, record_accountToId);
+                record = new Record(record_id, record_accountId, record_money, record_type, datetime, record_note, record_accountToId);
             }
             else {
-                record = new StatementRecord(record_id, record_accountId, record_money, record_type, datetime, record_note, record_categoryID, record_subcategoryId);
+                record = new Record(record_id, record_accountId, record_money, record_type, datetime, record_note, record_categoryID, record_subcategoryId);
             }
             recordArray.add(record);
 
@@ -383,12 +384,12 @@ public class RecordDb {
      * 返回所有需要更新的record数据
      *
      */
-    public ArrayList<StatementRecord> recordListUpdate () {
+    public ArrayList<Record> recordListUpdate () {
         Cursor cursor = db.query("c_record", null, "status > -2 AND status < 2",
                 null, null, null, null);
         cursor.moveToFirst();
         int count = cursor.getCount();
-        ArrayList<StatementRecord> recordArray = new ArrayList();
+        ArrayList<Record> recordArray = new ArrayList();
         for (int i=0;i<count;i++) {
             int idIndex = cursor.getColumnIndex("record_id");
             int  record_id = cursor.getInt(idIndex);
@@ -424,9 +425,9 @@ public class RecordDb {
 
             Date datetime = util.switchTimetoDate(record_time);
 
-            StatementRecord record;
+            Record record;
 
-            record = new StatementRecord(record_id, record_accountId, record_money, record_type, datetime, record_note, record_categoryID, record_subcategoryId, record_accountToId, status);
+            record = new Record(record_id, record_accountId, record_money, record_type, datetime, record_note, record_categoryID, record_subcategoryId, record_accountToId, status);
 
             recordArray.add(record);
 
@@ -438,7 +439,7 @@ public class RecordDb {
      * 返回所有的record数据
      *
      */
-    public ArrayList<StatementRecord> getRecordListById (int record_id) {
+    public ArrayList<Record> getRecordListById (int record_id) {
         Cursor cursor = db.query("c_record", null, "record_id = ?",
                 new String[]{record_id+""}, null, null, null);
         return addRecordList(cursor);
@@ -448,7 +449,7 @@ public class RecordDb {
      * 返回所有的record数据
      *
      */
-    public ArrayList<StatementRecord> recordList () {
+    public ArrayList<Record> recordList () {
         Cursor cursor = db.query("c_record", null, "record_type != 4 AND status > -1",
                 null, null, null, "record_time DESC");
         return addRecordList(cursor);
@@ -463,7 +464,7 @@ public class RecordDb {
         int today = util.switchDatetoTime(new Date());
         Cursor cursor = db.query("c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 0",
                 new String[]{today+"", today+""}, null, null, "record_time DESC");
-        ArrayList<StatementRecord> recordList =  addRecordList(cursor);
+        ArrayList<Record> recordList =  addRecordList(cursor);
         float sum = 0;
         for(int i = 0;i < recordList.size();i++) {
             sum += recordList.get(i).getMoney();
@@ -480,7 +481,7 @@ public class RecordDb {
         int today = util.switchDatetoTime(new Date());
         Cursor cursor = db.query("c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 1",
                 new String[]{today+"", today+""}, null, null, "record_time DESC");
-        ArrayList<StatementRecord> recordList =  addRecordList(cursor);
+        ArrayList<Record> recordList =  addRecordList(cursor);
         float sum = 0;
         for(int i = 0;i < recordList.size();i++) {
             sum += recordList.get(i).getMoney();
@@ -499,7 +500,7 @@ public class RecordDb {
 
         Cursor cursor = db.query("c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 1",
                 new String[]{weekBegin+"", today+""}, null, null, "record_time DESC");
-        ArrayList<StatementRecord> recordList =  addRecordList(cursor);
+        ArrayList<Record> recordList =  addRecordList(cursor);
         float sum = 0;
         for(int i = 0;i < recordList.size();i++) {
             sum += recordList.get(i).getMoney();
@@ -518,7 +519,7 @@ public class RecordDb {
 
         Cursor cursor = db.query("c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 0",
                 new String[]{weekBegin+"", today+""}, null, null, "record_time DESC");
-        ArrayList<StatementRecord> recordList =  addRecordList(cursor);
+        ArrayList<Record> recordList =  addRecordList(cursor);
         float sum = 0;
         for(int i = 0;i < recordList.size();i++) {
             sum += recordList.get(i).getMoney();
@@ -537,7 +538,7 @@ public class RecordDb {
 
         Cursor cursor = db.query("c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 0",
                 new String[]{monthBegin+"", today+""}, null, null, "record_time DESC");
-        ArrayList<StatementRecord> recordList =  addRecordList(cursor);
+        ArrayList<Record> recordList =  addRecordList(cursor);
         float sum = 0;
         for(int i = 0;i < recordList.size();i++) {
             sum += recordList.get(i).getMoney();
@@ -556,7 +557,7 @@ public class RecordDb {
 
         Cursor cursor = db.query("c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 1",
                 new String[]{monthBegin+"", today+""}, null, null, "record_time DESC");
-        ArrayList<StatementRecord> recordList =  addRecordList(cursor);
+        ArrayList<Record> recordList =  addRecordList(cursor);
         float sum = 0;
         for(int i = 0;i < recordList.size();i++) {
             sum += recordList.get(i).getMoney();
@@ -575,7 +576,7 @@ public class RecordDb {
 
         Cursor cursor = db.query("c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 1",
                 new String[]{monthBegin+"", today+""}, null, null, "record_time DESC");
-        ArrayList<StatementRecord> recordList =  addRecordList(cursor);
+        ArrayList<Record> recordList =  addRecordList(cursor);
         float sum = 0;
         for(int i = 0;i < recordList.size();i++) {
             sum += recordList.get(i).getMoney();
@@ -593,7 +594,7 @@ public class RecordDb {
 
         Cursor cursor = db.query("c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 0",
                 new String[]{monthBegin+"", today+""}, null, null, "record_time DESC");
-        ArrayList<StatementRecord> recordList =  addRecordList(cursor);
+        ArrayList<Record> recordList =  addRecordList(cursor);
         float sum = 0;
         for(int i = 0;i < recordList.size();i++) {
             sum += recordList.get(i).getMoney();
@@ -607,7 +608,7 @@ public class RecordDb {
      *
      * @param account_id 账号id
      */
-    public ArrayList<StatementRecord> recordList (int account_id) {
+    public ArrayList<Record> recordList (int account_id) {
         Cursor cursor = db.query("c_record", null, "(record_accountID = ? OR record_accountToID = ?) AND record_type != 4 AND status > -1",
                 new String[]{account_id+"", account_id+""}, null, null, "record_time DESC");
         return addRecordList(cursor);
@@ -619,7 +620,7 @@ public class RecordDb {
      * @param begintime 开始时间
      * @param endtime 结束时间
      */
-    public ArrayList<StatementRecord> recordList (Date begintime, Date endtime) {
+    public ArrayList<Record> recordList (Date begintime, Date endtime) {
 
         Utils util = new Utils();
 
@@ -634,7 +635,7 @@ public class RecordDb {
      *
      * @param record_type 种类
      */
-    public ArrayList<StatementRecord> recordListByType (int record_type) {
+    public ArrayList<Record> recordListByType (int record_type) {
         Cursor cursor = db.query("c_record", null, "record_type = ? AND status > -1",
                 new String[]{record_type+""}, null, null, "record_time DESC");
         return addRecordList(cursor);
@@ -644,7 +645,7 @@ public class RecordDb {
      *
      * @param category_id 分类id
      */
-    public ArrayList<StatementRecord> recordListByCate (int category_id) {
+    public ArrayList<Record> recordListByCate (int category_id) {
         Cursor cursor = db.query("c_record", null, "record_categoryID = ? AND record_type != 4 AND status > -1",
                 new String[]{category_id+""}, null, null, "record_time DESC");
         return addRecordList(cursor);
@@ -657,7 +658,7 @@ public class RecordDb {
      *
      */
 
-    public ArrayList<StatementRecord> recordListBySubCate (int subcategory_id) {
+    public ArrayList<Record> recordListBySubCate (int subcategory_id) {
         Cursor cursor = db.query("c_record", null, "record_subcategoryID = ? AND record_type != 4 AND status > -1",
                 new String[]{subcategory_id+""}, null, null, "record_time DESC");
         return addRecordList(cursor);
@@ -667,10 +668,10 @@ public class RecordDb {
      *
      * @param recordArray record数组
      */
-    public void printRecord(ArrayList<StatementRecord> recordArray) {
+    public void printRecord(ArrayList<Record> recordArray) {
         System.out.println("test record print ***************");
         for (int i = 0;i < recordArray.size();i++) {
-            StatementRecord record  = recordArray.get(i);
+            Record record  = recordArray.get(i);
             int id = record.getId();
             int accountId = record.getAccountId();
             float money = record.getMoney();

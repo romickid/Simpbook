@@ -1,6 +1,6 @@
 package nkucs1416.simpbook.util;
 
-public class StatementRecord {
+public class Record {
     private int id;
     private int accountId;
     private float money;
@@ -25,7 +25,7 @@ public class StatementRecord {
      * @param tClass1Id 一级分类id
      * @param tClass2Id 二级分类id
      */
-    public StatementRecord(
+    public Record(
             int tAccountId, float tMoney, int tType, Date tDate, String tRemark,
             int tClass1Id, int tClass2Id) {
         accountId = tAccountId;
@@ -49,7 +49,7 @@ public class StatementRecord {
      * @param tRemark 备注
      * @param tToAccountId 转账的账户id
      */
-    public StatementRecord(
+    public Record(
             int tAccountId, float tMoney, int tType, Date tDate, String tRemark,
             int tToAccountId) {
         accountId = tAccountId;
@@ -75,7 +75,7 @@ public class StatementRecord {
      * @param tClass1Id 一级分类id
      * @param tClass2Id 二级分类id
      */
-    public StatementRecord(
+    public Record(
             int tId, int tAccountId, float tMoney, int tType, Date tDate, String tRemark,
             int tClass1Id, int tClass2Id) {
         id = tId;
@@ -86,6 +86,7 @@ public class StatementRecord {
         remark = tRemark;
         class1Id = tClass1Id;
         class2Id = tClass2Id;
+        toAccountId = -1;
     }
 
     /**
@@ -100,7 +101,7 @@ public class StatementRecord {
      * @param tRemark 备注
      * @param tToAccountId 发送账户id
      */
-    public StatementRecord(
+    public Record(
             int tId, int tAccountId, float tMoney, int tType, Date tDate, String tRemark,
             int tToAccountId) {
         id = tId;
@@ -126,7 +127,7 @@ public class StatementRecord {
      * @param tToAccountId 发送账户id
      * @param tStatus 状态
      */
-    public StatementRecord(
+    public Record(
             int tId, int tAccountId, float tMoney, int tType, Date tDate, String tRemark,
             int tClass1Id, int tClass2Id, int tToAccountId, int tStatus) {
         id = tId;
@@ -239,5 +240,25 @@ public class StatementRecord {
      * @return 状态
      */
     public int getStatus() { return status; }
+
+
+    // static函数
+    /**
+     * 获取记录类型名称
+     *
+     * @param recordType 记录类型
+     * @return 名称
+     */
+    public static String getRecordTypeName(int recordType) {
+        switch (recordType) {
+            case 1:
+                return "Expense";
+            case 2:
+                return "Income";
+            case 3:
+                return "Transfer";
+        }
+        return "";
+    }
 
 }

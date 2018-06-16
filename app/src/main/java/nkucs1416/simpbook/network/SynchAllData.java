@@ -105,7 +105,7 @@ public class SynchAllData implements HttpResponeCallBack {
                         }
                         SubcategoryDb subcategoryDb = new SubcategoryDb(db);
                         subcategoryDb.updateSubcategoryData(subcategoryArrayList);
-                        ArrayList<StatementRecord> recordArrayList = new ArrayList();
+                        ArrayList<Record> recordArrayList = new ArrayList();
                         for(int i = 0;i<recordList.length();i++) {
                             JSONObject record = recordList.getJSONObject(i);
                             int recordId = record.getInt("recordId");
@@ -120,7 +120,7 @@ public class SynchAllData implements HttpResponeCallBack {
                             String recordRemark = record.getString("recordRemark");
                             int recordType = record.getInt("recordType");
                             int status = record.getInt("status");
-                            recordArrayList.add(new StatementRecord(recordId, accountId, recordMoney, recordType, time, recordRemark, categoryId, subcategoryId, accountToId, status));
+                            recordArrayList.add(new Record(recordId, accountId, recordMoney, recordType, time, recordRemark, categoryId, subcategoryId, accountToId, status));
                         }
                         RecordDb recordDb = new RecordDb(db);
                         recordDb.updateRecordtData(recordArrayList);
@@ -139,7 +139,7 @@ public class SynchAllData implements HttpResponeCallBack {
                             String templateRemark = template.getString("templateRemark");
                             int templateType = template.getInt("templateType");
                             int status = template.getInt("status");
-                            recordArrayList.add(new StatementRecord(templateId, accountId, templateMoney, templateType, time, templateRemark, categoryId, subcategoryId, accountToId, status));
+                            recordArrayList.add(new Record(templateId, accountId, templateMoney, templateType, time, templateRemark, categoryId, subcategoryId, accountToId, status));
                         }
                         TemplateDb templateDb = new TemplateDb(db);
                         templateDb.updateTemplateData(templateArrayList);
