@@ -149,7 +149,6 @@ public class SubcategoryDb {
             int count = cursor.getCount();
             if (count > 0)
                 return "分类名重复";
-
             ContentValues values = new ContentValues();
             values.put("subcategory_name", subcategory_name);
             values.put("subcategory_color", subcategory_color);
@@ -238,7 +237,9 @@ public class SubcategoryDb {
             int subcategory_color = cursor.getInt(colorIndex);
             int idIndex = cursor.getColumnIndex("subcategory_id");
             int subcategory_id = cursor.getInt(idIndex);
-            Class2 subcategory = new Class2(subcategory_name, subcategory_id, subcategory_color);
+            int fatherIdIndex = cursor.getColumnIndex("subcategory_fatherID");
+            int fatherId = cursor.getInt(fatherIdIndex);
+            Class2 subcategory = new Class2(subcategory_id, subcategory_name, subcategory_color, fatherId);
             subcatagoryArray.add(subcategory);
             cursor.moveToNext();
         }
