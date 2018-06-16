@@ -17,13 +17,13 @@ import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.database.AccountDb;
 import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.util.Account;
-import nkucs1416.simpbook.util.ColorSpinnerAdapter;
+import nkucs1416.simpbook.util.SpinnerAdapterColor;
 
 import static nkucs1416.simpbook.account.AccountType.getListAccountTypes;
 import static nkucs1416.simpbook.util.Color.*;
 import static nkucs1416.simpbook.util.Money.setEditTextMoneyDecimal;
 
-public class AccountAddActivity extends AppCompatActivity {
+public class ActivityAccountAdd extends AppCompatActivity {
     private Toolbar toolbar;
     private EditText editTextName;
     private Spinner spinnerAccountType;
@@ -91,7 +91,7 @@ public class AccountAddActivity extends AppCompatActivity {
      */
     private void initSpinnerAccountType() {
         ArrayList<Integer> listAccountTypes = getListAccountTypes();
-        AccountTypeSpinnerAdapter adapterAccountType = new AccountTypeSpinnerAdapter(this, listAccountTypes);
+        SpinnerAdapterAccountType adapterAccountType = new SpinnerAdapterAccountType(this, listAccountTypes);
         spinnerAccountType.setAdapter(adapterAccountType);
     }
 
@@ -100,7 +100,7 @@ public class AccountAddActivity extends AppCompatActivity {
      */
     private void initSpinnerAccountColor() {
         ArrayList<Integer> listAccountColors = getListColorIds();
-        ColorSpinnerAdapter adapterAccountColor = new ColorSpinnerAdapter(this, listAccountColors);
+        SpinnerAdapterColor adapterAccountColor = new SpinnerAdapterColor(this, listAccountColors);
         spinnerAccountColor.setAdapter(adapterAccountColor);
     }
 
@@ -121,7 +121,7 @@ public class AccountAddActivity extends AppCompatActivity {
                 String message = saveAccount();
                 if (message.equals("SUCCESS")) {
                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(AccountAddActivity.this, AccountActivity.class);
+                    Intent intent = new Intent(ActivityAccountAdd.this, ActivityAccount.class);
                     startActivity(intent);
                 }
                 else {

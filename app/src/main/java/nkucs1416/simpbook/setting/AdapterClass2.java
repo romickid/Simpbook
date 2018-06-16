@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,14 +23,14 @@ import nkucs1416.simpbook.database.CategoryDb;
 import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.database.SubcategoryDb;
 import nkucs1416.simpbook.util.Class1;
-import nkucs1416.simpbook.util.Class1SpinnerAdapter;
+import nkucs1416.simpbook.util.SpinnerAdapterClass1;
 import nkucs1416.simpbook.util.Class2;
-import nkucs1416.simpbook.util.ColorSpinnerAdapter;
+import nkucs1416.simpbook.util.SpinnerAdapterColor;
 
 import static nkucs1416.simpbook.util.Color.getColorIcon;
 import static nkucs1416.simpbook.util.Color.getListColorIds;
 
-public class Class2Adapter extends RecyclerView.Adapter<Class2ViewHolder> {
+public class AdapterClass2 extends RecyclerView.Adapter<ViewHolderClass2> {
     private ArrayList<Class2> listClass2s;
     private Context context;
 
@@ -39,13 +38,14 @@ public class Class2Adapter extends RecyclerView.Adapter<Class2ViewHolder> {
     private CategoryDb class1Db;
     private SubcategoryDb class2Db;
 
+
     /**
      * 构造函数, 读取需要绘制的Class2列表
      *
      * @param tContext 传入的Context
      * @param tListClass2s 传入的Class2列表
      */
-    public Class2Adapter(Context tContext, ArrayList<Class2> tListClass2s) {
+    AdapterClass2(Context tContext, ArrayList<Class2> tListClass2s) {
         super();
         this.context = tContext;
         this.listClass2s = tListClass2s;
@@ -60,11 +60,11 @@ public class Class2Adapter extends RecyclerView.Adapter<Class2ViewHolder> {
      */
     @NonNull
     @Override
-    public Class2ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolderClass2 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_class_element, parent, false);
 
-        return new Class2ViewHolder(view);
+        return new ViewHolderClass2(view);
     }
 
     /**
@@ -74,7 +74,7 @@ public class Class2Adapter extends RecyclerView.Adapter<Class2ViewHolder> {
      * @param position 位置
      */
     @Override
-    public void onBindViewHolder(@NonNull Class2ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderClass2 holder, int position) {
         Class2 class2 = listClass2s.get(position);
 
         holder.textViewText.setText(class2.getName());
@@ -123,12 +123,12 @@ public class Class2Adapter extends RecyclerView.Adapter<Class2ViewHolder> {
         final Spinner spinnerColor = viewRemarkDialog.findViewById(R.id.dclass2edit_spinner_color);
 
         ArrayList<Integer> listColors = getListColorIds();
-        ColorSpinnerAdapter spinnerAdapterColor = new ColorSpinnerAdapter(context, listColors);
+        SpinnerAdapterColor spinnerAdapterColor = new SpinnerAdapterColor(context, listColors);
         spinnerColor.setAdapter(spinnerAdapterColor);
 
         ArrayList<Class1> listClass1s = class1Db.categoryList();
-        final Class1SpinnerAdapter class1SpinnerAdapter = new Class1SpinnerAdapter(context, listClass1s);
-        spinnerClass1.setAdapter(class1SpinnerAdapter);
+        final SpinnerAdapterClass1 spinnerAdapterClass1 = new SpinnerAdapterClass1(context, listClass1s);
+        spinnerClass1.setAdapter(spinnerAdapterClass1);
 
         int class1Position = 0;
         for (int i=0; i<listClass1s.size(); i++) {
@@ -251,25 +251,4 @@ public class Class2Adapter extends RecyclerView.Adapter<Class2ViewHolder> {
         return class2Db.updateSubcategory(class2Update);
     }
 
-
-
-
 }
-
-class Class2ViewHolder extends RecyclerView.ViewHolder {
-    TextView textViewText;
-    ImageView imageViewColor;
-    ImageView imageViewEdit;
-    ImageView imageViewDelete;
-    ImageView imageViewBackground;
-
-    public Class2ViewHolder(View view) {
-        super(view);
-        textViewText = view.findViewById(R.id.iclasselement_text);
-        imageViewColor = view.findViewById(R.id.iclasselement_color);
-        imageViewEdit = view.findViewById(R.id.iclasselement_iconedit);
-        imageViewDelete = view.findViewById(R.id.iclasselement_icondelete);
-        imageViewBackground = view.findViewById(R.id.iclasselement_background);
-    }
-}
-

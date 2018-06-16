@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".fragments.ExpenseFragment" >
+    tools:context=".fragments.FragmentExpense" >
 
     <!-- TODO: Update blank fragment layout -->
 

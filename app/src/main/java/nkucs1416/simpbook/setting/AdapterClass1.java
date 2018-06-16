@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,12 +23,12 @@ import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.database.CategoryDb;
 import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.util.Class1;
-import nkucs1416.simpbook.util.ColorSpinnerAdapter;
+import nkucs1416.simpbook.util.SpinnerAdapterColor;
 
 import static nkucs1416.simpbook.util.Color.getColorIcon;
 import static nkucs1416.simpbook.util.Color.getListColorIds;
 
-public class Class1Adapter extends RecyclerView.Adapter<Class1ViewHolder> {
+public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass1> {
     private ArrayList<Class1> listClass1s;
     private Context context;
 
@@ -43,7 +42,7 @@ public class Class1Adapter extends RecyclerView.Adapter<Class1ViewHolder> {
      * @param tContext 传入的Context
      * @param tListClass1s 传入的Class1列表
      */
-    public Class1Adapter(Context tContext, ArrayList<Class1> tListClass1s) {
+    AdapterClass1(Context tContext, ArrayList<Class1> tListClass1s) {
         super();
         this.context = tContext;
         this.listClass1s = tListClass1s;
@@ -59,11 +58,11 @@ public class Class1Adapter extends RecyclerView.Adapter<Class1ViewHolder> {
      */
     @NonNull
     @Override
-    public Class1ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolderClass1 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_class_element, parent, false);
 
-        return new Class1ViewHolder(view);
+        return new ViewHolderClass1(view);
     }
 
     /**
@@ -73,7 +72,7 @@ public class Class1Adapter extends RecyclerView.Adapter<Class1ViewHolder> {
      * @param position 位置
      */
     @Override
-    public void onBindViewHolder(@NonNull Class1ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderClass1 holder, int position) {
         Class1 class1 = listClass1s.get(position);
 
         holder.textViewText.setText(class1.getName());
@@ -105,7 +104,7 @@ public class Class1Adapter extends RecyclerView.Adapter<Class1ViewHolder> {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Intent intent = new Intent(context, Class2ExpenseActivity.class);
+                Intent intent = new Intent(context, ActivityClass2Expense.class);
                 intent.putExtra("class1Id" ,String.valueOf(class1Id));
                 context.startActivity(intent);
             }
@@ -141,7 +140,7 @@ public class Class1Adapter extends RecyclerView.Adapter<Class1ViewHolder> {
         final Spinner spinnerColor = viewRemarkDialog.findViewById(R.id.dclass1edit_spinner_color);
 
         ArrayList<Integer> listColors = getListColorIds();
-        ColorSpinnerAdapter spinnerAdapterColor = new ColorSpinnerAdapter(context, listColors);
+        SpinnerAdapterColor spinnerAdapterColor = new SpinnerAdapterColor(context, listColors);
         spinnerColor.setAdapter(spinnerAdapterColor);
 
         builder.setTitle("修改一级分类");
@@ -256,21 +255,3 @@ public class Class1Adapter extends RecyclerView.Adapter<Class1ViewHolder> {
     }
 
 }
-
-class Class1ViewHolder extends RecyclerView.ViewHolder {
-    TextView textViewText;
-    ImageView imageViewColor;
-    ImageView imageViewEdit;
-    ImageView imageViewDelete;
-    ImageView imageViewBackground;
-
-    public Class1ViewHolder(View view) {
-        super(view);
-        textViewText = view.findViewById(R.id.iclasselement_text);
-        imageViewColor = view.findViewById(R.id.iclasselement_color);
-        imageViewEdit = view.findViewById(R.id.iclasselement_iconedit);
-        imageViewDelete = view.findViewById(R.id.iclasselement_icondelete);
-        imageViewBackground = view.findViewById(R.id.iclasselement_background);
-    }
-}
-

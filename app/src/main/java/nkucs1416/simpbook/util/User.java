@@ -6,6 +6,7 @@ public class User {
     private String email;
     private String password;
 
+
     /**
      * 构建User的一个实例
      *

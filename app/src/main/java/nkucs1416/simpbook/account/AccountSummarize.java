@@ -1,8 +1,9 @@
 package nkucs1416.simpbook.account;
 
-public class AccountSummarize {
+class AccountSummarize {
     private String text;
     private Float money;
+
 
     /**
      * 构建AccountSummarize实例
@@ -10,17 +11,9 @@ public class AccountSummarize {
      * @param tText 名称
      * @param tMoney 金额
      */
-    public AccountSummarize(String tText, float tMoney) {
+    AccountSummarize(String tText, float tMoney) {
         text = tText;
         money = tMoney;
-    }
-
-    /**
-     * 构建空的实例, 将其作为占位使用
-     */
-    public AccountSummarize() {
-        text = "";
-        money = null;
     }
 
     /**

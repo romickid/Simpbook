@@ -122,7 +122,6 @@ public class Account {
 
 
     // static函数
-
     /**
      * 为账户列表进行排序
      *

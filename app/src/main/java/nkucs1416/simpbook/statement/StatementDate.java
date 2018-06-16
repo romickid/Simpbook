@@ -5,6 +5,7 @@ import nkucs1416.simpbook.util.Date;
 public class StatementDate {
     private Date date;
 
+
     /**
      * 构建StatementDate实例
      *
@@ -22,4 +23,5 @@ public class StatementDate {
     public Date getDate() {
         return date;
     }
+
 }

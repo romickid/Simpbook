@@ -12,19 +12,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import nkucs1416.simpbook.R;
-import nkucs1416.simpbook.account.AccountActivity;
+import nkucs1416.simpbook.account.ActivityAccount;
 import nkucs1416.simpbook.database.AccountDb;
-import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.database.RecordDb;
-import nkucs1416.simpbook.record.RecordActivity;
-import nkucs1416.simpbook.setting.SettingActivity;
-import nkucs1416.simpbook.statement.StatementActivity;
+import nkucs1416.simpbook.record.ActivityRecord;
+import nkucs1416.simpbook.setting.ActivitySetting;
+import nkucs1416.simpbook.statement.ActivityStatement;
 import nkucs1416.simpbook.util.Date;
 import pl.com.salsoft.sqlitestudioremote.SQLiteStudioService;
-import pl.com.salsoft.sqlitestudioremote.internal.SQLiteStudioDbService;
 
-
-public class MainActivity extends AppCompatActivity {
+public class ActivityMain extends AppCompatActivity {
 
     private FloatingActionButton buttonRecord;
     private Button buttonAccount;
@@ -43,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private SQLiteDatabase sqLiteDatabase;
     private AccountDb accountDb;
     private RecordDb recordDb;
+
 
     // Activity相关
     @Override
@@ -98,8 +96,7 @@ public class MainActivity extends AppCompatActivity {
         buttonRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                Intent intent = new Intent(MainActivity.this, RecordActivity.class);
+                Intent intent = new Intent(ActivityMain.this, ActivityRecord.class);
                 intent.putExtra("type","expense");
                 startActivity(intent);
             }
@@ -113,8 +110,7 @@ public class MainActivity extends AppCompatActivity {
         buttonAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                Intent intent = new Intent(MainActivity.this, AccountActivity.class);
+                Intent intent = new Intent(ActivityMain.this, ActivityAccount.class);
                 startActivity(intent);
             }
         });
@@ -127,8 +123,7 @@ public class MainActivity extends AppCompatActivity {
         buttonStatement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                Intent intent = new Intent(MainActivity.this, StatementActivity.class);
+                Intent intent = new Intent(ActivityMain.this, ActivityStatement.class);
                 startActivity(intent);
             }
         });
@@ -141,8 +136,7 @@ public class MainActivity extends AppCompatActivity {
         buttonCollection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                Intent intent = new Intent(MainActivity.this, RecordActivity.class);
+                Intent intent = new Intent(ActivityMain.this, ActivityRecord.class);
                 intent.putExtra("type","collection");
                 startActivity(intent);
             }
@@ -156,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         buttonSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+                Intent intent = new Intent(ActivityMain.this, ActivitySetting.class);
                 startActivity(intent);
             }
         });
@@ -180,8 +174,7 @@ public class MainActivity extends AppCompatActivity {
         imageViewTopInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                Intent intent = new Intent(MainActivity.this, StatementActivity.class);
+                Intent intent = new Intent(ActivityMain.this, ActivityStatement.class);
                 intent.putExtra("filter","main_month");
                 startActivity(intent);
             }
@@ -195,8 +188,7 @@ public class MainActivity extends AppCompatActivity {
         imageViewDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                Intent intent = new Intent(MainActivity.this, StatementActivity.class);
+                Intent intent = new Intent(ActivityMain.this, ActivityStatement.class);
                 intent.putExtra("filter","main_day");
                 startActivity(intent);
             }
@@ -210,8 +202,7 @@ public class MainActivity extends AppCompatActivity {
         imageViewWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                Intent intent = new Intent(MainActivity.this, StatementActivity.class);
+                Intent intent = new Intent(ActivityMain.this, ActivityStatement.class);
                 intent.putExtra("filter","main_week");
                 startActivity(intent);
             }
@@ -225,8 +216,7 @@ public class MainActivity extends AppCompatActivity {
         imageViewMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                Intent intent = new Intent(MainActivity.this, StatementActivity.class);
+                Intent intent = new Intent(ActivityMain.this, ActivityStatement.class);
                 intent.putExtra("filter","main_month");
                 startActivity(intent);
             }
@@ -240,8 +230,7 @@ public class MainActivity extends AppCompatActivity {
         imageViewYear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                Intent intent = new Intent(MainActivity.this, StatementActivity.class);
+                Intent intent = new Intent(ActivityMain.this, ActivityStatement.class);
                 intent.putExtra("filter","main_year");
                 startActivity(intent);
             }

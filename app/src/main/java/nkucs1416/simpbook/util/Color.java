@@ -5,8 +5,18 @@ import java.util.ArrayList;
 import nkucs1416.simpbook.R;
 
 public class Color {
+    /**
+     * id范围 1-7
+     * 分别指代 红橙黄绿青蓝紫
+     */
     private static int maxColorIndex = 7;
 
+    /**
+     * 获取ColorIcon实例(int类型id)
+     *
+     * @param colorId colorId
+     * @return icon实例
+     */
     public static int getColorIcon(int colorId) {
         switch (colorId) {
             case 1:
@@ -27,6 +37,12 @@ public class Color {
         return 0;
     }
 
+    /**
+     * 获取Color名称
+     *
+     * @param colorId colorId
+     * @return 名称
+     */
     public static String getColorName(int colorId) {
         switch (colorId) {
             case 1:
@@ -47,6 +63,11 @@ public class Color {
         return null;
     }
 
+    /**
+     * 获取ListColorIds, 通过maxColorIndex定义
+     *
+     * @return listColorIds
+     */
     public static ArrayList<Integer> getListColorIds() {
         ArrayList<Integer> listColor = new ArrayList<Integer>();
         for(int i = 1; i <= maxColorIndex; i++) {
@@ -55,4 +76,5 @@ public class Color {
 
         return listColor;
     }
+
 }

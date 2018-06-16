@@ -25,17 +25,17 @@ import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.database.SubcategoryDb;
 import nkucs1416.simpbook.util.Class1;
 import nkucs1416.simpbook.util.Class2;
-import nkucs1416.simpbook.util.ColorSpinnerAdapter;
+import nkucs1416.simpbook.util.SpinnerAdapterColor;
 
 import static nkucs1416.simpbook.util.Color.getListColorIds;
 
-public class Class2ExpenseActivity extends AppCompatActivity {
+public class ActivityClass2Expense extends AppCompatActivity {
 
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private FloatingActionButton buttonAdd;
 
-    private ColorSpinnerAdapter spinnerAdapterColor;
+    private SpinnerAdapterColor spinnerAdapterColor;
 
     private SQLiteDatabase sqLiteDatabase;
     private CategoryDb class1Db;
@@ -93,7 +93,7 @@ public class Class2ExpenseActivity extends AppCompatActivity {
      */
     private void initRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        Class2Adapter statementAdapter = new Class2Adapter(this, listClass2);
+        AdapterClass2 statementAdapter = new AdapterClass2(this, listClass2);
         recyclerView.setAdapter(statementAdapter);
     }
 
@@ -114,7 +114,7 @@ public class Class2ExpenseActivity extends AppCompatActivity {
      */
     private void initSpinnerAdapter() {
         ArrayList<Integer> listColors = getListColorIds();
-        spinnerAdapterColor = new ColorSpinnerAdapter(this, listColors);
+        spinnerAdapterColor = new SpinnerAdapterColor(this, listColors);
     }
 
     /**

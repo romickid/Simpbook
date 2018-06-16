@@ -11,20 +11,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import nkucs1416.simpbook.R;
-import nkucs1416.simpbook.fragments.ExpenseFragment;
-import nkucs1416.simpbook.fragments.IncomeFragment;
-import nkucs1416.simpbook.fragments.TransferFragment;
+import nkucs1416.simpbook.fragments.FragmentExpense;
+import nkucs1416.simpbook.fragments.FragmentIncome;
+import nkucs1416.simpbook.fragments.FragmentTransfer;
 
-public class EditActivity extends AppCompatActivity implements
-        IncomeFragment.OnFragmentInteractionListener,
-        ExpenseFragment.OnFragmentInteractionListener,
-        TransferFragment.OnFragmentInteractionListener {
+public class ActivityEdit extends AppCompatActivity implements
+        FragmentIncome.OnFragmentInteractionListener,
+        FragmentExpense.OnFragmentInteractionListener,
+        FragmentTransfer.OnFragmentInteractionListener {
 
     private Toolbar toolbar;
 
     private Fragment fragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+
 
     // Activity相关
     @Override
@@ -69,7 +70,7 @@ public class EditActivity extends AppCompatActivity implements
     }
 
     /**
-     * 初始化Fragment相关事务
+     * 初始化Fragment
      */
     private void initFragment() {
         fragmentManager = getSupportFragmentManager();
@@ -85,20 +86,21 @@ public class EditActivity extends AppCompatActivity implements
         String currentType = intent.getStringExtra("type");
         switch (currentType) {
             case "expense":
-                fragment = new ExpenseFragment();
+                fragment = new FragmentExpense();
                 fragmentTransaction.replace(R.id.edit_framelayout, fragment);
                 fragmentTransaction.commit();
                 break;
             case "income":
-                fragment = new IncomeFragment();
+                fragment = new FragmentIncome();
                 fragmentTransaction.replace(R.id.edit_framelayout, fragment);
                 fragmentTransaction.commit();
                 break;
             case "transfer":
-                fragment = new TransferFragment();
+                fragment = new FragmentTransfer();
                 fragmentTransaction.replace(R.id.edit_framelayout, fragment);
                 fragmentTransaction.commit();
                 break;
         }
     }
+
 }

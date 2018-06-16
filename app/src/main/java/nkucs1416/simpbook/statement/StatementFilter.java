@@ -9,6 +9,7 @@ class StatementFilter {
     private Date dateFrom;
     private Date dateTo;
 
+
     /**
      * 构造函数, 传入筛选信息
      *
@@ -75,4 +76,5 @@ class StatementFilter {
     public Date getDateTo() {
         return dateTo;
     }
+
 }
