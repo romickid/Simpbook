@@ -16,7 +16,7 @@ import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.statement.ActivityStatement;
 
 import static nkucs1416.simpbook.util.Color.getColorIcon;
-import static nkucs1416.simpbook.util.Money.setTextViewMoneyDecimal;
+import static nkucs1416.simpbook.util.Money.setTextViewDecimalMoney;
 
 public class AdapterAccount extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<HashMap<String, Object>> listAccountObjects;
@@ -90,7 +90,7 @@ public class AdapterAccount extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 });
 
                 viewHolderAccountElement.textViewText.setText(text1);
-                setTextViewMoneyDecimal(viewHolderAccountElement.textViewMoney, money1);
+                setTextViewDecimalMoney(viewHolderAccountElement.textViewMoney, money1);
                 viewHolderAccountElement.imageViewColor.setImageResource(colorIcon1);
                 break;
 
@@ -102,7 +102,7 @@ public class AdapterAccount extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 final float money2 = accountSummarize.getMoney();
 
                 viewHolderAccountSummarize.textViewText.setText(text2);
-                setTextViewMoneyDecimal(viewHolderAccountSummarize.textViewMoney, money2);
+                setTextViewDecimalMoney(viewHolderAccountSummarize.textViewMoney, money2);
                 break;
         }
     }

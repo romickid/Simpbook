@@ -4,7 +4,7 @@ public class StatementRecord {
     private int id;
     private int accountId;
     private float money;
-    private int type;
+    private int type; // 1->支出 2->收入 3->转账
     private Date date;
     private String remark;
     private Integer class1Id;
@@ -15,6 +15,56 @@ public class StatementRecord {
 
     /**
      * 构建statementRecord的实例
+     * 用于新增支出/收入Record
+     *
+     * @param tAccountId 账户id
+     * @param tMoney 金额
+     * @param tType 类型(1:支出, 2:收入, 3:转账)
+     * @param tDate 日期
+     * @param tRemark 备注
+     * @param tClass1Id 一级分类id
+     * @param tClass2Id 二级分类id
+     */
+    public StatementRecord(
+            int tAccountId, float tMoney, int tType, Date tDate, String tRemark,
+            int tClass1Id, int tClass2Id) {
+        accountId = tAccountId;
+        money = tMoney;
+        type = tType;
+        date = tDate;
+        remark = tRemark;
+        class1Id = tClass1Id;
+        class2Id = tClass2Id;
+        toAccountId = -1;
+    }
+
+    /**
+     * 构建statementRecord的实例
+     * 用于新增转账Record
+     *
+     * @param tAccountId 账户id
+     * @param tMoney 金额
+     * @param tType 类型(1:支出, 2:收入, 3:转账)
+     * @param tDate 日期
+     * @param tRemark 备注
+     * @param tToAccountId 转账的账户id
+     */
+    public StatementRecord(
+            int tAccountId, float tMoney, int tType, Date tDate, String tRemark,
+            int tToAccountId) {
+        accountId = tAccountId;
+        money = tMoney;
+        type = tType;
+        date = tDate;
+        remark = tRemark;
+        class1Id = -1;
+        class2Id = -1;
+        toAccountId = tToAccountId;
+    }
+
+    /**
+     * 构建statementRecord的实例
+     * 用于更新支出/收入Record
      *
      * @param tId id
      * @param tAccountId 账户id
@@ -40,6 +90,7 @@ public class StatementRecord {
 
     /**
      * 构建statementRecord的实例
+     * 用于更新转账Record
      *
      * @param tId id
      * @param tAccountId 账户id

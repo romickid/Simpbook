@@ -13,7 +13,7 @@ public class Money {
      *
      * @param editText 输入金额的editText
      */
-    public static void setEditTextMoneyDecimal(EditText editText) {
+    public static void setEditTextDecimalScheme(EditText editText) {
         final EditText et = editText;
         et.addTextChangedListener(new TextWatcher() {
             @Override
@@ -62,8 +62,27 @@ public class Money {
      * @param textView 显示金额的textView
      * @param money 金额
      */
-    public static void setTextViewMoneyDecimal(TextView textView, float money) {
+    public static void setTextViewDecimalMoney(TextView textView, float money) {
         textView.setText(String.format(Locale.ROOT, "%.2f", money));
+    }
+
+    /**
+     * 获取EditText存储的金额信息
+     *
+     * @param editText 待获取的EditText
+     */
+    public static float getEditTextMoney(EditText editText) {
+        return Float.parseFloat(editText.getText().toString());
+    }
+
+    /**
+     * 为EditText显示正确的金额形式
+     *
+     * @param editText 显示金额的EditText
+     * @param money 金额
+     */
+    public static void setEditTextDecimalMoney(EditText editText, float money) {
+        editText.setText(String.format(Locale.ROOT, "%.2f", money));
     }
 
 }

@@ -115,18 +115,18 @@ public class ActivityRecord extends AppCompatActivity implements
      */
     private void setCurrentTab() {
         Intent intent = getIntent();
-        String currentTab = intent.getStringExtra("type");
+        String currentTab = intent.getStringExtra("RecordType");
         switch (currentTab) {
-            case "collection":
+            case "Collection":
                 viewPager.setCurrentItem(0);
                 break;
-            case "expense":
+            case "Expense":
                 viewPager.setCurrentItem(1);
                 break;
-            case "income":
+            case "Income":
                 viewPager.setCurrentItem(2);
                 break;
-            case "transfer":
+            case "Transfer":
                 viewPager.setCurrentItem(3);
                 break;
             default:

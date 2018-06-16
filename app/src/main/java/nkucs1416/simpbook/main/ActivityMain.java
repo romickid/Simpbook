@@ -97,7 +97,8 @@ public class ActivityMain extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(ActivityMain.this, ActivityRecord.class);
-                intent.putExtra("type","expense");
+                intent.putExtra("RecordType","Expense");
+                intent.putExtra("RecordScheme","Insert");
                 startActivity(intent);
             }
         });
@@ -137,7 +138,8 @@ public class ActivityMain extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(ActivityMain.this, ActivityRecord.class);
-                intent.putExtra("type","collection");
+                intent.putExtra("RecordType","Collection");
+                intent.putExtra("RecordScheme","Insert");
                 startActivity(intent);
             }
         });
