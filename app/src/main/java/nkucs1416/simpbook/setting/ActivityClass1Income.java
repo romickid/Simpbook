@@ -25,7 +25,7 @@ import nkucs1416.simpbook.util.SpinnerAdapterColor;
 
 import static nkucs1416.simpbook.util.Color.getListColorIds;
 
-public class ActivityClass1Expense extends AppCompatActivity {
+public class ActivityClass1Income extends AppCompatActivity {
 
     private Toolbar toolbar;
     private RecyclerView recyclerView;

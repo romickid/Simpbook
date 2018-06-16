@@ -26,6 +26,8 @@
         <activity android:name=".edit.ActivityEdit" />
         <activity android:name=".setting.ActivityClass1Expense" />
         <activity android:name=".setting.ActivityClass2Expense" />
+        <activity android:name=".setting.ActivityClass1Income" />
+        <activity android:name=".setting.ActivityClass2Income" />
     </application>
 
 </manifest>
