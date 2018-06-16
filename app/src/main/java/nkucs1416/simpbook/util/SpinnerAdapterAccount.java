@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 import nkucs1416.simpbook.R;
 
+import static nkucs1416.simpbook.util.Color.getColorIcon;
+
 public class SpinnerAdapterAccount extends BaseAdapter {
     private ArrayList<Account> listAccounts;
     private Context context;
@@ -62,15 +64,16 @@ public class SpinnerAdapterAccount extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.item_spinner,null);
-        TextView textView = (TextView) view.findViewById(R.id.ispinner_text);
-        ImageView imageView = (ImageView) view.findViewById(R.id.ispinner_color);
+        TextView textView = view.findViewById(R.id.ispinner_text);
+        ImageView imageView = view.findViewById(R.id.ispinner_color);
 
         Account Account = listAccounts.get(position);
         String text = Account.getName();
-        int color = Account.getColor();
+        int colorId = Account.getColor();
+        int colorIcon = getColorIcon(colorId);
 
         textView.setText(text);
-        imageView.setImageResource(color);
+        imageView.setImageResource(colorIcon);
 
         return view;
     }

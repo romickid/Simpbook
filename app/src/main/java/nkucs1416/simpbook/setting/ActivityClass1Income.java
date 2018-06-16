@@ -36,7 +36,7 @@ public class ActivityClass1Income extends AppCompatActivity {
     private SQLiteDatabase sqLiteDatabase;
     private CategoryDb class1Db;
 
-    private ArrayList<Class1> listClass1;
+    private ArrayList<Class1> listClass1s;
 
 
     // Activity相关
@@ -87,7 +87,7 @@ public class ActivityClass1Income extends AppCompatActivity {
      */
     private void initRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        AdapterClass1 statementAdapter = new AdapterClass1(this, listClass1);
+        AdapterClass1 statementAdapter = new AdapterClass1(this, listClass1s);
         recyclerView.setAdapter(statementAdapter);
     }
 
@@ -130,10 +130,10 @@ public class ActivityClass1Income extends AppCompatActivity {
 
     // 数据相关
     /**
-     * 更新所有账户信息
+     * 更新所有一级收入分类信息
      */
     private void updateListClass1s() {
-        listClass1 = class1Db.getCategoryListByType(2);
+        listClass1s = class1Db.getCategoryListByType(2);
     }
 
     /**

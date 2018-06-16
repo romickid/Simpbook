@@ -1,5 +1,9 @@
 package nkucs1416.simpbook.util;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 public class Class1 {
     private int id;
     private String name;
@@ -107,6 +111,32 @@ public class Class1 {
      */
     public int getStatus() {
         return status;
+    }
+
+
+    // static函数
+    /**
+     * 为Class1列表进行排序
+     *
+     * @param listClass1 待排序的Class1列表
+     */
+    public static void sortListClass1(ArrayList<Class1> listClass1) {
+        Collections.sort(listClass1, new Comparator<Class1>() {
+            @Override
+            public int compare(Class1 a1, Class1 a2) {
+                if (a1.getColor() < a2.getColor()) {
+                    return -1;
+                }
+                else {
+                    if (a1.getId() < a2.getId()) {
+                        return -1;
+                    }
+                    else {
+                        return 1;
+                    }
+                }
+            }
+        });
     }
 
 }

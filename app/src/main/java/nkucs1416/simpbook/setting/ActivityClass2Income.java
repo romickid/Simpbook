@@ -41,9 +41,9 @@ public class ActivityClass2Income extends AppCompatActivity {
     private CategoryDb class1Db;
     private SubcategoryDb class2Db;
 
-    private ArrayList<Class2> listClass2;
+    private ArrayList<Class2> listClass2s;
     private int class1Id;
-    private Class1 class1; // TODO: 6/16/2018
+    private Class1 class1;
 
 
     // Activity相关
@@ -94,7 +94,7 @@ public class ActivityClass2Income extends AppCompatActivity {
      */
     private void initRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        AdapterClass2 statementAdapter = new AdapterClass2(this, listClass2);
+        AdapterClass2 statementAdapter = new AdapterClass2(this, listClass2s);
         recyclerView.setAdapter(statementAdapter);
     }
 
@@ -147,11 +147,11 @@ public class ActivityClass2Income extends AppCompatActivity {
     }
 
     /**
-     * 更新所有账户信息
+     * 更新所有二级收入分类信息
      */
     private void updateListClass2s() {
         updateClass1Id();
-        listClass2 = class2Db.subcategoryList(class1Id);
+        listClass2s = class2Db.subcategoryList(class1Id);
     }
 
     /**

@@ -21,7 +21,7 @@ import nkucs1416.simpbook.util.SpinnerAdapterColor;
 
 import static nkucs1416.simpbook.account.AccountType.getListAccountTypes;
 import static nkucs1416.simpbook.util.Color.*;
-import static nkucs1416.simpbook.util.Money.setEditTextMoneyDecimal;
+import static nkucs1416.simpbook.util.Money.setEditTextDecimalScheme;
 
 public class ActivityAccountAdd extends AppCompatActivity {
     private Toolbar toolbar;
@@ -108,7 +108,7 @@ public class ActivityAccountAdd extends AppCompatActivity {
      * 初始化金额
      */
     private void initMoney() {
-        setEditTextMoneyDecimal(editTextMoney);
+        setEditTextDecimalScheme(editTextMoney);
     }
 
     /**
@@ -118,7 +118,7 @@ public class ActivityAccountAdd extends AppCompatActivity {
         buttonAddAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                String message = saveAccount();
+                String message = insertAccount();
                 if (message.equals("成功")) {
                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ActivityAccountAdd.this, ActivityAccount.class);
@@ -162,7 +162,7 @@ public class ActivityAccountAdd extends AppCompatActivity {
     /**
      * 向数据库中保存数据
      */
-    private String saveAccount() {
+    private String insertAccount() {
         Account accountSave = getAccount();
         return accountDb.insertAccount(accountSave);
     }

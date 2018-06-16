@@ -27,7 +27,7 @@ import nkucs1416.simpbook.util.SpinnerAdapterAccount;
 import nkucs1416.simpbook.util.Date;
 
 import static nkucs1416.simpbook.util.Date.*;
-import static nkucs1416.simpbook.util.Money.setEditTextMoneyDecimal;
+import static nkucs1416.simpbook.util.Money.setEditTextDecimalScheme;
 
 public class FragmentTransfer extends Fragment {
     private View view;
@@ -115,7 +115,7 @@ public class FragmentTransfer extends Fragment {
      * 初始化金额
      */
     private void initMoney() {
-        setEditTextMoneyDecimal(editTextMoney);
+        setEditTextDecimalScheme(editTextMoney);
     }
 
     /**

@@ -83,19 +83,19 @@ public class ActivityEdit extends AppCompatActivity implements
      */
     private void setCurrentFragment() {
         Intent intent = getIntent();
-        String currentType = intent.getStringExtra("type");
+        String currentType = intent.getStringExtra("RecordType");
         switch (currentType) {
-            case "expense":
+            case "Expense":
                 fragment = new FragmentExpense();
                 fragmentTransaction.replace(R.id.edit_framelayout, fragment);
                 fragmentTransaction.commit();
                 break;
-            case "income":
+            case "Income":
                 fragment = new FragmentIncome();
                 fragmentTransaction.replace(R.id.edit_framelayout, fragment);
                 fragmentTransaction.commit();
                 break;
-            case "transfer":
+            case "Transfer":
                 fragment = new FragmentTransfer();
                 fragmentTransaction.replace(R.id.edit_framelayout, fragment);
                 fragmentTransaction.commit();

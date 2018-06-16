@@ -18,12 +18,10 @@ import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.database.AccountDb;
 import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.util.Account;
-import nkucs1416.simpbook.util.Class1;
 
 import static nkucs1416.simpbook.account.AccountType.getAccountTypeName;
 import static nkucs1416.simpbook.util.Account.getSumMoney;
-import static nkucs1416.simpbook.util.Account.sortListAccounts;
-import static nkucs1416.simpbook.util.Money.setTextViewMoneyDecimal;
+import static nkucs1416.simpbook.util.Money.setTextViewDecimalMoney;
 
 public class ActivityAccount extends AppCompatActivity {
     private Toolbar toolbar;
@@ -204,7 +202,7 @@ public class ActivityAccount extends AppCompatActivity {
      * 更新净资产信息
      */
     private void updateNetAssets() {
-        setTextViewMoneyDecimal(textViewNetAssets, getSumMoney(listAccounts));
+        setTextViewDecimalMoney(textViewNetAssets, getSumMoney(listAccounts));
     }
 
 }
