@@ -114,6 +114,7 @@ public class AdapterClass2 extends RecyclerView.Adapter<ViewHolderClass2> {
      */
     private Dialog createDialogEdit(final int class2Id, final int class1Id) {
         updateDatabase();
+        Class2 class2 = class2Db.getSubcategoryListById(class2Id).get(0);
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(context, 3);
         View viewRemarkDialog = View.inflate(context, R.layout.dialog_class2edit, null);
@@ -122,37 +123,28 @@ public class AdapterClass2 extends RecyclerView.Adapter<ViewHolderClass2> {
         final Spinner spinnerClass1 = viewRemarkDialog.findViewById(R.id.dclass2edit_spinner_class1);
         final Spinner spinnerColor = viewRemarkDialog.findViewById(R.id.dclass2edit_spinner_color);
 
-        ArrayList<Integer> listColors = getListColorIds();
-        SpinnerAdapterColor spinnerAdapterColor = new SpinnerAdapterColor(context, listColors);
-        spinnerColor.setAdapter(spinnerAdapterColor);
+
+        editText.setText(class2.getName());
 
         ArrayList<Class1> listClass1s = class1Db.categoryList();
         final SpinnerAdapterClass1 spinnerAdapterClass1 = new SpinnerAdapterClass1(context, listClass1s);
         spinnerClass1.setAdapter(spinnerAdapterClass1);
-
         int class1Position = 0;
         for (int i=0; i<listClass1s.size(); i++) {
             if (listClass1s.get(i).getId() == class1Id) {
                 class1Position = i;
             }
         }
+        spinnerClass1.setSelection(class1Position);
 
-        builder.setTitle("修改一级分类");
-        builder.setView(viewRemarkDialog);
-
-
-        // TODO: 6/16/2018
-        ArrayList<Class2> listClass2 = class2Db.subcategoryList(class1Id);
-        Class2 class2 = null;
-        for (Class2 c: listClass2) {
-            if (c.getId() == class2Id) {
-                class2 = c;
-            }
-        }
-
-        editText.setText(class2.getName());
-        spinnerColor.setSelection(class1Position);
+        ArrayList<Integer> listColors = getListColorIds();
+        SpinnerAdapterColor spinnerAdapterColor = new SpinnerAdapterColor(context, listColors);
+        spinnerColor.setAdapter(spinnerAdapterColor);
         spinnerColor.setSelection(class2.getColor()-1);
+
+
+        builder.setTitle("修改二级分类");
+        builder.setView(viewRemarkDialog);
 
 
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {

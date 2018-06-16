@@ -132,8 +132,7 @@ public class ActivityClass1Expense extends AppCompatActivity {
      * 更新所有账户信息
      */
     private void updateListClass1s() {
-        // TODO: 6/16/2018
-        listClass1 = class1Db.categoryList();
+        listClass1 = class1Db.getCategoryListByType(1);
     }
 
     /**

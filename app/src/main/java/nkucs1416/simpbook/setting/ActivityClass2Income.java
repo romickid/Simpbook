@@ -142,6 +142,7 @@ public class ActivityClass2Income extends AppCompatActivity {
     private void updateClass1Id(){
         Intent intent = getIntent();
         class1Id = Integer.valueOf(intent.getStringExtra("class1Id"));
+        class1 = class1Db.getCategoryListById(class1Id).get(0);
     }
 
     /**
@@ -185,9 +186,9 @@ public class ActivityClass2Income extends AppCompatActivity {
         final Spinner spinnerColor = viewRemarkDialog.findViewById(R.id.dclass2add_spinner_color);
 
         spinnerColor.setAdapter(spinnerAdapterColor);
-        textView.setText(String.valueOf(class1Id));
+        textView.setText(class1.getName());
 
-        builder.setTitle("新增一级分类");
+        builder.setTitle("新增二级分类");
         builder.setView(viewRemarkDialog);
 
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {

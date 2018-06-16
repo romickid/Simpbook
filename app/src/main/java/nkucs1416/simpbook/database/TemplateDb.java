@@ -273,7 +273,7 @@ public class TemplateDb {
      * @return Collection数组
      */
     public ArrayList<Collection> getTemplateListById (int template_id) {
-        Cursor cursor = db.query("c_template", null, "template_id",
+        Cursor cursor = db.query("c_template", null, "template_id = ?",
                 new String[]{template_id+""}, null, null, null);
         cursor.moveToFirst();
         int count = cursor.getCount();
