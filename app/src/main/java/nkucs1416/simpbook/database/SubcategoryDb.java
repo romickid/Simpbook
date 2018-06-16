@@ -114,7 +114,7 @@ public class SubcategoryDb {
      *
      *
      */
-    private void deleteAllLocalData() {
+    public void deleteAllLocalData() {
         String DELETE_ALL = "delete from c_subcategory";
         db.execSQL(DELETE_ALL);
     }
