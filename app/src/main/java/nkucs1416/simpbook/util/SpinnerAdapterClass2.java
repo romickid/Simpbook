@@ -18,6 +18,7 @@ public class SpinnerAdapterClass2 extends BaseAdapter {
     private ArrayList<Class2> listClass2s;
     private Context context;
 
+    
     /**
      * 构造函数, 读取需要绘制的Class2列表
      *
@@ -29,6 +30,7 @@ public class SpinnerAdapterClass2 extends BaseAdapter {
         this.listClass2s = tListClass2s;
         this.context = tContext;
     }
+
 
     /**
      * 获取Class2的数量

@@ -79,6 +79,7 @@ public class ActivityClass2Income extends AppCompatActivity {
     private void initToolbar(){
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setTitle("二级收入分类");
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,7 +173,7 @@ public class ActivityClass2Income extends AppCompatActivity {
     }
 
 
-    // 新增Class2 Dialog相关
+    // 新增收入Class2相关
     /**
      * 构建"新增Class2"的Dialog
      *
@@ -181,14 +182,15 @@ public class ActivityClass2Income extends AppCompatActivity {
     private Dialog createDialogAdd() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this, 3);
         View viewRemarkDialog = View.inflate(this, R.layout.dialog_class2add, null);
+
         final EditText editText = viewRemarkDialog.findViewById(R.id.dclass2add_edittext);
         final TextView textView = viewRemarkDialog.findViewById(R.id.dclass2add_textview_class1);
         final Spinner spinnerColor = viewRemarkDialog.findViewById(R.id.dclass2add_spinner_color);
 
-        spinnerColor.setAdapter(spinnerAdapterColor);
         textView.setText(class1.getName());
+        spinnerColor.setAdapter(spinnerAdapterColor);
 
-        builder.setTitle("新增二级分类");
+        builder.setTitle("新增二级收入分类");
         builder.setView(viewRemarkDialog);
 
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {

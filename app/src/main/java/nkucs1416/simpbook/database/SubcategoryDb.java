@@ -224,7 +224,7 @@ public class SubcategoryDb {
      */
     public ArrayList<Class2> getSubcategoryListById (int subcategory_id) {
         Cursor cursor = db.query("c_subcategory", null,
-                "subcategory_id = ?", new String[]{subcategory_id+""},
+                "subcategory_id = ? and status > -1", new String[]{subcategory_id+""},
                 null, null, null);
         cursor.moveToFirst();
         int count = cursor.getCount();

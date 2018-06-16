@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import nkucs1416.simpbook.R;
 
-class ViewHolderClass2 extends RecyclerView.ViewHolder {
+class ViewHolderClass extends RecyclerView.ViewHolder {
     TextView textViewText;
     ImageView imageViewColor;
     ImageView imageViewEdit;
@@ -15,7 +15,7 @@ class ViewHolderClass2 extends RecyclerView.ViewHolder {
     ImageView imageViewBackground;
 
 
-    public ViewHolderClass2(View view) {
+    public ViewHolderClass(View view) {
         super(view);
         textViewText = view.findViewById(R.id.iclasselement_text);
         imageViewColor = view.findViewById(R.id.iclasselement_color);
