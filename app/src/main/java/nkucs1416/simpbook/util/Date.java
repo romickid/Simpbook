@@ -133,4 +133,25 @@ public class Date {
         return getDate(cal);
     }
 
+    /**
+     * Date的比较函数
+     *
+     * @param d1 date1
+     * @param d2 date2
+     * @return result
+     */
+    public static int compareDate(Date d1, Date d2) {
+        if (d1.getYear() != d2.getYear()) {
+            return d1.getYear() - d2.getYear();
+        }
+        else if (d1.getMonth() != d2.getMonth()) {
+            return d1.getMonth() - d2.getMonth();
+        }
+        else if (d1.getDay() != d2.getDay()) {
+            return d1.getDay() - d2.getDay();
+        }
+        else {
+            return 0;
+        }
+    }
 }

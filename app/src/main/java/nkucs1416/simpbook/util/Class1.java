@@ -118,14 +118,17 @@ public class Class1 {
     /**
      * 为Class1列表进行排序
      *
-     * @param listClass1 待排序的Class1列表
+     * @param listClass1s 待排序的Class1列表
      */
-    public static void sortListClass1(ArrayList<Class1> listClass1) {
-        Collections.sort(listClass1, new Comparator<Class1>() {
+    public static void sortListClass1s(ArrayList<Class1> listClass1s) {
+        Collections.sort(listClass1s, new Comparator<Class1>() {
             @Override
             public int compare(Class1 a1, Class1 a2) {
                 if (a1.getColor() < a2.getColor()) {
                     return -1;
+                }
+                else if (a1.getColor() > a2.getColor()) {
+                    return 1;
                 }
                 else {
                     if (a1.getId() < a2.getId()) {
