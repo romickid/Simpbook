@@ -1,5 +1,7 @@
 package nkucs1416.simpbook.account;
 
+import nkucs1416.simpbook.util.Account;
+
 public class AccountElement {
     private int colorId;
     private String text;
@@ -21,6 +23,19 @@ public class AccountElement {
         money = tMoney;
         id = tId;
     }
+
+    /**
+     * 构建AccountElement实例
+     *
+     * @param account account变量
+     */
+    AccountElement(Account account) {
+        colorId = account.getColor();
+        text = account.getName();
+        money = account.getMoney();
+        id = account.getId();
+    }
+
 
     /**
      * 获取标识颜色

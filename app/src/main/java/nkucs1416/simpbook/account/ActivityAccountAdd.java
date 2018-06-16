@@ -119,7 +119,7 @@ public class ActivityAccountAdd extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 String message = saveAccount();
-                if (message.equals("SUCCESS")) {
+                if (message.equals("成功")) {
                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ActivityAccountAdd.this, ActivityAccount.class);
                     startActivity(intent);

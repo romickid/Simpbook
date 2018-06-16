@@ -18,6 +18,7 @@ import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.database.AccountDb;
 import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.util.Account;
+import nkucs1416.simpbook.util.Class1;
 
 import static nkucs1416.simpbook.account.AccountType.getAccountTypeName;
 import static nkucs1416.simpbook.util.Account.getSumMoney;
@@ -126,7 +127,6 @@ public class ActivityAccount extends AppCompatActivity {
      */
     private void updateListAccounts() {
         listAccounts = accountDb.accountList();
-        sortListAccounts(listAccounts);
     }
 
     /**
@@ -135,28 +135,69 @@ public class ActivityAccount extends AppCompatActivity {
     private void updateListAccountObjects() {
         listAccountObjects = new ArrayList<>();
 
-        int accountTypeIndex = 0;
+        ArrayList<Account> listAccounts1 = getListAccountsByType(listAccounts, 1);
+        if (listAccounts1.size() != 0)
+            listAccountObjects.add(getAccountSummarizeObject(listAccounts1, 1));
+        listAccountObjects.addAll(getListAccountElementObjects(listAccounts1));
+
+        ArrayList<Account> listAccounts2 = getListAccountsByType(listAccounts, 2);
+        if (listAccounts2.size() != 0)
+            listAccountObjects.add(getAccountSummarizeObject(listAccounts2, 2));
+        listAccountObjects.addAll(getListAccountElementObjects(listAccounts2));
+    }
+
+    /**
+     * 获取某个账户类型的listAccounts
+     *
+     * @param listAccounts 待获取的listAccounts
+     * @param type 账户类型
+     * @return 筛选后的listAccounts
+     */
+    private ArrayList<Account> getListAccountsByType(ArrayList<Account> listAccounts, int type) {
+        ArrayList<Account> listReturn = new ArrayList<>();
+        for(Account account: listAccounts) {
+            if (account.getType() == type) {
+                listReturn.add(account);
+            }
+        }
+        return listReturn;
+    }
+
+    /**
+     * 获取某个listAccounts的listAccountElementObjects
+     *
+     * @param listAccounts 待获取的listAccounts
+     * @return listAccountElementObjects
+     */
+    private ArrayList<HashMap<String, Object>> getListAccountElementObjects(ArrayList<Account> listAccounts) {
+        ArrayList<HashMap<String, Object>> listReturn = new ArrayList<>();
         AccountElement accountElement;
-        AccountSummarize accountSummarize;
         HashMap<String, Object> hashMap;
 
         for(Account account: listAccounts) {
-            if (account.getType() > accountTypeIndex) {
-                // 增加一个Summarize
-                accountTypeIndex += 1;
-                accountSummarize = new AccountSummarize(getAccountTypeName(accountTypeIndex), getSumMoney(accountTypeIndex, listAccounts));
-                hashMap = new HashMap<>();
-                hashMap.put("type", 0); // 0->Summarize
-                hashMap.put("object", accountSummarize);
-                listAccountObjects.add(hashMap);
-            }
-            // 增加一个Element
-            accountElement = new AccountElement(account.getColor(), account.getName(), account.getMoney(), account.getId());
             hashMap = new HashMap<>();
-            hashMap.put("type", 1); // 1->Element
-            hashMap.put("object", accountElement);
-            listAccountObjects.add(hashMap);
+            hashMap.put("AccountObjectViewType", 1); // 1->Element
+            hashMap.put("Object", new AccountElement(account));
+            listReturn.add(hashMap);
         }
+        return listReturn;
+    }
+
+    /**
+     * 获取某个账户类型的AccountSummarizeObject
+     *
+     * @param listAccounts 待获取的listAccounts
+     * @param type 账户类型
+     * @return AccountSummarizeObject
+     */
+    private HashMap<String, Object> getAccountSummarizeObject(ArrayList<Account> listAccounts, int type) {
+        AccountSummarize accountSummarize =
+                new AccountSummarize(getAccountTypeName(type), getSumMoney(listAccounts));
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("AccountObjectViewType", 2); // 2->Summarize
+        hashMap.put("Object", accountSummarize);
+        return hashMap;
     }
 
     /**

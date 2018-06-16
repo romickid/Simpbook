@@ -139,7 +139,12 @@ public class Account {
                         return -1;
                     }
                     else {
-                        return 1;
+                        if (a1.getId() < a2.getId()) {
+                            return -1;
+                        }
+                        else {
+                            return 1;
+                        }
                     }
                 }
             }

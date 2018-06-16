@@ -40,7 +40,7 @@ public class AdapterAccount extends RecyclerView.Adapter<RecyclerView.ViewHolder
      * 根据不同的viewType构建不同的ViewHolder
      *
      * @param parent default
-     * @param viewType 1:AccountElement, 0:AccountSummarize, -1:AccountSplitLine
+     * @param viewType 1:AccountElement, 2:AccountSummarize
      * @return viewHolder
      */
     @NonNull
@@ -48,14 +48,14 @@ public class AdapterAccount extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         switch (viewType) {
-            case 0:
-                view = LayoutInflater.from(context)
-                        .inflate(R.layout.item_account_summerize, parent, false);
-                return new ViewHolderAccountSummarize(view);
             case 1:
                 view = LayoutInflater.from(context)
                         .inflate(R.layout.item_account_element, parent, false);
                 return new ViewHolderAccountElement(view);
+            case 2:
+                view = LayoutInflater.from(context)
+                        .inflate(R.layout.item_account_summerize, parent, false);
+                return new ViewHolderAccountSummarize(view);
         }
         return null;
     }
@@ -69,21 +69,9 @@ public class AdapterAccount extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
-            case 0:
-                ViewHolderAccountSummarize viewHolderAccountSummarize = (ViewHolderAccountSummarize) holder;
-                AccountSummarize accountSummarize = (AccountSummarize)listAccountObjects.get(position).get("object");
-
-                final String text0 = accountSummarize.getText();
-                final float money0 = accountSummarize.getMoney();
-
-                viewHolderAccountSummarize.textViewText.setText(text0);
-                setTextViewMoneyDecimal(viewHolderAccountSummarize.textViewMoney, money0);
-
-                break;
-
             case 1:
                 ViewHolderAccountElement viewHolderAccountElement = (ViewHolderAccountElement) holder;
-                AccountElement accountElement = (AccountElement)listAccountObjects.get(position).get("object");
+                AccountElement accountElement = (AccountElement)listAccountObjects.get(position).get("Object");
 
                 final int colorIcon1 = getColorIcon(accountElement.getColorId());
                 final String text1 = accountElement.getText();
@@ -96,7 +84,7 @@ public class AdapterAccount extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     @Override
                     public void onClick(View arg0) {
                         Intent intent = new Intent(context1, ActivityStatement.class);
-                        intent.putExtra("account",text1);
+                        intent.putExtra("account",text1); // TODO: 6/16/2018
                         context1.startActivity(intent);
                     }
                 });
@@ -104,7 +92,17 @@ public class AdapterAccount extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 viewHolderAccountElement.textViewText.setText(text1);
                 setTextViewMoneyDecimal(viewHolderAccountElement.textViewMoney, money1);
                 viewHolderAccountElement.imageViewColor.setImageResource(colorIcon1);
+                break;
 
+            case 2:
+                ViewHolderAccountSummarize viewHolderAccountSummarize = (ViewHolderAccountSummarize) holder;
+                AccountSummarize accountSummarize = (AccountSummarize)listAccountObjects.get(position).get("Object");
+
+                final String text2 = accountSummarize.getText();
+                final float money2 = accountSummarize.getMoney();
+
+                viewHolderAccountSummarize.textViewText.setText(text2);
+                setTextViewMoneyDecimal(viewHolderAccountSummarize.textViewMoney, money2);
                 break;
         }
     }
@@ -113,11 +111,11 @@ public class AdapterAccount extends RecyclerView.Adapter<RecyclerView.ViewHolder
      * 获取View的类型
      *
      * @param position 数组的位置
-     * @return 类型(1:AccountElement, 0:AccountSummarize, -1:AccountSplitLine)
+     * @return 类型(1:AccountElement, 2:AccountSummarize)
      */
     @Override
     public int getItemViewType(int position) {
-        return (int)listAccountObjects.get(position).get("type");
+        return (int)listAccountObjects.get(position).get("AccountObjectViewType");
     }
 
     /**
