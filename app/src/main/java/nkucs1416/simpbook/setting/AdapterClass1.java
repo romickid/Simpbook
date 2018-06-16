@@ -134,32 +134,26 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass1> {
      * @return dialog
      */
     private Dialog createDialogEdit(final int class1Id) {
+        updateDatabase();
+        Class1 class1 = class1Db.getCategoryListById(class1Id).get(0);
+
         final AlertDialog.Builder builder = new AlertDialog.Builder(context, 3);
         View viewRemarkDialog = View.inflate(context, R.layout.dialog_class1edit, null);
         final EditText editText = viewRemarkDialog.findViewById(R.id.dclass1edit_edittext);
         final Spinner spinnerColor = viewRemarkDialog.findViewById(R.id.dclass1edit_spinner_color);
 
+
+        editText.setText(class1.getName());
+
         ArrayList<Integer> listColors = getListColorIds();
         SpinnerAdapterColor spinnerAdapterColor = new SpinnerAdapterColor(context, listColors);
         spinnerColor.setAdapter(spinnerAdapterColor);
+        spinnerColor.setSelection(class1.getColor()-1);
+
+        final int type = class1.getType();
 
         builder.setTitle("修改一级分类");
         builder.setView(viewRemarkDialog);
-
-        updateDatabase();
-
-        // TODO: 6/16/2018
-        ArrayList<Class1> listClass1 = class1Db.categoryList();
-        Class1 class1 = null;
-        for (Class1 c: listClass1) {
-            if (c.getId() == class1Id) {
-                class1 = c;
-            }
-        }
-
-        editText.setText(class1.getName());
-        spinnerColor.setSelection(class1.getColor()-1);
-
 
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
@@ -173,8 +167,7 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass1> {
                     return;
                 }
 
-                Class1 class1 = null;
-                class1 = getClass1(class1Id, name, colorId, 1); // TODO: 6/16/2018  
+                Class1 class1 = getClass1(class1Id, name, colorId, type);
                 String message = updateClass1(class1);
 
                 if (message.equals("成功")) {
