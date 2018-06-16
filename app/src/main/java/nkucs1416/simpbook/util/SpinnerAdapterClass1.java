@@ -17,7 +17,8 @@ import static nkucs1416.simpbook.util.Color.getColorIcon;
 public class SpinnerAdapterClass1 extends BaseAdapter {
     private ArrayList<Class1> listClass1s;
     private Context context;
-    
+
+
     /**
      * 构造函数, 读取需要绘制的Class1列表
      *
@@ -29,6 +30,7 @@ public class SpinnerAdapterClass1 extends BaseAdapter {
         this.listClass1s = tListClass1s;
         this.context = tContext;
     }
+
 
     /**
      * 获取Class1的数量

@@ -30,7 +30,7 @@ import nkucs1416.simpbook.util.SpinnerAdapterColor;
 import static nkucs1416.simpbook.util.Color.getColorIcon;
 import static nkucs1416.simpbook.util.Color.getListColorIds;
 
-public class AdapterClass2 extends RecyclerView.Adapter<ViewHolderClass2> {
+public class AdapterClass2 extends RecyclerView.Adapter<ViewHolderClass> {
     private ArrayList<Class2> listClass2s;
     private Context context;
 
@@ -60,11 +60,11 @@ public class AdapterClass2 extends RecyclerView.Adapter<ViewHolderClass2> {
      */
     @NonNull
     @Override
-    public ViewHolderClass2 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolderClass onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_class_element, parent, false);
 
-        return new ViewHolderClass2(view);
+        return new ViewHolderClass(view);
     }
 
     /**
@@ -74,7 +74,7 @@ public class AdapterClass2 extends RecyclerView.Adapter<ViewHolderClass2> {
      * @param position 位置
      */
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderClass2 holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderClass holder, int position) {
         Class2 class2 = listClass2s.get(position);
 
         holder.textViewText.setText(class2.getName());
@@ -94,7 +94,7 @@ public class AdapterClass2 extends RecyclerView.Adapter<ViewHolderClass2> {
     }
 
 
-    // 修改相关
+    // 修改二级分类相关
     /**
      * 设置修改按钮的Listener
      */
@@ -114,19 +114,23 @@ public class AdapterClass2 extends RecyclerView.Adapter<ViewHolderClass2> {
      */
     private Dialog createDialogEdit(final int class2Id, final int class1Id) {
         updateDatabase();
+
+        // 原数据形式
         Class2 class2 = class2Db.getSubcategoryListById(class2Id).get(0);
+        Class1 class1 = class1Db.getCategoryListById(class1Id).get(0);
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(context, 3);
         View viewRemarkDialog = View.inflate(context, R.layout.dialog_class2edit, null);
 
+        // 绑定控件
         final EditText editText = viewRemarkDialog.findViewById(R.id.dclass2edit_edittext);
         final Spinner spinnerClass1 = viewRemarkDialog.findViewById(R.id.dclass2edit_spinner_class1);
         final Spinner spinnerColor = viewRemarkDialog.findViewById(R.id.dclass2edit_spinner_color);
 
-
+        // 设置控件初始值
         editText.setText(class2.getName());
 
-        ArrayList<Class1> listClass1s = class1Db.categoryList();
+        ArrayList<Class1> listClass1s = class1Db.getCategoryListByType(class1.getType());
         final SpinnerAdapterClass1 spinnerAdapterClass1 = new SpinnerAdapterClass1(context, listClass1s);
         spinnerClass1.setAdapter(spinnerAdapterClass1);
         int class1Position = 0;
@@ -142,17 +146,15 @@ public class AdapterClass2 extends RecyclerView.Adapter<ViewHolderClass2> {
         spinnerColor.setAdapter(spinnerAdapterColor);
         spinnerColor.setSelection(class2.getColor()-1);
 
-
         builder.setTitle("修改二级分类");
         builder.setView(viewRemarkDialog);
-
 
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                // 获取控件内容
                 String name = editText.getText().toString();
-                Class1 class1 = (Class1)spinnerClass1.getSelectedItem();
-                int class1Id = class1.getId();
+                int class1Id = ((Class1)spinnerClass1.getSelectedItem()).getId();
                 int colorId = (int)spinnerColor.getSelectedItem();
 
                 if (name.isEmpty()) {
@@ -161,7 +163,7 @@ public class AdapterClass2 extends RecyclerView.Adapter<ViewHolderClass2> {
                     return;
                 }
 
-                Class2 class2 = getClass2(class2Id, name, colorId, class1Id);
+                Class2 class2 = getClass2Update(class2Id, name, colorId, class1Id);
                 String message = updateClass2(class2);
 
                 if (message.equals("成功")) {
@@ -184,21 +186,8 @@ public class AdapterClass2 extends RecyclerView.Adapter<ViewHolderClass2> {
         return builder.create();
     }
 
-    /**
-     * 获取一个Class2实例
-     *
-     * @param id id
-     * @param name 名称
-     * @param colorId 颜色id
-     * @param fatherId 所属类id
-     * @return 实例
-     */
-    private Class2 getClass2(int id, String name, int colorId, int fatherId) {
-        return new Class2(id, name, colorId, fatherId);
-    }
 
-
-    // 删除相关
+    // 删除二级分类相关
     /**
      * 设置删除按钮的Listener
      *
@@ -210,8 +199,8 @@ public class AdapterClass2 extends RecyclerView.Adapter<ViewHolderClass2> {
             @Override
             public void onClick(View arg0) {
                 updateDatabase();
-                Class2 class2 = new Class2(class2Id);
-                String message = class2Db.deleteSubcategory(class2);
+                Class2 class2 = getClass2Delete(class2Id);
+                String message = deleteClass2(class2);
 
                 if (message.equals("成功")) {
                     Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
@@ -236,11 +225,49 @@ public class AdapterClass2 extends RecyclerView.Adapter<ViewHolderClass2> {
         class2Db = new SubcategoryDb(sqLiteDatabase);
     }
 
+
+    // 数据相关
     /**
-     * 向数据库中更新数据
+     * 构建用于更新二级分类的Class2实例
+     *
+     * @param id id
+     * @param name 名称
+     * @param colorId 颜色id
+     * @param class1Id class1Id
+     * @return 实例
+     */
+    private Class2 getClass2Update(int id, String name, int colorId, int class1Id) {
+        return new Class2(id, name, colorId, class1Id);
+    }
+
+    /**
+     * 构建用于删除二级分类的Class2实例
+     *
+     * @param id id
+     * @return 实例
+     */
+    private Class2 getClass2Delete(int id) {
+        return new Class2(id);
+    }
+
+    /**
+     * 向数据库更新二级分类数据
+     *
+     * @param class2Update 更新的二级分类实例
+     * @return 操作信息
      */
     private String updateClass2(Class2 class2Update) {
         return class2Db.updateSubcategory(class2Update);
+    }
+
+    /**
+     * 向数据库删除二级分类数据
+     *
+     * @param class2Delete 删除的二级分类实例
+     * @return 操作信息
+     */
+    private String deleteClass2(Class2 class2Delete) {
+        return class2Db.deleteSubcategory(class2Delete);
     }
 
 }

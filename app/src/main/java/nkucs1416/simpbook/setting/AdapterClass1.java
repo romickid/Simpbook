@@ -28,7 +28,7 @@ import nkucs1416.simpbook.util.SpinnerAdapterColor;
 import static nkucs1416.simpbook.util.Color.getColorIcon;
 import static nkucs1416.simpbook.util.Color.getListColorIds;
 
-public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass1> {
+public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass> {
     private ArrayList<Class1> listClass1s;
     private Context context;
 
@@ -58,11 +58,11 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass1> {
      */
     @NonNull
     @Override
-    public ViewHolderClass1 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolderClass onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_class_element, parent, false);
 
-        return new ViewHolderClass1(view);
+        return new ViewHolderClass(view);
     }
 
     /**
@@ -72,7 +72,7 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass1> {
      * @param position 位置
      */
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderClass1 holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderClass holder, int position) {
         Class1 class1 = listClass1s.get(position);
 
         holder.textViewText.setText(class1.getName());
@@ -112,7 +112,7 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass1> {
     }
 
 
-    // 修改相关
+    // 修改一级分类相关
     /**
      * 设置修改按钮的Listener
      *
@@ -135,14 +135,18 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass1> {
      */
     private Dialog createDialogEdit(final int class1Id) {
         updateDatabase();
+
+        // 原数据形式
         Class1 class1 = class1Db.getCategoryListById(class1Id).get(0);
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(context, 3);
         View viewRemarkDialog = View.inflate(context, R.layout.dialog_class1edit, null);
+
+        // 绑定控件
         final EditText editText = viewRemarkDialog.findViewById(R.id.dclass1edit_edittext);
         final Spinner spinnerColor = viewRemarkDialog.findViewById(R.id.dclass1edit_spinner_color);
 
-
+        // 设置控件初始值
         editText.setText(class1.getName());
 
         ArrayList<Integer> listColors = getListColorIds();
@@ -158,6 +162,7 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass1> {
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                // 获取控件内容
                 String name = editText.getText().toString();
                 int colorId = (int)spinnerColor.getSelectedItem();
 
@@ -167,7 +172,7 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass1> {
                     return;
                 }
 
-                Class1 class1 = getClass1(class1Id, name, colorId, type);
+                Class1 class1 = getClass1Update(class1Id, name, colorId, type);
                 String message = updateClass1(class1);
 
                 if (message.equals("成功")) {
@@ -190,20 +195,8 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass1> {
         return builder.create();
     }
 
-    /**
-     * 获取一个Class1实例
-     *
-     * @param id id
-     * @param name 名称
-     * @param colorId 颜色id
-     * @return 实例
-     */
-    private Class1 getClass1(int id, String name, int colorId, int type) {
-        return new Class1(id, name, colorId, type);
-    }
 
-
-    // 删除相关
+    // 删除一级分类相关
     /**
      * 设置删除按钮的Listener
      *
@@ -215,8 +208,8 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass1> {
             @Override
             public void onClick(View arg0) {
                 updateDatabase();
-                Class1 class1 = new Class1(class1Id);
-                String message = class1Db.deleteCategory(class1);
+                Class1 class1 = getClass1Delete(class1Id);
+                String message = deleteClass1(class1);
 
                 if (message.equals("成功")) {
                     Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
@@ -240,11 +233,48 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass1> {
         class1Db = new CategoryDb(sqLiteDatabase);
     }
 
+
+    // 数据相关
     /**
-     * 向数据库中更新数据
+     * 构建用于更新一级分类的Class1实例
+     *
+     * @param id id
+     * @param name 名称
+     * @param colorId 颜色id
+     * @return 实例
+     */
+    private Class1 getClass1Update(int id, String name, int colorId, int type) {
+        return new Class1(id, name, colorId, type);
+    }
+
+    /**
+     * 构建用于删除一级分类的Class1实例
+     *
+     * @param id id
+     * @return 实例
+     */
+    private Class1 getClass1Delete(int id) {
+        return new Class1(id);
+    }
+
+    /**
+     * 向数据库更新一级分类数据
+     *
+     * @param class1Update 更新的一级分类实例
+     * @return 操作信息
      */
     private String updateClass1(Class1 class1Update) {
         return class1Db.updateCategory(class1Update);
+    }
+
+    /**
+     * 向数据库删除一级分类数据
+     *
+     * @param class1Delete 删除的一级分类实例
+     * @return 操作信息
+     */
+    private String deleteClass1(Class1 class1Delete) {
+        return class1Db.deleteCategory(class1Delete);
     }
 
 }

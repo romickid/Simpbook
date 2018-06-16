@@ -72,6 +72,7 @@ public class ActivityClass1Income extends AppCompatActivity {
     private void initToolbar(){
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setTitle("收入分类");
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,14 +148,17 @@ public class ActivityClass1Income extends AppCompatActivity {
     }
 
     /**
-     * 向数据库中保存数据
+     * 向数据库中添加一级分类数据
+     *
+     * @param class1Insert 添加的一级分类实例
+     * @return 操作信息
      */
-    private String saveClass1(Class1 class1Save) {
-        return class1Db.insertCategory(class1Save);
+    private String insertClass1(Class1 class1Insert) {
+        return class1Db.insertCategory(class1Insert);
     }
 
 
-    // 新增Class1 Dialog相关
+    // 新增收入Class1相关
     /**
      * 构建"新增Class1"的Dialog
      *
@@ -163,6 +167,7 @@ public class ActivityClass1Income extends AppCompatActivity {
     private Dialog createDialogAdd() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this, 3);
         View viewRemarkDialog = View.inflate(this, R.layout.dialog_class1add, null);
+
         final EditText editText = viewRemarkDialog.findViewById(R.id.dclass1add_edittext);
         final Spinner spinnerColor = viewRemarkDialog.findViewById(R.id.dclass1add_spinner_color);
 
@@ -176,15 +181,16 @@ public class ActivityClass1Income extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 String name = editText.getText().toString();
                 int colorId = (int)spinnerColor.getSelectedItem();
+
                 if (name.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "输入不能为空", Toast.LENGTH_SHORT).show();
                     dialog.cancel();
                     return;
                 }
 
-                Class1 class1 = getClass1(name, colorId, 1);
-                String message = saveClass1(class1);
+                Class1 class1 = getClass1(name, colorId, 2); // 2->收入分类
 
+                String message = insertClass1(class1);
                 if (message.equals("成功")) {
                     Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
                     refreshActivity();

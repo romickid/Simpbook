@@ -239,7 +239,7 @@ public class CategoryDb {
      */
     public ArrayList<Class1> getCategoryListByType (int category_type) {
         Cursor cursor = db.query("c_category", null,
-                "category_type = ?", new String[]{category_type+""},
+                "category_type = ? and status > -1", new String[]{category_type+""},
                 null, null, null);
         cursor.moveToFirst();
         int count = cursor.getCount();

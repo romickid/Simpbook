@@ -4,7 +4,7 @@ public class Class1 {
     private int id;
     private String name;
     private int color;
-    private int type; // 1->expense 2->income
+    private int type; // 1->支出分类 2->收入分类
     private int status;
 
 
