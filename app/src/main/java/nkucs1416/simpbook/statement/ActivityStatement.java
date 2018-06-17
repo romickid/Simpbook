@@ -1,7 +1,6 @@
 package nkucs1416.simpbook.statement;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -257,9 +255,22 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
      * @param record 待获取的记录
      * @return RecordObject
      */
-    private HashMap<String, Object> getRecordObject(Record record) {
+    private HashMap<String, Object> getRecordDefaultObject(Record record) {
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("StatementObjectViewType", 1); // 1->Record
+        hashMap.put("StatementObjectViewType", 1); // 1->RecordDefault
+        hashMap.put("Object", record);
+        return hashMap;
+    }
+
+    /**
+     * 获取某个Record的RecordObject
+     *
+     * @param record 待获取的记录
+     * @return RecordObject
+     */
+    private HashMap<String, Object> getRecordTransferObject(Record record) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("StatementObjectViewType", 2); // 2->RecordTransfer
         hashMap.put("Object", record);
         return hashMap;
     }
@@ -274,7 +285,7 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
         StatementDate statementDate = new StatementDate(date);
 
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("StatementObjectViewType", 2); // 2->StatementDate
+        hashMap.put("StatementObjectViewType", 3); // 3->StatementDate
         hashMap.put("Object", statementDate);
         return hashMap;
     }
@@ -303,11 +314,11 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
             if (compareDate(currentDate, record.getDate()) != 0) {
                 currentDate = record.getDate();
                 listStatementObjects.add(getStatementDateObject(currentDate));
-                listStatementObjects.add(getRecordObject(record));
             }
-            else {
-                listStatementObjects.add(getRecordObject(record));
-            }
+            if (record.getType() != 3)
+                listStatementObjects.add(getRecordDefaultObject(record));
+            else
+                listStatementObjects.add(getRecordTransferObject(record));
         }
     }
 
@@ -395,11 +406,11 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
      *
      * @param textView 显示日期的textView
      */
-    private void setListenerDateDialog(final Context context, final TextView textView) {
+    private void setListenerDateDialog(final TextView textView, final Context context) {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                createDialogDate(context, textView).show();
+                createDialogDate(textView, context).show();
             }
         });
 
@@ -429,9 +440,9 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
         setSelectionSpinnerAccount(spinnerAccount, statementFilter.getAccount());
 
         setDisplayTextViewDate(textViewDateFrom, statementFilter.getDateFrom());
-        setListenerDateDialog(this, textViewDateFrom);
+        setListenerDateDialog(textViewDateFrom,this);
         setDisplayTextViewDate(textViewDateTo, statementFilter.getDateTo());
-        setListenerDateDialog(this, textViewDateTo);
+        setListenerDateDialog(textViewDateTo,this);
 
         builder.setTitle("筛选");
         builder.setView(viewRemarkDialog);

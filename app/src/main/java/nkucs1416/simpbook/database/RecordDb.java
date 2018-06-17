@@ -370,7 +370,7 @@ public class RecordDb {
 
 
             Record record;
-            if (record_type == -1) {
+            if (record_type == 3) {
                 record = new Record(record_id, record_accountId, record_money, record_type, datetime, record_note, record_accountToId);
             }
             else {
