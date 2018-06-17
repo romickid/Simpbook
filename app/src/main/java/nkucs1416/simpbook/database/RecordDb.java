@@ -61,7 +61,7 @@ public class RecordDb {
 
         Utils util = new Utils();
 
-        int datetime = util.switchDatetoTime(record_time);
+        int datetime = util.switchDateToTime(record_time);
 
         ContentValues values = new ContentValues();
 
@@ -125,7 +125,7 @@ public class RecordDb {
             values.put("record_id", record.getId());
             values.put("record_type", record.getType());
             Utils util = new Utils();
-            values.put("record_time", util.switchDatetoTime(record.getDate()));
+            values.put("record_time", util.switchDateToTime(record.getDate()));
             values.put("record_money", record.getMoney());
             values.put("record_note", record.getRemark());
             values.put("record_accountID", record.getAccountId());
@@ -176,7 +176,7 @@ public class RecordDb {
 
         Utils util = new Utils();
 
-        int datetime = util.switchDatetoTime(record_time);
+        int datetime = util.switchDateToTime(record_time);
 
         ContentValues values = new ContentValues();
         values.put("record_accountID", account_id);
@@ -366,7 +366,7 @@ public class RecordDb {
 
             Utils util = new Utils();
 
-            Date datetime = util.switchTimetoDate(record_time);
+            Date datetime = util.switchTimeToDate(record_time);
 
 
             Record record;
@@ -426,7 +426,7 @@ public class RecordDb {
 
             Utils util = new Utils();
 
-            Date datetime = util.switchTimetoDate(record_time);
+            Date datetime = util.switchTimeToDate(record_time);
 
             Record record;
 
@@ -460,12 +460,14 @@ public class RecordDb {
 
     /**
      * 返回今天的支出总额
+     *
      * @return float 支出
      */
-    public float todayOutRecordSum() {
+    public float todayExpenseRecordSum() {
         Utils util = new Utils();
-        int today = util.switchDatetoTime(new Date());
-        Cursor cursor = db.query("c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 0",
+        int today = util.switchDateToTime(new Date());
+        Cursor cursor = db.query(
+                "c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 1",
                 new String[]{today+"", today+""}, null, null, "record_time DESC");
         ArrayList<Record> recordList =  addRecordList(cursor);
         float sum = 0;
@@ -477,12 +479,14 @@ public class RecordDb {
 
     /**
      * 返回今天的收入总额
+     *
      * @return float 收入
      */
-    public float todayInRecordSum() {
+    public float todayIncomeRecordSum() {
         Utils util = new Utils();
-        int today = util.switchDatetoTime(new Date());
-        Cursor cursor = db.query("c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 1",
+        int today = util.switchDateToTime(new Date());
+        Cursor cursor = db.query(
+                "c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 2",
                 new String[]{today+"", today+""}, null, null, "record_time DESC");
         ArrayList<Record> recordList =  addRecordList(cursor);
         float sum = 0;
@@ -493,16 +497,18 @@ public class RecordDb {
     }
 
     /**
-     * 返回本周的收入总额
+     * 返回本周的支出总额
+     *
      * @return float 支出
      */
-    public float weekInRecordSum() {
+    public float weekExpenseRecordSum() {
         Utils util = new Utils();
-        int weekBegin = util.getMondayOfThisWeek();
-        int today = util.switchDatetoTime(new Date());
+        int weekBegin = util.getMondayOfThisWeek(new Date());
+        int weekEnd = util.getSundayOfThisWeek(new Date());
 
-        Cursor cursor = db.query("c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 1",
-                new String[]{weekBegin+"", today+""}, null, null, "record_time DESC");
+        Cursor cursor = db.query(
+                "c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 1",
+                new String[]{weekBegin+"", weekEnd+""}, null, null, "record_time DESC");
         ArrayList<Record> recordList =  addRecordList(cursor);
         float sum = 0;
         for(int i = 0;i < recordList.size();i++) {
@@ -512,16 +518,18 @@ public class RecordDb {
     }
 
     /**
-     * 返回本周的支出总额
+     * 返回本周的收入总额
+     *
      * @return float 收入
      */
-    public float weekOutRecordSum() {
+    public float weekIncomeRecordSum() {
         Utils util = new Utils();
-        int weekBegin = util.getMondayOfThisWeek();
-        int today = util.switchDatetoTime(new Date());
+        int weekBegin = util.getMondayOfThisWeek(new Date());
+        int weekEnd = util.getSundayOfThisWeek(new Date());
 
-        Cursor cursor = db.query("c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 0",
-                new String[]{weekBegin+"", today+""}, null, null, "record_time DESC");
+        Cursor cursor = db.query(
+                "c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 2",
+                new String[]{weekBegin+"", weekEnd+""}, null, null, "record_time DESC");
         ArrayList<Record> recordList =  addRecordList(cursor);
         float sum = 0;
         for(int i = 0;i < recordList.size();i++) {
@@ -532,15 +540,18 @@ public class RecordDb {
 
     /**
      * 返回本月的支出总额
+     *
      * @return float 支出
      */
-    public float monthOutRecordSum() {
+    public float monthExpenseRecordSum() {
         Utils util = new Utils();
         int monthBegin = util.getFirstOfThisMonth(new Date());
-        int today = util.switchDatetoTime(new Date());
+        int monthEnd = monthBegin / 100  * 100 + 99;
 
-        Cursor cursor = db.query("c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 0",
-                new String[]{monthBegin+"", today+""}, null, null, "record_time DESC");
+        Cursor cursor = db.query(
+                "c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 1",
+                new String[]{monthBegin+"", monthEnd+""}, null, null, "record_time DESC"
+        );
         ArrayList<Record> recordList =  addRecordList(cursor);
         float sum = 0;
         for(int i = 0;i < recordList.size();i++) {
@@ -551,15 +562,39 @@ public class RecordDb {
 
     /**
      * 返回本月的收入总额
+     *
      * @return float 收入
      */
-    public float monthInRecordSum() {
+    public float monthIncomeRecordSum() {
         Utils util = new Utils();
         int monthBegin = util.getFirstOfThisMonth(new Date());
-        int today = util.switchDatetoTime(new Date());
+        int monthEnd = monthBegin / 100 * 100 + 99;
 
-        Cursor cursor = db.query("c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 1",
-                new String[]{monthBegin+"", today+""}, null, null, "record_time DESC");
+        Cursor cursor = db.query(
+                "c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 2",
+                new String[]{monthBegin+"", monthEnd+""}, null, null, "record_time DESC"
+        );
+        ArrayList<Record> recordList =  addRecordList(cursor);
+        float sum = 0;
+        for(int i = 0;i < recordList.size();i++) {
+            sum += recordList.get(i).getMoney();
+        }
+        return sum;
+    }
+
+    /**
+     * 返回本年的支出总额
+     *
+     * @return float 支出
+     */
+    public float yearExpenseRecordSum() {
+        Utils util = new Utils();
+        int yearBegin = util.getFirstOfThisYear(new Date());
+        int yearEnd = yearBegin / 10000  * 10000 + 9999;
+
+        Cursor cursor = db.query(
+                "c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 1",
+                new String[]{yearBegin+"", yearEnd+""}, null, null, "record_time DESC");
         ArrayList<Record> recordList =  addRecordList(cursor);
         float sum = 0;
         for(int i = 0;i < recordList.size();i++) {
@@ -570,33 +605,17 @@ public class RecordDb {
 
     /**
      * 返回本年的收入总额
+     *
      * @return float 支出
      */
-    public float yearInRecordSum() {
+    public float yearIncomeRecordSum() {
         Utils util = new Utils();
-        int monthBegin = util.getFirstOfThisYear(new Date());
-        int today = util.switchDatetoTime(new Date());
+        int yearBegin = util.getFirstOfThisYear(new Date());
+        int yearEnd = yearBegin / 10000 * 10000  + 9999;
 
-        Cursor cursor = db.query("c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 1",
-                new String[]{monthBegin+"", today+""}, null, null, "record_time DESC");
-        ArrayList<Record> recordList =  addRecordList(cursor);
-        float sum = 0;
-        for(int i = 0;i < recordList.size();i++) {
-            sum += recordList.get(i).getMoney();
-        }
-        return sum;
-    }
-    /**
-     * 返回本年的支出总额
-     * 收入
-     */
-    public float yearOutRecordSum() {
-        Utils util = new Utils();
-        int monthBegin = util.getFirstOfThisYear(new Date());
-        int today = util.switchDatetoTime(new Date());
-
-        Cursor cursor = db.query("c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 0",
-                new String[]{monthBegin+"", today+""}, null, null, "record_time DESC");
+        Cursor cursor = db.query(
+                "c_record", null, "status > -1 AND record_time >= ? AND record_time <= ? AND record_type = 2",
+                new String[]{yearBegin+"", yearEnd+""}, null, null, "record_time DESC");
         ArrayList<Record> recordList =  addRecordList(cursor);
         float sum = 0;
         for(int i = 0;i < recordList.size();i++) {
@@ -627,8 +646,8 @@ public class RecordDb {
 
         Utils util = new Utils();
 
-        int time1 = util.switchDatetoTime(begintime);
-        int time2 = util.switchDatetoTime(endtime);
+        int time1 = util.switchDateToTime(begintime);
+        int time2 = util.switchDateToTime(endtime);
         Cursor cursor = db.query("c_record", null, "record_time >= ? AND record_time <= ? AND record_type != 4 AND status > -1",
                 new String[]{time1+"", time2+""}, null, null, "record_time DESC");
         return addRecordList(cursor);
@@ -644,8 +663,8 @@ public class RecordDb {
      * @param enddate 结束日期
      */
     public ArrayList<Record> recordList (Class1 class1, Class2 class2, Account account, Date begindate, Date enddate) {
-        int begindateInt = new Utils().switchDatetoTime(begindate);
-        int enddateInt = new Utils().switchDatetoTime(enddate);
+        int begindateInt = new Utils().switchDateToTime(begindate);
+        int enddateInt = new Utils().switchDateToTime(enddate);
         String selection = "record_type != 4 AND status > -1 AND record_time >= ? AND record_time <= ?";
         ArrayList<String> selectionArgu = new ArrayList();
         selectionArgu.add(begindateInt+"");
@@ -720,7 +739,7 @@ public class RecordDb {
 
             Utils util = new Utils();
 
-            int datetime = util.switchDatetoTime(time);
+            int datetime = util.switchDateToTime(time);
             int type = record.getType();
             String note = record.getRemark();
             if (type == -1) {

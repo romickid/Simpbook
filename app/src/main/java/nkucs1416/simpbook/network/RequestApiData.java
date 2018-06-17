@@ -257,7 +257,7 @@ public class RequestApiData {
 				record[i].put("record_remark", a.getRemark());
 
 				Utils util = new Utils();
-				record[i].put("record_time", util.switchDatetoTime(a.getDate()));
+				record[i].put("record_time", util.switchDateToTime(a.getDate()));
 				record[i].put("status", a.getStatus());
 				recordList.put(i, record[i]);
 			}
@@ -306,7 +306,7 @@ public class RequestApiData {
 				Utils util = new Utils();
 
 
-				template[i].put("template_time", util.switchDatetoTime(a.getDate()));
+				template[i].put("template_time", util.switchDateToTime(a.getDate()));
 				template[i].put("status", a.getStatus());
 				templateList.put(i, template[i]);
 			}
