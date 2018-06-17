@@ -152,6 +152,8 @@ public class ActivityMain extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(ActivityMain.this, ActivityStatement.class);
+                intent.putExtra("StatementFilterDate","Default");
+                intent.putExtra("StatementFilterAccount", "Default");
                 startActivity(intent);
             }
         });
@@ -204,7 +206,8 @@ public class ActivityMain extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(ActivityMain.this, ActivityStatement.class);
-                intent.putExtra("filter","main_month");
+                intent.putExtra("StatementFilterDate","ThisMonth");
+                intent.putExtra("StatementFilterAccount", "Default");
                 startActivity(intent);
             }
         });
@@ -218,7 +221,8 @@ public class ActivityMain extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(ActivityMain.this, ActivityStatement.class);
-                intent.putExtra("filter","main_day");
+                intent.putExtra("StatementFilterDate","Today");
+                intent.putExtra("StatementFilterAccount", "Default");
                 startActivity(intent);
             }
         });
@@ -232,7 +236,8 @@ public class ActivityMain extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(ActivityMain.this, ActivityStatement.class);
-                intent.putExtra("filter","main_week");
+                intent.putExtra("StatementFilterDate","ThisWeek");
+                intent.putExtra("StatementFilterAccount", "Default");
                 startActivity(intent);
             }
         });
@@ -246,7 +251,8 @@ public class ActivityMain extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(ActivityMain.this, ActivityStatement.class);
-                intent.putExtra("filter","main_month");
+                intent.putExtra("StatementFilterDate","ThisMonth");
+                intent.putExtra("StatementFilterAccount", "Default");
                 startActivity(intent);
             }
         });
@@ -260,7 +266,8 @@ public class ActivityMain extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(ActivityMain.this, ActivityStatement.class);
-                intent.putExtra("filter","main_year");
+                intent.putExtra("StatementFilterDate","ThisYear");
+                intent.putExtra("StatementFilterAccount", "Default");
                 startActivity(intent);
             }
         });

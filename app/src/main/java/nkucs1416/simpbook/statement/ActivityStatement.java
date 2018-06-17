@@ -157,7 +157,7 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
      * 初始化数据
      */
     private void updateData() {
-        setDefaultStatementFilter(); // TODO: 6/17/2018
+        setStatementFilter();
 
         updateFilterData();
         updateStatement();
@@ -348,13 +348,50 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
     /**
      * 设置默认的statementFilter
      */
-    private void setDefaultStatementFilter() {
+    private void setStatementFilter() {
+        String statementFilterDate = this.getIntent().getStringExtra("StatementFilterDate");
+        String statementFilterAccount = this.getIntent().getStringExtra("StatementFilterAccount");
+        Date dateBegin, dateEnd;
+        Account account;
+
+        switch (statementFilterDate) {
+            case "Today":
+                dateBegin = new Date();
+                dateEnd = new Date();
+                break;
+            case "ThisWeek":
+                dateBegin =  getDateWeekMonday(new Date());
+                dateEnd = getDateWeekSunday(new Date());
+                break;
+            case "ThisMonth":
+                dateBegin =  getDateMonthFirstDay(new Date());
+                dateEnd = getDateMonthLastDay(new Date());
+                break;
+            case "ThisYear":
+                dateBegin =  getDateYearFirstDay(new Date());
+                dateEnd = getDateYearLastDay(new Date());
+                break;
+            case "Default":
+            default:
+                dateBegin =  getDateAdd(new Date(), -90);
+                dateEnd = new Date();
+                break;
+        }
+
+        switch (statementFilterAccount) {
+            case "Default":
+                account = getAllDataAccount();
+                break;
+            default:
+                account = accountDb.getAccountListById(Integer.parseInt(statementFilterAccount)).get(0);
+        }
+
         statementFilter = new StatementFilter(
                 getAllDataClass1(),
                 getAllDataClass2(),
-                getAllDataAccount(),
-                getDateAdd(new Date(), -90),
-                new Date()
+                account,
+                dateBegin,
+                dateEnd
         );
     }
 
