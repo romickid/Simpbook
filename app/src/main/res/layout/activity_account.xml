@@ -15,7 +15,6 @@
         android:minHeight="56dp"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_chevron_left_white_36dp"
@@ -28,7 +27,6 @@
         android:layout_width="0dp"
         android:layout_height="92dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/account_toolbar"
         app:srcCompat="@color/colorDefaultBlue" />
@@ -52,12 +50,11 @@
         android:layout_marginBottom="10dp"
         android:gravity="center"
         android:includeFontPadding="false"
-        android:text="1.23"
+        android:text="4.04"
         android:textColor="@color/colorWhite"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="@+id/account_staticview_top"
         app:layout_constraintStart_toStartOf="@+id/account_statictext1" />
-
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/account_button_addaccount"

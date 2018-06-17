@@ -27,7 +27,6 @@
         android:textSize="48sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,7 +35,7 @@
         style="@android:style/Widget.Material.Light.Spinner"
         android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
         android:background="@null"
         android:overlapAnchor="false"
         app:layout_constraintEnd_toStartOf="@+id/fincome_spinner_class2"
@@ -48,7 +47,7 @@
         style="@android:style/Widget.Material.Light.Spinner"
         android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
         android:background="@null"
         android:overlapAnchor="false"
         app:layout_constraintEnd_toEndOf="@+id/fincome_editview_money"
@@ -59,7 +58,7 @@
         android:id="@+id/fincome_spinner_account"
         android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
         android:background="@null"
         android:overlapAnchor="false"
         app:layout_constraintEnd_toStartOf="@+id/fincome_spinner_class2"
@@ -70,23 +69,24 @@
         android:id="@+id/fincome_textview_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/fincome_editview_money"
         app:layout_constraintTop_toBottomOf="@+id/fincome_statictext3" />
 
     <TextView
         android:id="@+id/fincome_textview_remark"
-        android:layout_width="346dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:textColor="@color/colorText54"
         android:textColorLink="@android:color/darker_gray"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/fincome_editview_money"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/fincome_editview_money"
         app:layout_constraintTop_toBottomOf="@+id/fincome_statictext4" />
 
@@ -141,7 +141,6 @@
         android:layout_marginTop="4dp"
         android:src="@color/colorGrey300"
         app:layout_constraintEnd_toEndOf="@+id/fincome_editview_money"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/fincome_editview_money"
         app:layout_constraintTop_toBottomOf="@+id/fincome_editview_money" />
 
@@ -152,7 +151,6 @@
         android:layout_marginTop="4dp"
         android:src="@color/colorGrey300"
         app:layout_constraintEnd_toEndOf="@+id/fincome_editview_money"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/fincome_editview_money"
         app:layout_constraintTop_toBottomOf="@+id/fincome_spinner_class1" />
 
@@ -163,7 +161,6 @@
         android:layout_marginTop="4dp"
         android:src="@color/colorGrey300"
         app:layout_constraintEnd_toEndOf="@+id/fincome_editview_money"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/fincome_editview_money"
         app:layout_constraintTop_toBottomOf="@+id/fincome_spinner_account" />
 

@@ -169,13 +169,12 @@ public class ActivityAccount extends AppCompatActivity {
      */
     private ArrayList<HashMap<String, Object>> getListAccountElementObjects(ArrayList<Account> listAccounts) {
         ArrayList<HashMap<String, Object>> listReturn = new ArrayList<>();
-        AccountElement accountElement;
         HashMap<String, Object> hashMap;
 
         for(Account account: listAccounts) {
             hashMap = new HashMap<>();
-            hashMap.put("AccountObjectViewType", 1); // 1->Element
-            hashMap.put("Object", new AccountElement(account));
+            hashMap.put("AccountObjectViewType", 1); // 1->AccountDefault
+            hashMap.put("Object", account);
             listReturn.add(hashMap);
         }
         return listReturn;
@@ -193,7 +192,7 @@ public class ActivityAccount extends AppCompatActivity {
                 new AccountSummarize(getAccountTypeName(type), getSumMoney(listAccounts));
 
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("AccountObjectViewType", 2); // 2->Summarize
+        hashMap.put("AccountObjectViewType", 2); // 2->AccountSummarize
         hashMap.put("Object", accountSummarize);
         return hashMap;
     }

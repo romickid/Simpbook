@@ -5,7 +5,6 @@ import android.content.Context;
 import android.view.inputmethod.InputMethodManager;
 
 public class Other {
-
     /**
      * 关闭软键盘
      *

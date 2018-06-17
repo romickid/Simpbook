@@ -163,10 +163,10 @@ public class ActivityClass1Expense extends AppCompatActivity {
      */
     private Dialog createDialogAdd() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this, 3);
-        View viewRemarkDialog = View.inflate(this, R.layout.dialog_class1add, null);
+        View viewRemarkDialog = View.inflate(this, R.layout.dialog_class1, null);
 
-        final EditText editText = viewRemarkDialog.findViewById(R.id.dclass1add_edittext);
-        final Spinner spinnerColor = viewRemarkDialog.findViewById(R.id.dclass1add_spinner_color);
+        final EditText editText = viewRemarkDialog.findViewById(R.id.dclass1_edittext);
+        final Spinner spinnerColor = viewRemarkDialog.findViewById(R.id.dclass1_spinner_color);
 
         spinnerColor.setAdapter(spinnerAdapterColor);
 

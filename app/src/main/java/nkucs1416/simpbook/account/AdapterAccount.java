@@ -14,6 +14,7 @@ import java.util.HashMap;
 
 import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.statement.ActivityStatement;
+import nkucs1416.simpbook.util.Account;
 
 import static nkucs1416.simpbook.util.Color.getColorIcon;
 import static nkucs1416.simpbook.util.Money.setTextViewDecimalMoney;
@@ -40,7 +41,7 @@ public class AdapterAccount extends RecyclerView.Adapter<RecyclerView.ViewHolder
      * 根据不同的viewType构建不同的ViewHolder
      *
      * @param parent default
-     * @param viewType 1:AccountElement, 2:AccountSummarize
+     * @param viewType 1:AccountDefault, 2:AccountSummarize
      * @return viewHolder
      */
     @NonNull
@@ -50,11 +51,11 @@ public class AdapterAccount extends RecyclerView.Adapter<RecyclerView.ViewHolder
         switch (viewType) {
             case 1:
                 view = LayoutInflater.from(context)
-                        .inflate(R.layout.item_account_element, parent, false);
-                return new ViewHolderAccountElement(view);
+                        .inflate(R.layout.item_account_default, parent, false);
+                return new ViewHolderAccountDefault(view);
             case 2:
                 view = LayoutInflater.from(context)
-                        .inflate(R.layout.item_account_summerize, parent, false);
+                        .inflate(R.layout.item_account_summarize, parent, false);
                 return new ViewHolderAccountSummarize(view);
         }
         return null;
@@ -70,29 +71,29 @@ public class AdapterAccount extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
             case 1:
-                ViewHolderAccountElement viewHolderAccountElement = (ViewHolderAccountElement) holder;
-                final AccountElement accountElement = (AccountElement)listAccountObjects.get(position).get("Object");
+                ViewHolderAccountDefault viewHolderAccountDefault = (ViewHolderAccountDefault) holder;
+                final Account account = (Account)listAccountObjects.get(position).get("Object");
 
-                final int colorIcon1 = getColorIcon(accountElement.getColorId());
-                final String text1 = accountElement.getText();
-                final float money1 = accountElement.getMoney();
+                final int colorIcon1 = getColorIcon(account.getColor());
+                final String text1 = account.getName();
+                final float money1 = account.getMoney();
 
-                final ImageView imageViewBackground1 = viewHolderAccountElement.imageViewBackground;
-                final Context context1 = viewHolderAccountElement.context;
+                final ImageView imageViewBackground1 = viewHolderAccountDefault.imageViewBackground;
+                final Context context1 = viewHolderAccountDefault.context;
 
                 imageViewBackground1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View arg0) {
                         Intent intent = new Intent(context1, ActivityStatement.class);
                         intent.putExtra("StatementFilterDate", "Default");
-                        intent.putExtra("StatementFilterAccount", String.valueOf(accountElement.getId()));
+                        intent.putExtra("StatementFilterAccount", String.valueOf(account.getId()));
                         context1.startActivity(intent);
                     }
                 });
 
-                viewHolderAccountElement.textViewText.setText(text1);
-                setTextViewDecimalMoney(viewHolderAccountElement.textViewMoney, money1);
-                viewHolderAccountElement.imageViewColor.setImageResource(colorIcon1);
+                viewHolderAccountDefault.textViewText.setText(text1);
+                setTextViewDecimalMoney(viewHolderAccountDefault.textViewMoney, money1);
+                viewHolderAccountDefault.imageViewColor.setImageResource(colorIcon1);
                 break;
 
             case 2:
@@ -112,7 +113,7 @@ public class AdapterAccount extends RecyclerView.Adapter<RecyclerView.ViewHolder
      * 获取View的类型
      *
      * @param position 数组的位置
-     * @return 类型(1:AccountElement, 2:AccountSummarize)
+     * @return 类型(1:AccountDefault, 2:AccountSummarize)
      */
     @Override
     public int getItemViewType(int position) {

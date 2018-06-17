@@ -45,6 +45,7 @@ public class ActivityClass2Expense extends AppCompatActivity {
     private int class1Id;
     private Class1 class1;
 
+
     // Activity相关
     @Override
     protected void onCreate(Bundle savedInstanceState) {

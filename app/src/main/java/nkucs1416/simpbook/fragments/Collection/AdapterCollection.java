@@ -65,15 +65,15 @@ public class AdapterCollection extends RecyclerView.Adapter<RecyclerView.ViewHol
         switch (viewType) {
             case 1:
                 view = LayoutInflater.from(context)
-                        .inflate(R.layout.item_statement_recorddefault, parent, false);
+                        .inflate(R.layout.item_record_default, parent, false);
                 return new ViewHolderCollectionDefault(view);
             case 2:
                 view = LayoutInflater.from(context)
-                        .inflate(R.layout.item_statement_recordtransfer, parent, false);
+                        .inflate(R.layout.item_record_transfer, parent, false);
                 return new ViewHolderCollectionTransfer(view);
             case 3:
                 view = LayoutInflater.from(context)
-                        .inflate(R.layout.item_collection_summerize, parent, false);
+                        .inflate(R.layout.item_collection_summarize, parent, false);
                 return new ViewHolderCollectionSummarize(view);
         }
         return null;

@@ -140,11 +140,11 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass> {
         Class1 class1 = class1Db.getCategoryListById(class1Id).get(0);
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(context, 3);
-        View viewRemarkDialog = View.inflate(context, R.layout.dialog_class1edit, null);
+        View viewRemarkDialog = View.inflate(context, R.layout.dialog_class1, null);
 
         // 绑定控件
-        final EditText editText = viewRemarkDialog.findViewById(R.id.dclass1edit_edittext);
-        final Spinner spinnerColor = viewRemarkDialog.findViewById(R.id.dclass1edit_spinner_color);
+        final EditText editText = viewRemarkDialog.findViewById(R.id.dclass1_edittext);
+        final Spinner spinnerColor = viewRemarkDialog.findViewById(R.id.dclass1_spinner_color);
 
         // 设置控件初始值
         editText.setText(class1.getName());

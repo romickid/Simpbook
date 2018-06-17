@@ -12,14 +12,14 @@ class ViewHolderAccountSummarize extends RecyclerView.ViewHolder {
 
 
     /**
-     * AccountSummarize的Holder, 与iaccountsummerize相关
+     * AccountSummarize的Holder, 与iaccountsummarize相关
      *
      * @param view default
      */
     ViewHolderAccountSummarize(View view) {
         super(view);
-        textViewText = view.findViewById(R.id.iaccountsummerize_text);
-        textViewMoney = view.findViewById(R.id.iaccountsummerize_money);
+        textViewText = view.findViewById(R.id.iaccountsummarize_text);
+        textViewMoney = view.findViewById(R.id.iaccountsummarize_money);
     }
 
 }
