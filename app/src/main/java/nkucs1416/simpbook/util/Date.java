@@ -1,5 +1,10 @@
 package nkucs1416.simpbook.util;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -154,4 +159,28 @@ public class Date {
             return 0;
         }
     }
+
+     /**
+     * 构建选择日期的Dialog
+     *
+     * @param context context
+     * @param textView 显示日期的textView
+     * @return 返回Dialog
+     */
+    public static Dialog createDialogDate(Context context, final TextView textView) {
+        Dialog dialog;
+        DatePickerDialog.OnDateSetListener listener;
+        Date date = getDate(textView);
+
+        listener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                setTextViewDate(textView, new Date(year, month + 1, dayOfMonth));
+            }
+        };
+
+        dialog = new DatePickerDialog(context, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, listener, date.getYear(), date.getMonth() - 1, date.getDay());
+        return dialog;
+    }
+
 }
