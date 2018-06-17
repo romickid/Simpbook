@@ -72,7 +72,11 @@ public class Money {
      * @param editText 待获取的EditText
      */
     public static float getEditTextMoney(EditText editText) {
-        return Float.parseFloat(editText.getText().toString());
+        String strMoney = editText.getText().toString();
+        if (strMoney.isEmpty())
+            return 0.0f;
+        else
+            return Float.parseFloat(strMoney);
     }
 
     /**
