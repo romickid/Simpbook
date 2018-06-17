@@ -6,7 +6,7 @@
     android:layout_height="32dp">
 
     <TextView
-        android:id="@+id/iaccountsummerize_text"
+        android:id="@+id/icollectionsummarize_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -20,23 +20,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/iaccountsummerize_money"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:includeFontPadding="false"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
-        android:id="@+id/iaccountsummerize_topline"
+        android:id="@+id/icollectionsummarize_topline"
         android:layout_width="0dp"
         android:layout_height="1dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +30,7 @@
         app:srcCompat="@color/colorGrey300" />
 
     <ImageView
-        android:id="@+id/iaccountsummerize_bottomline"
+        android:id="@+id/icollectionsummarize_bottomline"
         android:layout_width="0dp"
         android:layout_height="1dp"
         app:layout_constraintBottom_toBottomOf="parent"

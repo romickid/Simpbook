@@ -84,7 +84,7 @@ public class Date {
      * @param date 日期
      * @return String
      */
-    public static String getStrDate(Date date) {
+    private static String getStrDate(Date date) {
         return date.getYear() + "/" + date.getMonth() + "/" + date.getDay();
     }
 

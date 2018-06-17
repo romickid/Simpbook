@@ -11,13 +11,13 @@ class ViewHolderCollectionSummarize extends RecyclerView.ViewHolder {
 
 
     /**
-     * CollectionSummarize的Holder, 与icollectionsummerize相关
+     * CollectionSummarize的Holder, 与icollectionsummarize相关
      *
      * @param view default
      */
     ViewHolderCollectionSummarize(View view) {
         super(view);
-        textViewText = view.findViewById(R.id.icollectionsummerize_text);
+        textViewText = view.findViewById(R.id.icollectionsummarize_text);
     }
 
 }

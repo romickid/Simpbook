@@ -6,7 +6,7 @@
     android:layout_height="48dp">
 
     <ImageView
-        android:id="@+id/iaccountelement_background"
+        android:id="@+id/iaccountdefault_background"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clickable="true"
@@ -18,7 +18,7 @@
         app:srcCompat="@android:color/transparent" />
 
     <ImageView
-        android:id="@+id/iaccountelement_color"
+        android:id="@+id/iaccountdefault_color"
         android:layout_width="34dp"
         android:layout_height="34dp"
         android:layout_gravity="center"
@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/iaccountelement_text"
+        android:id="@+id/iaccountdefault_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -41,11 +41,11 @@
         android:paddingTop="2dp"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iaccountelement_color"
+        app:layout_constraintStart_toEndOf="@+id/iaccountdefault_color"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/iaccountelement_money"
+        android:id="@+id/iaccountdefault_money"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"

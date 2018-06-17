@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import nkucs1416.simpbook.R;
 
-class ViewHolderAccountElement extends RecyclerView.ViewHolder {
+class ViewHolderAccountDefault extends RecyclerView.ViewHolder {
     TextView textViewText;
     TextView textViewMoney;
     ImageView imageViewColor;
@@ -17,17 +17,17 @@ class ViewHolderAccountElement extends RecyclerView.ViewHolder {
 
 
     /**
-     * AccountElement的Holder, 与iaccount相关
+     * AccountElement的Holder, 与iaccountdefault相关
      *
      * @param view default
      */
-    ViewHolderAccountElement(View view) {
+    ViewHolderAccountDefault(View view) {
         super(view);
         context = view.getContext();
-        textViewText = view.findViewById(R.id.iaccountelement_text);
-        textViewMoney = view.findViewById(R.id.iaccountelement_money);
-        imageViewColor = view.findViewById(R.id.iaccountelement_color);
-        imageViewBackground = view.findViewById(R.id.iaccountelement_background);
+        textViewText = view.findViewById(R.id.iaccountdefault_text);
+        textViewMoney = view.findViewById(R.id.iaccountdefault_money);
+        imageViewColor = view.findViewById(R.id.iaccountdefault_color);
+        imageViewBackground = view.findViewById(R.id.iaccountdefault_background);
     }
 
 }

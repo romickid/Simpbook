@@ -4,7 +4,7 @@ public class Collection {
     private int id;
     private int accountId;
     private float money;
-    private int type;
+    private int type; // 1->支出 2->收入 3->转账
     private Date date;
     private String remark;
     private Integer class1Id;

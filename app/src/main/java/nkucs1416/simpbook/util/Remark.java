@@ -14,7 +14,6 @@ import nkucs1416.simpbook.R;
 import static nkucs1416.simpbook.util.Other.turnoffKeyboard;
 
 public class Remark {
-
     /**
      * 构建输入备注的dialog
      *

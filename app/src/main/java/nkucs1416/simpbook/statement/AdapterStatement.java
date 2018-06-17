@@ -76,11 +76,11 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
         switch (viewType) {
             case 1:
                 view = LayoutInflater.from(context)
-                        .inflate(R.layout.item_statement_recorddefault, parent, false);
+                        .inflate(R.layout.item_record_default, parent, false);
                 return new ViewHolderStatementRecordDefault(view);
             case 2:
                 view = LayoutInflater.from(context)
-                        .inflate(R.layout.item_statement_recordtransfer, parent, false);
+                        .inflate(R.layout.item_record_transfer, parent, false);
                 return new ViewHolderStatementRecordTransfer(view);
             case 3:
                 view = LayoutInflater.from(context)

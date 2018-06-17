@@ -4,8 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".class.classActivity">
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/class_toolbar"
@@ -16,11 +15,10 @@
         android:theme="?attr/actionBarTheme"
         app:contentInsetStartWithNavigation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_chevron_left_white_36dp"
-        app:title="支出分类"
+        app:title="分类"
         app:titleTextColor="@color/colorWhite" />
 
     <android.support.v7.widget.RecyclerView
