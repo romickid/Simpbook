@@ -1,11 +1,14 @@
 package nkucs1416.simpbook.statement;
 
+import nkucs1416.simpbook.util.Account;
+import nkucs1416.simpbook.util.Class1;
+import nkucs1416.simpbook.util.Class2;
 import nkucs1416.simpbook.util.Date;
 
 class StatementFilter {
-    private int class1Id;
-    private int class2Id;
-    private int accountId;
+    private Class1 class1;
+    private Class2 class2;
+    private Account account;
     private Date dateFrom;
     private Date dateTo;
 
@@ -13,50 +16,50 @@ class StatementFilter {
     /**
      * 构造函数, 传入筛选信息
      *
-     * @param tClass1Id class1Id
-     * @param tClass2Id class2Id
-     * @param tAccountId accountId
+     * @param tClass1 class1
+     * @param tClass2 class2
+     * @param tAccount account
      * @param tDateFrom dateFrom
      * @param tDateTo dateTo
      */
     StatementFilter(
-            int tClass1Id,
-            int tClass2Id,
-            int tAccountId,
+            Class1 tClass1,
+            Class2 tClass2,
+            Account tAccount,
             Date tDateFrom,
             Date tDateTo) {
-        class1Id = tClass1Id;
-        class2Id = tClass2Id;
-        accountId = tAccountId;
+        class1 = tClass1;
+        class2 = tClass2;
+        account = tAccount;
         dateFrom = tDateFrom;
         dateTo = tDateTo;
     }
 
     /**
-     * 获取Class1的Id
+     * 获取Class1
      *
-     * @return Id
+     * @return class1
      */
-    public int getClass1Id() {
-        return class1Id;
+    public Class1 getClass1() {
+        return class1;
     }
 
     /**
-     * 获取Class2的Id
+     * 获取Class2
      *
-     * @return Id
+     * @return class2
      */
-    public int getClass2Id() {
-        return class2Id;
+    public Class2 getClass2() {
+        return class2;
     }
 
     /**
-     * 获取Account的Id
+     * 获取Account
      *
-     * @return Id
+     * @return account
      */
-    public int getAccountId() {
-        return accountId;
+    public Account getAccount() {
+        return account;
     }
 
     /**

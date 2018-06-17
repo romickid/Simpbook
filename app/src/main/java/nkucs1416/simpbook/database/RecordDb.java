@@ -9,6 +9,9 @@ import android.database.sqlite.SQLiteDatabase;
 
 
 import nkucs1416.simpbook.network.UpdateRecord;
+import nkucs1416.simpbook.util.Account;
+import nkucs1416.simpbook.util.Class1;
+import nkucs1416.simpbook.util.Class2;
 import nkucs1416.simpbook.util.Date;
 import nkucs1416.simpbook.util.Record;
 
@@ -630,6 +633,44 @@ public class RecordDb {
                 new String[]{time1+"", time2+""}, null, null, "record_time DESC");
         return addRecordList(cursor);
     }
+
+    /**
+     * 根据class1、class2、account、开始时间、结束时间返回record数据
+     *
+     * @param class1 一级分类
+     * @param class2 二级分类
+     * @param account 账户
+     * @param begindate 开始日期
+     * @param enddate 结束日期
+     */
+    public ArrayList<Record> recordList (Class1 class1, Class2 class2, Account account, Date begindate, Date enddate) {
+        int begindateInt = new Utils().switchDatetoTime(begindate);
+        int enddateInt = new Utils().switchDatetoTime(enddate);
+        String selection = "record_type != 4 AND status > -1 AND record_time >= ? AND record_time <= ?";
+        ArrayList<String> selectionArgu = new ArrayList();
+        selectionArgu.add(begindateInt+"");
+        selectionArgu.add(enddateInt+"");
+        if (class1.getId() != -1) {
+            selection += " AND record_categoryID = ?";
+            selectionArgu.add(class1.getId()+"");
+
+        }
+        if (class2.getId() != -1) {
+            selection += " AND record_subcategoryID = ?";
+            selectionArgu.add(class2.getId()+"");
+        }
+        if (account.getId() != -1) {
+            selection += " AND record_accountID = ?";
+            selectionArgu.add(account.getId()+"");
+        }
+        String[] selectionArguString = new String[selectionArgu.size()];
+        for (int i=0;i<selectionArgu.size();i++) {
+            selectionArguString[i] =selectionArgu.get(i);
+        }
+        Cursor cursor = db.query("c_record", null, selection, selectionArguString, null, null, "record_time DESC");
+        return addRecordList(cursor);
+    }
+
     /**
      * 返回某个种类的的record数据
      *

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -56,6 +57,10 @@ public class FragmentExpense extends Fragment {
     private TextView textViewRemark;
     private FloatingActionButton buttonAdd;
 
+    private SpinnerAdapterClass1 adapterClass1;
+    private SpinnerAdapterClass2 adapterClass2;
+    private SpinnerAdapterAccount adapterAccount;
+
     private SQLiteDatabase sqLiteDatabase;
     private CategoryDb class1Db;
     private SubcategoryDb class2Db;
@@ -65,7 +70,7 @@ public class FragmentExpense extends Fragment {
     private ArrayList<Class1> listClass1s;
     private ArrayList<Class2> listClass2s;
     private ArrayList<Account> listAccounts;
-    int class1Id;
+    private int class1Id;
 
     private String recordScheme;
     private int updateRecordId;
@@ -171,18 +176,20 @@ public class FragmentExpense extends Fragment {
      * 初始化分类
      */
     private void initClass() {
-        SpinnerAdapterClass1 adapterClass1 = new SpinnerAdapterClass1(getActivity(), listClass1s);
+        adapterClass1 = new SpinnerAdapterClass1(getActivity(), listClass1s);
         spinnerClass1.setAdapter(adapterClass1);
 
-        SpinnerAdapterClass2 adapterClass2 = new SpinnerAdapterClass2(getActivity(), listClass2s);
+        adapterClass2 = new SpinnerAdapterClass2(getActivity(), listClass2s);
         spinnerClass2.setAdapter(adapterClass2);
+
+        setListenerSpinnerClass1();
     }
 
     /**
      * 初始化账户
      */
     private void initAccount() {
-        SpinnerAdapterAccount adapterAccount = new SpinnerAdapterAccount(getActivity(), listAccounts);
+        adapterAccount = new SpinnerAdapterAccount(getActivity(), listAccounts);
         spinnerAccount.setAdapter(adapterAccount);
     }
 
@@ -263,7 +270,12 @@ public class FragmentExpense extends Fragment {
 
 
     // 分类相关
-    private void setSpinnerClass1ById(int class1Id) {
+    /**
+     * 为SpinnerClass1设置与class1Id实例相同的位置
+     *
+     * @param class1Id 需要显示的class1实例id
+     */
+    private void setSpinnerPositionClass1ById(int class1Id) {
         for(int i = 0; i<listClass1s.size(); i++) {
             if (class1Id == listClass1s.get(i).getId()) {
                 spinnerClass1.setSelection(i);
@@ -271,7 +283,12 @@ public class FragmentExpense extends Fragment {
         }
     }
 
-    private void setSpinnerClass2ById(int class2Id) {
+    /**
+     * 为SpinnerClass2设置与class2Id实例相同的位置
+     *
+     * @param class2Id 需要显示的class2实例id
+     */
+    private void setSpinnerPositionClass2ById(int class2Id) {
         for(int i = 0; i < listClass2s.size(); i++) {
             if (class2Id == listClass2s.get(i).getId()) {
                 spinnerClass2.setSelection(i);
@@ -279,8 +296,35 @@ public class FragmentExpense extends Fragment {
         }
     }
 
+    /**
+     * 为SpinnerClass1设置与Class2联动的Listener
+     */
+    private void setListenerSpinnerClass1() {
+        spinnerClass1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                class1Id = ((Class1)spinnerClass1.getSelectedItem()).getId();
+                updateListClass2s();
+                adapterClass2 = new SpinnerAdapterClass2(getActivity(), listClass2s);
+                spinnerClass2.setAdapter(adapterClass2);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+    }
+
+
     // 账户相关
-    private void setSpinnerAccountById(int accountId) {
+    /**
+     * 为SpinnerAccount设置与accountId实例相同的位置
+     *
+     * @param accountId 需要显示的account实例id
+     */
+    private void setSpinnerPositionAccountById(int accountId) {
         for(int i = 0; i < listAccounts.size(); i++) {
             if (accountId == listAccounts.get(i).getId()) {
                 spinnerAccount.setSelection(i);
@@ -442,9 +486,9 @@ public class FragmentExpense extends Fragment {
             String remark = record.getRemark();
 
             setEditTextDecimalMoney(editTextMoney, money);
-            setSpinnerClass1ById(class1Id);
-            setSpinnerClass2ById(class2Id);
-            setSpinnerAccountById(accountId);
+            setSpinnerPositionClass1ById(class1Id);
+            setSpinnerPositionClass2ById(class2Id);
+            setSpinnerPositionAccountById(accountId);
             setTextViewDate(textViewDate, date);
             textViewRemark.setText(remark);
         }

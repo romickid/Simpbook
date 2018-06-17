@@ -26,7 +26,7 @@
         android:textColor="@color/colorText54"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/dstatementfilter_statictext1"
-        app:layout_constraintTop_toBottomOf="@+id/dstatementfilter_spinner_class1" />
+        app:layout_constraintTop_toBottomOf="@+id/dstatementfilter_spinner_class2" />
 
     <TextView
         android:id="@+id/dstatementfilter_statictext3"
@@ -54,11 +54,12 @@
         style="@android:style/Widget.Material.Light.Spinner"
         android:layout_width="0dp"
         android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:background="@null"
         android:overlapAnchor="false"
-        app:layout_constraintEnd_toStartOf="@+id/dstatementfilter_spinner_class2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dstatementfilter_statictext1" />
 
@@ -67,12 +68,12 @@
         style="@android:style/Widget.Material.Light.Spinner"
         android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="4dp"
         android:background="@null"
         android:overlapAnchor="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/dstatementfilter_spinner_class1"
-        app:layout_constraintTop_toTopOf="@+id/dstatementfilter_spinner_class1" />
+        app:layout_constraintEnd_toEndOf="@+id/dstatementfilter_spinner_class1"
+        app:layout_constraintStart_toStartOf="@+id/dstatementfilter_spinner_class1"
+        app:layout_constraintTop_toBottomOf="@+id/dstatementfilter_spinner_class1" />
 
     <Spinner
         android:id="@+id/dstatementfilter_spinner_account"
