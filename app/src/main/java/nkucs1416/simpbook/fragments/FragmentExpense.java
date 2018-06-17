@@ -348,30 +348,9 @@ public class FragmentExpense extends Fragment {
         textViewDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                createDialogDate().show();
+                createDialogDate(getContext(), textViewDate).show();
             }
         });
-
-    }
-
-    /**
-     * 构建选择日期的Dialog
-     * @return 返回Dialog
-     */
-    private Dialog createDialogDate() {
-        Dialog dialog;
-        OnDateSetListener listener;
-        Date date = new Date();
-
-        listener = new OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                setTextViewDate(textViewDate, new Date(year, month+1, dayOfMonth));
-            }
-        };
-
-        dialog = new DatePickerDialog(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, listener, date.getYear(), date.getMonth()-1, date.getDay());
-        return dialog;
     }
 
 

@@ -395,11 +395,11 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
      *
      * @param textView 显示日期的textView
      */
-    private void setListenerDateDialog(final TextView textView) {
+    private void setListenerDateDialog(final Context context, final TextView textView) {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                createDialogDate(textView).show();
+                createDialogDate(context, textView).show();
             }
         });
 
@@ -429,9 +429,9 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
         setSelectionSpinnerAccount(spinnerAccount, statementFilter.getAccount());
 
         setDisplayTextViewDate(textViewDateFrom, statementFilter.getDateFrom());
-        setListenerDateDialog(textViewDateFrom);
+        setListenerDateDialog(this, textViewDateFrom);
         setDisplayTextViewDate(textViewDateTo, statementFilter.getDateTo());
-        setListenerDateDialog(textViewDateTo);
+        setListenerDateDialog(this, textViewDateTo);
 
         builder.setTitle("筛选");
         builder.setView(viewRemarkDialog);
@@ -452,29 +452,6 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
         });
 
         return builder.create();
-    }
-
-    /**
-     * 构建筛选框内, 选择日期的Dialog
-     *
-     * @param tTextView 显示日期的textView
-     * @return 返回Dialog
-     */
-    private Dialog createDialogDate(TextView tTextView) {
-        final TextView textView = tTextView;
-        Dialog dialog;
-        DatePickerDialog.OnDateSetListener listener;
-        Date date = getDate(tTextView);
-
-        listener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                setTextViewDate(textView, new Date(year, month + 1, dayOfMonth));
-            }
-        };
-
-        dialog = new DatePickerDialog(this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, listener, date.getYear(), date.getMonth() - 1, date.getDay());
-        return dialog;
     }
 
     /**
