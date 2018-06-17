@@ -28,6 +28,7 @@ import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.database.RecordDb;
 import nkucs1416.simpbook.database.SubcategoryDb;
 import nkucs1416.simpbook.util.Account;
+import nkucs1416.simpbook.util.OnDeleteDataListener;
 import nkucs1416.simpbook.util.SpinnerAdapterAccount;
 import nkucs1416.simpbook.util.Class1;
 import nkucs1416.simpbook.util.Class2;
@@ -40,7 +41,7 @@ import static nkucs1416.simpbook.util.Class1.sortListClass1s;
 import static nkucs1416.simpbook.util.Date.*;
 import static nkucs1416.simpbook.util.Money.setTextViewDecimalMoney;
 
-public class ActivityStatement extends AppCompatActivity {
+public class ActivityStatement extends AppCompatActivity implements OnDeleteDataListener {
     private Toolbar toolbar;
     private TextView textViewRemain;
     private TextView textViewIncome;
@@ -341,7 +342,7 @@ public class ActivityStatement extends AppCompatActivity {
                 getAllDataClass1(),
                 getAllDataClass2(),
                 getAllDataAccount(),
-                getDateAdd(new Date(), -60),
+                getDateAdd(new Date(), -90),
                 new Date()
         );
     }
@@ -376,7 +377,7 @@ public class ActivityStatement extends AppCompatActivity {
 
 
 
-    // 筛选对话框相关
+    // 筛选Dialog相关
     /**
      * 设置筛选按钮的Listener
      */
@@ -554,6 +555,13 @@ public class ActivityStatement extends AppCompatActivity {
      */
     private void setDisplayTextViewDate(TextView textViewDate, Date date) {
         setTextViewDate(textViewDate, date);
+    }
+
+
+    // Adapter-Activity数据传递相关
+    @Override
+    public void OnDeleteData() {
+        updateStatement();
     }
 
 }

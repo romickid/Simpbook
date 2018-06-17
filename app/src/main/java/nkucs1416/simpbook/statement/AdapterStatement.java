@@ -1,6 +1,9 @@
 package nkucs1416.simpbook.statement;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
@@ -16,15 +19,15 @@ import java.util.HashMap;
 import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.database.CategoryDb;
 import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
+import nkucs1416.simpbook.database.RecordDb;
 import nkucs1416.simpbook.database.SubcategoryDb;
 import nkucs1416.simpbook.edit.ActivityEdit;
-import nkucs1416.simpbook.util.Class1;
 import nkucs1416.simpbook.util.Class2;
 import nkucs1416.simpbook.util.Date;
+import nkucs1416.simpbook.util.OnDeleteDataListener;
 import nkucs1416.simpbook.util.Record;
 
 import static nkucs1416.simpbook.util.Color.getColorIcon;
-import static nkucs1416.simpbook.util.Date.getStrDate;
 import static nkucs1416.simpbook.util.Date.setTextViewDate;
 import static nkucs1416.simpbook.util.Money.setTextViewDecimalMoney;
 import static nkucs1416.simpbook.util.Record.getRecordTypeName;
@@ -36,6 +39,9 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
     private SQLiteDatabase sqLiteDatabase;
     private CategoryDb class1Db;
     private SubcategoryDb class2Db;
+    private RecordDb recordDb;
+
+    private OnDeleteDataListener onDeleteDataListener;
 
 
     // RecyclerView.Adapter相关
@@ -49,6 +55,7 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
         super();
         this.context = tContext;
         this.listStatementObjects = tListStatementObjects;
+        this.onDeleteDataListener = (OnDeleteDataListener)tContext;
     }
 
     /**
@@ -61,7 +68,7 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        updateDatabase();
+        initDatabase();
         View view;
         switch (viewType) {
             case 1:
@@ -87,7 +94,7 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
         switch (getItemViewType(position)) {
             case 1:
                 ViewHolderStatementElement viewHolderStatementElement = (ViewHolderStatementElement) holder;
-                Record record = (Record)listStatementObjects.get(position).get("Object");
+                final Record record = (Record)listStatementObjects.get(position).get("Object");
 
                 final int class2Id = record.getClass2Id();
                 final Class2 class2 = class2Db.getSubcategoryListById(class2Id).get(0);
@@ -109,6 +116,14 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
                         intent.putExtra("RecordScheme", "Update");
                         intent.putExtra("RecordUpdateId", String.valueOf(recordId1));
                         context1.startActivity(intent);
+                    }
+                });
+
+                imageViewBackground1.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        createDialogDelete(record).show();
+                        return true;
                     }
                 });
 
@@ -155,11 +170,39 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
     /**
      * 更新数据库
      */
-    private void updateDatabase() {
+    private void initDatabase() {
         CustomSQLiteOpenHelper customSQLiteOpenHelper = new CustomSQLiteOpenHelper(context);
         sqLiteDatabase = customSQLiteOpenHelper.getWritableDatabase();
         class1Db = new CategoryDb(sqLiteDatabase);
         class2Db = new SubcategoryDb(sqLiteDatabase);
+        recordDb = new RecordDb(sqLiteDatabase);
+    }
+
+
+    // 删除记录Dialog相关
+    /**
+     * 构建删除记录的Dialog
+     *
+     * @param recordDelete 待删除的记录实例
+     * @return 返回Dialog
+     */
+    private Dialog createDialogDelete(final Record recordDelete) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("删除该记录?")
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        recordDb.deleteRecord(recordDelete);
+                        onDeleteDataListener.OnDeleteData();
+                    }
+                });
+
+        return builder.create();
     }
 
 }
+
