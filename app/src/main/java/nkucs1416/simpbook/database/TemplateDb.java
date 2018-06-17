@@ -52,7 +52,7 @@ public class TemplateDb {
 
         int datetime = util.switchDateToTime(template_time);
 
-        values.put("template_accoundID", account_id);
+        values.put("template_accountID", account_id);
         values.put("template_money", template_money);
         values.put("template_type", template_type);
         values.put("template_note", template_note);
@@ -66,7 +66,7 @@ public class TemplateDb {
         long result = db.insert("c_template", null, values);
 
         if (result > -1)
-            return "SUCCESS";
+            return "成功";
         else return "UNKNOW ERROR";
 
     }
@@ -368,7 +368,7 @@ public class TemplateDb {
             Date datetime = util.switchTimeToDate(template_time);
 
 
-            if (typeIndex == -1) {
+            if (template_type == 3) {
                 Collection template = new Collection(template_id, template_accountId, template_money, template_type, datetime, template_note, template_accountToId);
                 templateArray.add(template);
             }

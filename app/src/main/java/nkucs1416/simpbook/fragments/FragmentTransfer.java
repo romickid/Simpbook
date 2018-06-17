@@ -21,18 +21,18 @@ import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.database.AccountDb;
 import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.database.RecordDb;
+import nkucs1416.simpbook.database.TemplateDb;
 import nkucs1416.simpbook.main.ActivityMain;
+import nkucs1416.simpbook.record.ActivityRecord;
 import nkucs1416.simpbook.statement.ActivityStatement;
 import nkucs1416.simpbook.util.Account;
+import nkucs1416.simpbook.util.Collection;
 import nkucs1416.simpbook.util.Record;
 import nkucs1416.simpbook.util.SpinnerAdapterAccount;
 import nkucs1416.simpbook.util.Date;
 
 import static nkucs1416.simpbook.util.Date.*;
-import static nkucs1416.simpbook.util.Date.createDialogDate;
-import static nkucs1416.simpbook.util.Money.getEditTextMoney;
-import static nkucs1416.simpbook.util.Money.setEditTextDecimalMoney;
-import static nkucs1416.simpbook.util.Money.setEditTextDecimalScheme;
+import static nkucs1416.simpbook.util.Money.*;
 import static nkucs1416.simpbook.util.Remark.createDialogRemark;
 
 public class FragmentTransfer extends Fragment {
@@ -49,11 +49,13 @@ public class FragmentTransfer extends Fragment {
     private SQLiteDatabase sqLiteDatabase;
     private AccountDb accountDb;
     private RecordDb recordDb;
+    private TemplateDb collectionDb;
 
     private ArrayList<Account> listAccounts;
 
     private String recordScheme;
     private int updateRecordId;
+    private int insertCollectionId;
 
     private OnFragmentInteractionListener fragmentInteractionListener;
 
@@ -92,6 +94,7 @@ public class FragmentTransfer extends Fragment {
         initButton();
 
         updateDataForUpdateScheme();
+        updateDataForInsertCollectionScheme();
 
         return view;
     }
@@ -140,6 +143,9 @@ public class FragmentTransfer extends Fragment {
         if (recordScheme.equals("Update")) {
             updateRecordId = Integer.valueOf(getActivity().getIntent().getStringExtra("RecordUpdateId"));
         }
+        if (recordScheme.equals("InsertFromCollection")) {
+            insertCollectionId = Integer.valueOf(getActivity().getIntent().getStringExtra("RecordCollectionId"));
+        }
     }
 
     /**
@@ -183,6 +189,7 @@ public class FragmentTransfer extends Fragment {
             public void onClick(View arg0) {
                 switch (recordScheme) {
                     case "Insert":
+                    case "InsertFromCollection":
                         Record recordInsert = getRecordInsert();
 
                         if (recordInsert.getAccountId() == recordInsert.getToAccountId()) {
@@ -218,6 +225,20 @@ public class FragmentTransfer extends Fragment {
                         }
                         break;
 
+                    case "Collection":
+                        Collection collection = getCollectionInsert();
+                        String messageCollectionInsert = insertCollection(collection);
+                        if (messageCollectionInsert.equals("成功")) {
+                            Toast.makeText(getContext(), messageCollectionInsert, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getContext(), ActivityRecord.class);
+                            intent.putExtra("RecordType","Collection");
+                            intent.putExtra("RecordScheme","Insert");
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getContext(), messageCollectionInsert, Toast.LENGTH_LONG).show();
+                        }
+                        break;
+
                     default:
                         Toast.makeText(getContext(), "内部错误: RecordScheme值错误", Toast.LENGTH_SHORT).show();
                         break;
@@ -234,6 +255,7 @@ public class FragmentTransfer extends Fragment {
         sqLiteDatabase = customSQLiteOpenHelper.getWritableDatabase();
         accountDb = new AccountDb(sqLiteDatabase);
         recordDb = new RecordDb(sqLiteDatabase);
+        collectionDb = new TemplateDb(sqLiteDatabase);
     }
 
     /**
@@ -347,6 +369,24 @@ public class FragmentTransfer extends Fragment {
         }
     }
 
+    /**
+     * 若Scheme为模板添加状态, 则使用数据更新控件
+     */
+    private void updateDataForInsertCollectionScheme() {
+        if (recordScheme.equals("InsertFromCollection")) {
+            Collection collection = collectionDb.getTemplateListById(insertCollectionId).get(0);
+
+            float money = collection.getMoney();
+            int accountFromId = collection.getAccountId();
+            int accountToId = collection.getToAccountId();
+            String remark = collection.getRemark();
+
+            setEditTextDecimalMoney(editTextMoney, money);
+            setSpinnerPositionAccountById(accountFromId, accountToId);
+            textViewRemark.setText(remark);
+        }
+    }
+
 
     // 修改数据相关
     /**
@@ -361,6 +401,13 @@ public class FragmentTransfer extends Fragment {
      */
     private String updateRecord(Record recordUpdate) {
         return recordDb.updateRecord(recordUpdate);
+    }
+
+    /**
+     * 向数据库中添加模板数据
+     */
+    private String insertCollection(Collection collectionInsert) {
+        return collectionDb.insertTemplate(collectionInsert);
     }
 
     /**
@@ -391,6 +438,21 @@ public class FragmentTransfer extends Fragment {
         Date tDate = getDate(textViewDate);
         String tRemark = textViewRemark.getText().toString();
         return new Record(tId, tAccountFromId, tMoney, tType, tDate, tRemark, tAccountToId);
+    }
+
+    /**
+     * 获取用于添加的Collection数据
+     *
+     * @return collection数据
+     */
+    private Collection getCollectionInsert() {
+        int tAccountFromId = ((Account)spinnerAccountFrom.getSelectedItem()).getId();
+        int tAccountToId = ((Account)spinnerAccountTo.getSelectedItem()).getId();
+        float tMoney = getEditTextMoney(editTextMoney);
+        int tType = 3; // 3->转账
+        Date tDate = getDate(textViewDate);
+        String tRemark = textViewRemark.getText().toString();
+        return new Collection(tAccountFromId, tMoney, tType, tDate, tRemark, tAccountToId);
     }
 
 }

@@ -24,9 +24,12 @@ import nkucs1416.simpbook.database.CategoryDb;
 import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.database.RecordDb;
 import nkucs1416.simpbook.database.SubcategoryDb;
+import nkucs1416.simpbook.database.TemplateDb;
 import nkucs1416.simpbook.main.ActivityMain;
+import nkucs1416.simpbook.record.ActivityRecord;
 import nkucs1416.simpbook.statement.ActivityStatement;
 import nkucs1416.simpbook.util.Account;
+import nkucs1416.simpbook.util.Collection;
 import nkucs1416.simpbook.util.Record;
 import nkucs1416.simpbook.util.SpinnerAdapterAccount;
 import nkucs1416.simpbook.util.Class1;
@@ -37,10 +40,7 @@ import nkucs1416.simpbook.util.SpinnerAdapterClass1;
 
 import static nkucs1416.simpbook.util.Class1.sortListClass1s;
 import static nkucs1416.simpbook.util.Date.*;
-import static nkucs1416.simpbook.util.Date.createDialogDate;
-import static nkucs1416.simpbook.util.Money.getEditTextMoney;
-import static nkucs1416.simpbook.util.Money.setEditTextDecimalMoney;
-import static nkucs1416.simpbook.util.Money.setEditTextDecimalScheme;
+import static nkucs1416.simpbook.util.Money.*;
 import static nkucs1416.simpbook.util.Remark.createDialogRemark;
 
 public class FragmentIncome extends Fragment {
@@ -62,6 +62,7 @@ public class FragmentIncome extends Fragment {
     private SubcategoryDb class2Db;
     private AccountDb accountDb;
     private RecordDb recordDb;
+    private TemplateDb collectionDb;
 
     private ArrayList<Class1> listClass1s;
     private ArrayList<Class2> listClass2s;
@@ -70,6 +71,7 @@ public class FragmentIncome extends Fragment {
 
     private String recordScheme;
     private int updateRecordId;
+    private int insertCollectionId;
 
     private OnFragmentInteractionListener fragmentInteractionListener;
 
@@ -109,6 +111,8 @@ public class FragmentIncome extends Fragment {
         initButton();
 
         updateDataForUpdateScheme();
+        updateDataForInsertCollectionScheme();
+
         return view;
     }
 
@@ -156,6 +160,9 @@ public class FragmentIncome extends Fragment {
 
         if (recordScheme.equals("Update")) {
             updateRecordId = Integer.valueOf(getActivity().getIntent().getStringExtra("RecordUpdateId"));
+        }
+        if (recordScheme.equals("InsertFromCollection")) {
+            insertCollectionId = Integer.valueOf(getActivity().getIntent().getStringExtra("RecordCollectionId"));
         }
     }
 
@@ -212,6 +219,7 @@ public class FragmentIncome extends Fragment {
             public void onClick(View arg0) {
                 switch (recordScheme) {
                     case "Insert":
+                    case "InsertFromCollection":
                         Record recordInsert = getRecordInsert();
                         String messageInsert = insertRecord(recordInsert);
                         if (messageInsert.equals("成功")) {
@@ -235,6 +243,20 @@ public class FragmentIncome extends Fragment {
                         }
                         break;
 
+                    case "Collection":
+                        Collection collection = getCollectionInsert();
+                        String messageCollectionInsert = insertCollection(collection);
+                        if (messageCollectionInsert.equals("成功")) {
+                            Toast.makeText(getContext(), messageCollectionInsert, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getContext(), ActivityRecord.class);
+                            intent.putExtra("RecordType","Collection");
+                            intent.putExtra("RecordScheme","Insert");
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getContext(), messageCollectionInsert, Toast.LENGTH_LONG).show();
+                        }
+                        break;
+
                     default:
                         Toast.makeText(getContext(), "内部错误: RecordScheme值错误", Toast.LENGTH_SHORT).show();
                         break;
@@ -253,6 +275,7 @@ public class FragmentIncome extends Fragment {
         class2Db = new SubcategoryDb(sqLiteDatabase);
         accountDb = new AccountDb(sqLiteDatabase);
         recordDb = new RecordDb(sqLiteDatabase);
+        collectionDb = new TemplateDb(sqLiteDatabase);
     }
 
     /**
@@ -437,6 +460,27 @@ public class FragmentIncome extends Fragment {
         }
     }
 
+    /**
+     * 若Scheme为模板添加状态, 则使用数据更新控件
+     */
+    private void updateDataForInsertCollectionScheme() {
+        if (recordScheme.equals("InsertFromCollection")) {
+            Collection collection = collectionDb.getTemplateListById(insertCollectionId).get(0);
+
+            float money = collection.getMoney();
+            int class1Id = collection.getClass1Id();
+            int class2Id = collection.getClass2Id();
+            int accountId = collection.getAccountId();
+            String remark = collection.getRemark();
+
+            setEditTextDecimalMoney(editTextMoney, money);
+            setSpinnerPositionClass1ById(class1Id);
+            setSpinnerPositionClass2ById(class2Id);
+            setSpinnerPositionAccountById(accountId);
+            textViewRemark.setText(remark);
+        }
+    }
+
 
     // 修改数据相关
     /**
@@ -451,6 +495,13 @@ public class FragmentIncome extends Fragment {
      */
     private String updateRecord(Record recordUpdate) {
         return recordDb.updateRecord(recordUpdate);
+    }
+
+    /**
+     * 向数据库中添加模板数据
+     */
+    private String insertCollection(Collection collectionInsert) {
+        return collectionDb.insertTemplate(collectionInsert);
     }
 
     /**
@@ -483,6 +534,22 @@ public class FragmentIncome extends Fragment {
         int tClass1Id = ((Class1)spinnerClass1.getSelectedItem()).getId();
         int tClass2Id = ((Class2)spinnerClass2.getSelectedItem()).getId();
         return new Record(tId, tAccountId, tMoney, tType, tDate, tRemark, tClass1Id, tClass2Id);
+    }
+
+    /**
+     * 获取用于添加的Collection数据
+     *
+     * @return collection数据
+     */
+    private Collection getCollectionInsert() {
+        int tAccountId = ((Account)spinnerAccount.getSelectedItem()).getId();
+        float tMoney = getEditTextMoney(editTextMoney);
+        int tType = 2; // 2->收入
+        Date tDate = getDate(textViewDate);
+        String tRemark = textViewRemark.getText().toString();
+        int tClass1Id = ((Class1)spinnerClass1.getSelectedItem()).getId();
+        int tClass2Id = ((Class2)spinnerClass2.getSelectedItem()).getId();
+        return new Collection(tAccountId, tMoney, tType, tDate, tRemark, tClass1Id, tClass2Id);
     }
 
 }

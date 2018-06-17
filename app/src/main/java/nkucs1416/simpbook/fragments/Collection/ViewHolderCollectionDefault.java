@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import nkucs1416.simpbook.R;
 
-class ViewHolderCollectionElement extends RecyclerView.ViewHolder {
+class ViewHolderCollectionDefault extends RecyclerView.ViewHolder {
     TextView textViewText;
     TextView textViewMoney;
     ImageView imageViewColor;
@@ -17,17 +17,17 @@ class ViewHolderCollectionElement extends RecyclerView.ViewHolder {
 
 
     /**
-     * CollectionElement的Holder, 与icollectionelement相关
+     * CollectionDefault的Holder, 与irecorddefault相关
      *
      * @param view default
      */
-    ViewHolderCollectionElement(View view) {
+    ViewHolderCollectionDefault(View view) {
         super(view);
         context = view.getContext();
-        textViewText = view.findViewById(R.id.icollectionelement_text);
-        textViewMoney = view.findViewById(R.id.icollectionelement_money);
-        imageViewColor = view.findViewById(R.id.icollectionelement_color);
-        imageViewBackground = view.findViewById(R.id.icollectionelement_background);
+        textViewText = view.findViewById(R.id.irecorddefault_text);
+        textViewMoney = view.findViewById(R.id.irecorddefault_money);
+        imageViewColor = view.findViewById(R.id.irecorddefault_color);
+        imageViewBackground = view.findViewById(R.id.irecorddefault_background);
     }
 
 }

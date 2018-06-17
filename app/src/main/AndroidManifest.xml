@@ -28,6 +28,7 @@
         <activity android:name=".setting.ActivityClass2Expense" />
         <activity android:name=".setting.ActivityClass1Income" />
         <activity android:name=".setting.ActivityClass2Income" />
+        <activity android:name=".fragments.Collection.ActivityCollectionAdd" />
     </application>
 
 </manifest>

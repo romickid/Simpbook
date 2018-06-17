@@ -15,6 +15,55 @@ public class Collection {
 
     /**
      * 构建Collection的实例
+     * 用于新增支出/收入Collection
+     *
+     * @param tAccountId 账户id
+     * @param tMoney 金额
+     * @param tType 类型(1:支出, 2:收入, 3:转账)
+     * @param tDate 日期
+     * @param tRemark 备注
+     * @param tClass1Id 一级分类id
+     * @param tClass2Id 二级分类id
+     */
+    public Collection(
+            int tAccountId, float tMoney, int tType, Date tDate, String tRemark,
+            int tClass1Id, int tClass2Id) {
+        accountId = tAccountId;
+        money = tMoney;
+        type = tType;
+        date = tDate;
+        remark = tRemark;
+        class1Id = tClass1Id;
+        class2Id = tClass2Id;
+        toAccountId = -1;
+    }
+
+    /**
+     * 构建Collection的实例
+     * 用于新增转账Collection
+     *
+     * @param tAccountId 账户id
+     * @param tMoney 金额
+     * @param tType 类型(1:支出, 2:收入, 3:转账)
+     * @param tDate 日期
+     * @param tRemark 备注
+     * @param tToAccountId 发送账户id
+     */
+    public Collection(
+            int tAccountId, float tMoney, int tType, Date tDate, String tRemark,
+            int tToAccountId) {
+        accountId = tAccountId;
+        money = tMoney;
+        type = tType;
+        date = tDate;
+        remark = tRemark;
+        class1Id = -1;
+        class2Id = -1;
+        toAccountId = tToAccountId;
+    }
+
+    /**
+     * 构建Collection的实例
      *
      * @param tId id
      * @param tAccountId 账户id
@@ -36,6 +85,7 @@ public class Collection {
         remark = tRemark;
         class1Id = tClass1Id;
         class2Id = tClass2Id;
+        toAccountId = -1;
     }
 
     /**
@@ -58,6 +108,8 @@ public class Collection {
         type = tType;
         date = tDate;
         remark = tRemark;
+        class1Id = -1;
+        class2Id = -1;
         toAccountId = tToAccountId;
     }
 
@@ -188,5 +240,25 @@ public class Collection {
      * @return 发送状态
      */
     public int getStatus() { return status; }
+
+
+    // static函数
+    /**
+     * 获取模板类型名称
+     *
+     * @param collectionType 模板类型
+     * @return 名称
+     */
+    public static String getCollectionTypeName(int collectionType) {
+        switch (collectionType) {
+            case 1:
+                return "支出模板";
+            case 2:
+                return "收入模板";
+            case 3:
+                return "转账模板";
+        }
+        return "";
+    }
 
 }
