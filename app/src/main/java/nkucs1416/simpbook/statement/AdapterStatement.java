@@ -17,11 +17,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import nkucs1416.simpbook.R;
+import nkucs1416.simpbook.database.AccountDb;
 import nkucs1416.simpbook.database.CategoryDb;
 import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.database.RecordDb;
 import nkucs1416.simpbook.database.SubcategoryDb;
 import nkucs1416.simpbook.edit.ActivityEdit;
+import nkucs1416.simpbook.util.Account;
 import nkucs1416.simpbook.util.Class2;
 import nkucs1416.simpbook.util.Date;
 import nkucs1416.simpbook.util.OnDeleteDataListener;
@@ -39,6 +41,7 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
     private SQLiteDatabase sqLiteDatabase;
     private CategoryDb class1Db;
     private SubcategoryDb class2Db;
+    private AccountDb accountDb;
     private RecordDb recordDb;
 
     private OnDeleteDataListener onDeleteDataListener;
@@ -62,7 +65,7 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
      * 根据不同的viewType构建不同的ViewHolder
      *
      * @param parent default
-     * @param viewType 1:Record, 2:StatementDate
+     * @param viewType 1:RecordDefault, 2:RecordTransfer, 3:StatementDate
      * @return viewHolder
      */
     @NonNull
@@ -73,9 +76,13 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
         switch (viewType) {
             case 1:
                 view = LayoutInflater.from(context)
-                        .inflate(R.layout.item_statement_record, parent, false);
-                return new ViewHolderStatementElement(view);
+                        .inflate(R.layout.item_statement_recorddefault, parent, false);
+                return new ViewHolderStatementRecordDefault(view);
             case 2:
+                view = LayoutInflater.from(context)
+                        .inflate(R.layout.item_statement_recordtransfer, parent, false);
+                return new ViewHolderStatementRecordTransfer(view);
+            case 3:
                 view = LayoutInflater.from(context)
                         .inflate(R.layout.item_statement_date, parent, false);
                 return new ViewHolderStatementDate(view);
@@ -93,52 +100,104 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
             case 1:
-                ViewHolderStatementElement viewHolderStatementElement = (ViewHolderStatementElement) holder;
-                final Record record = (Record)listStatementObjects.get(position).get("Object");
+                ViewHolderStatementRecordDefault viewHolderStatementRecordDefault = (ViewHolderStatementRecordDefault) holder;
+                final Record record_1 = (Record)listStatementObjects.get(position).get("Object");
 
-                final int class2Id = record.getClass2Id();
-                final Class2 class2 = class2Db.getSubcategoryListById(class2Id).get(0);
-                final int colorId1 = class2.getColor();
-                final int colorIcon1 = getColorIcon(colorId1);
-                final String text1 = class2.getName();
-                final float money1 = record.getMoney();
-                final int recordType1 = record.getType();
-                final int recordId1 = record.getId();
+                final int class2Id_1 = record_1.getClass2Id();
+                final Class2 class2_1 = class2Db.getSubcategoryListById(class2Id_1).get(0);
+                final int colorId_1 = class2_1.getColor();
+                final int colorIcon_1 = getColorIcon(colorId_1);
+                final String text_1 = class2_1.getName();
+                final float money_1 = record_1.getMoney();
+                final int recordType_1 = record_1.getType();
+                final int recordId_1 = record_1.getId();
 
-                final ImageView imageViewBackground1 = viewHolderStatementElement.imageViewBackground;
-                final Context context1 = viewHolderStatementElement.context;
+                final ImageView imageViewBackground_1 = viewHolderStatementRecordDefault.imageViewBackground;
+                final Context context_1 = viewHolderStatementRecordDefault.context;
 
-                imageViewBackground1.setOnClickListener(new View.OnClickListener() {
+                imageViewBackground_1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View arg0) {
-                        Intent intent = new Intent(context1, ActivityEdit.class);
-                        intent.putExtra("RecordType", getRecordTypeName(recordType1));
+                        Intent intent = new Intent(context_1, ActivityEdit.class);
+                        intent.putExtra("RecordType", getRecordTypeName(recordType_1));
                         intent.putExtra("RecordScheme", "Update");
-                        intent.putExtra("RecordUpdateId", String.valueOf(recordId1));
-                        context1.startActivity(intent);
+                        intent.putExtra("RecordUpdateId", String.valueOf(recordId_1));
+                        context_1.startActivity(intent);
                     }
                 });
 
-                imageViewBackground1.setOnLongClickListener(new View.OnLongClickListener() {
+                imageViewBackground_1.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        createDialogDelete(record).show();
+                        createDialogDelete(record_1).show();
                         return true;
                     }
                 });
 
-                viewHolderStatementElement.imageView.setImageResource(colorIcon1);
-                viewHolderStatementElement.textViewText.setText(text1);
-                setTextViewDecimalMoney(viewHolderStatementElement.textViewMoney, money1);
+                viewHolderStatementRecordDefault.imageView.setImageResource(colorIcon_1);
+                viewHolderStatementRecordDefault.textViewText.setText(text_1);
+                setTextViewDecimalMoney(viewHolderStatementRecordDefault.textViewMoney, money_1);
 
                 break;
+
             case 2:
+                ViewHolderStatementRecordTransfer viewHolderStatementRecordTransfer = (ViewHolderStatementRecordTransfer) holder;
+                final Record record_2 = (Record)listStatementObjects.get(position).get("Object");
+
+                final int accountFromId_2 = record_2.getAccountId();
+                final int accountToId_2 = record_2.getToAccountId();
+                System.out.println(record_2.getId());
+                System.out.println(accountFromId_2);
+                System.out.println(accountToId_2);
+                final Account accountFrom = accountDb.getAccountListById(accountFromId_2).get(0);
+                final Account accountTo = accountDb.getAccountListById(accountToId_2).get(0);
+
+                final int colorIdFrom_2 = accountFrom.getColor();
+                final int colorIconFrom_2 = getColorIcon(colorIdFrom_2);
+
+                final String textFrom_2 = accountFrom.getName();
+                final String textTo_2 = accountTo.getName();
+
+                final float money_2 = record_2.getMoney();
+                final int recordType_2 = record_2.getType();
+                final int recordId_2 = record_2.getId();
+
+                final ImageView imageViewBackground_2 = viewHolderStatementRecordTransfer.imageViewBackground;
+                final Context context_2 = viewHolderStatementRecordTransfer.context;
+
+                imageViewBackground_2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View arg0) {
+                        Intent intent = new Intent(context_2, ActivityEdit.class);
+                        intent.putExtra("RecordType", getRecordTypeName(recordType_2));
+                        intent.putExtra("RecordScheme", "Update");
+                        intent.putExtra("RecordUpdateId", String.valueOf(recordId_2));
+                        context_2.startActivity(intent);
+                    }
+                });
+
+                imageViewBackground_2.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        createDialogDelete(record_2).show();
+                        return true;
+                    }
+                });
+
+                viewHolderStatementRecordTransfer.imageViewFrom.setImageResource(colorIconFrom_2);
+                viewHolderStatementRecordTransfer.textViewTextFrom.setText(textFrom_2);
+                viewHolderStatementRecordTransfer.textViewTextTo.setText(textTo_2);
+                setTextViewDecimalMoney(viewHolderStatementRecordTransfer.textViewMoney, money_2);
+
+                break;
+
+            case 3:
                 ViewHolderStatementDate viewHolderStatementDate = (ViewHolderStatementDate) holder;
                 StatementDate statementDate = (StatementDate)listStatementObjects.get(position).get("Object");
 
-                final Date date2 = statementDate.getDate();
+                final Date date_3 = statementDate.getDate();
 
-                setTextViewDate(viewHolderStatementDate.textViewText, date2);
+                setTextViewDate(viewHolderStatementDate.textViewText, date_3);
 
                 break;
         }
@@ -148,7 +207,7 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
      * 获取View的类型
      *
      * @param position 数组的位置
-     * @return 类型(1:AccountElement, 2:AccountSummarize)
+     * @return 类型(1:RecordDefault, 2:RecordTransfer, 3:StatementDate)
      */
     @Override
     public int getItemViewType(int position) {
@@ -175,6 +234,7 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
         sqLiteDatabase = customSQLiteOpenHelper.getWritableDatabase();
         class1Db = new CategoryDb(sqLiteDatabase);
         class2Db = new SubcategoryDb(sqLiteDatabase);
+        accountDb = new AccountDb(sqLiteDatabase);
         recordDb = new RecordDb(sqLiteDatabase);
     }
 

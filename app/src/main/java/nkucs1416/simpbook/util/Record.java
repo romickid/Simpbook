@@ -110,6 +110,8 @@ public class Record {
         type = tType;
         date = tDate;
         remark = tRemark;
+        class1Id = -1;
+        class2Id = -1;
         toAccountId = tToAccountId;
     }
 

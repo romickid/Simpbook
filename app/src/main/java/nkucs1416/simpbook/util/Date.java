@@ -163,11 +163,11 @@ public class Date {
      /**
      * 构建选择日期的Dialog
      *
-     * @param context context
      * @param textView 显示日期的textView
+     * @param context default
      * @return 返回Dialog
      */
-    public static Dialog createDialogDate(Context context, final TextView textView) {
+    public static Dialog createDialogDate(final TextView textView, Context context) {
         Dialog dialog;
         DatePickerDialog.OnDateSetListener listener;
         Date date = getDate(textView);

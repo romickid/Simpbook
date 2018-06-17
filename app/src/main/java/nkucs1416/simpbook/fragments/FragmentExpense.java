@@ -1,8 +1,6 @@
 package nkucs1416.simpbook.fragments;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -12,15 +10,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.app.Dialog;
-import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -32,6 +25,7 @@ import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.database.RecordDb;
 import nkucs1416.simpbook.database.SubcategoryDb;
 import nkucs1416.simpbook.main.ActivityMain;
+import nkucs1416.simpbook.statement.ActivityStatement;
 import nkucs1416.simpbook.util.Account;
 import nkucs1416.simpbook.util.Record;
 import nkucs1416.simpbook.util.SpinnerAdapterAccount;
@@ -46,6 +40,7 @@ import static nkucs1416.simpbook.util.Date.*;
 import static nkucs1416.simpbook.util.Money.getEditTextMoney;
 import static nkucs1416.simpbook.util.Money.setEditTextDecimalMoney;
 import static nkucs1416.simpbook.util.Money.setEditTextDecimalScheme;
+import static nkucs1416.simpbook.util.Remark.createDialogRemark;
 
 public class FragmentExpense extends Fragment {
     private View view;
@@ -97,7 +92,6 @@ public class FragmentExpense extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         view = inflater.inflate(R.layout.fragment_expense, container, false);
         initFindById();
         initRecordScheme();
@@ -216,30 +210,34 @@ public class FragmentExpense extends Fragment {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                if (recordScheme.equals("Insert")) {
-                    Record recordInsert = getRecordInsert();
-                    String message = insertRecord(recordInsert);
-                    if (message.equals("成功")) {
-                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getContext(), ActivityMain.class);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-                    }
-                }
-                else if (recordScheme.equals("Update")) {
-                    Record recordUpdate = getRecordUpdate(updateRecordId);
-                    String message = updateRecord(recordUpdate);
-                    if (message.equals("成功")) {
-                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getContext(), ActivityMain.class);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-                    }
-                }
-                else {
-                    Toast.makeText(getContext(), "内部错误: RecordScheme值错误", Toast.LENGTH_SHORT).show();
+                switch (recordScheme) {
+                    case "Insert":
+                        Record recordInsert = getRecordInsert();
+                        String messageInsert = insertRecord(recordInsert);
+                        if (messageInsert.equals("成功")) {
+                            Toast.makeText(getContext(), messageInsert, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getContext(), ActivityMain.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getContext(), messageInsert, Toast.LENGTH_LONG).show();
+                        }
+                        break;
+
+                    case "Update":
+                        Record recordUpdate = getRecordUpdate(updateRecordId);
+                        String messageUpdate = updateRecord(recordUpdate);
+                        if (messageUpdate.equals("成功")) {
+                            Toast.makeText(getContext(), messageUpdate, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getContext(), ActivityStatement.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getContext(), messageUpdate, Toast.LENGTH_LONG).show();
+                        }
+                        break;
+
+                    default:
+                        Toast.makeText(getContext(), "内部错误: RecordScheme值错误", Toast.LENGTH_SHORT).show();
+                        break;
                 }
             }
         });
@@ -311,7 +309,6 @@ public class FragmentExpense extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
             }
 
         });
@@ -348,7 +345,7 @@ public class FragmentExpense extends Fragment {
         textViewDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                createDialogDate(getContext(), textViewDate).show();
+                createDialogDate(textViewDate, getContext()).show();
             }
         });
     }
@@ -369,42 +366,9 @@ public class FragmentExpense extends Fragment {
         textViewRemark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                createDialogRemark().show();
+                createDialogRemark(textViewRemark, getContext(), getActivity()).show();
             }
         });
-    }
-
-    /**
-     * 构建备注的Dialog
-     * @return 返回Dialog
-     */
-    private Dialog createDialogRemark() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),3);
-        View viewRemarkDialog = View.inflate(getActivity(), R.layout.dialog_remark, null);
-        final EditText editTextDialog = viewRemarkDialog.findViewById(R.id.dremark_edittext);
-
-        editTextDialog.setText(textViewRemark.getText());
-
-        builder.setTitle("备注");
-        builder.setView(viewRemarkDialog);
-
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                textViewRemark.setText(editTextDialog.getText());
-                turnoffKeyboard();
-            }
-        });
-
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-                turnoffKeyboard();
-            }
-        });
-
-        return builder.create();
     }
 
 
@@ -413,7 +377,7 @@ public class FragmentExpense extends Fragment {
      * 更新所有一级支出分类信息
      */
     private void updateListClass1s() {
-        listClass1s = class1Db.getCategoryListByType(1);
+        listClass1s = class1Db.getCategoryListByType(1); // 1->支出分类
         sortListClass1s(listClass1s);
         class1Id = listClass1s.get(0).getId();
     }
@@ -451,7 +415,7 @@ public class FragmentExpense extends Fragment {
     }
 
     /**
-     *
+     * 若Scheme为更新状态, 则使用数据更新控件
      */
     private void updateDataForUpdateScheme() {
         if (recordScheme.equals("Update")) {
@@ -497,7 +461,7 @@ public class FragmentExpense extends Fragment {
     private Record getRecordInsert() {
         int tAccountId = ((Account)spinnerAccount.getSelectedItem()).getId();
         float tMoney = getEditTextMoney(editTextMoney);
-        int tType = 1;
+        int tType = 1; // 1->支出
         Date tDate = getDate(textViewDate);
         String tRemark = textViewRemark.getText().toString();
         int tClass1Id = ((Class1)spinnerClass1.getSelectedItem()).getId();
@@ -513,26 +477,12 @@ public class FragmentExpense extends Fragment {
     private Record getRecordUpdate(int tId) {
         int tAccountId = ((Account)spinnerAccount.getSelectedItem()).getId();
         float tMoney = getEditTextMoney(editTextMoney);
-        int tType = 1;
+        int tType = 1; // 1->支出
         Date tDate = getDate(textViewDate);
         String tRemark = textViewRemark.getText().toString();
         int tClass1Id = ((Class1)spinnerClass1.getSelectedItem()).getId();
         int tClass2Id = ((Class2)spinnerClass2.getSelectedItem()).getId();
         return new Record(tId, tAccountId, tMoney, tType, tDate, tRemark, tClass1Id, tClass2Id);
-    }
-
-
-    // 其它
-    /**
-     * 关闭软键盘
-     */
-    private void turnoffKeyboard() {
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        if(imm.isActive()&& getActivity().getCurrentFocus()!=null){
-            if ( getActivity().getCurrentFocus().getWindowToken()!=null) {
-                imm.hideSoftInputFromWindow( getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-            }
-        }
     }
 
 }

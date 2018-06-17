@@ -1,8 +1,8 @@
 package nkucs1416.simpbook.fragments;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,19 +10,24 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.DatePicker;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.app.Dialog;
-import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import nkucs1416.simpbook.R;
+import nkucs1416.simpbook.database.AccountDb;
+import nkucs1416.simpbook.database.CategoryDb;
+import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
+import nkucs1416.simpbook.database.RecordDb;
+import nkucs1416.simpbook.database.SubcategoryDb;
+import nkucs1416.simpbook.main.ActivityMain;
+import nkucs1416.simpbook.statement.ActivityStatement;
 import nkucs1416.simpbook.util.Account;
+import nkucs1416.simpbook.util.Record;
 import nkucs1416.simpbook.util.SpinnerAdapterAccount;
 import nkucs1416.simpbook.util.Class1;
 import nkucs1416.simpbook.util.Class2;
@@ -30,8 +35,13 @@ import nkucs1416.simpbook.util.SpinnerAdapterClass2;
 import nkucs1416.simpbook.util.Date;
 import nkucs1416.simpbook.util.SpinnerAdapterClass1;
 
+import static nkucs1416.simpbook.util.Class1.sortListClass1s;
 import static nkucs1416.simpbook.util.Date.*;
+import static nkucs1416.simpbook.util.Date.createDialogDate;
+import static nkucs1416.simpbook.util.Money.getEditTextMoney;
+import static nkucs1416.simpbook.util.Money.setEditTextDecimalMoney;
 import static nkucs1416.simpbook.util.Money.setEditTextDecimalScheme;
+import static nkucs1416.simpbook.util.Remark.createDialogRemark;
 
 public class FragmentIncome extends Fragment {
     private View view;
@@ -43,16 +53,29 @@ public class FragmentIncome extends Fragment {
     private TextView textViewRemark;
     private FloatingActionButton buttonAdd;
 
+    private SpinnerAdapterClass1 adapterClass1;
+    private SpinnerAdapterClass2 adapterClass2;
+    private SpinnerAdapterAccount adapterAccount;
+
+    private SQLiteDatabase sqLiteDatabase;
+    private CategoryDb class1Db;
+    private SubcategoryDb class2Db;
+    private AccountDb accountDb;
+    private RecordDb recordDb;
+
     private ArrayList<Class1> listClass1s;
     private ArrayList<Class2> listClass2s;
     private ArrayList<Account> listAccounts;
+    private int class1Id;
+
+    private String recordScheme;
+    private int updateRecordId;
 
     private OnFragmentInteractionListener fragmentInteractionListener;
 
 
     // Fragment相关
     public FragmentIncome() {
-        // Required empty public constructor
     }
 
     public static FragmentIncome newInstance() {
@@ -70,17 +93,22 @@ public class FragmentIncome extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         view = inflater.inflate(R.layout.fragment_income, container, false);
         initFindById();
+        initRecordScheme();
 
         initMoney();
-        initClass();
-        initAccount();
         initDate();
         initRemark();
 
+        initDatabase();
+        initData();
+
+        initClass();
+        initAccount();
+        initButton();
+
+        updateDataForUpdateScheme();
         return view;
     }
 
@@ -121,6 +149,17 @@ public class FragmentIncome extends Fragment {
     }
 
     /**
+     * 初始化记录形式: Insert / Update
+     */
+    private void initRecordScheme() {
+        recordScheme = getActivity().getIntent().getStringExtra("RecordScheme");
+
+        if (recordScheme.equals("Update")) {
+            updateRecordId = Integer.valueOf(getActivity().getIntent().getStringExtra("RecordUpdateId"));
+        }
+    }
+
+    /**
      * 初始化金额
      */
     private void initMoney() {
@@ -131,23 +170,20 @@ public class FragmentIncome extends Fragment {
      * 初始化分类
      */
     private void initClass() {
-        demoSetListClass1();
-        demoSetListClass2();
-
-        SpinnerAdapterClass1 adapterClass1 = new SpinnerAdapterClass1(getActivity(), listClass1s);
+        adapterClass1 = new SpinnerAdapterClass1(getActivity(), listClass1s);
         spinnerClass1.setAdapter(adapterClass1);
 
-        SpinnerAdapterClass2 adapterClass2 = new SpinnerAdapterClass2(getActivity(), listClass2s);
+        adapterClass2 = new SpinnerAdapterClass2(getActivity(), listClass2s);
         spinnerClass2.setAdapter(adapterClass2);
+
+        setListenerSpinnerClass1();
     }
 
     /**
      * 初始化账户
      */
     private void initAccount() {
-        demoSetListAccount();
-
-        SpinnerAdapterAccount adapterAccount = new SpinnerAdapterAccount(getActivity(), listAccounts);
+        adapterAccount = new SpinnerAdapterAccount(getActivity(), listAccounts);
         spinnerAccount.setAdapter(adapterAccount);
     }
 
@@ -167,29 +203,130 @@ public class FragmentIncome extends Fragment {
         setListenerRemark();
     }
 
-
-    // 分类相关
     /**
-     * 测试用ListClass1
+     * 初始化按钮
      */
-    private void demoSetListClass1() {
-        listClass1s = new ArrayList<>();
+    private void initButton() {
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                switch (recordScheme) {
+                    case "Insert":
+                        Record recordInsert = getRecordInsert();
+                        String messageInsert = insertRecord(recordInsert);
+                        if (messageInsert.equals("成功")) {
+                            Toast.makeText(getContext(), messageInsert, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getContext(), ActivityMain.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getContext(), messageInsert, Toast.LENGTH_LONG).show();
+                        }
+                        break;
+
+                    case "Update":
+                        Record recordUpdate = getRecordUpdate(updateRecordId);
+                        String messageUpdate = updateRecord(recordUpdate);
+                        if (messageUpdate.equals("成功")) {
+                            Toast.makeText(getContext(), messageUpdate, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getContext(), ActivityStatement.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getContext(), messageUpdate, Toast.LENGTH_LONG).show();
+                        }
+                        break;
+
+                    default:
+                        Toast.makeText(getContext(), "内部错误: RecordScheme值错误", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
     }
 
     /**
-     * 测试用ListClass2
+     * 初始化数据库
      */
-    private void demoSetListClass2() {
-        listClass2s = new ArrayList<>();
+    private void initDatabase() {
+        CustomSQLiteOpenHelper customSQLiteOpenHelper = new CustomSQLiteOpenHelper(getContext());
+        sqLiteDatabase = customSQLiteOpenHelper.getWritableDatabase();
+        class1Db = new CategoryDb(sqLiteDatabase);
+        class2Db = new SubcategoryDb(sqLiteDatabase);
+        accountDb = new AccountDb(sqLiteDatabase);
+        recordDb = new RecordDb(sqLiteDatabase);
+    }
+
+    /**
+     * 初始化数据
+     */
+    private void initData() {
+        updateListClass1s();
+        updateListClass2s();
+        updateListAccounts();
+
+        checkDataValidity();
+    }
+
+
+    // 分类相关
+    /**
+     * 为SpinnerClass1设置与class1Id实例相同的位置
+     *
+     * @param class1Id 需要显示的class1实例id
+     */
+    private void setSpinnerPositionClass1ById(int class1Id) {
+        for(int i = 0; i<listClass1s.size(); i++) {
+            if (class1Id == listClass1s.get(i).getId()) {
+                spinnerClass1.setSelection(i);
+            }
+        }
+    }
+
+    /**
+     * 为SpinnerClass2设置与class2Id实例相同的位置
+     *
+     * @param class2Id 需要显示的class2实例id
+     */
+    private void setSpinnerPositionClass2ById(int class2Id) {
+        for(int i = 0; i < listClass2s.size(); i++) {
+            if (class2Id == listClass2s.get(i).getId()) {
+                spinnerClass2.setSelection(i);
+            }
+        }
+    }
+
+    /**
+     * 为SpinnerClass1设置与Class2联动的Listener
+     */
+    private void setListenerSpinnerClass1() {
+        spinnerClass1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                class1Id = ((Class1)spinnerClass1.getSelectedItem()).getId();
+                updateListClass2s();
+                adapterClass2 = new SpinnerAdapterClass2(getActivity(), listClass2s);
+                spinnerClass2.setAdapter(adapterClass2);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+            }
+
+        });
     }
 
 
     // 账户相关
     /**
-     * 测试用ListAccount
+     * 为SpinnerAccount设置与accountId实例相同的位置
+     *
+     * @param accountId 需要显示的account实例id
      */
-    private void demoSetListAccount() {
-        listAccounts = new ArrayList<>();
+    private void setSpinnerPositionAccountById(int accountId) {
+        for(int i = 0; i < listAccounts.size(); i++) {
+            if (accountId == listAccounts.get(i).getId()) {
+                spinnerAccount.setSelection(i);
+            }
+        }
     }
 
 
@@ -208,31 +345,9 @@ public class FragmentIncome extends Fragment {
         textViewDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                createDialogDate().show();
+                createDialogDate(textViewDate, getContext()).show();
             }
         });
-
-    }
-
-    /**
-     * 构建选择日期的Dialog
-     *
-     * @return 返回Dialog
-     */
-    private Dialog createDialogDate() {
-        Dialog dialog = null;
-        OnDateSetListener listener = null;
-        Date date = new Date();
-
-        listener = new OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                setTextViewDate(textViewDate, new Date(year, month+1, dayOfMonth));
-            }
-        };
-
-        dialog = new DatePickerDialog(getActivity(), AlertDialog.THEME_DEVICE_DEFAULT_LIGHT, listener, date.getYear(), date.getMonth()-1, date.getDay());
-        return dialog;
     }
 
 
@@ -251,57 +366,123 @@ public class FragmentIncome extends Fragment {
         textViewRemark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                createDialogRemark().show();
+                createDialogRemark(textViewRemark, getContext(), getActivity()).show();
             }
         });
     }
 
+
+    // 更新数据相关
     /**
-     * 构建备注的Dialog
-     *
-     * @return 返回Dialog
+     * 更新所有一级支出分类信息
      */
-    private Dialog createDialogRemark() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),3);
-        View viewRemarkDialog = View.inflate(getActivity(), R.layout.dialog_remark, null);
-        final EditText editTextDialog = viewRemarkDialog.findViewById(R.id.dremark_edittext);
-
-        editTextDialog.setText(textViewRemark.getText());
-
-        builder.setTitle("备注");
-        builder.setView(viewRemarkDialog);
-
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                textViewRemark.setText(editTextDialog.getText());
-                turnoffKeyboard();
-            }
-        });
-
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-                turnoffKeyboard();
-            }
-        });
-
-        return builder.create();
+    private void updateListClass1s() {
+        listClass1s = class1Db.getCategoryListByType(2); // 2->收入分类
+        sortListClass1s(listClass1s);
+        class1Id = listClass1s.get(0).getId();
     }
 
-
-    // 其它
     /**
-     * 关闭软键盘
+     * 更新所有二级支出分类信息
      */
-    private void turnoffKeyboard() {
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        if(imm.isActive()&& getActivity().getCurrentFocus()!=null){
-            if ( getActivity().getCurrentFocus().getWindowToken()!=null) {
-                imm.hideSoftInputFromWindow( getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    private void updateListClass2s() {
+        listClass2s = class2Db.subcategoryList(class1Id);
+    }
+
+    /**
+     * 更新所有账户信息
+     */
+    private void updateListAccounts() {
+        listAccounts = accountDb.accountList();
+    }
+
+    /**
+     * 检查数据合法性
+     */
+    private void checkDataValidity() {
+        for (Class1 class1 : listClass1s) {
+            ArrayList<Class2> listClass2 = class2Db.subcategoryList(class1.getId());
+            if (listClass2.isEmpty()) {
+                getActivity().finish();
+                Toast.makeText(getContext(), "存在某个一级分类，其不含有二级分类。请更新二级分类数据", Toast.LENGTH_LONG).show();
             }
         }
+
+        if (listAccounts.isEmpty()) {
+            getActivity().finish();
+            Toast.makeText(getContext(), "账户列表为空。请更新账户数据", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /**
+     * 若Scheme为更新状态, 则使用数据更新控件
+     */
+    private void updateDataForUpdateScheme() {
+        if (recordScheme.equals("Update")) {
+            Record record = recordDb.getRecordListById(updateRecordId).get(0);
+
+            float money = record.getMoney();
+            int class1Id = record.getClass1Id();
+            int class2Id = record.getClass2Id();
+            int accountId = record.getAccountId();
+            Date date = record.getDate();
+            String remark = record.getRemark();
+
+            setEditTextDecimalMoney(editTextMoney, money);
+            setSpinnerPositionClass1ById(class1Id);
+            setSpinnerPositionClass2ById(class2Id);
+            setSpinnerPositionAccountById(accountId);
+            setTextViewDate(textViewDate, date);
+            textViewRemark.setText(remark);
+        }
+    }
+
+
+    // 修改数据相关
+    /**
+     * 向数据库中添加数据
+     */
+    private String insertRecord(Record recordInsert) {
+        return recordDb.insertRecord(recordInsert);
+    }
+
+    /**
+     * 向数据库中更新数据
+     */
+    private String updateRecord(Record recordUpdate) {
+        return recordDb.updateRecord(recordUpdate);
+    }
+
+    /**
+     * 获取用于添加的Record数据
+     *
+     * @return record数据
+     */
+    private Record getRecordInsert() {
+        int tAccountId = ((Account)spinnerAccount.getSelectedItem()).getId();
+        float tMoney = getEditTextMoney(editTextMoney);
+        int tType = 2; // 2->收入
+        Date tDate = getDate(textViewDate);
+        String tRemark = textViewRemark.getText().toString();
+        int tClass1Id = ((Class1)spinnerClass1.getSelectedItem()).getId();
+        int tClass2Id = ((Class2)spinnerClass2.getSelectedItem()).getId();
+        return new Record(tAccountId, tMoney, tType, tDate, tRemark, tClass1Id, tClass2Id);
+    }
+
+    /**
+     * 获取用于更新的Record数据
+     *
+     * @return record数据
+     */
+    private Record getRecordUpdate(int tId) {
+        int tAccountId = ((Account)spinnerAccount.getSelectedItem()).getId();
+        float tMoney = getEditTextMoney(editTextMoney);
+        int tType = 2; // 2->收入
+        Date tDate = getDate(textViewDate);
+        String tRemark = textViewRemark.getText().toString();
+        int tClass1Id = ((Class1)spinnerClass1.getSelectedItem()).getId();
+        int tClass2Id = ((Class2)spinnerClass2.getSelectedItem()).getId();
+        return new Record(tId, tAccountId, tMoney, tType, tDate, tRemark, tClass1Id, tClass2Id);
     }
 
 }

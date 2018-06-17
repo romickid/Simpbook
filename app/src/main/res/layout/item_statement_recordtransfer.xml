@@ -6,7 +6,7 @@
     android:layout_height="48dp">
 
     <ImageView
-        android:id="@+id/istatement_background"
+        android:id="@+id/irecordtransfer_background"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clickable="true"
@@ -18,7 +18,7 @@
         app:srcCompat="@android:color/transparent" />
 
     <ImageView
-        android:id="@+id/istatement_color"
+        android:id="@+id/irecordtransfer_colorfrom"
         android:layout_width="34dp"
         android:layout_height="34dp"
         android:layout_gravity="center"
@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/istatement_text"
+        android:id="@+id/irecordtransfer_textfrom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -39,13 +39,39 @@
         android:includeFontPadding="false"
         android:paddingBottom="2dp"
         android:paddingTop="2dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/istatement_color"
+        app:layout_constraintStart_toEndOf="@+id/irecordtransfer_colorfrom"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/irecordtransfer_staticimage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/irecordtransfer_textfrom"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_chevron_right_grey_500_24dp" />
+
+    <TextView
+        android:id="@+id/irecordtransfer_textto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="2dp"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/irecordtransfer_staticimage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/istatement_money"
+        android:id="@+id/irecordtransfer_money"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
