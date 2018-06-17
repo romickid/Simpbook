@@ -12,11 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import nkucs1416.simpbook.R;
+import nkucs1416.simpbook.account.ActivityAccount;
+import nkucs1416.simpbook.account.ActivityAccountAdd;
 import nkucs1416.simpbook.database.AccountDb;
 import nkucs1416.simpbook.database.CategoryDb;
 import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
@@ -254,7 +257,15 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
                 })
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        recordDb.deleteRecord(recordDelete);
+                        String message = recordDb.deleteRecord(recordDelete);
+                        if (message.equals("成功")) {
+                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(context, ActivityAccount.class);
+                            context.startActivity(intent);
+                        }
+                        else {
+                            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                        }
                         onDeleteDataListener.OnDeleteData();
                     }
                 });

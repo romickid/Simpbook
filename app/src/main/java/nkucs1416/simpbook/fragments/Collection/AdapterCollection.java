@@ -1,6 +1,9 @@
 package nkucs1416.simpbook.fragments.Collection;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
@@ -9,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,10 +22,12 @@ import nkucs1416.simpbook.database.AccountDb;
 import nkucs1416.simpbook.database.CategoryDb;
 import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.database.SubcategoryDb;
+import nkucs1416.simpbook.database.TemplateDb;
 import nkucs1416.simpbook.record.ActivityRecord;
 import nkucs1416.simpbook.util.Account;
 import nkucs1416.simpbook.util.Class2;
 import nkucs1416.simpbook.util.Collection;
+import nkucs1416.simpbook.util.OnDeleteDataListener;
 
 import static nkucs1416.simpbook.util.Color.getColorIcon;
 import static nkucs1416.simpbook.util.Money.setTextViewDecimalMoney;
@@ -35,6 +41,9 @@ public class AdapterCollection extends RecyclerView.Adapter<RecyclerView.ViewHol
     private CategoryDb class1Db;
     private SubcategoryDb class2Db;
     private AccountDb accountDb;
+    private TemplateDb collectionDb;
+
+    private OnDeleteDataListener onDeleteDataListener;
 
 
     // RecyclerView.Adapter相关
@@ -116,6 +125,14 @@ public class AdapterCollection extends RecyclerView.Adapter<RecyclerView.ViewHol
                     }
                 });
 
+                imageViewBackground_1.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        createDialogDelete(collection_1).show();
+                        return true;
+                    }
+                });
+
                 viewHolderCollectionDefault.imageViewColor.setImageResource(colorIcon_1);
                 viewHolderCollectionDefault.textViewText.setText(text_1);
                 setTextViewDecimalMoney(viewHolderCollectionDefault.textViewMoney, money_1);
@@ -157,6 +174,14 @@ public class AdapterCollection extends RecyclerView.Adapter<RecyclerView.ViewHol
                         intent.putExtra("RecordScheme", "InsertFromCollection");
                         intent.putExtra("RecordCollectionId", String.valueOf(collectionId_2));
                         context_2.startActivity(intent);
+                    }
+                });
+
+                imageViewBackground_2.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        createDialogDelete(collection_2).show();
+                        return true;
                     }
                 });
 
@@ -211,6 +236,43 @@ public class AdapterCollection extends RecyclerView.Adapter<RecyclerView.ViewHol
         class1Db = new CategoryDb(sqLiteDatabase);
         class2Db = new SubcategoryDb(sqLiteDatabase);
         accountDb = new AccountDb(sqLiteDatabase);
+        collectionDb = new TemplateDb(sqLiteDatabase);
+    }
+
+
+    // 删除记录Dialog相关
+    /**
+     * 构建删除模板的Dialog
+     *
+     * @param collectionDelete 待删除的模板实例
+     * @return 返回Dialog
+     */
+    private Dialog createDialogDelete(final Collection collectionDelete) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("删除该账户?")
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                String message = collectionDb.deleteTemplate(collectionDelete);
+                        if (message.equals("成功")) {
+                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(context, ActivityRecord.class);
+                            intent.putExtra("RecordType","Collection");
+                            intent.putExtra("RecordScheme","Insert");
+                            context.startActivity(intent);
+                        }
+                        else {
+                            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                        }
+                        onDeleteDataListener.OnDeleteData();
+                    }
+                });
+
+        return builder.create();
     }
 
 }
