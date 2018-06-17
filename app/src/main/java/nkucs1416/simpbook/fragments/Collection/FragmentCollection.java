@@ -20,10 +20,11 @@ import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.database.TemplateDb;
 import nkucs1416.simpbook.util.Collection;
+import nkucs1416.simpbook.util.OnDeleteDataListener;
 
 import static nkucs1416.simpbook.util.Collection.getCollectionTypeName;
 
-public class FragmentCollection extends Fragment {
+public class FragmentCollection extends Fragment implements OnDeleteDataListener {
     private View view;
     private RecyclerView recyclerView;
     private FloatingActionButton buttonAdd;
@@ -232,6 +233,13 @@ public class FragmentCollection extends Fragment {
             listReturn.add(hashMap);
         }
         return listReturn;
+    }
+
+
+    // Adapter-Activity数据传递相关
+    @Override
+    public void OnDeleteData() {
+        initData();
     }
 
 }

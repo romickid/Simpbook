@@ -1,20 +1,28 @@
 package nkucs1416.simpbook.account;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import nkucs1416.simpbook.R;
+import nkucs1416.simpbook.database.AccountDb;
+import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.statement.ActivityStatement;
 import nkucs1416.simpbook.util.Account;
+import nkucs1416.simpbook.util.OnDeleteDataListener;
 
 import static nkucs1416.simpbook.util.Color.getColorIcon;
 import static nkucs1416.simpbook.util.Money.setTextViewDecimalMoney;
@@ -22,6 +30,10 @@ import static nkucs1416.simpbook.util.Money.setTextViewDecimalMoney;
 public class AdapterAccount extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<HashMap<String, Object>> listAccountObjects;
     private Context context;
+
+    private AccountDb accountDb;
+
+    private OnDeleteDataListener onDeleteDataListener;
 
 
     // RecyclerView.Adapter相关
@@ -47,6 +59,7 @@ public class AdapterAccount extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        initDatabase();
         View view;
         switch (viewType) {
             case 1:
@@ -91,6 +104,14 @@ public class AdapterAccount extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     }
                 });
 
+                imageViewBackground1.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        createDialogDelete(account).show();
+                        return true;
+                    }
+                });
+
                 viewHolderAccountDefault.textViewText.setText(text1);
                 setTextViewDecimalMoney(viewHolderAccountDefault.textViewMoney, money1);
                 viewHolderAccountDefault.imageViewColor.setImageResource(colorIcon1);
@@ -128,6 +149,51 @@ public class AdapterAccount extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public int getItemCount() {
         return listAccountObjects.size();
+    }
+
+
+    // 数据库相关
+    /**
+     * 更新数据库
+     */
+    private void initDatabase() {
+        CustomSQLiteOpenHelper customSQLiteOpenHelper = new CustomSQLiteOpenHelper(context);
+        SQLiteDatabase sqLiteDatabase = customSQLiteOpenHelper.getWritableDatabase();
+        accountDb = new AccountDb(sqLiteDatabase);
+    }
+
+
+    // 删除记录Dialog相关
+    /**
+     * 构建删除账户的Dialog
+     *
+     * @param accountDelete 待删除的账户实例
+     * @return 返回Dialog
+     */
+    private Dialog createDialogDelete(final Account accountDelete) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("删除该账户?")
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        String message = accountDb.deleteAccount(accountDelete);
+                        if (message.equals("成功")) {
+                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(context, ActivityAccount.class);
+                            context.startActivity(intent);
+                        }
+                        else {
+                            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                        }
+                        onDeleteDataListener.OnDeleteData();
+                    }
+                });
+
+        return builder.create();
     }
 
 }

@@ -18,12 +18,13 @@ import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.database.AccountDb;
 import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.util.Account;
+import nkucs1416.simpbook.util.OnDeleteDataListener;
 
 import static nkucs1416.simpbook.account.AccountType.getAccountTypeName;
 import static nkucs1416.simpbook.util.Account.getSumMoney;
 import static nkucs1416.simpbook.util.Money.setTextViewDecimalMoney;
 
-public class ActivityAccount extends AppCompatActivity {
+public class ActivityAccount extends AppCompatActivity implements OnDeleteDataListener {
     private Toolbar toolbar;
     private TextView textViewNetAssets;
     private RecyclerView recyclerView;
@@ -202,6 +203,13 @@ public class ActivityAccount extends AppCompatActivity {
      */
     private void updateNetAssets() {
         setTextViewDecimalMoney(textViewNetAssets, getSumMoney(listAccounts));
+    }
+
+
+    // Adapter-Activity数据传递相关
+    @Override
+    public void OnDeleteData() {
+        initData();
     }
 
 }
