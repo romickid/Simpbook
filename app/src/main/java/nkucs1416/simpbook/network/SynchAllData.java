@@ -116,7 +116,7 @@ public class SynchAllData implements HttpResponeCallBack {
                             float recordMoney = (float) record.getDouble("recordMoney");
                             int recordTime = record.getInt("recordTime");
                             Utils util = new Utils();
-                            Date time = util.switchTimetoDate(recordTime);
+                            Date time = util.switchTimeToDate(recordTime);
                             String recordRemark = record.getString("recordRemark");
                             int recordType = record.getInt("recordType");
                             int status = record.getInt("status");
@@ -135,7 +135,7 @@ public class SynchAllData implements HttpResponeCallBack {
                             float templateMoney = (float) template.getDouble("templateMoney");
                             int templateTime = template.getInt("templateTime");
                             Utils util = new Utils();
-                            Date time = util.switchTimetoDate(templateTime);
+                            Date time = util.switchTimeToDate(templateTime);
                             String templateRemark = template.getString("templateRemark");
                             int templateType = template.getInt("templateType");
                             int status = template.getInt("status");

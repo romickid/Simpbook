@@ -50,7 +50,7 @@ public class TemplateDb {
 
         Utils util = new Utils();
 
-        int datetime = util.switchDatetoTime(template_time);
+        int datetime = util.switchDateToTime(template_time);
 
         values.put("template_accoundID", account_id);
         values.put("template_money", template_money);
@@ -119,7 +119,7 @@ public class TemplateDb {
             values.put("template_id", template.getId());
             values.put("template_type", template.getType());
             Utils util = new Utils();
-            values.put("template_time", util.switchDatetoTime(template.getDate()));
+            values.put("template_time", util.switchDateToTime(template.getDate()));
             values.put("template_money", template.getMoney());
             values.put("template_note", template.getRemark());
             values.put("template_accountID", template.getAccountId());
@@ -174,7 +174,7 @@ public class TemplateDb {
 
         Utils util = new Utils();
 
-        int datetime = util.switchDatetoTime(template_time);
+        int datetime = util.switchDateToTime(template_time);
 
         ContentValues values = new ContentValues();
 
@@ -306,7 +306,7 @@ public class TemplateDb {
 
             Utils util = new Utils();
 
-            Date datetime = util.switchTimetoDate(template_time);
+            Date datetime = util.switchTimeToDate(template_time);
 
 
             if (typeIndex == -1) {
@@ -365,7 +365,7 @@ public class TemplateDb {
 
             Utils util = new Utils();
 
-            Date datetime = util.switchTimetoDate(template_time);
+            Date datetime = util.switchTimeToDate(template_time);
 
 
             if (typeIndex == -1) {
@@ -427,7 +427,7 @@ public class TemplateDb {
 
             Utils util = new Utils();
 
-            Date datetime = util.switchTimetoDate(template_time);
+            Date datetime = util.switchTimeToDate(template_time);
 
             Collection template = new Collection(template_id, template_accountId, template_money, template_type, datetime, template_note, template_categoryID, template_subcategoryId, template_accountToId, status);
 
@@ -449,7 +449,7 @@ public class TemplateDb {
 
             Utils util = new Utils();
 
-            int datetime = util.switchDatetoTime(time);
+            int datetime = util.switchDateToTime(time);
             int type = template.getType();
             String note = template.getRemark();
             if (type == -1) {

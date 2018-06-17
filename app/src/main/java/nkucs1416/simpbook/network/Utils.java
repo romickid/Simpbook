@@ -2,21 +2,19 @@ package nkucs1416.simpbook.network;
 
 import nkucs1416.simpbook.util.Date;
 import java.util.Calendar;
-import java.text.SimpleDateFormat;
-
 
 /**
  * 工具类
  */
-
 public class Utils {
 
     /**
      * 将日期类型时间转为int类型时间
      *
      * @param date 日期类型时间
+     * @return int形式时间
      */
-    public int switchDatetoTime(Date date) {
+    public int switchDateToTime(Date date) {
         int day = date.getDay();
         int month = date.getMonth();
         int year = date.getYear();
@@ -25,49 +23,75 @@ public class Utils {
     }
 
     /**
-     * 将int类型时间转为日期类型时间
+     * 将int形式时间转为日期类型时间
      *
      * @param time int类型时间
+     * @return Date类型时间
      */
-    public Date switchTimetoDate(int time) {
+    public Date switchTimeToDate(int time) {
         String strTime = String.valueOf(time);
         int year = Integer.valueOf(strTime.substring(0,4));
         int month = Integer.valueOf(strTime.substring(4,6));
-        int day = Integer.valueOf(strTime.substring(6,8));;
-        Date datetime = new Date(year, month, day);
-        return datetime;
+        int day = Integer.valueOf(strTime.substring(6,8));
+        return new Date(year, month, day);
     }
+
     /**
-     * 求出本周第一天
+     * 获取特定日期的当周的第一天
      *
-     *
+     * @param date 特定日期
+     * @return 当周的第一天
      */
-    public int getMondayOfThisWeek() {
-        Calendar c = Calendar.getInstance();
-        int day_of_week = c.get(Calendar.DAY_OF_WEEK) - 1;
-        if (day_of_week == 0)
-            day_of_week = 7;
-        c.add(Calendar.DATE, -day_of_week + 1);
-        SimpleDateFormat s=new SimpleDateFormat("yyyyMMdd");
-        String curDate = s.format(c.getTime());  //当前日期
-        return Integer.valueOf(curDate).intValue();
+    public int getMondayOfThisWeek(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(date.getYear(), date.getMonth()-1, date.getDay());
+
+        int dayWeek = cal.get(Calendar.DAY_OF_WEEK);
+        if (1 == dayWeek) {
+            cal.add(Calendar.DAY_OF_MONTH, -1);
+        }
+
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        int day = cal.get(Calendar.DAY_OF_WEEK);
+
+        cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day);
+        return switchDateToTime(new Date(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH)));
     }
+
+    public int getSundayOfThisWeek(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(date.getYear(), date.getMonth()-1, date.getDay());
+
+        int dayWeek = cal.get(Calendar.DAY_OF_WEEK);
+        if (1 == dayWeek) {
+            cal.add(Calendar.DAY_OF_MONTH, -1);
+        }
+
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        int day = cal.get(Calendar.DAY_OF_WEEK);
+
+        cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day + 6);
+        return switchDateToTime(new Date(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH)));
+    }
+
     /**
-     * 求出本月第一天
+     * 获取特定日期的当月的第一天
      *
-     *
+     * @param date 特定日期
+     * @return 当月的第一天
      */
     public int getFirstOfThisMonth(Date date) {
-        int dayofMonth = switchDatetoTime(new Date(date.getYear(), date.getMonth(), 1));
-        return dayofMonth;
+        return switchDateToTime(new Date(date.getYear(), date.getMonth(), 1));
     }
+
     /**
-     * 求出本年第一天
+     * 获取特定日期的当年的第一天
      *
-     *
+     * @param date 特定日期
+     * @return 当年的第一天
      */
     public int getFirstOfThisYear(Date date) {
-        int dayofYear = switchDatetoTime(new Date(date.getYear(), 1, 1));
-        return dayofYear;
+        return switchDateToTime(new Date(date.getYear(), 1, 1));
     }
+
 }

@@ -14,12 +14,15 @@ import android.widget.TextView;
 import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.account.ActivityAccount;
 import nkucs1416.simpbook.database.AccountDb;
+import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.database.RecordDb;
 import nkucs1416.simpbook.record.ActivityRecord;
 import nkucs1416.simpbook.setting.ActivitySetting;
 import nkucs1416.simpbook.statement.ActivityStatement;
 import nkucs1416.simpbook.util.Date;
 import pl.com.salsoft.sqlitestudioremote.SQLiteStudioService;
+
+import static nkucs1416.simpbook.util.Money.setTextViewDecimalMoney;
 
 public class ActivityMain extends AppCompatActivity {
 
@@ -34,6 +37,17 @@ public class ActivityMain extends AppCompatActivity {
     private ImageView imageViewMonth;
     private ImageView imageViewYear;
     private ImageView imageViewTopInfo;
+
+    private TextView textViewDayExpense;
+    private TextView textViewDayIncome;
+    private TextView textViewWeekExpense;
+    private TextView textViewWeekIncome;
+    private TextView textViewMonthExpense;
+    private TextView textViewMonthIncome;
+    private TextView textViewYearExpense;
+    private TextView textViewYearIncome;
+    private TextView textViewTopInfoExpense;
+    private TextView textViewTopInfoRemain;
 
     private TextView textViewDate;
 
@@ -51,6 +65,8 @@ public class ActivityMain extends AppCompatActivity {
         initFindById();
         initButton();
         initImageView();
+        initDatabase();
+
         updateData();
 
         // TODO: 6/16/2018
@@ -74,6 +90,17 @@ public class ActivityMain extends AppCompatActivity {
         imageViewMonth = findViewById(R.id.main_imageview_info3);
         imageViewYear = findViewById(R.id.main_imageview_info4);
         imageViewTopInfo = findViewById(R.id.main_imageview_topinfo);
+
+        textViewDayExpense = findViewById(R.id.main_textview_todayexpense);
+        textViewDayIncome = findViewById(R.id.main_textview_todayincome);
+        textViewWeekExpense = findViewById(R.id.main_textview_weekexpense);
+        textViewWeekIncome = findViewById(R.id.main_textview_weekincome);
+        textViewMonthExpense = findViewById(R.id.main_textview_monthexpense);
+        textViewMonthIncome = findViewById(R.id.main_textview_monthincome);
+        textViewYearExpense = findViewById(R.id.main_textview_yearexpense);
+        textViewYearIncome = findViewById(R.id.main_textview_yearincome);
+        textViewTopInfoExpense = findViewById(R.id.main_textview_topinfoexpense);
+        textViewTopInfoRemain = findViewById(R.id.main_textview_topinforemain);
 
         textViewDate = findViewById(R.id.main_textview_date);
     }
@@ -239,6 +266,16 @@ public class ActivityMain extends AppCompatActivity {
         });
     }
 
+    /**
+     * 初始化数据库
+     */
+    private void initDatabase() {
+        CustomSQLiteOpenHelper customSQLiteOpenHelper = new CustomSQLiteOpenHelper(this);
+        sqLiteDatabase = customSQLiteOpenHelper.getWritableDatabase();
+        accountDb = new AccountDb(sqLiteDatabase);
+        recordDb = new RecordDb(sqLiteDatabase);
+    }
+
 
     // 更新数据相关
     /**
@@ -246,6 +283,10 @@ public class ActivityMain extends AppCompatActivity {
      */
     private void updateData() {
         updateDate();
+        updateDayData();
+        updateWeekData();
+        updateMonthData();
+        updateYearData();
     }
 
     /**
@@ -255,6 +296,42 @@ public class ActivityMain extends AppCompatActivity {
         Date today = new Date();
         String strToday = today.getYear() + "/" + today.getMonth() + "/" + today.getDay() + "  " + today.getWeekOfDate();
         textViewDate.setText(strToday);
+    }
+
+    /**
+     * 更新今日收支数据
+     */
+    private void updateDayData() {
+        setTextViewDecimalMoney(textViewDayExpense, recordDb.todayExpenseRecordSum());
+        setTextViewDecimalMoney(textViewDayIncome, recordDb.todayIncomeRecordSum());
+    }
+
+    /**
+     * 更新本周收支数据
+     */
+    private void updateWeekData() {
+        setTextViewDecimalMoney(textViewWeekExpense, recordDb.weekExpenseRecordSum());
+        setTextViewDecimalMoney(textViewWeekIncome, recordDb.weekIncomeRecordSum());
+    }
+
+    /**
+     * 更新本月收支数据
+     */
+    private void updateMonthData() {
+        float expense = recordDb.monthExpenseRecordSum();
+        float income = recordDb.monthIncomeRecordSum();
+        setTextViewDecimalMoney(textViewMonthExpense, expense);
+        setTextViewDecimalMoney(textViewMonthIncome, income);
+        setTextViewDecimalMoney(textViewTopInfoExpense, expense);
+        setTextViewDecimalMoney(textViewTopInfoRemain, income - expense);
+    }
+
+    /**
+     * 更新本年收支数据
+     */
+    private void updateYearData() {
+        setTextViewDecimalMoney(textViewYearExpense, recordDb.yearExpenseRecordSum());
+        setTextViewDecimalMoney(textViewYearIncome, recordDb.yearIncomeRecordSum());
     }
 
 }
