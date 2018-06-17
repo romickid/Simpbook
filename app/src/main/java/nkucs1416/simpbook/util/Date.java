@@ -160,7 +160,123 @@ public class Date {
         }
     }
 
-     /**
+    /**
+     * 获取特定日期的所在周的星期一的日期实例
+     *
+     * @param date 特定日期
+     * @return 日期实例
+     */
+    public static Date getDateWeekMonday(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(date.getYear(), date.getMonth()-1, date.getDay());
+
+        // 获得当前日期是一个星期的第几天
+        int dayWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        if (1 == dayWeek) {
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+        }
+
+        // 设置一个星期的第一天是星期一
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+
+        // 获得当前日期是一个星期的第几天
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+        // 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
+        calendar.add(Calendar.DATE, calendar.getFirstDayOfWeek() - day);
+
+        return new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    /**
+     * 获取特定日期的所在周的星期日的日期实例
+     *
+     * @param date 特定日期
+     * @return 日期实例
+     */
+    public static Date getDateWeekSunday(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(date.getYear(), date.getMonth()-1, date.getDay());
+
+        // 获得当前日期是一个星期的第几天
+        int dayWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        if (1 == dayWeek) {
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+        }
+
+        // 设置一个星期的第一天是星期一
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+
+        // 获得当前日期是一个星期的第几天
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+        // 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
+        calendar.add(Calendar.DATE, calendar.getFirstDayOfWeek() - day + 6);
+
+        return new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    /**
+     * 获取特定日期的所在月的第一天的日期实例
+     *
+     * @param date 特定日期
+     * @return 日期实例
+     */
+    public static Date getDateMonthFirstDay(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(date.getYear(), date.getMonth()-1, date.getDay());
+
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+
+        return new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    /**
+     * 获取特定日期的所在月的最后一天的日期实例
+     *
+     * @param date 特定日期
+     * @return 日期实例
+     */
+    public static Date getDateMonthLastDay(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(date.getYear(), date.getMonth()-1, date.getDay());
+
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+
+        return new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    /**
+     * 获取特定日期的所在年的第一天的日期实例
+     *
+     * @param date 特定日期
+     * @return 日期实例
+     */
+    public static Date getDateYearFirstDay(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(date.getYear(), date.getMonth()-1, date.getDay());
+
+        calendar.set(Calendar.DAY_OF_YEAR, 1);
+
+        return new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    /**
+     * 获取特定日期的所在年的最后一天的日期实例
+     *
+     * @param date 特定日期
+     * @return 日期实例
+     */
+    public static Date getDateYearLastDay(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(date.getYear(), date.getMonth()-1, date.getDay());
+
+        calendar.set(Calendar.DAY_OF_YEAR, calendar.getActualMaximum(Calendar.DAY_OF_YEAR));
+
+        return new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    /**
      * 构建选择日期的Dialog
      *
      * @param textView 显示日期的textView

@@ -71,7 +71,7 @@ public class AdapterAccount extends RecyclerView.Adapter<RecyclerView.ViewHolder
         switch (getItemViewType(position)) {
             case 1:
                 ViewHolderAccountElement viewHolderAccountElement = (ViewHolderAccountElement) holder;
-                AccountElement accountElement = (AccountElement)listAccountObjects.get(position).get("Object");
+                final AccountElement accountElement = (AccountElement)listAccountObjects.get(position).get("Object");
 
                 final int colorIcon1 = getColorIcon(accountElement.getColorId());
                 final String text1 = accountElement.getText();
@@ -84,7 +84,8 @@ public class AdapterAccount extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     @Override
                     public void onClick(View arg0) {
                         Intent intent = new Intent(context1, ActivityStatement.class);
-                        intent.putExtra("account",text1); // TODO: 6/16/2018
+                        intent.putExtra("StatementFilterDate", "Default");
+                        intent.putExtra("StatementFilterAccount", String.valueOf(accountElement.getId()));
                         context1.startActivity(intent);
                     }
                 });
