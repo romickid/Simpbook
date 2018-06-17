@@ -146,9 +146,7 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                 final int accountFromId_2 = record_2.getAccountId();
                 final int accountToId_2 = record_2.getToAccountId();
-                System.out.println(record_2.getId());
-                System.out.println(accountFromId_2);
-                System.out.println(accountToId_2);
+
                 final Account accountFrom = accountDb.getAccountListById(accountFromId_2).get(0);
                 final Account accountTo = accountDb.getAccountListById(accountToId_2).get(0);
 

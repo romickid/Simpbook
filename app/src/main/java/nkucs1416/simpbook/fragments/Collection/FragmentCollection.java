@@ -1,8 +1,11 @@
 package nkucs1416.simpbook.fragments.Collection;
 
 import android.content.Context;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,13 +17,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import nkucs1416.simpbook.R;
-import nkucs1416.simpbook.util.CollectionElement;
-import nkucs1416.simpbook.util.Date;
+import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
+import nkucs1416.simpbook.database.TemplateDb;
+import nkucs1416.simpbook.util.Collection;
+
+import static nkucs1416.simpbook.util.Collection.getCollectionTypeName;
 
 public class FragmentCollection extends Fragment {
     private View view;
     private RecyclerView recyclerView;
+    private FloatingActionButton buttonAdd;
 
+    private SQLiteDatabase sqLiteDatabase;
+    private TemplateDb collectionDb;
+
+    private ArrayList<Collection> listCollections;
     private ArrayList<HashMap<String, Object>> listCollectionObjects;
     private AdapterCollection adapterCollection;
 
@@ -29,7 +40,6 @@ public class FragmentCollection extends Fragment {
 
     // Fragment相关
     public FragmentCollection() {
-        // Required empty public constructor
     }
 
     public static FragmentCollection newInstance() {
@@ -47,12 +57,16 @@ public class FragmentCollection extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         view = inflater.inflate(R.layout.fragment_collection, container, false);
 
         initFindById();
         initRecyclerView();
+        initButtonAdd();
+
+        initDatabase();
+        initData();
+
+        initRecycleView();
 
         return view;
     }
@@ -85,6 +99,7 @@ public class FragmentCollection extends Fragment {
      */
     private void initFindById() {
         recyclerView = view.findViewById(R.id.fcollection_recyclerview);
+        buttonAdd = view.findViewById(R.id.fcollection_button_add);
     }
 
     /**
@@ -93,69 +108,130 @@ public class FragmentCollection extends Fragment {
     private void initRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        demoCollectionObjectsList();
         adapterCollection = new AdapterCollection(getActivity(), listCollectionObjects);
-
         recyclerView.setAdapter(adapterCollection);
     }
 
-
-    // RecyclerView相关
     /**
-     * 测试用ListCollectionObjects
+     * 初始化按钮
      */
-    private void demoCollectionObjectsList() {
-        listCollectionObjects = new ArrayList<HashMap<String, Object>>();
+    private void initButtonAdd() {
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent intent = new Intent(getContext(), ActivityCollectionAdd.class);
+                intent.putExtra("CollectionAddType", "Default");
+                startActivity(intent);
+            }
+        });
+    }
 
-        HashMap hashMap = null;
-        CollectionElement accountElement = null;
-        CollectionSummarize accountSummarize = null;
-        Integer type = null;
+    /**
+     * 初始化RecycleView
+     */
+    private void initRecycleView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        AdapterCollection adapterCollection = new AdapterCollection(getContext(), listCollectionObjects);
+        recyclerView.setAdapter(adapterCollection);
+    }
 
-        type = 0;
-        accountSummarize = new CollectionSummarize("支出模板");
-        hashMap = new HashMap<String, Object>();
-        hashMap.put("type", type);
-        hashMap.put("object", accountSummarize);
-        listCollectionObjects.add(hashMap);
+    /**
+     * 初始化数据库
+     */
+    private void initDatabase() {
+        CustomSQLiteOpenHelper customSQLiteOpenHelper = new CustomSQLiteOpenHelper(getContext());
+        sqLiteDatabase = customSQLiteOpenHelper.getWritableDatabase();
+        collectionDb = new TemplateDb(sqLiteDatabase);
+    }
 
-        type = 1;
-        accountElement = new CollectionElement( 1, 1, 1.0f,
-                1,  new Date(), "早餐", 1, 1);
-        hashMap = new HashMap<String, Object>();
-        hashMap.put("type", type);
-        hashMap.put("object", accountElement);
-        listCollectionObjects.add(hashMap);
+    /**
+     * 初始化数据
+     */
+    private void initData() {
+        updateListCollections();
+        updateListCollectionObjects();
+    }
 
-        type = 0;
-        accountSummarize = new CollectionSummarize("收入模板");
-        hashMap = new HashMap<String, Object>();
-        hashMap.put("type", type);
-        hashMap.put("object", accountSummarize);
-        listCollectionObjects.add(hashMap);
 
-        type = 1;
-        accountElement = new CollectionElement( 1, 1, 1.0f,
-                1,  new Date(), "早餐", 1, 1);
-        hashMap = new HashMap<String, Object>();
-        hashMap.put("type", type);
-        hashMap.put("object", accountElement);
-        listCollectionObjects.add(hashMap);
+    // 数据相关
+    /**
+     * 获取某个模板类型的CollectionSummarizeObject
+     *
+     * @param type 模板类型
+     * @return CollectionSummarizeObject
+     */
+    private HashMap<String, Object> getCollectionSummarizeObject(int type) {
+        CollectionSummarize collectionSummarize = new CollectionSummarize(getCollectionTypeName(type));
 
-        type = 0;
-        accountSummarize = new CollectionSummarize("转账模板");
-        hashMap = new HashMap<String, Object>();
-        hashMap.put("type", type);
-        hashMap.put("object", accountSummarize);
-        listCollectionObjects.add(hashMap);
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("CollectionObjectViewType", 3); // 3->Summarize
+        hashMap.put("Object", collectionSummarize);
+        return hashMap;
+    }
 
-        type = 1;
-        accountElement = new CollectionElement( 1, 1, 1.0f,
-                1,  new Date(), "早餐", 1, 1);
-        hashMap = new HashMap<String, Object>();
-        hashMap.put("type", type);
-        hashMap.put("object", accountElement);
-        listCollectionObjects.add(hashMap);
+    /**
+     * 更新所有模板信息
+     */
+    private void updateListCollections() {
+        listCollections = collectionDb.templateList();
+    }
+
+    /**
+     * 更新ListCollectionObjects
+     */
+    private void updateListCollectionObjects() {
+        listCollectionObjects = new ArrayList<>();
+
+        ArrayList<Collection> listCollections1 = getListCollectionsByType(listCollections, 1);
+        if (listCollections1.size() != 0)
+            listCollectionObjects.add(getCollectionSummarizeObject(1));
+        listCollectionObjects.addAll(getListCollectionObjects(listCollections1, 1));
+
+        ArrayList<Collection> listCollections2 = getListCollectionsByType(listCollections, 2);
+        if (listCollections2.size() != 0)
+            listCollectionObjects.add(getCollectionSummarizeObject(2));
+        listCollectionObjects.addAll(getListCollectionObjects(listCollections2, 1));
+
+        ArrayList<Collection> listCollections3 = getListCollectionsByType(listCollections, 3);
+        if (listCollections3.size() != 0)
+            listCollectionObjects.add(getCollectionSummarizeObject(3));
+        listCollectionObjects.addAll(getListCollectionObjects(listCollections3, 2));
+    }
+
+    /**
+     * 获取某个模板类型的listCollections
+     *
+     * @param listCollections 待获取的listCollections
+     * @param type 模板类型
+     * @return 筛选后的listCollections
+     */
+    private ArrayList<Collection> getListCollectionsByType(ArrayList<Collection> listCollections, int type) {
+        ArrayList<Collection> listReturn = new ArrayList<>();
+        for(Collection collection : listCollections) {
+            if (collection.getType() == type) {
+                listReturn.add(collection);
+            }
+        }
+        return listReturn;
+    }
+
+    /**
+     * 获取某个listCollections的listCollectionObjects
+     *
+     * @param listCollections 待获取的listCollections
+     * @return listCollectionObjects
+     */
+    private ArrayList<HashMap<String, Object>> getListCollectionObjects(ArrayList<Collection> listCollections, int type) {
+        ArrayList<HashMap<String, Object>> listReturn = new ArrayList<>();
+        HashMap<String, Object> hashMap;
+
+        for(Collection collection: listCollections) {
+            hashMap = new HashMap<>();
+            hashMap.put("CollectionObjectViewType", type); // 1->Default 2->Transfer
+            hashMap.put("Object", collection);
+            listReturn.add(hashMap);
+        }
+        return listReturn;
     }
 
 }
