@@ -1,5 +1,6 @@
 package nkucs1416.simpbook.statement;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -39,6 +40,7 @@ import static nkucs1416.simpbook.util.Record.getRecordTypeName;
 public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<HashMap<String, Object>> listStatementObjects;
     private Context context;
+    private Activity activity;
 
     private SQLiteDatabase sqLiteDatabase;
     private CategoryDb class1Db;
@@ -53,13 +55,15 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
     /**
      * 构造函数, 读取需要绘制的AccountObjects列表
      *
-     * @param tContext 传入的Context
      * @param tListStatementObjects 传入的StatementObjects列表
+     * @param tContext 传入的Context
+     * @param tActivity 传入的Activity
      */
-    AdapterStatement(Context tContext, ArrayList<HashMap<String, Object>> tListStatementObjects) {
+    AdapterStatement(ArrayList<HashMap<String, Object>> tListStatementObjects, Context tContext, Activity tActivity) {
         super();
-        this.context = tContext;
         this.listStatementObjects = tListStatementObjects;
+        this.context = tContext;
+        this.activity = tActivity;
         this.onDeleteDataListener = (OnDeleteDataListener)tContext;
     }
 
@@ -259,8 +263,6 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
                         String message = recordDb.deleteRecord(recordDelete);
                         if (message.equals("成功")) {
                             displayToast(message, context, 0);
-                            Intent intent = new Intent(context, ActivityAccount.class);
-                            context.startActivity(intent);
                         }
                         else {
                             displayToast(message, context, 1);

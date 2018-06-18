@@ -103,7 +103,7 @@ public class ActivityClass2Expense extends AppCompatActivity {
      */
     private void initRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapterClass2 = new AdapterClass2(this, listClass2s);
+        adapterClass2 = new AdapterClass2(listClass2s, this);
         recyclerView.setAdapter(adapterClass2);
     }
 

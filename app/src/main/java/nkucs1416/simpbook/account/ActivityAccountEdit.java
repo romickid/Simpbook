@@ -148,8 +148,7 @@ public class ActivityAccountEdit extends AppCompatActivity {
                         String message = insertAccount(accountInsert);
                         if (message.equals("成功")) {
                             displayToast(message, getApplicationContext(), 0);
-                            Intent intent = new Intent(ActivityAccountEdit.this, ActivityAccount.class);
-                            startActivity(intent);
+                            finish();
                         } else {
                             displayToast(message, getApplicationContext(), 1);
                         }
@@ -160,13 +159,11 @@ public class ActivityAccountEdit extends AppCompatActivity {
                         String messageUpdate = updateAccount(accountUpdate);
                         if (messageUpdate.equals("成功")) {
                             displayToast(messageUpdate, getApplicationContext(), 0);
-                            Intent intent = new Intent(ActivityAccountEdit.this, ActivityAccountSetting.class);
-                            startActivity(intent);
+                            finish();
                         } else {
                             displayToast(messageUpdate, getApplicationContext(), 1);
                         }
                         break;
-
                 }
             }
         });

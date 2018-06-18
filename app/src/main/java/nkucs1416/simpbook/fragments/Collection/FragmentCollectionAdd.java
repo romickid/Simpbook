@@ -100,6 +100,7 @@ public class FragmentCollectionAdd extends Fragment {
                 intent.putExtra("CollectionAddType", "Expense");
                 intent.putExtra("RecordScheme","Collection");
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 
@@ -116,6 +117,7 @@ public class FragmentCollectionAdd extends Fragment {
                 intent.putExtra("CollectionAddType", "Income");
                 intent.putExtra("RecordScheme","Collection");
                 startActivity(intent);
+                getActivity().finish();
             }
         });
     }
@@ -131,6 +133,7 @@ public class FragmentCollectionAdd extends Fragment {
                 intent.putExtra("CollectionAddType", "Transfer");
                 intent.putExtra("RecordScheme","Collection");
                 startActivity(intent);
+                getActivity().finish();
             }
         });
     }

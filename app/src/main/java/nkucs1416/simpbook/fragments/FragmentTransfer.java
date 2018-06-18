@@ -208,7 +208,10 @@ public class FragmentTransfer extends Fragment {
                         if (messageInsert.equals("成功")) {
                             displayToast(messageInsert, getContext(), 0);
                             Intent intent = new Intent(getContext(), ActivityMain.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
+                            getActivity().finish();
                         } else {
                             displayToast(messageInsert, getContext(), 1);
                         }
@@ -225,8 +228,7 @@ public class FragmentTransfer extends Fragment {
                         String messageUpdate = updateRecord(recordUpdate);
                         if (messageUpdate.equals("成功")) {
                             displayToast(messageUpdate, getContext(), 0);
-                            Intent intent = new Intent(getContext(), ActivityStatement.class);
-                            startActivity(intent);
+                            getActivity().finish();
                         } else {
                             displayToast(messageUpdate, getContext(), 1);
                         }
@@ -247,6 +249,7 @@ public class FragmentTransfer extends Fragment {
                             intent.putExtra("RecordType","Collection");
                             intent.putExtra("RecordScheme","Insert");
                             startActivity(intent);
+                            getActivity().finish();
                         } else {
                             displayToast(messageCollectionInsert, getContext(), 1);
                         }
@@ -256,6 +259,7 @@ public class FragmentTransfer extends Fragment {
                         displayToast("内部错误: RecordScheme值错误", getContext(), 1);
                         break;
                 }
+                getActivity().finish();
             }
         });
     }

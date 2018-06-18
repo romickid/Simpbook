@@ -19,11 +19,12 @@ import nkucs1416.simpbook.account.ActivityAccountEdit;
 import nkucs1416.simpbook.database.AccountDb;
 import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.util.Account;
+import nkucs1416.simpbook.util.OnDeleteDataListener;
 
 import static nkucs1416.simpbook.account.AccountType.getAccountTypeName;
 import static nkucs1416.simpbook.util.Account.getSumMoney;
 
-public class ActivityAccountSetting extends AppCompatActivity {
+public class ActivityAccountSetting extends AppCompatActivity implements OnDeleteDataListener {
 
     private Toolbar toolbar;
     private RecyclerView recyclerView;
@@ -92,7 +93,7 @@ public class ActivityAccountSetting extends AppCompatActivity {
      */
     private void initRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapterAccountSetting = new AdapterAccountSetting(this, listAccountObjects);
+        adapterAccountSetting = new AdapterAccountSetting(listAccountObjects,this,this);
         recyclerView.setAdapter(adapterAccountSetting);
     }
 
@@ -103,13 +104,9 @@ public class ActivityAccountSetting extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                buttonAdd.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View arg0) {
-                        Intent intent = new Intent(getApplicationContext(), ActivityAccountEdit.class);
-                        startActivity(intent);
-                    }
-                });
+                Intent intent = new Intent(getApplicationContext(), ActivityAccountEdit.class);
+                intent.putExtra("AccountEditScheme", "Insert");
+                startActivity(intent);
             }
         });
     }
@@ -208,6 +205,14 @@ public class ActivityAccountSetting extends AppCompatActivity {
         hashMap.put("AccountObjectViewType", 2); // 2->AccountSummarize
         hashMap.put("Object", accountSummarize);
         return hashMap;
+    }
+
+
+    // Adapter-Activity数据传递相关
+    @Override
+    public void OnDeleteData() {
+        initData();
+        initRecycleView();
     }
 
 }
