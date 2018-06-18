@@ -28,6 +28,7 @@ import nkucs1416.simpbook.util.Class2;
 import nkucs1416.simpbook.util.SpinnerAdapterColor;
 
 import static nkucs1416.simpbook.util.Color.getListColorIds;
+import static nkucs1416.simpbook.util.Other.displayToast;
 
 public class ActivityClass2Income extends AppCompatActivity {
 
@@ -36,6 +37,7 @@ public class ActivityClass2Income extends AppCompatActivity {
     private FloatingActionButton buttonAdd;
 
     private SpinnerAdapterColor spinnerAdapterColor;
+    private AdapterClass2 adapterClass2;
 
     private SQLiteDatabase sqLiteDatabase;
     private CategoryDb class1Db;
@@ -59,6 +61,14 @@ public class ActivityClass2Income extends AppCompatActivity {
         initDatabase();
         initData();
 
+        initRecycleView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        initData();
         initRecycleView();
     }
 
@@ -94,8 +104,8 @@ public class ActivityClass2Income extends AppCompatActivity {
      */
     private void initRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        AdapterClass2 statementAdapter = new AdapterClass2(this, listClass2s);
-        recyclerView.setAdapter(statementAdapter);
+        adapterClass2 = new AdapterClass2(this, listClass2s);
+        recyclerView.setAdapter(adapterClass2);
     }
 
     /**
@@ -200,7 +210,7 @@ public class ActivityClass2Income extends AppCompatActivity {
                 int colorId = (int)spinnerColor.getSelectedItem();
 
                 if (name.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "输入不能为空", Toast.LENGTH_SHORT).show();
+                    displayToast("输入不能为空", getApplicationContext(), 0);
                     dialog.cancel();
                     return;
                 }
@@ -209,11 +219,11 @@ public class ActivityClass2Income extends AppCompatActivity {
                 String message = saveClass2(class2);
 
                 if (message.equals("成功")) {
-                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                    displayToast(message, getApplicationContext(), 0);
                     refreshActivity();
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                    displayToast(message, getApplicationContext(), 1);
                 }
             }
         });

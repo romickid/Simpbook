@@ -17,12 +17,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import nkucs1416.simpbook.R;
+import nkucs1416.simpbook.database.CategoryDb;
 import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
+import nkucs1416.simpbook.database.SubcategoryDb;
 import nkucs1416.simpbook.database.TemplateDb;
+import nkucs1416.simpbook.util.Class1;
+import nkucs1416.simpbook.util.Class2;
 import nkucs1416.simpbook.util.Collection;
 import nkucs1416.simpbook.util.OnDeleteDataListener;
 
 import static nkucs1416.simpbook.util.Collection.getCollectionTypeName;
+import static nkucs1416.simpbook.util.Other.displayToast;
 
 public class FragmentCollection extends Fragment implements OnDeleteDataListener {
     private View view;
@@ -31,10 +36,15 @@ public class FragmentCollection extends Fragment implements OnDeleteDataListener
 
     private SQLiteDatabase sqLiteDatabase;
     private TemplateDb collectionDb;
+    private CategoryDb class1Db;
+    private SubcategoryDb class2Db;
+
+    private AdapterCollection adapterCollection;
 
     private ArrayList<Collection> listCollections;
     private ArrayList<HashMap<String, Object>> listCollectionObjects;
-    private AdapterCollection adapterCollection;
+    private ArrayList<Class1> listClass1sExpense;
+    private ArrayList<Class1> listClass1sIncome;
 
     private OnFragmentInteractionListener fragmentInteractionListener;
 
@@ -66,10 +76,18 @@ public class FragmentCollection extends Fragment implements OnDeleteDataListener
 
         initDatabase();
         initData();
+        checkDataValidityEnd();
 
         initRecycleView();
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        initData();
     }
 
     @Override
@@ -143,12 +161,15 @@ public class FragmentCollection extends Fragment implements OnDeleteDataListener
         CustomSQLiteOpenHelper customSQLiteOpenHelper = new CustomSQLiteOpenHelper(getContext());
         sqLiteDatabase = customSQLiteOpenHelper.getWritableDatabase();
         collectionDb = new TemplateDb(sqLiteDatabase);
+        class1Db = new CategoryDb(sqLiteDatabase);
+        class2Db = new SubcategoryDb(sqLiteDatabase);
     }
 
     /**
      * 初始化数据
      */
     private void initData() {
+        updateListClass1s();
         updateListCollections();
         updateListCollectionObjects();
     }
@@ -233,6 +254,36 @@ public class FragmentCollection extends Fragment implements OnDeleteDataListener
             listReturn.add(hashMap);
         }
         return listReturn;
+    }
+
+
+    // 更新数据相关
+    /**
+     * 更新所有一级支出分类信息
+     */
+    private void updateListClass1s() {
+        listClass1sExpense = class1Db.getCategoryListByType(1); // 1->支出分类
+        listClass1sIncome = class1Db.getCategoryListByType(2); // 2->支出分类
+    }
+
+    /**
+     * 检查数据合法性
+     */
+    private void checkDataValidityEnd() {
+        for (Class1 class1 : listClass1sExpense) {
+            ArrayList<Class2> listClass2 = class2Db.subcategoryList(class1.getId());
+            if (listClass2.isEmpty()) {
+                getActivity().finish();
+                displayToast("存在某个一级分类，其不含有二级分类\n请在设置中更新二级分类数据", getContext(), 1);
+            }
+        }
+        for (Class1 class1 : listClass1sIncome) {
+            ArrayList<Class2> listClass2 = class2Db.subcategoryList(class1.getId());
+            if (listClass2.isEmpty()) {
+                getActivity().finish();
+                displayToast("存在某个一级分类，其不含有二级分类\n请在设置中更新二级分类数据", getContext(), 1);
+            }
+        }
     }
 
 

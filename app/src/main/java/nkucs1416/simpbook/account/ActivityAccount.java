@@ -52,6 +52,14 @@ public class ActivityAccount extends AppCompatActivity implements OnDeleteDataLi
         initRecycleView();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        initData();
+        initRecycleView();
+    }
+
 
     // 初始化相关
     /**

@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -33,6 +32,7 @@ import nkucs1416.simpbook.util.Date;
 
 import static nkucs1416.simpbook.util.Date.*;
 import static nkucs1416.simpbook.util.Money.*;
+import static nkucs1416.simpbook.util.Other.displayToast;
 import static nkucs1416.simpbook.util.Remark.createDialogRemark;
 
 public class FragmentTransfer extends Fragment {
@@ -74,6 +74,13 @@ public class FragmentTransfer extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        initData();
     }
 
     @Override
@@ -193,17 +200,17 @@ public class FragmentTransfer extends Fragment {
                         Record recordInsert = getRecordInsert();
 
                         if (recordInsert.getAccountId() == recordInsert.getToAccountId()) {
-                            Toast.makeText(getContext(), "发送账户不能与接收账户相同", Toast.LENGTH_LONG).show();
+                            displayToast("发送账户不能与接收账户相同", getContext(), 1);
                             break;
                         }
 
                         String messageInsert = insertRecord(recordInsert);
                         if (messageInsert.equals("成功")) {
-                            Toast.makeText(getContext(), messageInsert, Toast.LENGTH_SHORT).show();
+                            displayToast(messageInsert, getContext(), 0);
                             Intent intent = new Intent(getContext(), ActivityMain.class);
                             startActivity(intent);
                         } else {
-                            Toast.makeText(getContext(), messageInsert, Toast.LENGTH_LONG).show();
+                            displayToast(messageInsert, getContext(), 1);
                         }
                         break;
 
@@ -211,36 +218,42 @@ public class FragmentTransfer extends Fragment {
                         Record recordUpdate = getRecordUpdate(updateRecordId);
 
                         if (recordUpdate.getAccountId() == recordUpdate.getToAccountId()) {
-                            Toast.makeText(getContext(), "发送账户不能与接收账户相同", Toast.LENGTH_LONG).show();
+                            displayToast("发送账户不能与接收账户相同", getContext(), 1);
                             break;
                         }
 
                         String messageUpdate = updateRecord(recordUpdate);
                         if (messageUpdate.equals("成功")) {
-                            Toast.makeText(getContext(), messageUpdate, Toast.LENGTH_SHORT).show();
+                            displayToast(messageUpdate, getContext(), 0);
                             Intent intent = new Intent(getContext(), ActivityStatement.class);
                             startActivity(intent);
                         } else {
-                            Toast.makeText(getContext(), messageUpdate, Toast.LENGTH_LONG).show();
+                            displayToast(messageUpdate, getContext(), 1);
                         }
                         break;
 
                     case "Collection":
                         Collection collection = getCollectionInsert();
+
+                        if (collection.getAccountId() == collection.getToAccountId()) {
+                            displayToast("发送账户不能与接收账户相同", getContext(), 1);
+                            break;
+                        }
+
                         String messageCollectionInsert = insertCollection(collection);
                         if (messageCollectionInsert.equals("成功")) {
-                            Toast.makeText(getContext(), messageCollectionInsert, Toast.LENGTH_SHORT).show();
+                            displayToast(messageCollectionInsert, getContext(), 0);
                             Intent intent = new Intent(getContext(), ActivityRecord.class);
                             intent.putExtra("RecordType","Collection");
                             intent.putExtra("RecordScheme","Insert");
                             startActivity(intent);
                         } else {
-                            Toast.makeText(getContext(), messageCollectionInsert, Toast.LENGTH_LONG).show();
+                            displayToast(messageCollectionInsert, getContext(), 1);
                         }
                         break;
 
                     default:
-                        Toast.makeText(getContext(), "内部错误: RecordScheme值错误", Toast.LENGTH_SHORT).show();
+                        displayToast("内部错误: RecordScheme值错误", getContext(), 1);
                         break;
                 }
             }
@@ -263,8 +276,6 @@ public class FragmentTransfer extends Fragment {
      */
     private void initData() {
         updateListAccounts();
-
-        checkDataValidity();
     }
 
 
@@ -337,16 +348,6 @@ public class FragmentTransfer extends Fragment {
      */
     private void updateListAccounts() {
         listAccounts = accountDb.accountList();
-    }
-
-    /**
-     * 检查数据合法性
-     */
-    private void checkDataValidity() {
-        if (listAccounts.isEmpty()) {
-            getActivity().finish();
-            Toast.makeText(getContext(), "账户列表为空。请更新账户数据", Toast.LENGTH_LONG).show();
-        }
     }
 
     /**

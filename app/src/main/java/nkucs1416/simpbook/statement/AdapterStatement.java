@@ -12,14 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.account.ActivityAccount;
-import nkucs1416.simpbook.account.ActivityAccountAdd;
 import nkucs1416.simpbook.database.AccountDb;
 import nkucs1416.simpbook.database.CategoryDb;
 import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
@@ -35,6 +33,7 @@ import nkucs1416.simpbook.util.Record;
 import static nkucs1416.simpbook.util.Color.getColorIcon;
 import static nkucs1416.simpbook.util.Date.setTextViewDate;
 import static nkucs1416.simpbook.util.Money.setTextViewDecimalMoney;
+import static nkucs1416.simpbook.util.Other.displayToast;
 import static nkucs1416.simpbook.util.Record.getRecordTypeName;
 
 public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -259,13 +258,13 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
                     public void onClick(DialogInterface dialog, int id) {
                         String message = recordDb.deleteRecord(recordDelete);
                         if (message.equals("成功")) {
-                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                            displayToast(message, context, 0);
                             Intent intent = new Intent(context, ActivityAccount.class);
                             context.startActivity(intent);
                         }
                         else {
-                            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-                        }
+                            displayToast(message, context, 1);
+                    }
                         onDeleteDataListener.OnDeleteData();
                     }
                 });

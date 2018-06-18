@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -24,6 +23,7 @@ import nkucs1416.simpbook.util.Class1;
 import nkucs1416.simpbook.util.SpinnerAdapterColor;
 
 import static nkucs1416.simpbook.util.Color.getListColorIds;
+import static nkucs1416.simpbook.util.Other.displayToast;
 
 public class ActivityClass1Expense extends AppCompatActivity {
 
@@ -32,6 +32,7 @@ public class ActivityClass1Expense extends AppCompatActivity {
     private FloatingActionButton buttonAdd;
 
     private SpinnerAdapterColor spinnerAdapterColor;
+    private AdapterClass1 adapterClass1;
 
     private SQLiteDatabase sqLiteDatabase;
     private CategoryDb class1Db;
@@ -52,6 +53,14 @@ public class ActivityClass1Expense extends AppCompatActivity {
         initDatabase();
         initData();
 
+        initRecycleView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        initData();
         initRecycleView();
     }
 
@@ -87,8 +96,8 @@ public class ActivityClass1Expense extends AppCompatActivity {
      */
     private void initRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        AdapterClass1 statementAdapter = new AdapterClass1(this, listClass1s);
-        recyclerView.setAdapter(statementAdapter);
+        adapterClass1 = new AdapterClass1(this, listClass1s);
+        recyclerView.setAdapter(adapterClass1);
     }
 
     /**
@@ -180,7 +189,7 @@ public class ActivityClass1Expense extends AppCompatActivity {
                 int colorId = (int)spinnerColor.getSelectedItem();
 
                 if (name.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "输入不能为空", Toast.LENGTH_SHORT).show();
+                    displayToast("输入不能为空", getApplicationContext(), 0);
                     dialog.cancel();
                     return;
                 }
@@ -189,11 +198,11 @@ public class ActivityClass1Expense extends AppCompatActivity {
 
                 String message = insertClass1(class1);
                 if (message.equals("成功")) {
-                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                    displayToast(message, getApplicationContext(), 0);
                     refreshActivity();
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                    displayToast(message, getApplicationContext(), 1);
                 }
             }
         });

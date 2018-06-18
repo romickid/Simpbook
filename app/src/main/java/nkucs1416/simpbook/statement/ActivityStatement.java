@@ -82,6 +82,13 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
         updateData();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        updateData();
+    }
+
 
     // 初始化相关
     /**
