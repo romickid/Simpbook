@@ -1,5 +1,6 @@
 package nkucs1416.simpbook.setting;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -34,6 +35,7 @@ import static nkucs1416.simpbook.util.Other.displayToast;
 public class AdapterAccountSetting extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<HashMap<String, Object>> listAccountObjects;
     private Context context;
+    private Activity activity;
 
     private AccountDb accountDb;
 
@@ -44,13 +46,16 @@ public class AdapterAccountSetting extends RecyclerView.Adapter<RecyclerView.Vie
     /**
      * 构造函数, 读取需要绘制的AccountObjects列表
      *
-     * @param tContext 传入的Context
      * @param tListAccountObjects 传入的AccountObjects列表
+     * @param tContext 传入的Context
+     * @param tActivity 传入的Activity
      */
-    public AdapterAccountSetting(Context tContext, ArrayList<HashMap<String, Object>> tListAccountObjects) {
+    public AdapterAccountSetting(ArrayList<HashMap<String, Object>> tListAccountObjects, Context tContext, Activity tActivity) {
         super();
-        this.context = tContext;
         this.listAccountObjects = tListAccountObjects;
+        this.context = tContext;
+        this.activity = tActivity;
+        this.onDeleteDataListener = (OnDeleteDataListener)tContext;
     }
 
     /**
@@ -187,8 +192,6 @@ public class AdapterAccountSetting extends RecyclerView.Adapter<RecyclerView.Vie
                         String message = accountDb.deleteAccount(accountDelete);
                         if (message.equals("成功")) {
                             displayToast(message, context, 0);
-                            Intent intent = new Intent(context, ActivityAccount.class);
-                            context.startActivity(intent);
                         }
                         else {
                             displayToast(message, context, 1);

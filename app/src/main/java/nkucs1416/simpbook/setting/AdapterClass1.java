@@ -31,6 +31,7 @@ import static nkucs1416.simpbook.util.Other.displayToast;
 public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass> {
     private ArrayList<Class1> listClass1s;
     private Context context;
+    private Activity activity;
 
     private SQLiteDatabase sqLiteDatabase;
     private CategoryDb class1Db;
@@ -39,13 +40,15 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass> {
     /**
      * 构造函数, 读取需要绘制的Class1列表
      *
-     * @param tContext 传入的Context
      * @param tListClass1s 传入的Class1列表
+     * @param tContext 传入的Context
+     * @param tActivity 传入的Activity
      */
-    AdapterClass1(Context tContext, ArrayList<Class1> tListClass1s) {
+    AdapterClass1(ArrayList<Class1> tListClass1s, Context tContext, Activity tActivity) {
         super();
-        this.context = tContext;
         this.listClass1s = tListClass1s;
+        this.context = tContext;
+        this.activity = tActivity;
     }
 
 

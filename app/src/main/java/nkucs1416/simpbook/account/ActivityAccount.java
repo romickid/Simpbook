@@ -92,7 +92,7 @@ public class ActivityAccount extends AppCompatActivity implements OnDeleteDataLi
      */
     private void initRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        AdapterAccount adapterAccount = new AdapterAccount(this, listAccountObjects);
+        AdapterAccount adapterAccount = new AdapterAccount(listAccountObjects, this, this);
         recyclerView.setAdapter(adapterAccount);
     }
 
@@ -219,6 +219,7 @@ public class ActivityAccount extends AppCompatActivity implements OnDeleteDataLi
     @Override
     public void OnDeleteData() {
         initData();
+        initRecycleView();
     }
 
 }

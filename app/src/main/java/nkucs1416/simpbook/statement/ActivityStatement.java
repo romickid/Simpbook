@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,7 @@ import nkucs1416.simpbook.database.CategoryDb;
 import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.database.RecordDb;
 import nkucs1416.simpbook.database.SubcategoryDb;
+import nkucs1416.simpbook.main.ActivityMain;
 import nkucs1416.simpbook.util.Account;
 import nkucs1416.simpbook.util.OnDeleteDataListener;
 import nkucs1416.simpbook.util.SpinnerAdapterAccount;
@@ -89,6 +91,11 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
         updateData();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
 
     // 初始化相关
     /**
@@ -145,7 +152,7 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
     private void updateRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        AdapterStatement adapterStatement = new AdapterStatement(this, listStatementObjects);
+        AdapterStatement adapterStatement = new AdapterStatement(listStatementObjects, this, this);
         recyclerView.setAdapter(adapterStatement);
     }
 
@@ -358,6 +365,10 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
     private void setStatementFilter() {
         String statementFilterDate = this.getIntent().getStringExtra("StatementFilterDate");
         String statementFilterAccount = this.getIntent().getStringExtra("StatementFilterAccount");
+        if (statementFilterDate == null)
+            statementFilterDate = "Default";
+        if (statementFilterAccount == null)
+            statementFilterAccount = "Default";
         Date dateBegin, dateEnd;
         Account account;
 

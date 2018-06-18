@@ -71,14 +71,13 @@ public class FragmentCollection extends Fragment implements OnDeleteDataListener
         view = inflater.inflate(R.layout.fragment_collection, container, false);
 
         initFindById();
-        initRecyclerView();
         initButtonAdd();
 
         initDatabase();
         initData();
         checkDataValidityEnd();
 
-        initRecycleView();
+        initRecyclerView();
 
         return view;
     }
@@ -88,6 +87,7 @@ public class FragmentCollection extends Fragment implements OnDeleteDataListener
         super.onResume();
 
         initData();
+        initRecyclerView();
     }
 
     @Override
@@ -122,16 +122,6 @@ public class FragmentCollection extends Fragment implements OnDeleteDataListener
     }
 
     /**
-     * 初始化RecyclerView
-     */
-    private void initRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        adapterCollection = new AdapterCollection(getActivity(), listCollectionObjects);
-        recyclerView.setAdapter(adapterCollection);
-    }
-
-    /**
      * 初始化按钮
      */
     private void initButtonAdd() {
@@ -148,9 +138,9 @@ public class FragmentCollection extends Fragment implements OnDeleteDataListener
     /**
      * 初始化RecycleView
      */
-    private void initRecycleView() {
+    private void initRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        AdapterCollection adapterCollection = new AdapterCollection(getContext(), listCollectionObjects);
+        adapterCollection = new AdapterCollection(listCollectionObjects, getContext(), getActivity(), this);
         recyclerView.setAdapter(adapterCollection);
     }
 
@@ -291,6 +281,7 @@ public class FragmentCollection extends Fragment implements OnDeleteDataListener
     @Override
     public void OnDeleteData() {
         initData();
+        initRecyclerView();
     }
 
 }

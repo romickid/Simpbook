@@ -42,13 +42,13 @@ public class AdapterClass2 extends RecyclerView.Adapter<ViewHolderClass> {
     /**
      * 构造函数, 读取需要绘制的Class2列表
      *
-     * @param tContext 传入的Context
      * @param tListClass2s 传入的Class2列表
+     * @param tContext 传入的Context
      */
-    AdapterClass2(Context tContext, ArrayList<Class2> tListClass2s) {
+    AdapterClass2(ArrayList<Class2> tListClass2s, Context tContext) {
         super();
-        this.context = tContext;
         this.listClass2s = tListClass2s;
+        this.context = tContext;
     }
 
     /**

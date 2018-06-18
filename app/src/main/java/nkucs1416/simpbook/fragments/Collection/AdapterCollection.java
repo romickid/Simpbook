@@ -1,7 +1,9 @@
 package nkucs1416.simpbook.fragments.Collection;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,6 +38,7 @@ import static nkucs1416.simpbook.util.Record.getRecordTypeName;
 public class AdapterCollection extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<HashMap<String, Object>> listCollectionObjects;
     private Context context;
+    private Activity activity;
 
     private SQLiteDatabase sqLiteDatabase;
     private CategoryDb class1Db;
@@ -50,13 +53,17 @@ public class AdapterCollection extends RecyclerView.Adapter<RecyclerView.ViewHol
     /**
      * 构造函数, 读取需要绘制的CollectionObjects列表
      *
-     * @param tContext 传入的Context
      * @param tListCollectionObjects 传入的CollectionObjects列表
+     * @param tContext 传入的Context
+     * @param tActivity 传入的Activity
+     * @param tFragment 用于更新Listener的Fragment
      */
-    AdapterCollection(Context tContext, ArrayList<HashMap<String, Object>> tListCollectionObjects) {
+    AdapterCollection(ArrayList<HashMap<String, Object>> tListCollectionObjects, Context tContext, Activity tActivity, Fragment tFragment) {
         super();
-        this.context = tContext;
         this.listCollectionObjects = tListCollectionObjects;
+        this.context = tContext;
+        this.activity = tActivity;
+        this.onDeleteDataListener = (OnDeleteDataListener)tFragment;
     }
 
     /**
@@ -260,10 +267,6 @@ public class AdapterCollection extends RecyclerView.Adapter<RecyclerView.ViewHol
                                 String message = collectionDb.deleteTemplate(collectionDelete);
                         if (message.equals("成功")) {
                             displayToast(message, context, 0);
-                            Intent intent = new Intent(context, ActivityRecord.class);
-                            intent.putExtra("RecordType","Collection");
-                            intent.putExtra("RecordScheme","Insert");
-                            context.startActivity(intent);
                         }
                         else {
                             displayToast(message, context, 1);
