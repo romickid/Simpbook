@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +30,7 @@ import nkucs1416.simpbook.util.OnDeleteDataListener;
 
 import static nkucs1416.simpbook.util.Color.getColorIcon;
 import static nkucs1416.simpbook.util.Money.setTextViewDecimalMoney;
+import static nkucs1416.simpbook.util.Other.displayToast;
 import static nkucs1416.simpbook.util.Record.getRecordTypeName;
 
 public class AdapterCollection extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -259,14 +259,14 @@ public class AdapterCollection extends RecyclerView.Adapter<RecyclerView.ViewHol
                             public void onClick(DialogInterface dialog, int id) {
                                 String message = collectionDb.deleteTemplate(collectionDelete);
                         if (message.equals("成功")) {
-                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                            displayToast(message, context, 0);
                             Intent intent = new Intent(context, ActivityRecord.class);
                             intent.putExtra("RecordType","Collection");
                             intent.putExtra("RecordScheme","Insert");
                             context.startActivity(intent);
                         }
                         else {
-                            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                            displayToast(message, context, 1);
                         }
                         onDeleteDataListener.OnDeleteData();
                     }

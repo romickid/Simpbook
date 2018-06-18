@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -29,6 +28,7 @@ import nkucs1416.simpbook.util.SpinnerAdapterColor;
 
 import static nkucs1416.simpbook.util.Color.getColorIcon;
 import static nkucs1416.simpbook.util.Color.getListColorIds;
+import static nkucs1416.simpbook.util.Other.displayToast;
 
 public class AdapterClass2 extends RecyclerView.Adapter<ViewHolderClass> {
     private ArrayList<Class2> listClass2s;
@@ -158,7 +158,7 @@ public class AdapterClass2 extends RecyclerView.Adapter<ViewHolderClass> {
                 int colorId = (int)spinnerColor.getSelectedItem();
 
                 if (name.isEmpty()) {
-                    Toast.makeText(context, "输入不能为空", Toast.LENGTH_SHORT).show();
+                    displayToast("输入不能为空", context, 0);
                     dialog.cancel();
                     return;
                 }
@@ -167,11 +167,11 @@ public class AdapterClass2 extends RecyclerView.Adapter<ViewHolderClass> {
                 String message = updateClass2(class2);
 
                 if (message.equals("成功")) {
-                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                    displayToast(message, context, 0);
                     ((Activity)(context)).recreate();
                 }
                 else {
-                    Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                    displayToast(message, context, 1);
                 }
             }
         });
@@ -203,11 +203,11 @@ public class AdapterClass2 extends RecyclerView.Adapter<ViewHolderClass> {
                 String message = deleteClass2(class2);
 
                 if (message.equals("成功")) {
-                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                    displayToast(message, context, 0);
                     ((Activity)(context)).recreate();
                 }
                 else {
-                    Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                    displayToast(message, context, 1);
                 }
             }
         });

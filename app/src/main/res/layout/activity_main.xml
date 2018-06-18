@@ -106,7 +106,7 @@
         app:layout_constraintBottom_toTopOf="@+id/main_imageview_info1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@color/colorMainpageBlack" />
+        app:srcCompat="@color/colorMainPageBlack" />
 
     <TextView
         android:id="@+id/main_textview_date"

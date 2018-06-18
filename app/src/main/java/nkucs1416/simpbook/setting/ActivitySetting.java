@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.database.AccountDb;
@@ -16,7 +15,8 @@ import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.database.RecordDb;
 import nkucs1416.simpbook.database.SubcategoryDb;
 import nkucs1416.simpbook.database.TemplateDb;
-import nkucs1416.simpbook.database.UserDb;
+
+import static nkucs1416.simpbook.util.Other.displayToast;
 
 public class ActivitySetting extends AppCompatActivity {
     private Toolbar toolbar;
@@ -120,7 +120,7 @@ public class ActivitySetting extends AppCompatActivity {
                 recordDb.deleteAllLocalData();
                 subcategoryDb.deleteAllLocalData();
                 templateDb.deleteAllLocalData();
-                Toast.makeText(getApplicationContext(), "删除成功", Toast.LENGTH_SHORT).show();
+                displayToast("删除成功", getApplicationContext(), 0);
             }
         });
     }

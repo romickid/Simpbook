@@ -11,18 +11,26 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import nkucs1416.simpbook.R;
 import nkucs1416.simpbook.account.ActivityAccount;
 import nkucs1416.simpbook.database.AccountDb;
+import nkucs1416.simpbook.database.CategoryDb;
 import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.database.RecordDb;
+import nkucs1416.simpbook.database.SubcategoryDb;
 import nkucs1416.simpbook.record.ActivityRecord;
 import nkucs1416.simpbook.setting.ActivitySetting;
 import nkucs1416.simpbook.statement.ActivityStatement;
+import nkucs1416.simpbook.util.Account;
+import nkucs1416.simpbook.util.Class1;
+import nkucs1416.simpbook.util.Class2;
 import nkucs1416.simpbook.util.Date;
 import pl.com.salsoft.sqlitestudioremote.SQLiteStudioService;
 
 import static nkucs1416.simpbook.util.Money.setTextViewDecimalMoney;
+import static nkucs1416.simpbook.util.Other.displayToast;
 
 public class ActivityMain extends AppCompatActivity {
 
@@ -52,8 +60,14 @@ public class ActivityMain extends AppCompatActivity {
     private TextView textViewDate;
 
     private SQLiteDatabase sqLiteDatabase;
+    private CategoryDb class1Db;
+    private SubcategoryDb class2Db;
     private AccountDb accountDb;
     private RecordDb recordDb;
+
+    private ArrayList<Class1> listClass1s;
+    private ArrayList<Class2> listClass2s;
+    private ArrayList<Account> listAccounts;
 
 
     // Activity相关
@@ -66,11 +80,20 @@ public class ActivityMain extends AppCompatActivity {
         initButton();
         initImageView();
         initDatabase();
+        initData();
 
         updateData();
 
         // TODO: 6/16/2018
         SQLiteStudioService.instance().start(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        initData();
+        updateData();
     }
 
 
@@ -123,6 +146,8 @@ public class ActivityMain extends AppCompatActivity {
         buttonRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
+                if (!checkDataValidity())
+                    return;
                 Intent intent = new Intent(ActivityMain.this, ActivityRecord.class);
                 intent.putExtra("RecordType","Expense");
                 intent.putExtra("RecordScheme","Insert");
@@ -166,6 +191,8 @@ public class ActivityMain extends AppCompatActivity {
         buttonCollection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
+                if (!checkDataValidity())
+                    return;
                 Intent intent = new Intent(ActivityMain.this, ActivityRecord.class);
                 intent.putExtra("RecordType","Collection");
                 intent.putExtra("RecordScheme","Insert");
@@ -281,6 +308,16 @@ public class ActivityMain extends AppCompatActivity {
         sqLiteDatabase = customSQLiteOpenHelper.getWritableDatabase();
         accountDb = new AccountDb(sqLiteDatabase);
         recordDb = new RecordDb(sqLiteDatabase);
+        class1Db = new CategoryDb(sqLiteDatabase);
+        class2Db = new SubcategoryDb(sqLiteDatabase);
+    }
+
+    /**
+     * 初始化数据
+     */
+    private void initData() {
+        listClass1s = class1Db.categoryList();
+        listAccounts = accountDb.accountList();
     }
 
 
@@ -339,6 +376,30 @@ public class ActivityMain extends AppCompatActivity {
     private void updateYearData() {
         setTextViewDecimalMoney(textViewYearExpense, recordDb.yearExpenseRecordSum());
         setTextViewDecimalMoney(textViewYearIncome, recordDb.yearIncomeRecordSum());
+    }
+
+
+    /**
+     * 检查数据合法性
+     */
+    private boolean checkDataValidity() {
+        ArrayList<Class1> listClass1Expense = class1Db.getCategoryListByType(1);
+        ArrayList<Class1> listClass1Income = class1Db.getCategoryListByType(2);
+
+        if (listClass1Expense.size() == 0) {
+            displayToast("不存在支出的一级分类，请在设置中新建一级分类", this, 1);
+            return false;
+        }
+        if (listClass1Income.size() == 0) {
+            displayToast("不存在收入的一级分类，请在设置中新建一级分类", this, 1);
+            return false;
+        }
+        if (listAccounts.size() == 0) {
+            displayToast("不存在任何账户，请新建账户", this, 1);
+            return false;
+        }
+
+        return true;
     }
 
 }

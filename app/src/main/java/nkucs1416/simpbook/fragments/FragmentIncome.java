@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -41,6 +40,7 @@ import nkucs1416.simpbook.util.SpinnerAdapterClass1;
 import static nkucs1416.simpbook.util.Class1.sortListClass1s;
 import static nkucs1416.simpbook.util.Date.*;
 import static nkucs1416.simpbook.util.Money.*;
+import static nkucs1416.simpbook.util.Other.displayToast;
 import static nkucs1416.simpbook.util.Remark.createDialogRemark;
 
 public class FragmentIncome extends Fragment {
@@ -105,6 +105,7 @@ public class FragmentIncome extends Fragment {
 
         initDatabase();
         initData();
+        checkDataValidityEnd();
 
         initClass();
         initAccount();
@@ -114,6 +115,13 @@ public class FragmentIncome extends Fragment {
         updateDataForInsertCollectionScheme();
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        initData();
     }
 
     @Override
@@ -223,11 +231,11 @@ public class FragmentIncome extends Fragment {
                         Record recordInsert = getRecordInsert();
                         String messageInsert = insertRecord(recordInsert);
                         if (messageInsert.equals("成功")) {
-                            Toast.makeText(getContext(), messageInsert, Toast.LENGTH_SHORT).show();
+                            displayToast(messageInsert, getContext(), 0);
                             Intent intent = new Intent(getContext(), ActivityMain.class);
                             startActivity(intent);
                         } else {
-                            Toast.makeText(getContext(), messageInsert, Toast.LENGTH_LONG).show();
+                            displayToast(messageInsert, getContext(), 1);
                         }
                         break;
 
@@ -235,11 +243,11 @@ public class FragmentIncome extends Fragment {
                         Record recordUpdate = getRecordUpdate(updateRecordId);
                         String messageUpdate = updateRecord(recordUpdate);
                         if (messageUpdate.equals("成功")) {
-                            Toast.makeText(getContext(), messageUpdate, Toast.LENGTH_SHORT).show();
+                            displayToast(messageUpdate, getContext(), 0);
                             Intent intent = new Intent(getContext(), ActivityStatement.class);
                             startActivity(intent);
                         } else {
-                            Toast.makeText(getContext(), messageUpdate, Toast.LENGTH_LONG).show();
+                            displayToast(messageUpdate, getContext(), 1);
                         }
                         break;
 
@@ -247,18 +255,18 @@ public class FragmentIncome extends Fragment {
                         Collection collection = getCollectionInsert();
                         String messageCollectionInsert = insertCollection(collection);
                         if (messageCollectionInsert.equals("成功")) {
-                            Toast.makeText(getContext(), messageCollectionInsert, Toast.LENGTH_SHORT).show();
+                            displayToast(messageCollectionInsert, getContext(), 0);
                             Intent intent = new Intent(getContext(), ActivityRecord.class);
                             intent.putExtra("RecordType","Collection");
                             intent.putExtra("RecordScheme","Insert");
                             startActivity(intent);
                         } else {
-                            Toast.makeText(getContext(), messageCollectionInsert, Toast.LENGTH_LONG).show();
+                            displayToast(messageCollectionInsert, getContext(), 1);
                         }
                         break;
 
                     default:
-                        Toast.makeText(getContext(), "内部错误: RecordScheme值错误", Toast.LENGTH_SHORT).show();
+                        displayToast("内部错误: RecordScheme值错误", getContext(), 1);
                         break;
                 }
             }
@@ -285,8 +293,6 @@ public class FragmentIncome extends Fragment {
         updateListClass1s();
         updateListClass2s();
         updateListAccounts();
-
-        checkDataValidity();
     }
 
 
@@ -422,18 +428,13 @@ public class FragmentIncome extends Fragment {
     /**
      * 检查数据合法性
      */
-    private void checkDataValidity() {
+    private void checkDataValidityEnd() {
         for (Class1 class1 : listClass1s) {
             ArrayList<Class2> listClass2 = class2Db.subcategoryList(class1.getId());
             if (listClass2.isEmpty()) {
                 getActivity().finish();
-                Toast.makeText(getContext(), "存在某个一级分类，其不含有二级分类。请更新二级分类数据", Toast.LENGTH_LONG).show();
+                displayToast("存在某个一级分类，其不含有二级分类\n请在设置中更新二级分类数据", getContext(), 1);
             }
-        }
-
-        if (listAccounts.isEmpty()) {
-            getActivity().finish();
-            Toast.makeText(getContext(), "账户列表为空。请更新账户数据", Toast.LENGTH_LONG).show();
         }
     }
 

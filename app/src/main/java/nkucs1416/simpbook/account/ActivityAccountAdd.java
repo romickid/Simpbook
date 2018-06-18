@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,6 +21,7 @@ import nkucs1416.simpbook.util.SpinnerAdapterColor;
 import static nkucs1416.simpbook.account.AccountType.getListAccountTypes;
 import static nkucs1416.simpbook.util.Color.*;
 import static nkucs1416.simpbook.util.Money.setEditTextDecimalScheme;
+import static nkucs1416.simpbook.util.Other.displayToast;
 
 public class ActivityAccountAdd extends AppCompatActivity {
     private Toolbar toolbar;
@@ -120,12 +120,12 @@ public class ActivityAccountAdd extends AppCompatActivity {
             public void onClick(View arg0) {
                 String message = insertAccount();
                 if (message.equals("成功")) {
-                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                    displayToast(message, getApplicationContext(), 0);
                     Intent intent = new Intent(ActivityAccountAdd.this, ActivityAccount.class);
                     startActivity(intent);
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                    displayToast(message, getApplicationContext(), 1);
                 }
             }
         });
