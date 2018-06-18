@@ -6,9 +6,9 @@ import android.widget.TextView;
 
 import nkucs1416.simpbook.R;
 
-class ViewHolderAccountSummarize extends RecyclerView.ViewHolder {
-    TextView textViewText;
-    TextView textViewMoney;
+public class ViewHolderAccountSummarize extends RecyclerView.ViewHolder {
+    public TextView textViewText;
+    public TextView textViewMoney;
 
 
     /**
@@ -16,7 +16,7 @@ class ViewHolderAccountSummarize extends RecyclerView.ViewHolder {
      *
      * @param view default
      */
-    ViewHolderAccountSummarize(View view) {
+    public ViewHolderAccountSummarize(View view) {
         super(view);
         textViewText = view.findViewById(R.id.iaccountsummarize_text);
         textViewMoney = view.findViewById(R.id.iaccountsummarize_money);

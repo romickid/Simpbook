@@ -20,7 +20,7 @@
         </activity>
         <activity android:name=".record.ActivityRecord" />
         <activity android:name=".account.ActivityAccount" />
-        <activity android:name=".account.ActivityAccountAdd" />
+        <activity android:name=".account.ActivityAccountEdit" />
         <activity android:name=".statement.ActivityStatement" />
         <activity android:name=".setting.ActivitySetting" />
         <activity android:name=".edit.ActivityEdit" />
@@ -28,7 +28,7 @@
         <activity android:name=".setting.ActivityClass2Expense" />
         <activity android:name=".setting.ActivityClass1Income" />
         <activity android:name=".setting.ActivityClass2Income" />
-        <activity android:name=".fragments.Collection.ActivityCollectionAdd" />
+        <activity android:name=".setting.ActivityAccountSetting" />
     </application>
 
 </manifest>

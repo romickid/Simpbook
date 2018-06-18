@@ -1,6 +1,6 @@
 package nkucs1416.simpbook.account;
 
-class AccountSummarize {
+public class AccountSummarize {
     private String text;
     private Float money;
 
@@ -11,7 +11,7 @@ class AccountSummarize {
      * @param tText 名称
      * @param tMoney 金额
      */
-    AccountSummarize(String tText, float tMoney) {
+    public AccountSummarize(String tText, float tMoney) {
         text = tText;
         money = tMoney;
     }

@@ -1,4 +1,4 @@
-package nkucs1416.simpbook.account;
+package nkucs1416.simpbook.setting;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,29 +9,30 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import nkucs1416.simpbook.R;
+import nkucs1416.simpbook.account.AccountSummarize;
+import nkucs1416.simpbook.account.ActivityAccountEdit;
 import nkucs1416.simpbook.database.AccountDb;
 import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
 import nkucs1416.simpbook.util.Account;
-import nkucs1416.simpbook.util.OnDeleteDataListener;
 
 import static nkucs1416.simpbook.account.AccountType.getAccountTypeName;
 import static nkucs1416.simpbook.util.Account.getSumMoney;
-import static nkucs1416.simpbook.util.Money.setTextViewDecimalMoney;
 
-public class ActivityAccount extends AppCompatActivity implements OnDeleteDataListener {
+public class ActivityAccountSetting extends AppCompatActivity {
+
     private Toolbar toolbar;
-    private TextView textViewNetAssets;
     private RecyclerView recyclerView;
     private FloatingActionButton buttonAdd;
 
     private SQLiteDatabase sqLiteDatabase;
     private AccountDb accountDb;
+
+    private AdapterAccountSetting adapterAccountSetting;
 
     private ArrayList<HashMap<String, Object>> listAccountObjects;
     private ArrayList<Account> listAccounts;
@@ -41,7 +42,7 @@ public class ActivityAccount extends AppCompatActivity implements OnDeleteDataLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account);
+        setContentView(R.layout.activity_accountsetting);
 
         initFindById();
         initToolbar();
@@ -66,10 +67,9 @@ public class ActivityAccount extends AppCompatActivity implements OnDeleteDataLi
      * 初始化Id
      */
     private void initFindById() {
-        toolbar = findViewById(R.id.account_toolbar);
-        textViewNetAssets = findViewById(R.id.account_textview_netassets);
-        recyclerView = findViewById(R.id.account_recyclerview);
-        buttonAdd = findViewById(R.id.account_button_addaccount);
+        toolbar = findViewById(R.id.accountsetting_toolbar);
+        recyclerView = findViewById(R.id.accountsetting_recyclerview);
+        buttonAdd = findViewById(R.id.accountsetting_button_add);
     }
 
     /**
@@ -92,20 +92,24 @@ public class ActivityAccount extends AppCompatActivity implements OnDeleteDataLi
      */
     private void initRecycleView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        AdapterAccount adapterAccount = new AdapterAccount(this, listAccountObjects);
-        recyclerView.setAdapter(adapterAccount);
+        adapterAccountSetting = new AdapterAccountSetting(this, listAccountObjects);
+        recyclerView.setAdapter(adapterAccountSetting);
     }
 
     /**
-     * 初始化添加Account按钮
+     * 初始化按钮
      */
     private void initButtonAdd() {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Intent intent = new Intent(ActivityAccount.this, ActivityAccountEdit.class);
-                intent.putExtra("AccountEditScheme", "Insert");
-                startActivity(intent);
+                buttonAdd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View arg0) {
+                        Intent intent = new Intent(getApplicationContext(), ActivityAccountEdit.class);
+                        startActivity(intent);
+                    }
+                });
             }
         });
     }
@@ -125,7 +129,6 @@ public class ActivityAccount extends AppCompatActivity implements OnDeleteDataLi
     private void initData() {
         updateListAccounts();
         updateListAccountObjects();
-        updateNetAssets();
     }
 
 
@@ -205,20 +208,6 @@ public class ActivityAccount extends AppCompatActivity implements OnDeleteDataLi
         hashMap.put("AccountObjectViewType", 2); // 2->AccountSummarize
         hashMap.put("Object", accountSummarize);
         return hashMap;
-    }
-
-    /**
-     * 更新净资产信息
-     */
-    private void updateNetAssets() {
-        setTextViewDecimalMoney(textViewNetAssets, getSumMoney(listAccounts));
-    }
-
-
-    // Adapter-Activity数据传递相关
-    @Override
-    public void OnDeleteData() {
-        initData();
     }
 
 }
