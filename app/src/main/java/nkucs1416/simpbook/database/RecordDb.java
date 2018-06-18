@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.provider.CallLog;
 
 
 import nkucs1416.simpbook.network.UpdateRecord;
@@ -82,7 +83,7 @@ public class RecordDb {
 
         accountdb.updateAccountSum(account_id);
 
-        if(record_type == -1) {
+        if(record_type == 3) {
             accountdb.updateAccountSum(account_toId);
         }
 
@@ -157,6 +158,16 @@ public class RecordDb {
                 record.getClass2Id(), record.getToAccountId(), record.getDate());
     }
 
+    private int retrieveRecordAccountId(int record_id) {
+        Cursor cursor = db.query("c_record", new String[]{"record_accountID"},
+                "record_id = ? ", new String[]{record_id+""}, null, null, null);
+        cursor.moveToFirst();
+        int idIndex = cursor.getColumnIndex("record_accountID");
+        int id = cursor.getInt(idIndex);
+        return id;
+    }
+
+
     /**
      * 更新一条record数据
      *
@@ -178,6 +189,8 @@ public class RecordDb {
 
         int datetime = util.switchDateToTime(record_time);
 
+        int old_accountId = retrieveRecordAccountId(record_id);
+
         ContentValues values = new ContentValues();
         values.put("record_accountID", account_id);
         values.put("record_type", record_type);
@@ -196,7 +209,11 @@ public class RecordDb {
 
         accountdb.updateAccountSum(account_id);
 
-        if (record_type == -1) {
+        if(account_id != old_accountId) {
+            accountdb.updateAccountSum(old_accountId);
+        }
+
+        if (record_type == 3) {
             accountdb.updateAccountSum(account_toId);
         }
 
@@ -276,7 +293,7 @@ public class RecordDb {
 
         accountdb.updateAccountSum(account_id);
 
-        if(retrieveRecordType(record_id) == -1) {
+        if(retrieveRecordType(record_id) == 3) {
             accountdb.updateAccountSum(retrieveAccountToIdByRecord(record_id));
         }
 
@@ -439,7 +456,7 @@ public class RecordDb {
         return  recordArray;
     }
     /**
-     * 返回所有的record数据
+     * 返回某个流水id的record数据
      *
      */
     public ArrayList<Record> getRecordListById (int record_id) {
