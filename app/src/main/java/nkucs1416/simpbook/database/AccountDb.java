@@ -149,11 +149,11 @@ public class AccountDb {
             int type = cursor.getInt(typeIndex);
             int moneyIndex = cursor.getColumnIndex("money");
             float account_money = cursor.getFloat(moneyIndex);
-            if (type == 1) {
+            if (type == 2) {
                 account_sum += account_money;
-            } else if (type == 0) {
+            } else if (type == 1) {
                 account_sum -= account_money;
-            } else if (type == -1) {
+            } else if (type == 3) {
                 account_sum -= account_money;
             } else if (type == 4) {
                 account_sum += account_money;
@@ -162,7 +162,7 @@ public class AccountDb {
         }
 
         cursor = db.query("c_record", new String[]{"record_type", "SUM(record_money) AS money"},
-                "record_accountToID = ? AND record_type = -1 AND status > -1",
+                "record_accountToID = ? AND record_type = 3 AND status > -1",
                 new String[] {account_id+""}, null, null, null);
         cursor.moveToFirst();
         int moneyIndex = cursor.getColumnIndex("money");
