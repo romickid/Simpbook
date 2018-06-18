@@ -8,12 +8,12 @@ import android.widget.TextView;
 
 import nkucs1416.simpbook.R;
 
-class ViewHolderAccountDefault extends RecyclerView.ViewHolder {
-    TextView textViewText;
-    TextView textViewMoney;
-    ImageView imageViewColor;
-    ImageView imageViewBackground;
-    Context context;
+public class ViewHolderAccountDefault extends RecyclerView.ViewHolder {
+    public TextView textViewText;
+    public TextView textViewMoney;
+    public ImageView imageViewColor;
+    public ImageView imageViewBackground;
+    public Context context;
 
 
     /**
@@ -21,7 +21,7 @@ class ViewHolderAccountDefault extends RecyclerView.ViewHolder {
      *
      * @param view default
      */
-    ViewHolderAccountDefault(View view) {
+    public ViewHolderAccountDefault(View view) {
         super(view);
         context = view.getContext();
         textViewText = view.findViewById(R.id.iaccountdefault_text);

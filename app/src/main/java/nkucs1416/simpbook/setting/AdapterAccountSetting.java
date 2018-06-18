@@ -1,4 +1,4 @@
-package nkucs1416.simpbook.account;
+package nkucs1416.simpbook.setting;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -17,9 +17,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import nkucs1416.simpbook.R;
+import nkucs1416.simpbook.account.AccountSummarize;
+import nkucs1416.simpbook.account.ActivityAccount;
+import nkucs1416.simpbook.account.ActivityAccountEdit;
+import nkucs1416.simpbook.account.ViewHolderAccountDefault;
+import nkucs1416.simpbook.account.ViewHolderAccountSummarize;
 import nkucs1416.simpbook.database.AccountDb;
 import nkucs1416.simpbook.database.CustomSQLiteOpenHelper;
-import nkucs1416.simpbook.statement.ActivityStatement;
 import nkucs1416.simpbook.util.Account;
 import nkucs1416.simpbook.util.OnDeleteDataListener;
 
@@ -27,7 +31,7 @@ import static nkucs1416.simpbook.util.Color.getColorIcon;
 import static nkucs1416.simpbook.util.Money.setTextViewDecimalMoney;
 import static nkucs1416.simpbook.util.Other.displayToast;
 
-public class AdapterAccount extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AdapterAccountSetting extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<HashMap<String, Object>> listAccountObjects;
     private Context context;
 
@@ -43,7 +47,7 @@ public class AdapterAccount extends RecyclerView.Adapter<RecyclerView.ViewHolder
      * @param tContext 传入的Context
      * @param tListAccountObjects 传入的AccountObjects列表
      */
-    public AdapterAccount(Context tContext, ArrayList<HashMap<String, Object>> tListAccountObjects) {
+    public AdapterAccountSetting(Context tContext, ArrayList<HashMap<String, Object>> tListAccountObjects) {
         super();
         this.context = tContext;
         this.listAccountObjects = tListAccountObjects;
@@ -97,9 +101,9 @@ public class AdapterAccount extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 imageViewBackground1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View arg0) {
-                        Intent intent = new Intent(context1, ActivityStatement.class);
-                        intent.putExtra("StatementFilterDate", "Default");
-                        intent.putExtra("StatementFilterAccount", String.valueOf(account.getId()));
+                        Intent intent = new Intent(context1, ActivityAccountEdit.class);
+                        intent.putExtra("AccountEditScheme", "Update");
+                        intent.putExtra("AccountUpdateId", String.valueOf(account.getId()));
                         context1.startActivity(intent);
                     }
                 });
