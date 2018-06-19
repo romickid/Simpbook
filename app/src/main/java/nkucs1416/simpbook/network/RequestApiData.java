@@ -331,7 +331,7 @@ public class RequestApiData {
 	public void getUpdateAllData(  String token, HttpResponeCallBack callback, Context context) {
 		mCallBack = callback;
 		//这是每一个接口的唯一标示
-		String tagUrl = UrlConstance.KEY_UPDATE_TEMPLATE_INFO;
+		String tagUrl = UrlConstance.KEY_UPDATE_ALL_INFO;
 
 		JSONObject parameter = new JSONObject();
 		try {

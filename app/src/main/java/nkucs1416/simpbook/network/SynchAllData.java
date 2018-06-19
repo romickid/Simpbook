@@ -77,8 +77,9 @@ public class SynchAllData implements HttpResponeCallBack {
                             String accountName = account.getString("accountName");
                             int accountColor = account.getInt("accountColor");
                             float accountMoney = (float) account.getDouble("accountMoney");
+                            int accountType = account.getInt("accountType");
                             int status = account.getInt("status");
-                            accountArrayList.add(new Account(accountId, accountName, accountMoney, accountColor, status));
+                            accountArrayList.add(new Account(accountId, accountName, accountMoney, accountColor, accountType, status));
                         }
                         AccountDb accountDb = new AccountDb(db);
                         accountDb.updateAccountData(accountArrayList);
@@ -88,8 +89,9 @@ public class SynchAllData implements HttpResponeCallBack {
                             int categoryId = category.getInt("categoryId");
                             String categoryName = category.getString("categoryName");
                             int categoryColor = category.getInt("categoryColor");
+                            int categoryType = category.getInt("categoryType");
                             int status = category.getInt("status");
-                            categoryArrayList.add(new Class1(categoryId, categoryName, categoryColor, status));
+                            categoryArrayList.add(new Class1(categoryId, categoryName, categoryColor, categoryType, status));
                         }
                         CategoryDb categoryDb = new CategoryDb(db);
                         categoryDb.updateCategoryData(categoryArrayList);
@@ -139,7 +141,7 @@ public class SynchAllData implements HttpResponeCallBack {
                             String templateRemark = template.getString("templateRemark");
                             int templateType = template.getInt("templateType");
                             int status = template.getInt("status");
-                            recordArrayList.add(new Record(templateId, accountId, templateMoney, templateType, time, templateRemark, categoryId, subcategoryId, accountToId, status));
+                            templateArrayList.add(new Collection(templateId, accountId, templateMoney, templateType, time, templateRemark, categoryId, subcategoryId, accountToId, status));
                         }
                         TemplateDb templateDb = new TemplateDb(db);
                         templateDb.updateTemplateData(templateArrayList);
