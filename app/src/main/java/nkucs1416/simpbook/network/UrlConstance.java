@@ -13,7 +13,7 @@ public class UrlConstance {
    public static final String PUBLIC_KEY ="*.simpbook.com";
 
    //服务器端URL链接
-   public static final String APP_URL = "http://10.0.2.2:8081/api/";
+   public static final String APP_URL = "http://139.162.45.117:8081/api/";
    
    //注册用户接口
    public static final String KEY_REGIST_INFO ="createUser";

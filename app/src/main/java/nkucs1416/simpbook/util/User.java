@@ -22,6 +22,19 @@ public class User {
         password = tPassword;
     }
 
+    /**
+     * 构建User的一个实例
+     *
+     * @param tName 名称
+     * @param tEmail email
+     * @param tPassword password
+     */
+    public User(String tName, String tEmail, String tPassword) {
+        name = tName;
+        email = tEmail;
+        password = tPassword;
+    }
+
 
     /**
      * 获取Id

@@ -59,7 +59,7 @@ public class Class1 {
      * @param tType 类型
      * @param tStatus 状态
      */
-    public Class1(int tId, String tName, int tColor, int tStatus, int tType) {
+    public Class1(int tId, String tName, int tColor, int tType, int tStatus) {
         id = tId;
         name = tName;
         color = tColor;
