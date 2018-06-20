@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import org.json.JSONException;
 
 import nkucs1416.simpbook.database.UserPreference;
+import nkucs1416.simpbook.util.UserListener;
 
 
 /**
@@ -18,6 +19,8 @@ public class Register implements HttpResponeCallBack {
 
     private String password;
 
+    private UserListener userListener;
+
     /**
      * 构建一个Register实例
      *
@@ -25,6 +28,7 @@ public class Register implements HttpResponeCallBack {
      */
     public Register(Context instance) {
         context = instance;
+        userListener = (UserListener)instance;
     }
     /**
      * 创建用户接口调用
@@ -70,11 +74,12 @@ public class Register implements HttpResponeCallBack {
                         UserPreference.save(context, KeyConstance.IS_USER_NAME, info.getString("username"));
                         UserPreference.save(context, KeyConstance.IS_USER_ACCOUNT, info.getString("email"));
                         UserPreference.save(context, KeyConstance.IS_USER_PASSWORD, password);
-
+                        userListener.OnUserSignInSuccess();
                     } else {
                         // return baseUser;
                         String errode = info.getString("errode");
                         String msg = info.getString("msg");
+                        userListener.OnUserSignInFail();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

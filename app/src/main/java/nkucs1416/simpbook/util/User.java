@@ -35,6 +35,17 @@ public class User {
         password = tPassword;
     }
 
+    /**
+     * 构建User的一个实例
+     *
+     * @param tEmail email
+     * @param tPassword password
+     */
+    public User(String tEmail, String tPassword) {
+        email = tEmail;
+        password = tPassword;
+    }
+
 
     /**
      * 获取Id

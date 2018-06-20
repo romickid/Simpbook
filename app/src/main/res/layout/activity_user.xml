@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/user_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="@color/colorDefaultBlue"
+        android:minHeight="56dp"
+        android:theme="?attr/actionBarTheme"
+        app:contentInsetStartWithNavigation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_chevron_left_white_36dp"
+        app:title="用户"
+        app:titleTextColor="@color/colorWhite" />
+
+    <ImageView
+        android:id="@+id/user_imageview_signin"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_toolbar"
+        app:srcCompat="@android:color/background_light" />
+
+    <ImageView
+        android:id="@+id/user_staticimg1"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/user_imageview_signin"
+        app:layout_constraintStart_toStartOf="@+id/user_imageview_signin"
+        app:layout_constraintTop_toTopOf="@+id/user_imageview_signin"
+        app:srcCompat="@drawable/ic_assignment_ind_grey_500_36dp" />
+
+    <TextView
+        android:id="@+id/user_statictext1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_weight="5"
+        android:text="注册账户"
+        android:textColor="@color/colorText54"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/user_imageview_signin"
+        app:layout_constraintStart_toEndOf="@+id/user_staticimg1"
+        app:layout_constraintTop_toTopOf="@+id/user_imageview_signin" />
+
+    <ImageView
+        android:id="@+id/user_imageview_login"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_imageview_signin"
+        app:srcCompat="@android:color/background_light" />
+
+    <ImageView
+        android:id="@+id/user_staticimg2"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/user_imageview_login"
+        app:layout_constraintStart_toStartOf="@+id/user_imageview_login"
+        app:layout_constraintTop_toTopOf="@+id/user_imageview_login"
+        app:srcCompat="@drawable/ic_account_circle_grey_500_36dp" />
+
+    <TextView
+        android:id="@+id/user_statictext2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_weight="5"
+        android:text="登录账户"
+        android:textColor="@color/colorText54"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/user_imageview_login"
+        app:layout_constraintStart_toEndOf="@+id/user_staticimg1"
+        app:layout_constraintTop_toTopOf="@+id/user_imageview_login" />
+
+    <ImageView
+        android:id="@+id/user_imageview_upload"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_imageview_login"
+        app:srcCompat="@android:color/background_light" />
+
+    <ImageView
+        android:id="@+id/user_staticimg3"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/user_imageview_upload"
+        app:layout_constraintStart_toStartOf="@+id/user_imageview_upload"
+        app:layout_constraintTop_toTopOf="@+id/user_imageview_upload"
+        app:srcCompat="@drawable/ic_cloud_upload_grey_500_36dp" />
+
+    <TextView
+        android:id="@+id/user_statictext3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_weight="5"
+        android:text="上传数据"
+        android:textColor="@color/colorText54"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/user_imageview_upload"
+        app:layout_constraintStart_toEndOf="@+id/user_staticimg1"
+        app:layout_constraintTop_toTopOf="@+id/user_imageview_upload" />
+
+    <ImageView
+        android:id="@+id/user_imageview_download"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_imageview_upload"
+        app:srcCompat="@android:color/background_light" />
+
+    <ImageView
+        android:id="@+id/user_staticimg4"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/user_imageview_download"
+        app:layout_constraintStart_toStartOf="@+id/user_imageview_download"
+        app:layout_constraintTop_toTopOf="@+id/user_imageview_download"
+        app:srcCompat="@drawable/ic_cloud_download_grey_500_36dp" />
+
+    <TextView
+        android:id="@+id/user_statictext4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_weight="5"
+        android:text="下载数据"
+        android:textColor="@color/colorText54"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/user_imageview_download"
+        app:layout_constraintStart_toEndOf="@+id/user_staticimg1"
+        app:layout_constraintTop_toTopOf="@+id/user_imageview_download" />
+
+    <ImageView
+        android:id="@+id/setting_staticline1"
+        android:layout_width="0dp"
+        android:layout_height="1sp"
+        app:layout_constraintBottom_toTopOf="@+id/user_imageview_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@color/colorGrey300" />
+
+    <ImageView
+        android:id="@+id/setting_staticline2"
+        android:layout_width="0dp"
+        android:layout_height="1sp"
+        app:layout_constraintBottom_toTopOf="@+id/user_imageview_download"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@color/colorGrey300" />
+
+</android.support.constraint.ConstraintLayout>
