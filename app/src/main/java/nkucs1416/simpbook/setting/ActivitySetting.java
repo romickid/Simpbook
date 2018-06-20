@@ -24,6 +24,7 @@ public class ActivitySetting extends AppCompatActivity {
     private ImageView imageViewClassExpense;
     private ImageView imageViewClassIncome;
     private ImageView imageViewAccount;
+    private ImageView imageViewUser;
     private ImageView imageViewDeleteData;
 
     private SQLiteDatabase sqLiteDatabase;
@@ -56,6 +57,7 @@ public class ActivitySetting extends AppCompatActivity {
         imageViewClassExpense = findViewById(R.id.setting_imageview_classexpense);
         imageViewClassIncome = findViewById(R.id.setting_imageview_classincome);
         imageViewAccount = findViewById(R.id.setting_imageview_account);
+        imageViewUser = findViewById(R.id.setting_imageview_user);
         imageViewDeleteData = findViewById(R.id.setting_imageview_deletedata);
     }
 
@@ -81,6 +83,7 @@ public class ActivitySetting extends AppCompatActivity {
         initImageViewClassExpense();
         initImageViewClassIncome();
         initImageViewAccount();
+        initImageViewUser();
         initImageViewDeleteData();
     }
 
@@ -118,6 +121,19 @@ public class ActivitySetting extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(ActivitySetting.this, ActivityAccountSetting.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    /**
+     * 初始化"用户设置"
+     */
+    private void initImageViewUser() {
+        imageViewUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent intent = new Intent(ActivitySetting.this, ActivityUser.class);
                 startActivity(intent);
             }
         });

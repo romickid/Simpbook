@@ -22,6 +22,8 @@ public class SynchAllData implements HttpResponeCallBack {
 
     private SQLiteDatabase db;
 
+    private UserListener userListener;
+
 
     /**
      * 构建一个SynchAllData实例
@@ -33,6 +35,7 @@ public class SynchAllData implements HttpResponeCallBack {
     public SynchAllData(String token, Context instance, SQLiteDatabase db_instance) {
         context = instance;
         db = db_instance;
+        userListener = (UserListener)instance;
         RequestApiData.getInstance().getUpdateAllData(token,
                 SynchAllData.this, context);
     }
@@ -145,12 +148,13 @@ public class SynchAllData implements HttpResponeCallBack {
                         }
                         TemplateDb templateDb = new TemplateDb(db);
                         templateDb.updateTemplateData(templateArrayList);
-
+                        userListener.OnUserDownloadSuccess();
                     } else {
                         // return baseUser;
                         // Toast.makeText(RegisterActivity.this, "注册失败", Toast.LENGTH_SHORT).show();
                         String errcode = info.getString("errcode");
                         String msg = info.getString("msg");
+                        userListener.OnUserDownloadFail();
                     }
                 } catch (JSONException e) {
 
