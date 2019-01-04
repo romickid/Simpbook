@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="nkucs1416.simpbook">
+    package="com.romickid.simpbook">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,26 +12,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.ActivityMain">
+        <activity android:name="com.romickid.simpbook.main.ActivityMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".record.ActivityRecord" />
-        <activity android:name=".account.ActivityAccount" />
-        <activity android:name=".account.ActivityAccountEdit" />
-        <activity android:name=".statement.ActivityStatement" />
-        <activity android:name=".setting.ActivitySetting" />
-        <activity android:name=".edit.ActivityEdit" />
-        <activity android:name=".setting.ActivityClass1Expense" />
-        <activity android:name=".setting.ActivityClass2Expense" />
-        <activity android:name=".setting.ActivityClass1Income" />
-        <activity android:name=".setting.ActivityClass2Income" />
-        <activity android:name=".setting.ActivityAccountSetting" />
-        <activity android:name=".fragments.Collection.ActivityCollectionAdd" />
-        <activity android:name=".setting.ActivityUser" />
+        <activity android:name="com.romickid.simpbook.record.ActivityRecord" />
+        <activity android:name="com.romickid.simpbook.account.ActivityAccount" />
+        <activity android:name="com.romickid.simpbook.account.ActivityAccountEdit" />
+        <activity android:name="com.romickid.simpbook.statement.ActivityStatement" />
+        <activity android:name="com.romickid.simpbook.setting.ActivitySetting" />
+        <activity android:name="com.romickid.simpbook.edit.ActivityEdit" />
+        <activity android:name="com.romickid.simpbook.setting.ActivityClass1Expense" />
+        <activity android:name="com.romickid.simpbook.setting.ActivityClass2Expense" />
+        <activity android:name="com.romickid.simpbook.setting.ActivityClass1Income" />
+        <activity android:name="com.romickid.simpbook.setting.ActivityClass2Income" />
+        <activity android:name="com.romickid.simpbook.setting.ActivityAccountSetting" />
+        <activity android:name="com.romickid.simpbook.fragments.Collection.ActivityCollectionAdd" />
     </application>
 
 </manifest>

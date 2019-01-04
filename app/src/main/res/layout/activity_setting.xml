@@ -129,54 +129,17 @@
 
 
     <ImageView
-        android:id="@+id/setting_imageview_user"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/setting_imageview_account"
-        app:srcCompat="@android:color/background_light" />
-
-    <ImageView
-        android:id="@+id/setting_staticimg4"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/setting_imageview_user"
-        app:layout_constraintStart_toStartOf="@+id/setting_staticimg1"
-        app:layout_constraintTop_toTopOf="@+id/setting_imageview_user"
-        app:srcCompat="@drawable/ic_verified_user_grey_500_36dp" />
-
-    <TextView
-        android:id="@+id/setting_statictext4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_weight="5"
-        android:text="用户设置"
-        android:textColor="@color/colorText54"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/setting_imageview_user"
-        app:layout_constraintStart_toEndOf="@+id/setting_staticimg4"
-        app:layout_constraintTop_toTopOf="@+id/setting_imageview_user" />
-
-    <ImageView
         android:id="@+id/setting_imageview_deletedata"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginTop="16dp"
         android:clickable="true"
+        android:layout_marginTop="16dp"
         android:foreground="?android:attr/selectableItemBackground"
+        app:layout_constraintTop_toBottomOf="@+id/setting_imageview_account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/setting_imageview_user"
-        app:srcCompat="@android:color/background_light" />
+        app:srcCompat="@android:color/background_light"
+        tools:layout_editor_absoluteY="312dp" />
 
     <ImageView
         android:id="@+id/setting_staticimg5"
