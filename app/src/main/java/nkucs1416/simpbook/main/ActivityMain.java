@@ -27,7 +27,6 @@ import nkucs1416.simpbook.util.Account;
 import nkucs1416.simpbook.util.Class1;
 import nkucs1416.simpbook.util.Class2;
 import nkucs1416.simpbook.util.Date;
-import pl.com.salsoft.sqlitestudioremote.SQLiteStudioService;
 
 import static nkucs1416.simpbook.util.Money.setTextViewDecimalMoney;
 import static nkucs1416.simpbook.util.Other.displayToast;
@@ -83,9 +82,6 @@ public class ActivityMain extends AppCompatActivity {
         initData();
 
         updateData();
-
-        // TODO: 6/16/2018
-        SQLiteStudioService.instance().start(this);
     }
 
     @Override
