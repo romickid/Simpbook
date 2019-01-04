@@ -71,6 +71,7 @@ public class FragmentCollectionAdd extends Fragment {
 
 
     // 初始化相关
+
     /**
      * 初始化Id
      */
@@ -98,7 +99,7 @@ public class FragmentCollectionAdd extends Fragment {
             public void onClick(View arg0) {
                 Intent intent = new Intent(getContext(), ActivityCollectionAdd.class);
                 intent.putExtra("CollectionAddType", "Expense");
-                intent.putExtra("RecordScheme","Collection");
+                intent.putExtra("RecordScheme", "Collection");
                 startActivity(intent);
                 getActivity().finish();
             }
@@ -115,7 +116,7 @@ public class FragmentCollectionAdd extends Fragment {
             public void onClick(View arg0) {
                 Intent intent = new Intent(getContext(), ActivityCollectionAdd.class);
                 intent.putExtra("CollectionAddType", "Income");
-                intent.putExtra("RecordScheme","Collection");
+                intent.putExtra("RecordScheme", "Collection");
                 startActivity(intent);
                 getActivity().finish();
             }
@@ -131,7 +132,7 @@ public class FragmentCollectionAdd extends Fragment {
             public void onClick(View arg0) {
                 Intent intent = new Intent(getContext(), ActivityCollectionAdd.class);
                 intent.putExtra("CollectionAddType", "Transfer");
-                intent.putExtra("RecordScheme","Collection");
+                intent.putExtra("RecordScheme", "Collection");
                 startActivity(intent);
                 getActivity().finish();
             }

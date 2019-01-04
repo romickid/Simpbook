@@ -8,7 +8,7 @@ public class AccountSummarize {
     /**
      * 构建AccountSummarize实例
      *
-     * @param tText 名称
+     * @param tText  名称
      * @param tMoney 金额
      */
     public AccountSummarize(String tText, float tMoney) {

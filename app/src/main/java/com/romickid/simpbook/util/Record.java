@@ -18,12 +18,12 @@ public class Record {
      * 用于新增支出/收入Record
      *
      * @param tAccountId 账户id
-     * @param tMoney 金额
-     * @param tType 类型(1:支出, 2:收入, 3:转账)
-     * @param tDate 日期
-     * @param tRemark 备注
-     * @param tClass1Id 一级分类id
-     * @param tClass2Id 二级分类id
+     * @param tMoney     金额
+     * @param tType      类型(1:支出, 2:收入, 3:转账)
+     * @param tDate      日期
+     * @param tRemark    备注
+     * @param tClass1Id  一级分类id
+     * @param tClass2Id  二级分类id
      */
     public Record(
             int tAccountId, float tMoney, int tType, Date tDate, String tRemark,
@@ -42,11 +42,11 @@ public class Record {
      * 构建statementRecord的实例
      * 用于新增转账Record
      *
-     * @param tAccountId 账户id
-     * @param tMoney 金额
-     * @param tType 类型(1:支出, 2:收入, 3:转账)
-     * @param tDate 日期
-     * @param tRemark 备注
+     * @param tAccountId   账户id
+     * @param tMoney       金额
+     * @param tType        类型(1:支出, 2:收入, 3:转账)
+     * @param tDate        日期
+     * @param tRemark      备注
      * @param tToAccountId 转账的账户id
      */
     public Record(
@@ -66,14 +66,14 @@ public class Record {
      * 构建statementRecord的实例
      * 用于更新支出/收入Record
      *
-     * @param tId id
+     * @param tId        id
      * @param tAccountId 账户id
-     * @param tMoney 金额
-     * @param tType 类型(1:支出, 2:收入, 3:转账)
-     * @param tDate 日期
-     * @param tRemark 备注
-     * @param tClass1Id 一级分类id
-     * @param tClass2Id 二级分类id
+     * @param tMoney     金额
+     * @param tType      类型(1:支出, 2:收入, 3:转账)
+     * @param tDate      日期
+     * @param tRemark    备注
+     * @param tClass1Id  一级分类id
+     * @param tClass2Id  二级分类id
      */
     public Record(
             int tId, int tAccountId, float tMoney, int tType, Date tDate, String tRemark,
@@ -93,12 +93,12 @@ public class Record {
      * 构建statementRecord的实例
      * 用于更新转账Record
      *
-     * @param tId id
-     * @param tAccountId 账户id
-     * @param tMoney 金额
-     * @param tType 类型(1:支出, 2:收入, 3:转账)
-     * @param tDate 日期
-     * @param tRemark 备注
+     * @param tId          id
+     * @param tAccountId   账户id
+     * @param tMoney       金额
+     * @param tType        类型(1:支出, 2:收入, 3:转账)
+     * @param tDate        日期
+     * @param tRemark      备注
      * @param tToAccountId 发送账户id
      */
     public Record(
@@ -118,16 +118,16 @@ public class Record {
     /**
      * 构建statementRecord的实例
      *
-     * @param tId id
-     * @param tAccountId 账户id
-     * @param tMoney 金额
-     * @param tType 类型(1:支出, 2:收入, 3:转账)
-     * @param tDate 日期
-     * @param tRemark 备注
-     * @param tClass1Id 一级分类id
-     * @param tClass2Id 二级分类id
+     * @param tId          id
+     * @param tAccountId   账户id
+     * @param tMoney       金额
+     * @param tType        类型(1:支出, 2:收入, 3:转账)
+     * @param tDate        日期
+     * @param tRemark      备注
+     * @param tClass1Id    一级分类id
+     * @param tClass2Id    二级分类id
      * @param tToAccountId 发送账户id
-     * @param tStatus 状态
+     * @param tStatus      状态
      */
     public Record(
             int tId, int tAccountId, float tMoney, int tType, Date tDate, String tRemark,
@@ -241,10 +241,13 @@ public class Record {
      *
      * @return 状态
      */
-    public int getStatus() { return status; }
+    public int getStatus() {
+        return status;
+    }
 
 
     // static函数
+
     /**
      * 获取记录类型名称
      *

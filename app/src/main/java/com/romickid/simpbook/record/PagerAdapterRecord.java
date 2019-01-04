@@ -19,6 +19,7 @@ class PagerAdapterRecord extends FragmentPagerAdapter {
 
     /**
      * 获取tab页面的实例
+     *
      * @param position 位置
      * @return 实例
      */
@@ -29,6 +30,7 @@ class PagerAdapterRecord extends FragmentPagerAdapter {
 
     /**
      * 获取tab页面的数量
+     *
      * @return 数量
      */
     @Override
@@ -38,6 +40,7 @@ class PagerAdapterRecord extends FragmentPagerAdapter {
 
     /**
      * 获取tab页面的标题名称
+     *
      * @param position tabId
      * @return 标题名称
      */
@@ -48,8 +51,10 @@ class PagerAdapterRecord extends FragmentPagerAdapter {
 
 
     // 其他
+
     /**
      * 接收从Activity传入的listFragments变量
+     *
      * @param tListFragments 传入的listFragments
      */
     public void setFragments(ArrayList<Fragment> tListFragments) {
@@ -58,6 +63,7 @@ class PagerAdapterRecord extends FragmentPagerAdapter {
 
     /**
      * 接收从Activity传入的listIndicators变量
+     *
      * @param tlLstIndicators 传入的listIndicators
      */
     public void setIndicators(ArrayList<String> tlLstIndicators) {

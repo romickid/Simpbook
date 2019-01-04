@@ -20,7 +20,8 @@ public class SpinnerAdapterAccount extends BaseAdapter {
 
     /**
      * 构造函数, 读取需要绘制的Account列表
-     * @param tContext 传入的Context
+     *
+     * @param tContext      传入的Context
      * @param tListAccounts 传入的Account列表
      */
     public SpinnerAdapterAccount(Context tContext, ArrayList<Account> tListAccounts) {
@@ -31,6 +32,7 @@ public class SpinnerAdapterAccount extends BaseAdapter {
 
     /**
      * 获取Account的数量
+     *
      * @return 数量
      */
     @Override
@@ -40,6 +42,7 @@ public class SpinnerAdapterAccount extends BaseAdapter {
 
     /**
      * 获取指定位置的Account的实例
+     *
      * @return 实例
      */
     @Override
@@ -49,6 +52,7 @@ public class SpinnerAdapterAccount extends BaseAdapter {
 
     /**
      * 获取指定位置的Account的Id
+     *
      * @return Id
      */
     @Override
@@ -58,12 +62,13 @@ public class SpinnerAdapterAccount extends BaseAdapter {
 
     /**
      * 获取Account的绘制形式(view)
+     *
      * @return view
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.item_spinner,null);
+        View view = inflater.inflate(R.layout.item_spinner, null);
         TextView textView = view.findViewById(R.id.ispinner_text);
         ImageView imageView = view.findViewById(R.id.ispinner_color);
 

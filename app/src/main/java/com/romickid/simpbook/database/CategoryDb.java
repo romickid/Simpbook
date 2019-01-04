@@ -36,13 +36,14 @@ public class CategoryDb {
     public String insertCategory(Class1 class1) {
         return insertCategory(class1.getName(), class1.getColor(), class1.getType());
     }
+
     /**
      * 插入一条category数据
      *
-     * @param category_name 分类名
+     * @param category_name  分类名
      * @param category_color 分类颜色
      */
-    private String insertCategory(String  category_name, int category_color, int category_type) {
+    private String insertCategory(String category_name, int category_color, int category_type) {
         try {
             Cursor cursor = db.query("c_category", new String[]{"category_name"}, "category_name = ? AND status > -1",
                     new String[]{category_name}, null, null, null);
@@ -70,18 +71,18 @@ public class CategoryDb {
      * 更新所有category数据
      *
      * @param categoryIdList 分类IdList
-     * @param isdelete 是否删除
+     * @param isdelete       是否删除
      */
     public void updateCategoryStatus(int[] categoryIdList, int[] isdelete) {
         int length = categoryIdList.length;
-        for(int i = 0;i < length;i++) {
+        for (int i = 0; i < length; i++) {
             ContentValues values = new ContentValues();
-            if(isdelete[i] == 0) {
+            if (isdelete[i] == 0) {
                 values.put("status", 2);
             } else {
                 values.put("status", -2);
             }
-            db.update("c_category", values, "category_id = ?", new String[]{categoryIdList[i]+""});
+            db.update("c_category", values, "category_id = ?", new String[]{categoryIdList[i] + ""});
         }
     }
 
@@ -93,7 +94,7 @@ public class CategoryDb {
     public void updateCategoryData(ArrayList<Class1> categoryArrayList) {
         deleteAllLocalData();
         int length = categoryArrayList.size();
-        for(int i = 0;i < length;i++) {
+        for (int i = 0; i < length; i++) {
             Class1 category = categoryArrayList.get(i);
             ContentValues values = new ContentValues();
             values.put("category_id", category.getId());
@@ -107,7 +108,6 @@ public class CategoryDb {
 
     /**
      * 删除所有category数据
-     *
      */
     public void deleteAllLocalData() {
         String DELETE_ALL = "delete from c_category";
@@ -127,8 +127,8 @@ public class CategoryDb {
     /**
      * 更新一条category数据
      *
-     * @param category_id 分类id
-     * @param category_name 分类名
+     * @param category_id    分类id
+     * @param category_name  分类名
      * @param category_color 分类颜色
      */
 
@@ -136,7 +136,7 @@ public class CategoryDb {
         try {
             Cursor cursor = db.query("c_category", new String[]{"category_name"},
                     "category_name = ? AND status > -1 AND category_id != ?",
-                    new String[]{category_name, category_id+""}, null, null, null);
+                    new String[]{category_name, category_id + ""}, null, null, null);
             int count = cursor.getCount();
             if (count > 0)
                 return "分类名重复";
@@ -160,7 +160,7 @@ public class CategoryDb {
     /**
      * 删除一条category数据
      *
-     * @param class1  一级分类实例
+     * @param class1 一级分类实例
      */
     public String deleteCategory(Class1 class1) {
         return deleteCategory(class1.getId());
@@ -207,18 +207,18 @@ public class CategoryDb {
      *
      * @return Class1的ArrayList
      */
-    public ArrayList<Class1> categoryListUpdate (){
+    public ArrayList<Class1> categoryListUpdate() {
         Cursor cursor = db.query("c_category", null,
                 "status > -2 AND status < 2", null,
                 null, null, null);
         cursor.moveToFirst();
         int count = cursor.getCount();
         ArrayList<Class1> categoryArray = new ArrayList();
-        for (int i=0;i<count;i++){
+        for (int i = 0; i < count; i++) {
             int idIndex = cursor.getColumnIndex("category_id");
-            int category_id= cursor.getInt(idIndex);
+            int category_id = cursor.getInt(idIndex);
             int nameIndex = cursor.getColumnIndex("category_name");
-            String  category_name = cursor.getString(nameIndex);
+            String category_name = cursor.getString(nameIndex);
             int colorIndex = cursor.getColumnIndex("category_color");
             int category_color = cursor.getInt(colorIndex);
             int typeIndex = cursor.getColumnIndex("category_type");
@@ -231,21 +231,23 @@ public class CategoryDb {
         }
         return categoryArray;
     }
+
     /**
      * 根据类型返回category数据
+     *
      * @param category_type 一级分类类型
      * @return Class1的ArrayList
      */
-    public ArrayList<Class1> getCategoryListByType (int category_type) {
+    public ArrayList<Class1> getCategoryListByType(int category_type) {
         Cursor cursor = db.query("c_category", null,
-                "category_type = ? and status > -1", new String[]{category_type+""},
+                "category_type = ? and status > -1", new String[]{category_type + ""},
                 null, null, null);
         cursor.moveToFirst();
         int count = cursor.getCount();
         ArrayList<Class1> categoryArray = new ArrayList();
-        for (int i=0;i<count;i++){
+        for (int i = 0; i < count; i++) {
             int nameIndex = cursor.getColumnIndex("category_name");
-            String  category_name = cursor.getString(nameIndex);
+            String category_name = cursor.getString(nameIndex);
             int colorIndex = cursor.getColumnIndex("category_color");
             int category_color = cursor.getInt(colorIndex);
             int idIndex = cursor.getColumnIndex("category_id");
@@ -259,19 +261,20 @@ public class CategoryDb {
 
     /**
      * 根据id返回category数据
+     *
      * @param category_id 一级分类id
      * @return Class1的ArrayList
      */
-    public ArrayList<Class1> getCategoryListById (int category_id) {
+    public ArrayList<Class1> getCategoryListById(int category_id) {
         Cursor cursor = db.query("c_category", null,
-                "category_id = ?", new String[]{category_id+""},
+                "category_id = ?", new String[]{category_id + ""},
                 null, null, null);
         cursor.moveToFirst();
         int count = cursor.getCount();
         ArrayList<Class1> categoryArray = new ArrayList();
-        for (int i=0;i<count;i++){
+        for (int i = 0; i < count; i++) {
             int nameIndex = cursor.getColumnIndex("category_name");
-            String  category_name = cursor.getString(nameIndex);
+            String category_name = cursor.getString(nameIndex);
             int colorIndex = cursor.getColumnIndex("category_color");
             int category_color = cursor.getInt(colorIndex);
             int typeIndex = cursor.getColumnIndex("category_type");
@@ -289,18 +292,18 @@ public class CategoryDb {
      *
      * @return Class1的ArrayList
      */
-    public ArrayList<Class1> categoryList () {
+    public ArrayList<Class1> categoryList() {
         Cursor cursor = db.query("c_category", null,
                 "status > -1", null,
                 null, null, null);
         cursor.moveToFirst();
         int count = cursor.getCount();
         ArrayList<Class1> categoryArray = new ArrayList();
-        for (int i=0;i<count;i++){
+        for (int i = 0; i < count; i++) {
             int idIndex = cursor.getColumnIndex("category_id");
-            int category_id= cursor.getInt(idIndex);
+            int category_id = cursor.getInt(idIndex);
             int nameIndex = cursor.getColumnIndex("category_name");
-            String  category_name = cursor.getString(nameIndex);
+            String category_name = cursor.getString(nameIndex);
             int colorIndex = cursor.getColumnIndex("category_color");
             int category_color = cursor.getInt(colorIndex);
             int typeIndex = cursor.getColumnIndex("category_type");
@@ -319,12 +322,12 @@ public class CategoryDb {
      */
     private void printCategory(ArrayList<Class1> categoryArray) {
         System.out.println("test category print ***************");
-        for (int i = 0;i < categoryArray.size();i++) {
-            Class1 category  = categoryArray.get(i);
+        for (int i = 0; i < categoryArray.size(); i++) {
+            Class1 category = categoryArray.get(i);
             int id = category.getId();
             String name = category.getName();
             int color = category.getColor();
-            System.out.println(id +" "+ name +" "+ color);
+            System.out.println(id + " " + name + " " + color);
         }
     }
 }

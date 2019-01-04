@@ -20,28 +20,30 @@ import java.util.ArrayList;
 public class TemplateDb {
 
     private SQLiteDatabase db;
+
     /**
      * 创建一个templateDb实例
+     *
      * @param db_instance
      */
     public TemplateDb(SQLiteDatabase db_instance) {
         db = db_instance;
     }
+
     /**
      * 插入一条template数据
      *
-     * @param account_id 账户id
-     * @param template_type 种类
+     * @param account_id     账户id
+     * @param template_type  种类
      * @param template_money 金额
-     * @param template_note 备注
-     * @param category_id 一级分类id
+     * @param template_note  备注
+     * @param category_id    一级分类id
      * @param subcategory_id 二级分类id
-     * @param account_toId 发送账户id
-     * @param template_time 日期
-     *
+     * @param account_toId   发送账户id
+     * @param template_time  日期
      * @return "成功" or "UNKNOW ERROR"
      */
-    private String insertTemplate(int  account_id, int template_type, float template_money,
+    private String insertTemplate(int account_id, int template_type, float template_money,
                                   String template_note, int category_id, int subcategory_id,
                                   int account_toId, Date template_time) {
 
@@ -75,7 +77,6 @@ public class TemplateDb {
      * 插入一条template数据
      *
      * @param collection 模版实例
-     *
      * @return "SUCCESS" or "UNKNOW ERROR"
      */
     public String insertTemplate(Collection collection) {
@@ -87,32 +88,30 @@ public class TemplateDb {
      * 更新template状态数据
      *
      * @param templateIdList 数据
-     * @param isdelete 是否删除
-     *
-     *
+     * @param isdelete       是否删除
      */
     public void updateTemplateStatus(int[] templateIdList, int[] isdelete) {
         int length = templateIdList.length;
-        for(int i = 0;i < length;i++) {
+        for (int i = 0; i < length; i++) {
             ContentValues values = new ContentValues();
-            if(isdelete[i] == 0) {
+            if (isdelete[i] == 0) {
                 values.put("status", 2);
             } else {
                 values.put("status", -2);
             }
-            db.update("c_template", values, "template_id = ?", new String[]{templateIdList[i]+""});
+            db.update("c_template", values, "template_id = ?", new String[]{templateIdList[i] + ""});
         }
     }
+
     /**
      * 更新从后端同步过来的template数据
      *
      * @param templateArrayList 数据
-     *
      */
     public void updateTemplateData(ArrayList<Collection> templateArrayList) {
         deleteAllLocalData();
         int length = templateArrayList.size();
-        for(int i = 0;i < length;i++) {
+        for (int i = 0; i < length; i++) {
             Collection template = templateArrayList.get(i);
             ContentValues values = new ContentValues();
             values.put("template_id", template.getId());
@@ -133,7 +132,6 @@ public class TemplateDb {
 
     /**
      * 删除所有template数据
-     *
      */
     public void deleteAllLocalData() {
         String DELETE_ALL = "delete from c_template";
@@ -145,29 +143,28 @@ public class TemplateDb {
      * 更新一条template数据
      *
      * @param collection 模版实例
-     *
      * @return "SUCCESS" or "UNKNOW ERROR"
      */
     public String updateTemplate(Collection collection) {
         return updateTemplate(collection.getId(), collection.getAccountId(), collection.getType(), collection.getMoney(), collection.getRemark(),
-        collection.getClass1Id(),collection.getClass2Id(),collection.getToAccountId(), collection.getDate());
+                collection.getClass1Id(), collection.getClass2Id(), collection.getToAccountId(), collection.getDate());
     }
+
     /**
      * 更新一条template数据
      *
-     * @param template_id 模版Id
-     * @param account_id 账户id
-     * @param template_type 种类
+     * @param template_id    模版Id
+     * @param account_id     账户id
+     * @param template_type  种类
      * @param template_money 金额
-     * @param template_note 备注
-     * @param category_id 一级分类id
+     * @param template_note  备注
+     * @param category_id    一级分类id
      * @param subcategory_id 二级分类id
-     * @param account_toId 发送账户id
-     * @param template_time 日期
-     *
+     * @param account_toId   发送账户id
+     * @param template_time  日期
      * @return "成功" or ""
      */
-    private String updateTemplate(int template_id, int  account_id, int template_type, float template_money,
+    private String updateTemplate(int template_id, int account_id, int template_type, float template_money,
                                   String template_note, int category_id, int subcategory_id,
                                   int account_toId, Date template_time) {
 
@@ -187,7 +184,7 @@ public class TemplateDb {
         values.put("template_time", datetime);
         values.put("status", 1);
         values.put("anchor", 0);
-        int result = db.update("c_template", values, "template_id = ?", new String[]{template_id+""});
+        int result = db.update("c_template", values, "template_id = ?", new String[]{template_id + ""});
 
         if (result > 0)
             return "成功";
@@ -198,24 +195,23 @@ public class TemplateDb {
      * 删除一条template数据
      *
      * @param collection 模版实例
-     *
      * @return "成功" or "删除失败"
      */
     public String deleteTemplate(Collection collection) {
         return deleteTemplate(collection.getId());
     }
+
     /**
      * 删除一条template数据
      *
      * @param template_id 模版Id
-     *
      * @return "成功" or "删除失败"
      */
     public String deleteTemplate(int template_id) {
         ContentValues values = new ContentValues();
         values.put("status", -1);
         values.put("anchor", 0);
-        int result = db.update("c_template", values, "template_id = ?", new String[]{template_id+""});
+        int result = db.update("c_template", values, "template_id = ?", new String[]{template_id + ""});
 
         if (result > 0)
             return "成功";
@@ -226,8 +222,7 @@ public class TemplateDb {
      * 查看是否有关联的template数据
      *
      * @param table_name 表名
-     * @param seg_id 字段id
-     *
+     * @param seg_id     字段id
      * @return 有： 1，没有：0
      */
     public boolean isHaveTemplate(String table_name, int seg_id) {
@@ -265,22 +260,23 @@ public class TemplateDb {
         }
         return false;
     }
+
     /**
      * 根据id返回template数据
      *
      * @param template_id 模版id
      * @return Collection数组
      */
-    public ArrayList<Collection> getTemplateListById (int template_id) {
+    public ArrayList<Collection> getTemplateListById(int template_id) {
         Cursor cursor = db.query("c_template", null, "template_id = ?",
-                new String[]{template_id+""}, null, null, null);
+                new String[]{template_id + ""}, null, null, null);
         cursor.moveToFirst();
         int count = cursor.getCount();
         ArrayList<Collection> templateArray = new ArrayList();
-        for (int i=0;i<count;i++) {
+        for (int i = 0; i < count; i++) {
 
             int accountIdIndex = cursor.getColumnIndex("template_accountID");
-            int  template_accountId = cursor.getInt(accountIdIndex);
+            int template_accountId = cursor.getInt(accountIdIndex);
 
             int moneyIndex = cursor.getColumnIndex("template_money");
             float template_money = cursor.getFloat(moneyIndex);
@@ -311,8 +307,7 @@ public class TemplateDb {
             if (typeIndex == -1) {
                 Collection template = new Collection(template_id, template_accountId, template_money, template_type, datetime, template_note, template_accountToId);
                 templateArray.add(template);
-            }
-            else {
+            } else {
                 Collection template = new Collection(template_id, template_accountId, template_money, template_type, datetime, template_note, template_categoryID, template_subcategoryId);
                 templateArray.add(template);
             }
@@ -324,22 +319,21 @@ public class TemplateDb {
     /**
      * 返回所有的template数据
      *
-     *
      * @return Collection数组
      */
-    public ArrayList<Collection> templateList () {
+    public ArrayList<Collection> templateList() {
         Cursor cursor = db.query("c_template", null, "status > -1",
                 null, null, null, null);
         cursor.moveToFirst();
         int count = cursor.getCount();
         ArrayList<Collection> templateArray = new ArrayList();
-        for (int i=0;i<count;i++) {
+        for (int i = 0; i < count; i++) {
 
             int idIndex = cursor.getColumnIndex("template_id");
-            int  template_id = cursor.getInt(idIndex);
+            int template_id = cursor.getInt(idIndex);
 
             int accountIdIndex = cursor.getColumnIndex("template_accountID");
-            int  template_accountId = cursor.getInt(accountIdIndex);
+            int template_accountId = cursor.getInt(accountIdIndex);
 
             int moneyIndex = cursor.getColumnIndex("template_money");
             float template_money = cursor.getFloat(moneyIndex);
@@ -370,8 +364,7 @@ public class TemplateDb {
             if (template_type == 3) {
                 Collection template = new Collection(template_id, template_accountId, template_money, template_type, datetime, template_note, template_accountToId);
                 templateArray.add(template);
-            }
-            else {
+            } else {
                 Collection template = new Collection(template_id, template_accountId, template_money, template_type, datetime, template_note, template_categoryID, template_subcategoryId);
                 templateArray.add(template);
             }
@@ -383,22 +376,21 @@ public class TemplateDb {
     /**
      * 返回所有需要更新的template数据
      *
-     *
      * @return Collection 数组
      */
-    public ArrayList<Collection> templateListUpdate () {
+    public ArrayList<Collection> templateListUpdate() {
         Cursor cursor = db.query("c_template", null, "status > -2 AND status < 2",
                 null, null, null, null);
         cursor.moveToFirst();
         int count = cursor.getCount();
         ArrayList<Collection> templateArray = new ArrayList();
-        for (int i=0;i<count;i++) {
+        for (int i = 0; i < count; i++) {
 
             int idIndex = cursor.getColumnIndex("template_id");
-            int  template_id = cursor.getInt(idIndex);
+            int template_id = cursor.getInt(idIndex);
 
             int accountIdIndex = cursor.getColumnIndex("template_accountID");
-            int  template_accountId = cursor.getInt(accountIdIndex);
+            int template_accountId = cursor.getInt(accountIdIndex);
 
             int moneyIndex = cursor.getColumnIndex("template_money");
             float template_money = cursor.getFloat(moneyIndex);
@@ -439,8 +431,8 @@ public class TemplateDb {
 
     private void printTemplate(ArrayList<Collection> templateArray) {
         System.out.println("test template print ***************");
-        for (int i = 0;i < templateArray.size();i++) {
-            Collection template  = templateArray.get(i);
+        for (int i = 0; i < templateArray.size(); i++) {
+            Collection template = templateArray.get(i);
             int id = template.getId();
             int accountId = template.getAccountId();
             float money = template.getMoney();
@@ -453,12 +445,11 @@ public class TemplateDb {
             String note = template.getRemark();
             if (type == -1) {
                 int accountToId = template.getToAccountId();
-                System.out.println(id +" "+ accountId +" "+money +" "+type+" "+datetime+" "+accountToId+" "+note);
-            }
-            else {
+                System.out.println(id + " " + accountId + " " + money + " " + type + " " + datetime + " " + accountToId + " " + note);
+            } else {
                 int categoryId = template.getClass1Id();
                 int subcategoryId = template.getClass2Id();
-                System.out.println(id +" "+ accountId +" "+ categoryId +" "+ subcategoryId+" "+money +" "+type+" "+datetime+" "+note);
+                System.out.println(id + " " + accountId + " " + categoryId + " " + subcategoryId + " " + money + " " + type + " " + datetime + " " + note);
             }
         }
     }

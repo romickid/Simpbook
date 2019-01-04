@@ -66,6 +66,7 @@ public class ActivityClass1Expense extends AppCompatActivity {
 
 
     // 初始化相关
+
     /**
      * 初始化Id
      */
@@ -78,7 +79,7 @@ public class ActivityClass1Expense extends AppCompatActivity {
     /**
      * 初始化Toolbar
      */
-    private void initToolbar(){
+    private void initToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setTitle("支出分类");
@@ -138,6 +139,7 @@ public class ActivityClass1Expense extends AppCompatActivity {
 
 
     // 数据相关
+
     /**
      * 更新所有一级支出分类信息
      */
@@ -148,7 +150,7 @@ public class ActivityClass1Expense extends AppCompatActivity {
     /**
      * 获取一个Class1实例
      *
-     * @param name 名称
+     * @param name    名称
      * @param colorId 颜色id
      * @return 实例
      */
@@ -165,6 +167,7 @@ public class ActivityClass1Expense extends AppCompatActivity {
 
 
     // 新增支出Class1相关
+
     /**
      * 构建"新增Class1"的Dialog
      *
@@ -186,7 +189,7 @@ public class ActivityClass1Expense extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String name = editText.getText().toString();
-                int colorId = (int)spinnerColor.getSelectedItem();
+                int colorId = (int) spinnerColor.getSelectedItem();
 
                 if (name.isEmpty()) {
                     displayToast("输入不能为空", getApplicationContext(), 0);
@@ -200,8 +203,7 @@ public class ActivityClass1Expense extends AppCompatActivity {
                 if (message.equals("成功")) {
                     displayToast(message, getApplicationContext(), 0);
                     refreshActivity();
-                }
-                else {
+                } else {
                     displayToast(message, getApplicationContext(), 1);
                 }
             }

@@ -70,7 +70,7 @@ public class Color {
      */
     public static ArrayList<Integer> getListColorIds() {
         ArrayList<Integer> listColor = new ArrayList<Integer>();
-        for(int i = 1; i <= maxColorIndex; i++) {
+        for (int i = 1; i <= maxColorIndex; i++) {
             listColor.add(i);
         }
 

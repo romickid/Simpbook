@@ -96,6 +96,7 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
 
 
     // 初始化相关
+
     /**
      * 初始化Id
      */
@@ -144,6 +145,7 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
 
 
     // 更新显示内容相关
+
     /**
      * 更新RecycleView的绘制
      */
@@ -165,6 +167,7 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
 
 
     // 更新数据相关
+
     /**
      * 初始化数据
      */
@@ -197,6 +200,7 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
 
 
     // 更新筛选数据相关
+
     /**
      * 更新所有一级支出分类信息
      */
@@ -256,11 +260,12 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
      * @return Account实例
      */
     private Account getAllDataAccount() {
-        return new Account(-1,"所有账户", 0.0f, 5, -1);
+        return new Account(-1, "所有账户", 0.0f, 5, -1);
     }
 
 
     // 更新流水数据相关
+
     /**
      * 获取某个Record的RecordObject
      *
@@ -322,7 +327,7 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
         listStatementObjects = new ArrayList<>();
         Date currentDate = new Date(1900, 1, 1);
 
-        for (Record record: listRecords) {
+        for (Record record : listRecords) {
             if (compareDate(currentDate, record.getDate()) != 0) {
                 currentDate = record.getDate();
                 listStatementObjects.add(getStatementDateObject(currentDate));
@@ -341,11 +346,10 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
         float expense = 0.0f;
         float income = 0.0f;
 
-        for(Record record: listRecords) {
+        for (Record record : listRecords) {
             if (record.getType() == 1) {
                 expense += record.getMoney();
-            }
-            else if (record.getType() == 2) {
+            } else if (record.getType() == 2) {
                 income += record.getMoney();
             }
         }
@@ -357,6 +361,7 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
 
 
     // 更新筛选数据相关
+
     /**
      * 设置默认的statementFilter
      */
@@ -376,20 +381,20 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
                 dateEnd = new Date();
                 break;
             case "ThisWeek":
-                dateBegin =  getDateWeekMonday(new Date());
+                dateBegin = getDateWeekMonday(new Date());
                 dateEnd = getDateWeekSunday(new Date());
                 break;
             case "ThisMonth":
-                dateBegin =  getDateMonthFirstDay(new Date());
+                dateBegin = getDateMonthFirstDay(new Date());
                 dateEnd = getDateMonthLastDay(new Date());
                 break;
             case "ThisYear":
-                dateBegin =  getDateYearFirstDay(new Date());
+                dateBegin = getDateYearFirstDay(new Date());
                 dateEnd = getDateYearLastDay(new Date());
                 break;
             case "Default":
             default:
-                dateBegin =  getDateAdd(new Date(), -90);
+                dateBegin = getDateAdd(new Date(), -90);
                 dateEnd = new Date();
                 break;
         }
@@ -440,8 +445,8 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
     }
 
 
-
     // 筛选Dialog相关
+
     /**
      * 设置筛选按钮的Listener
      */
@@ -493,9 +498,9 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
         setSelectionSpinnerAccount(spinnerAccount, statementFilter.getAccount());
 
         setDisplayTextViewDate(textViewDateFrom, statementFilter.getDateFrom());
-        setListenerDateDialog(textViewDateFrom,this);
+        setListenerDateDialog(textViewDateFrom, this);
         setDisplayTextViewDate(textViewDateTo, statementFilter.getDateTo());
-        setListenerDateDialog(textViewDateTo,this);
+        setListenerDateDialog(textViewDateTo, this);
 
         builder.setTitle("筛选");
         builder.setView(viewRemarkDialog);
@@ -523,13 +528,13 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
      *
      * @param spinnerClass1 spinnerClass1
      * @param spinnerClass2 spinnerClass2
-     * @param context context
+     * @param context       context
      */
     private void setListenerSpinnerClass1(final Spinner spinnerClass1, final Spinner spinnerClass2, final Context context) {
         spinnerClass1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                class1Id = ((Class1)spinnerClass1.getSelectedItem()).getId();
+                class1Id = ((Class1) spinnerClass1.getSelectedItem()).getId();
                 updateListClass2s();
                 adapterFilterClass2 = new SpinnerAdapterClass2(context, listFilterClass2s);
                 spinnerClass2.setAdapter(adapterFilterClass2);
@@ -547,10 +552,10 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
      * 为SpinnerClass1设置对应的Class1实例
      *
      * @param spinnerClass1 spinnerClass1
-     * @param class1 class1实例
+     * @param class1        class1实例
      */
     private void setSelectionSpinnerClass1(Spinner spinnerClass1, Class1 class1) {
-        for(int i = 0; i < listFilterClass1s.size(); i++) {
+        for (int i = 0; i < listFilterClass1s.size(); i++) {
             if (listFilterClass1s.get(i).getId() == class1.getId()) {
                 spinnerClass1.setSelection(i);
                 return;
@@ -562,10 +567,10 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
      * 为SpinnerClass2设置对应的Class2实例
      *
      * @param spinnerClass2 spinnerClass2
-     * @param class2 class2实例
+     * @param class2        class2实例
      */
     private void setSelectionSpinnerClass2(Spinner spinnerClass2, Class2 class2) {
-        for(int i = 0; i < listFilterClass2s.size(); i++) {
+        for (int i = 0; i < listFilterClass2s.size(); i++) {
             if (listFilterClass2s.get(i).getId() == class2.getId()) {
                 spinnerClass2.setSelection(i);
                 return;
@@ -577,10 +582,10 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
      * 为SpinnerAccount设置对应的Account实例
      *
      * @param spinnerAccount spinnerAccount
-     * @param account account实例
+     * @param account        account实例
      */
     private void setSelectionSpinnerAccount(Spinner spinnerAccount, Account account) {
-        for(int i = 0; i < listFilterAccounts.size(); i++) {
+        for (int i = 0; i < listFilterAccounts.size(); i++) {
             if (listFilterAccounts.get(i).getId() == account.getId()) {
                 spinnerAccount.setSelection(i);
                 return;
@@ -592,7 +597,7 @@ public class ActivityStatement extends AppCompatActivity implements OnDeleteData
      * 为textViewDate设置对应的Date实例
      *
      * @param textViewDate textView
-     * @param date date实例
+     * @param date         date实例
      */
     private void setDisplayTextViewDate(TextView textViewDate, Date date) {
         setTextViewDate(textViewDate, date);

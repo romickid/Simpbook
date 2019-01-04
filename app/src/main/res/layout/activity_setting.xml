@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,13 +12,13 @@
         android:background="@color/colorDefaultBlue"
         android:minHeight="56dp"
         android:theme="?attr/actionBarTheme"
+        app:contentInsetStartWithNavigation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_chevron_left_white_36dp"
         app:title="设置"
-        app:titleTextColor="@color/colorWhite"
-        app:contentInsetStartWithNavigation="0dp" />
+        app:titleTextColor="@color/colorWhite" />
 
     <ImageView
         android:id="@+id/setting_imageview_classexpense"
@@ -105,8 +104,8 @@
         android:id="@+id/setting_staticimg3"
         android:layout_width="22dp"
         android:layout_height="22dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/setting_imageview_account"
         app:layout_constraintStart_toStartOf="@+id/setting_staticimg1"
         app:layout_constraintTop_toTopOf="@+id/setting_imageview_account"
@@ -116,9 +115,9 @@
         android:id="@+id/setting_statictext3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_weight="5"
         android:text="账户设置"
         android:textColor="@color/colorText54"
@@ -132,12 +131,12 @@
         android:id="@+id/setting_imageview_deletedata"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:clickable="true"
         android:layout_marginTop="16dp"
+        android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        app:layout_constraintTop_toBottomOf="@+id/setting_imageview_account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setting_imageview_account"
         app:srcCompat="@android:color/background_light"
         tools:layout_editor_absoluteY="312dp" />
 

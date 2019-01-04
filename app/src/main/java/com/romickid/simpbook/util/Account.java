@@ -16,11 +16,11 @@ public class Account {
     /**
      * 构建一个Account实例
      *
-     * @param tId id
-     * @param tName 名称
-     * @param tMoney 金额
-     * @param tColor 标识颜色
-     * @param tType 标识颜色
+     * @param tId     id
+     * @param tName   名称
+     * @param tMoney  金额
+     * @param tColor  标识颜色
+     * @param tType   标识颜色
      * @param tStatus 账户状态
      */
     public Account(int tId, String tName, float tMoney, int tColor, int tType, int tStatus) {
@@ -35,11 +35,11 @@ public class Account {
     /**
      * 构建一个Account实例
      *
-     * @param tId id
-     * @param tName 名称
+     * @param tId    id
+     * @param tName  名称
      * @param tMoney 金额
      * @param tColor 标识颜色
-     * @param tType 标识颜色
+     * @param tType  标识颜色
      */
     public Account(int tId, String tName, float tMoney, int tColor, int tType) {
         id = tId;
@@ -52,10 +52,10 @@ public class Account {
     /**
      * 构建一个Account实例
      *
-     * @param tName 名称
+     * @param tName  名称
      * @param tMoney 金额
      * @param tColor 标识颜色
-     * @param tType 标识颜色
+     * @param tType  标识颜色
      */
     public Account(String tName, float tMoney, int tColor, int tType) {
         id = -1;
@@ -122,6 +122,7 @@ public class Account {
 
 
     // static函数
+
     /**
      * 为账户列表进行排序
      *
@@ -133,19 +134,15 @@ public class Account {
             public int compare(Account a1, Account a2) {
                 if (a1.getType() < a2.getType()) {
                     return -1;
-                }
-                else if (a1.getType() > a2.getType()) {
+                } else if (a1.getType() > a2.getType()) {
                     return 1;
-                }
-                else {
+                } else {
                     if (a1.getColor() < a2.getColor()) {
                         return -1;
-                    }
-                    else {
+                    } else {
                         if (a1.getId() < a2.getId()) {
                             return -1;
-                        }
-                        else {
+                        } else {
                             return 1;
                         }
                     }
@@ -157,13 +154,13 @@ public class Account {
     /**
      * 获取特定类型账户列表的金额总和
      *
-     * @param accountType 账户类型
+     * @param accountType  账户类型
      * @param listAccounts 账户列表
      * @return 金额总和
      */
     public static float getSumMoney(int accountType, ArrayList<Account> listAccounts) {
         float money = 0.0f;
-        for(Account account: listAccounts) {
+        for (Account account : listAccounts) {
             if (account.getType() == accountType) {
                 money += account.getMoney();
             }
@@ -179,7 +176,7 @@ public class Account {
      */
     public static float getSumMoney(ArrayList<Account> listAccounts) {
         float money = 0.0f;
-        for(Account account: listAccounts) {
+        for (Account account : listAccounts) {
             money += account.getMoney();
         }
         return money;

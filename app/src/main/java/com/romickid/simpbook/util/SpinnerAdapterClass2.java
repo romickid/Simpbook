@@ -18,11 +18,11 @@ public class SpinnerAdapterClass2 extends BaseAdapter {
     private ArrayList<Class2> listClass2s;
     private Context context;
 
-    
+
     /**
      * 构造函数, 读取需要绘制的Class2列表
      *
-     * @param tContext 传入的Context
+     * @param tContext     传入的Context
      * @param tListClass2s 传入的Class2列表
      */
     public SpinnerAdapterClass2(Context tContext, ArrayList<Class2> tListClass2s) {
@@ -70,7 +70,7 @@ public class SpinnerAdapterClass2 extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.item_spinner,null);
+        View view = inflater.inflate(R.layout.item_spinner, null);
         TextView textView = (TextView) view.findViewById(R.id.ispinner_text);
         ImageView imageView = (ImageView) view.findViewById(R.id.ispinner_color);
 

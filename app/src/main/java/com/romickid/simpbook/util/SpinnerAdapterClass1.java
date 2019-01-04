@@ -22,7 +22,7 @@ public class SpinnerAdapterClass1 extends BaseAdapter {
     /**
      * 构造函数, 读取需要绘制的Class1列表
      *
-     * @param tContext 传入的Context
+     * @param tContext     传入的Context
      * @param tListClass1s 传入的Class1列表
      */
     public SpinnerAdapterClass1(Context tContext, ArrayList<Class1> tListClass1s) {
@@ -70,7 +70,7 @@ public class SpinnerAdapterClass1 extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.item_spinner,null);
+        View view = inflater.inflate(R.layout.item_spinner, null);
         TextView textView = view.findViewById(R.id.ispinner_text);
         ImageView imageView = view.findViewById(R.id.ispinner_color);
 

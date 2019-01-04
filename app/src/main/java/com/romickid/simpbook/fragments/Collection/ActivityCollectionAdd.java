@@ -48,6 +48,7 @@ public class ActivityCollectionAdd extends AppCompatActivity implements
 
 
     // 初始化相关
+
     /**
      * 初始化Id
      */
@@ -58,7 +59,7 @@ public class ActivityCollectionAdd extends AppCompatActivity implements
     /**
      * 初始化Toolbar
      */
-    private void initToolbar(){
+    private void initToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

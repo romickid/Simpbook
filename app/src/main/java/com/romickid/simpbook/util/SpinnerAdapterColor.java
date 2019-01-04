@@ -22,7 +22,7 @@ public class SpinnerAdapterColor extends BaseAdapter {
     /**
      * 构造函数, 读取需要绘制的Color列表
      *
-     * @param tContext 传入的Context
+     * @param tContext    传入的Context
      * @param tListColors 传入的Color列表
      */
     public SpinnerAdapterColor(Context tContext, ArrayList<Integer> tListColors) {
@@ -69,7 +69,7 @@ public class SpinnerAdapterColor extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.item_spinner,null);
+        View view = inflater.inflate(R.layout.item_spinner, null);
         TextView textViewText = view.findViewById(R.id.ispinner_text);
         ImageView imageViewColor = view.findViewById(R.id.ispinner_color);
 

@@ -42,25 +42,26 @@ public class AdapterAccountSetting extends RecyclerView.Adapter<RecyclerView.Vie
 
 
     // RecyclerView.Adapter相关
+
     /**
      * 构造函数, 读取需要绘制的AccountObjects列表
      *
      * @param tListAccountObjects 传入的AccountObjects列表
-     * @param tContext 传入的Context
-     * @param tActivity 传入的Activity
+     * @param tContext            传入的Context
+     * @param tActivity           传入的Activity
      */
     public AdapterAccountSetting(ArrayList<HashMap<String, Object>> tListAccountObjects, Context tContext, Activity tActivity) {
         super();
         this.listAccountObjects = tListAccountObjects;
         this.context = tContext;
         this.activity = tActivity;
-        this.onDeleteDataListener = (OnDeleteDataListener)tContext;
+        this.onDeleteDataListener = (OnDeleteDataListener) tContext;
     }
 
     /**
      * 根据不同的viewType构建不同的ViewHolder
      *
-     * @param parent default
+     * @param parent   default
      * @param viewType 1:AccountDefault, 2:AccountSummarize
      * @return viewHolder
      */
@@ -85,7 +86,7 @@ public class AdapterAccountSetting extends RecyclerView.Adapter<RecyclerView.Vie
     /**
      * 根据不同的位置, 为holder构建不同的实例
      *
-     * @param holder 传入的holder实例
+     * @param holder   传入的holder实例
      * @param position 位置(不同位置viewType不同)
      */
     @Override
@@ -93,7 +94,7 @@ public class AdapterAccountSetting extends RecyclerView.Adapter<RecyclerView.Vie
         switch (getItemViewType(position)) {
             case 1:
                 ViewHolderAccountDefault viewHolderAccountDefault = (ViewHolderAccountDefault) holder;
-                final Account account = (Account)listAccountObjects.get(position).get("Object");
+                final Account account = (Account) listAccountObjects.get(position).get("Object");
 
                 final int colorIcon1 = getColorIcon(account.getColor());
                 final String text1 = account.getName();
@@ -127,7 +128,7 @@ public class AdapterAccountSetting extends RecyclerView.Adapter<RecyclerView.Vie
 
             case 2:
                 ViewHolderAccountSummarize viewHolderAccountSummarize = (ViewHolderAccountSummarize) holder;
-                AccountSummarize accountSummarize = (AccountSummarize)listAccountObjects.get(position).get("Object");
+                AccountSummarize accountSummarize = (AccountSummarize) listAccountObjects.get(position).get("Object");
 
                 final String text2 = accountSummarize.getText();
                 final float money2 = accountSummarize.getMoney();
@@ -142,11 +143,11 @@ public class AdapterAccountSetting extends RecyclerView.Adapter<RecyclerView.Vie
      * 获取View的类型
      *
      * @param position 数组的位置
-     * @return 类型(1:AccountDefault, 2:AccountSummarize)
+     * @return 类型(1 : AccountDefault, 2 : AccountSummarize)
      */
     @Override
     public int getItemViewType(int position) {
-        return (int)listAccountObjects.get(position).get("AccountObjectViewType");
+        return (int) listAccountObjects.get(position).get("AccountObjectViewType");
     }
 
     /**
@@ -161,6 +162,7 @@ public class AdapterAccountSetting extends RecyclerView.Adapter<RecyclerView.Vie
 
 
     // 数据库相关
+
     /**
      * 更新数据库
      */
@@ -172,6 +174,7 @@ public class AdapterAccountSetting extends RecyclerView.Adapter<RecyclerView.Vie
 
 
     // 删除记录Dialog相关
+
     /**
      * 构建删除账户的Dialog
      *
@@ -191,8 +194,7 @@ public class AdapterAccountSetting extends RecyclerView.Adapter<RecyclerView.Vie
                         String message = accountDb.deleteAccount(accountDelete);
                         if (message.equals("成功")) {
                             displayToast(message, context, 0);
-                        }
-                        else {
+                        } else {
                             displayToast(message, context, 1);
                         }
                         onDeleteDataListener.OnDeleteData();

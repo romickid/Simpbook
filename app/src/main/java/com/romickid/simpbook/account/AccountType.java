@@ -52,7 +52,7 @@ public class AccountType {
      */
     public static ArrayList<Integer> getListAccountTypes() {
         ArrayList<Integer> listAccountType = new ArrayList<Integer>();
-        for(int i = 1; i <= maxAccountType; i++) {
+        for (int i = 1; i <= maxAccountType; i++) {
             listAccountType.add(i);
         }
         return listAccountType;

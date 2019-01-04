@@ -18,12 +18,12 @@ public class Collection {
      * 用于新增支出/收入Collection
      *
      * @param tAccountId 账户id
-     * @param tMoney 金额
-     * @param tType 类型(1:支出, 2:收入, 3:转账)
-     * @param tDate 日期
-     * @param tRemark 备注
-     * @param tClass1Id 一级分类id
-     * @param tClass2Id 二级分类id
+     * @param tMoney     金额
+     * @param tType      类型(1:支出, 2:收入, 3:转账)
+     * @param tDate      日期
+     * @param tRemark    备注
+     * @param tClass1Id  一级分类id
+     * @param tClass2Id  二级分类id
      */
     public Collection(
             int tAccountId, float tMoney, int tType, Date tDate, String tRemark,
@@ -42,11 +42,11 @@ public class Collection {
      * 构建Collection的实例
      * 用于新增转账Collection
      *
-     * @param tAccountId 账户id
-     * @param tMoney 金额
-     * @param tType 类型(1:支出, 2:收入, 3:转账)
-     * @param tDate 日期
-     * @param tRemark 备注
+     * @param tAccountId   账户id
+     * @param tMoney       金额
+     * @param tType        类型(1:支出, 2:收入, 3:转账)
+     * @param tDate        日期
+     * @param tRemark      备注
      * @param tToAccountId 发送账户id
      */
     public Collection(
@@ -65,14 +65,14 @@ public class Collection {
     /**
      * 构建Collection的实例
      *
-     * @param tId id
+     * @param tId        id
      * @param tAccountId 账户id
-     * @param tMoney 金额
-     * @param tType 类型(1:支出, 2:收入, 3:转账)
-     * @param tDate 日期
-     * @param tRemark 备注
-     * @param tClass1Id 一级分类id
-     * @param tClass2Id 二级分类id
+     * @param tMoney     金额
+     * @param tType      类型(1:支出, 2:收入, 3:转账)
+     * @param tDate      日期
+     * @param tRemark    备注
+     * @param tClass1Id  一级分类id
+     * @param tClass2Id  二级分类id
      */
     public Collection(
             int tId, int tAccountId, float tMoney, int tType, Date tDate, String tRemark,
@@ -91,12 +91,12 @@ public class Collection {
     /**
      * 构建Collection的实例
      *
-     * @param tId id
-     * @param tAccountId 账户id
-     * @param tMoney 金额
-     * @param tType 类型(1:支出, 2:收入, 3:转账)
-     * @param tDate 日期
-     * @param tRemark 备注
+     * @param tId          id
+     * @param tAccountId   账户id
+     * @param tMoney       金额
+     * @param tType        类型(1:支出, 2:收入, 3:转账)
+     * @param tDate        日期
+     * @param tRemark      备注
      * @param tToAccountId 发送账户id
      */
     public Collection(
@@ -116,16 +116,16 @@ public class Collection {
     /**
      * 构建Collection的实例
      *
-     * @param tId id
-     * @param tAccountId 账户id
-     * @param tMoney 金额
-     * @param tType 类型(1:支出, 2:收入, 3:转账)
-     * @param tDate 日期
-     * @param tRemark 备注
-     * @param tClass1Id 一级分类id
-     * @param tClass2Id 二级分类id
+     * @param tId          id
+     * @param tAccountId   账户id
+     * @param tMoney       金额
+     * @param tType        类型(1:支出, 2:收入, 3:转账)
+     * @param tDate        日期
+     * @param tRemark      备注
+     * @param tClass1Id    一级分类id
+     * @param tClass2Id    二级分类id
      * @param tToAccountId 发送账户id
-     * @param tStatus 状态
+     * @param tStatus      状态
      */
     public Collection(
             int tId, int tAccountId, float tMoney, int tType, Date tDate, String tRemark,
@@ -239,10 +239,13 @@ public class Collection {
      *
      * @return 发送状态
      */
-    public int getStatus() { return status; }
+    public int getStatus() {
+        return status;
+    }
 
 
     // static函数
+
     /**
      * 获取模板类型名称
      *

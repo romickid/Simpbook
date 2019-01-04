@@ -49,6 +49,7 @@ public class ActivitySetting extends AppCompatActivity {
 
 
     // 初始化相关
+
     /**
      * 初始化Id
      */
@@ -63,7 +64,7 @@ public class ActivitySetting extends AppCompatActivity {
     /**
      * 初始化Toolbar
      */
-    private void initToolbar(){
+    private void initToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

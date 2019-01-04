@@ -18,8 +18,8 @@ public class Remark {
      * 构建输入备注的dialog
      *
      * @param textViewRemark 显示备注的textView
-     * @param context default
-     * @param activity default
+     * @param context        default
+     * @param activity       default
      * @return dialog
      */
     public static Dialog createDialogRemark(
@@ -27,7 +27,7 @@ public class Remark {
             final Context context,
             final Activity activity
     ) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context,3);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context, 3);
         View viewRemarkDialog = View.inflate(activity, R.layout.dialog_remark, null);
         final EditText editTextDialog = viewRemarkDialog.findViewById(R.id.dremark_edittext);
 

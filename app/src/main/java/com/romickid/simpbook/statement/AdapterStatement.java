@@ -51,25 +51,26 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     // RecyclerView.Adapter相关
+
     /**
      * 构造函数, 读取需要绘制的AccountObjects列表
      *
      * @param tListStatementObjects 传入的StatementObjects列表
-     * @param tContext 传入的Context
-     * @param tActivity 传入的Activity
+     * @param tContext              传入的Context
+     * @param tActivity             传入的Activity
      */
     AdapterStatement(ArrayList<HashMap<String, Object>> tListStatementObjects, Context tContext, Activity tActivity) {
         super();
         this.listStatementObjects = tListStatementObjects;
         this.context = tContext;
         this.activity = tActivity;
-        this.onDeleteDataListener = (OnDeleteDataListener)tContext;
+        this.onDeleteDataListener = (OnDeleteDataListener) tContext;
     }
 
     /**
      * 根据不同的viewType构建不同的ViewHolder
      *
-     * @param parent default
+     * @param parent   default
      * @param viewType 1:RecordDefault, 2:RecordTransfer, 3:StatementDate
      * @return viewHolder
      */
@@ -98,7 +99,7 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
     /**
      * 根据不同的位置, 为holder构建不同的实例
      *
-     * @param holder 传入的holder实例
+     * @param holder   传入的holder实例
      * @param position 位置(不同位置viewType不同)
      */
     @Override
@@ -106,7 +107,7 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
         switch (getItemViewType(position)) {
             case 1:
                 ViewHolderStatementRecordDefault viewHolderStatementRecordDefault = (ViewHolderStatementRecordDefault) holder;
-                final Record record_1 = (Record)listStatementObjects.get(position).get("Object");
+                final Record record_1 = (Record) listStatementObjects.get(position).get("Object");
 
                 final int class2Id_1 = record_1.getClass2Id();
                 final Class2 class2_1 = class2Db.getSubcategoryListById(class2Id_1).get(0);
@@ -147,7 +148,7 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             case 2:
                 ViewHolderStatementRecordTransfer viewHolderStatementRecordTransfer = (ViewHolderStatementRecordTransfer) holder;
-                final Record record_2 = (Record)listStatementObjects.get(position).get("Object");
+                final Record record_2 = (Record) listStatementObjects.get(position).get("Object");
 
                 final int accountFromId_2 = record_2.getAccountId();
                 final int accountToId_2 = record_2.getToAccountId();
@@ -196,7 +197,7 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             case 3:
                 ViewHolderStatementDate viewHolderStatementDate = (ViewHolderStatementDate) holder;
-                StatementDate statementDate = (StatementDate)listStatementObjects.get(position).get("Object");
+                StatementDate statementDate = (StatementDate) listStatementObjects.get(position).get("Object");
 
                 final Date date_3 = statementDate.getDate();
 
@@ -210,11 +211,11 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
      * 获取View的类型
      *
      * @param position 数组的位置
-     * @return 类型(1:RecordDefault, 2:RecordTransfer, 3:StatementDate)
+     * @return 类型(1 : RecordDefault, 2 : RecordTransfer, 3 : StatementDate)
      */
     @Override
     public int getItemViewType(int position) {
-        return (int)listStatementObjects.get(position).get("StatementObjectViewType");
+        return (int) listStatementObjects.get(position).get("StatementObjectViewType");
     }
 
     /**
@@ -229,6 +230,7 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     // 数据库相关
+
     /**
      * 更新数据库
      */
@@ -243,6 +245,7 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     // 删除记录Dialog相关
+
     /**
      * 构建删除记录的Dialog
      *
@@ -262,10 +265,9 @@ public class AdapterStatement extends RecyclerView.Adapter<RecyclerView.ViewHold
                         String message = recordDb.deleteRecord(recordDelete);
                         if (message.equals("成功")) {
                             displayToast(message, context, 0);
-                        }
-                        else {
+                        } else {
                             displayToast(message, context, 1);
-                    }
+                        }
                         onDeleteDataListener.OnDeleteData();
                     }
                 });

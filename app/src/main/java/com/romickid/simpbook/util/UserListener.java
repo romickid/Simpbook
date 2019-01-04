@@ -5,7 +5,10 @@ package com.romickid.simpbook.util;
  */
 public interface UserListener {
     void OnUserSignInSuccess();
+
     void OnUserSignInFail();
+
     void OnUserDownloadSuccess();
+
     void OnUserDownloadFail();
 }

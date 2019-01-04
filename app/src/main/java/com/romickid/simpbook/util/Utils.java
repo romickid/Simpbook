@@ -1,6 +1,7 @@
 package com.romickid.simpbook.util;
 
 import com.romickid.simpbook.util.Date;
+
 import java.util.Calendar;
 
 /**
@@ -30,9 +31,9 @@ public class Utils {
      */
     public Date switchTimeToDate(int time) {
         String strTime = String.valueOf(time);
-        int year = Integer.valueOf(strTime.substring(0,4));
-        int month = Integer.valueOf(strTime.substring(4,6));
-        int day = Integer.valueOf(strTime.substring(6,8));
+        int year = Integer.valueOf(strTime.substring(0, 4));
+        int month = Integer.valueOf(strTime.substring(4, 6));
+        int day = Integer.valueOf(strTime.substring(6, 8));
         return new Date(year, month, day);
     }
 
@@ -44,7 +45,7 @@ public class Utils {
      */
     public int getMondayOfThisWeek(Date date) {
         Calendar cal = Calendar.getInstance();
-        cal.set(date.getYear(), date.getMonth()-1, date.getDay());
+        cal.set(date.getYear(), date.getMonth() - 1, date.getDay());
 
         int dayWeek = cal.get(Calendar.DAY_OF_WEEK);
         if (1 == dayWeek) {
@@ -55,12 +56,12 @@ public class Utils {
         int day = cal.get(Calendar.DAY_OF_WEEK);
 
         cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day);
-        return switchDateToTime(new Date(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH)));
+        return switchDateToTime(new Date(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH)));
     }
 
     public int getSundayOfThisWeek(Date date) {
         Calendar cal = Calendar.getInstance();
-        cal.set(date.getYear(), date.getMonth()-1, date.getDay());
+        cal.set(date.getYear(), date.getMonth() - 1, date.getDay());
 
         int dayWeek = cal.get(Calendar.DAY_OF_WEEK);
         if (1 == dayWeek) {
@@ -71,7 +72,7 @@ public class Utils {
         int day = cal.get(Calendar.DAY_OF_WEEK);
 
         cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day + 6);
-        return switchDateToTime(new Date(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DAY_OF_MONTH)));
+        return switchDateToTime(new Date(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH)));
     }
 
     /**

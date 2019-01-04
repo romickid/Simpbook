@@ -75,7 +75,7 @@ public class CustomSQLiteOpenHelper extends SQLiteOpenHelper {
     /**
      * 创建数据库实例
      *
-     * @param name 数据库名
+     * @param name    数据库名
      * @param factory
      * @param version 版本
      * @param context 运行时环境
@@ -105,7 +105,7 @@ public class CustomSQLiteOpenHelper extends SQLiteOpenHelper {
      *
      * @param newVersion 新版本号
      * @param oldVersion 旧版本号
-     * @param db 数据库实例
+     * @param db         数据库实例
      */
 
     @Override

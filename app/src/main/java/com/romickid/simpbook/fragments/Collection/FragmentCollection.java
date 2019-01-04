@@ -113,6 +113,7 @@ public class FragmentCollection extends Fragment implements OnDeleteDataListener
 
 
     // 初始化相关
+
     /**
      * 初始化Id
      */
@@ -166,6 +167,7 @@ public class FragmentCollection extends Fragment implements OnDeleteDataListener
 
 
     // 数据相关
+
     /**
      * 获取某个模板类型的CollectionSummarizeObject
      *
@@ -214,12 +216,12 @@ public class FragmentCollection extends Fragment implements OnDeleteDataListener
      * 获取某个模板类型的listCollections
      *
      * @param listCollections 待获取的listCollections
-     * @param type 模板类型
+     * @param type            模板类型
      * @return 筛选后的listCollections
      */
     private ArrayList<Collection> getListCollectionsByType(ArrayList<Collection> listCollections, int type) {
         ArrayList<Collection> listReturn = new ArrayList<>();
-        for(Collection collection : listCollections) {
+        for (Collection collection : listCollections) {
             if (collection.getType() == type) {
                 listReturn.add(collection);
             }
@@ -237,7 +239,7 @@ public class FragmentCollection extends Fragment implements OnDeleteDataListener
         ArrayList<HashMap<String, Object>> listReturn = new ArrayList<>();
         HashMap<String, Object> hashMap;
 
-        for(Collection collection: listCollections) {
+        for (Collection collection : listCollections) {
             hashMap = new HashMap<>();
             hashMap.put("CollectionObjectViewType", type); // 1->Default 2->Transfer
             hashMap.put("Object", collection);
@@ -248,6 +250,7 @@ public class FragmentCollection extends Fragment implements OnDeleteDataListener
 
 
     // 更新数据相关
+
     /**
      * 更新所有一级支出分类信息
      */

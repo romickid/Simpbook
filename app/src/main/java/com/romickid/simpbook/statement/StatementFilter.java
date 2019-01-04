@@ -16,11 +16,11 @@ class StatementFilter {
     /**
      * 构造函数, 传入筛选信息
      *
-     * @param tClass1 class1
-     * @param tClass2 class2
-     * @param tAccount account
+     * @param tClass1   class1
+     * @param tClass2   class2
+     * @param tAccount  account
      * @param tDateFrom dateFrom
-     * @param tDateTo dateTo
+     * @param tDateTo   dateTo
      */
     StatementFilter(
             Class1 tClass1,

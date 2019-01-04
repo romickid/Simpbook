@@ -52,6 +52,7 @@ public class ActivityRecord extends AppCompatActivity implements
 
 
     // 初始化相关
+
     /**
      * 初始化Id
      */
@@ -64,7 +65,7 @@ public class ActivityRecord extends AppCompatActivity implements
     /**
      * 初始化Toolbar
      */
-    private void initToolbar(){
+    private void initToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -79,14 +80,14 @@ public class ActivityRecord extends AppCompatActivity implements
     /**
      * 初始化TabLayout
      */
-    private void initTabLayout(){
+    private void initTabLayout() {
         tabLayout.setupWithViewPager(viewPager);
     }
 
     /**
      * 初始化Viewpager
      */
-    private void initViewpager(){
+    private void initViewpager() {
         listFragments = new ArrayList<>();
         listIndicators = new ArrayList<>();
 
@@ -110,6 +111,7 @@ public class ActivityRecord extends AppCompatActivity implements
 
 
     // 其他
+
     /**
      * 设置默认显示的tab页面(模板/支出/收入/转账)
      */

@@ -60,7 +60,7 @@ public class Money {
      * 为TextView显示正确的金额形式
      *
      * @param textView 显示金额的textView
-     * @param money 金额
+     * @param money    金额
      */
     public static void setTextViewDecimalMoney(TextView textView, float money) {
         textView.setText(String.format(Locale.ROOT, "%.2f", money));
@@ -83,7 +83,7 @@ public class Money {
      * 为EditText显示正确的金额形式
      *
      * @param editText 显示金额的EditText
-     * @param money 金额
+     * @param money    金额
      */
     public static void setEditTextDecimalMoney(EditText editText, float money) {
         editText.setText(String.format(Locale.ROOT, "%.2f", money));

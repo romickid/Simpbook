@@ -17,6 +17,7 @@ public class Date {
 
     /**
      * 使用年/月/日作为参数的构造函数
+     *
      * @param y 年
      * @param m 月
      * @param d 日
@@ -33,12 +34,13 @@ public class Date {
     public Date() {
         Calendar calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH)+1;
+        month = calendar.get(Calendar.MONTH) + 1;
         day = calendar.get(Calendar.DAY_OF_MONTH);
     }
 
     /**
      * 获取"日"
+     *
      * @return 日
      */
     public int getDay() {
@@ -47,6 +49,7 @@ public class Date {
 
     /**
      * 获取"月"
+     *
      * @return 月
      */
     public int getMonth() {
@@ -55,6 +58,7 @@ public class Date {
 
     /**
      * 获取"年"
+     *
      * @return 年
      */
     public int getYear() {
@@ -63,12 +67,13 @@ public class Date {
 
     /**
      * 获取"星期"
+     *
      * @return 星期的字符串
      */
     public String getWeekOfDate() {
         String[] weekDays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
         Calendar cal = Calendar.getInstance();
-        cal.set(year,month-1,day);
+        cal.set(year, month - 1, day);
 
         int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
         if (w < 0)
@@ -78,6 +83,7 @@ public class Date {
 
 
     // static函数
+
     /**
      * 获取String形式的日期
      *
@@ -90,8 +96,9 @@ public class Date {
 
     /**
      * 设置日期为文本框显示内容
+     *
      * @param textView 传入的textView
-     * @param date 日期
+     * @param date     日期
      */
     public static void setTextViewDate(TextView textView, Date date) {
         textView.setText(getStrDate(date));
@@ -99,6 +106,7 @@ public class Date {
 
     /**
      * 从textView中获取日期信息
+     *
      * @param textView 被获取的textView
      * @return 日期实例
      */
@@ -114,26 +122,28 @@ public class Date {
 
     /**
      * 从calendar中获取日期信息
+     *
      * @param calendar 被获取的calendar
      * @return 日期实例
      */
     private static Date getDate(Calendar calendar) {
         return new Date(
                 calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH)+1,
+                calendar.get(Calendar.MONTH) + 1,
                 calendar.get(Calendar.DAY_OF_MONTH)
         );
     }
 
     /**
      * 获取相对天数的日期实例
+     *
      * @param date 基准日期
      * @param days 相对天数
      * @return 相对天数的实例
      */
     public static Date getDateAdd(Date date, int days) {
         Calendar cal = Calendar.getInstance();
-        cal.set(date.getYear(),date.getMonth()-1,date.getDay());
+        cal.set(date.getYear(), date.getMonth() - 1, date.getDay());
         cal.add(Calendar.DAY_OF_MONTH, days);
         return getDate(cal);
     }
@@ -148,14 +158,11 @@ public class Date {
     public static int compareDate(Date d1, Date d2) {
         if (d1.getYear() != d2.getYear()) {
             return d1.getYear() - d2.getYear();
-        }
-        else if (d1.getMonth() != d2.getMonth()) {
+        } else if (d1.getMonth() != d2.getMonth()) {
             return d1.getMonth() - d2.getMonth();
-        }
-        else if (d1.getDay() != d2.getDay()) {
+        } else if (d1.getDay() != d2.getDay()) {
             return d1.getDay() - d2.getDay();
-        }
-        else {
+        } else {
             return 0;
         }
     }
@@ -168,7 +175,7 @@ public class Date {
      */
     public static Date getDateWeekMonday(Date date) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(date.getYear(), date.getMonth()-1, date.getDay());
+        calendar.set(date.getYear(), date.getMonth() - 1, date.getDay());
 
         // 获得当前日期是一个星期的第几天
         int dayWeek = calendar.get(Calendar.DAY_OF_WEEK);
@@ -185,7 +192,7 @@ public class Date {
         // 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
         calendar.add(Calendar.DATE, calendar.getFirstDayOfWeek() - day);
 
-        return new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
+        return new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
     }
 
     /**
@@ -196,7 +203,7 @@ public class Date {
      */
     public static Date getDateWeekSunday(Date date) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(date.getYear(), date.getMonth()-1, date.getDay());
+        calendar.set(date.getYear(), date.getMonth() - 1, date.getDay());
 
         // 获得当前日期是一个星期的第几天
         int dayWeek = calendar.get(Calendar.DAY_OF_WEEK);
@@ -213,7 +220,7 @@ public class Date {
         // 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
         calendar.add(Calendar.DATE, calendar.getFirstDayOfWeek() - day + 6);
 
-        return new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
+        return new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
     }
 
     /**
@@ -224,11 +231,11 @@ public class Date {
      */
     public static Date getDateMonthFirstDay(Date date) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(date.getYear(), date.getMonth()-1, date.getDay());
+        calendar.set(date.getYear(), date.getMonth() - 1, date.getDay());
 
         calendar.set(Calendar.DAY_OF_MONTH, 1);
 
-        return new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
+        return new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
     }
 
     /**
@@ -239,11 +246,11 @@ public class Date {
      */
     public static Date getDateMonthLastDay(Date date) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(date.getYear(), date.getMonth()-1, date.getDay());
+        calendar.set(date.getYear(), date.getMonth() - 1, date.getDay());
 
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
 
-        return new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
+        return new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
     }
 
     /**
@@ -254,11 +261,11 @@ public class Date {
      */
     public static Date getDateYearFirstDay(Date date) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(date.getYear(), date.getMonth()-1, date.getDay());
+        calendar.set(date.getYear(), date.getMonth() - 1, date.getDay());
 
         calendar.set(Calendar.DAY_OF_YEAR, 1);
 
-        return new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
+        return new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
     }
 
     /**
@@ -269,18 +276,18 @@ public class Date {
      */
     public static Date getDateYearLastDay(Date date) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(date.getYear(), date.getMonth()-1, date.getDay());
+        calendar.set(date.getYear(), date.getMonth() - 1, date.getDay());
 
         calendar.set(Calendar.DAY_OF_YEAR, calendar.getActualMaximum(Calendar.DAY_OF_YEAR));
 
-        return new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
+        return new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
     }
 
     /**
      * 构建选择日期的Dialog
      *
      * @param textView 显示日期的textView
-     * @param context default
+     * @param context  default
      * @return 返回Dialog
      */
     public static Dialog createDialogDate(final TextView textView, Context context) {

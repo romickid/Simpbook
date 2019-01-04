@@ -73,6 +73,7 @@ public class ActivityClass2Expense extends AppCompatActivity {
 
 
     // 初始化相关
+
     /**
      * 初始化Id
      */
@@ -85,7 +86,7 @@ public class ActivityClass2Expense extends AppCompatActivity {
     /**
      * 初始化Toolbar
      */
-    private void initToolbar(){
+    private void initToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setTitle("二级支出分类");
@@ -146,10 +147,11 @@ public class ActivityClass2Expense extends AppCompatActivity {
 
 
     // 数据相关
+
     /**
      * 更新二级分类所属的一级分类信息
      */
-    private void updateClass1Id(){
+    private void updateClass1Id() {
         Intent intent = getIntent();
         class1Id = Integer.valueOf(intent.getStringExtra("class1Id"));
         class1 = class1Db.getCategoryListById(class1Id).get(0);
@@ -166,7 +168,7 @@ public class ActivityClass2Expense extends AppCompatActivity {
     /**
      * 获取一个Class2实例
      *
-     * @param name 名称
+     * @param name    名称
      * @param colorId 颜色id
      * @return 实例
      */
@@ -183,6 +185,7 @@ public class ActivityClass2Expense extends AppCompatActivity {
 
 
     // 新增支出Class2相关
+
     /**
      * 构建"新增Class2"的Dialog
      *
@@ -206,7 +209,7 @@ public class ActivityClass2Expense extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String name = editText.getText().toString();
-                int colorId = (int)spinnerColor.getSelectedItem();
+                int colorId = (int) spinnerColor.getSelectedItem();
 
                 if (name.isEmpty()) {
                     displayToast("输入不能为空", getApplicationContext(), 0);
@@ -220,8 +223,7 @@ public class ActivityClass2Expense extends AppCompatActivity {
                 if (message.equals("成功")) {
                     displayToast(message, getApplicationContext(), 0);
                     refreshActivity();
-                }
-                else {
+                } else {
                     displayToast(message, getApplicationContext(), 0);
                 }
             }

@@ -62,6 +62,7 @@ public class ActivityAccountEdit extends AppCompatActivity {
 
 
     // 初始化相关
+
     /**
      * 初始化Id
      */
@@ -88,7 +89,7 @@ public class ActivityAccountEdit extends AppCompatActivity {
     /**
      * 初始化Toolbar
      */
-    private void initToolbar(){
+    private void initToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -140,7 +141,7 @@ public class ActivityAccountEdit extends AppCompatActivity {
         buttonAddAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                switch(accountEditScheme) {
+                switch (accountEditScheme) {
                     case "Insert":
                         Account accountInsert = getAccountInsert();
                         String message = insertAccount(accountInsert);
@@ -186,6 +187,7 @@ public class ActivityAccountEdit extends AppCompatActivity {
 
 
     // 账户类型相关
+
     /**
      * 为SpinnerAccountType设置与accountType实例相同的位置
      *
@@ -197,6 +199,7 @@ public class ActivityAccountEdit extends AppCompatActivity {
 
 
     // 账户标识色相关
+
     /**
      * 为SpinnerColor设置与color实例相同的位置
      *
@@ -208,6 +211,7 @@ public class ActivityAccountEdit extends AppCompatActivity {
 
 
     // 数据相关
+
     /**
      * 更新标识色信息
      */
@@ -224,6 +228,7 @@ public class ActivityAccountEdit extends AppCompatActivity {
 
 
     // 修改数据相关
+
     /**
      * 获取用于添加的Account数据
      *
@@ -231,8 +236,8 @@ public class ActivityAccountEdit extends AppCompatActivity {
      */
     private Account getAccountInsert() {
         String name = editTextName.getText().toString();
-        int type = (int)spinnerAccountType.getSelectedItem();
-        int color = (int)spinnerAccountColor.getSelectedItem();
+        int type = (int) spinnerAccountType.getSelectedItem();
+        int color = (int) spinnerAccountColor.getSelectedItem();
         String strMoney = editTextMoney.getText().toString();
         float money = 0.0f;
         if (!strMoney.isEmpty())
@@ -248,8 +253,8 @@ public class ActivityAccountEdit extends AppCompatActivity {
      */
     private Account getAccountUpdate(int id) {
         String name = editTextName.getText().toString();
-        int type = (int)spinnerAccountType.getSelectedItem();
-        int color = (int)spinnerAccountColor.getSelectedItem();
+        int type = (int) spinnerAccountType.getSelectedItem();
+        int color = (int) spinnerAccountColor.getSelectedItem();
         String strMoney = editTextMoney.getText().toString();
         float money = 0.0f;
         if (!strMoney.isEmpty())
@@ -274,6 +279,7 @@ public class ActivityAccountEdit extends AppCompatActivity {
 
 
     // 更新数据相关
+
     /**
      * 若Scheme为更新状态, 则使用数据更新控件
      */

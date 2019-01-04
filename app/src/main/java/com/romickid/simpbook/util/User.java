@@ -10,9 +10,9 @@ public class User {
     /**
      * 构建User的一个实例
      *
-     * @param tId id
-     * @param tName 名称
-     * @param tEmail email
+     * @param tId       id
+     * @param tName     名称
+     * @param tEmail    email
      * @param tPassword password
      */
     public User(int tId, String tName, String tEmail, String tPassword) {
@@ -25,8 +25,8 @@ public class User {
     /**
      * 构建User的一个实例
      *
-     * @param tName 名称
-     * @param tEmail email
+     * @param tName     名称
+     * @param tEmail    email
      * @param tPassword password
      */
     public User(String tName, String tEmail, String tPassword) {
@@ -38,7 +38,7 @@ public class User {
     /**
      * 构建User的一个实例
      *
-     * @param tEmail email
+     * @param tEmail    email
      * @param tPassword password
      */
     public User(String tEmail, String tPassword) {
@@ -82,5 +82,5 @@ public class User {
     public String getPassword() {
         return password;
     }
-    
+
 }

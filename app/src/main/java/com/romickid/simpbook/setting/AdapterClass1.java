@@ -41,8 +41,8 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass> {
      * 构造函数, 读取需要绘制的Class1列表
      *
      * @param tListClass1s 传入的Class1列表
-     * @param tContext 传入的Context
-     * @param tActivity 传入的Activity
+     * @param tContext     传入的Context
+     * @param tActivity    传入的Activity
      */
     AdapterClass1(ArrayList<Class1> tListClass1s, Context tContext, Activity tActivity) {
         super();
@@ -55,7 +55,7 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass> {
     /**
      * 构建ViewHolder
      *
-     * @param parent default
+     * @param parent   default
      * @param viewType default
      * @return viewHolder
      */
@@ -71,7 +71,7 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass> {
     /**
      * 根据不同的位置, 为holder构建不同的实例
      *
-     * @param holder 传入的holder实例
+     * @param holder   传入的holder实例
      * @param position 位置
      */
     @Override
@@ -97,18 +97,19 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass> {
 
 
     // 跳转相关
+
     /**
      * 设置背景界面的Listener
      *
      * @param imageView 背景界面的imageView
-     * @param class1Id 待跳转的class1Id
+     * @param class1Id  待跳转的class1Id
      */
     private void setListenerBackground(ImageView imageView, final int class1Id) {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(context, ActivityClass2Expense.class);
-                intent.putExtra("class1Id" ,String.valueOf(class1Id));
+                intent.putExtra("class1Id", String.valueOf(class1Id));
                 context.startActivity(intent);
             }
         });
@@ -116,11 +117,12 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass> {
 
 
     // 修改一级分类相关
+
     /**
      * 设置修改按钮的Listener
      *
      * @param imageView 修改按钮imageView
-     * @param class1Id 待修改的class1Id
+     * @param class1Id  待修改的class1Id
      */
     private void setListenerEdit(ImageView imageView, final int class1Id) {
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -155,7 +157,7 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass> {
         ArrayList<Integer> listColors = getListColorIds();
         SpinnerAdapterColor spinnerAdapterColor = new SpinnerAdapterColor(context, listColors);
         spinnerColor.setAdapter(spinnerAdapterColor);
-        spinnerColor.setSelection(class1.getColor()-1);
+        spinnerColor.setSelection(class1.getColor() - 1);
 
         final int type = class1.getType();
 
@@ -167,7 +169,7 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass> {
             public void onClick(DialogInterface dialog, int which) {
                 // 获取控件内容
                 String name = editText.getText().toString();
-                int colorId = (int)spinnerColor.getSelectedItem();
+                int colorId = (int) spinnerColor.getSelectedItem();
 
                 if (name.isEmpty()) {
                     displayToast("输入不能为空", context, 0);
@@ -180,9 +182,8 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass> {
 
                 if (message.equals("成功")) {
                     displayToast(message, context, 0);
-                    ((Activity)(context)).recreate();
-                }
-                else {
+                    ((Activity) (context)).recreate();
+                } else {
                     displayToast(message, context, 1);
                 }
             }
@@ -200,11 +201,12 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass> {
 
 
     // 删除一级分类相关
+
     /**
      * 设置删除按钮的Listener
      *
      * @param imageView 删除按钮imageView
-     * @param class1Id 待删除的class1Id
+     * @param class1Id  待删除的class1Id
      */
     private void setListenerDelete(ImageView imageView, final int class1Id) {
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -216,9 +218,8 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass> {
 
                 if (message.equals("成功")) {
                     displayToast(message, context, 0);
-                    ((Activity)(context)).recreate();
-                }
-                else {
+                    ((Activity) (context)).recreate();
+                } else {
                     displayToast(message, context, 1);
                 }
             }
@@ -227,6 +228,7 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass> {
 
 
     // 数据库相关
+
     /**
      * 更新数据库
      */
@@ -238,11 +240,12 @@ public class AdapterClass1 extends RecyclerView.Adapter<ViewHolderClass> {
 
 
     // 数据相关
+
     /**
      * 构建用于更新一级分类的Class1实例
      *
-     * @param id id
-     * @param name 名称
+     * @param id      id
+     * @param name    名称
      * @param colorId 颜色id
      * @return 实例
      */

@@ -24,9 +24,9 @@ public class Class1 {
     /**
      * 构建一个Class1实例
      *
-     * @param tName 名称
+     * @param tName  名称
      * @param tColor 标识颜色
-     * @param tType 类型
+     * @param tType  类型
      */
     public Class1(String tName, int tColor, int tType) {
         id = -1;
@@ -38,10 +38,10 @@ public class Class1 {
     /**
      * 构建一个Class1实例
      *
-     * @param tId id
-     * @param tName 名称
+     * @param tId    id
+     * @param tName  名称
      * @param tColor 标识颜色
-     * @param tType 类型
+     * @param tType  类型
      */
     public Class1(int tId, String tName, int tColor, int tType) {
         id = tId;
@@ -53,10 +53,10 @@ public class Class1 {
     /**
      * 构建一个Class1实例
      *
-     * @param tId id
-     * @param tName 名称
-     * @param tColor 标识颜色
-     * @param tType 类型
+     * @param tId     id
+     * @param tName   名称
+     * @param tColor  标识颜色
+     * @param tType   类型
      * @param tStatus 状态
      */
     public Class1(int tId, String tName, int tColor, int tType, int tStatus) {
@@ -115,6 +115,7 @@ public class Class1 {
 
 
     // static函数
+
     /**
      * 为Class1列表进行排序
      *
@@ -126,15 +127,12 @@ public class Class1 {
             public int compare(Class1 a1, Class1 a2) {
                 if (a1.getColor() < a2.getColor()) {
                     return -1;
-                }
-                else if (a1.getColor() > a2.getColor()) {
+                } else if (a1.getColor() > a2.getColor()) {
                     return 1;
-                }
-                else {
+                } else {
                     if (a1.getId() < a2.getId()) {
                         return -1;
-                    }
-                    else {
+                    } else {
                         return 1;
                     }
                 }

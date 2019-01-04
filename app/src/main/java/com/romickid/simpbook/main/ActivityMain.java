@@ -94,6 +94,7 @@ public class ActivityMain extends AppCompatActivity {
 
 
     // 初始化相关
+
     /**
      * 初始化Id
      */
@@ -145,8 +146,8 @@ public class ActivityMain extends AppCompatActivity {
                 if (!checkDataValidity())
                     return;
                 Intent intent = new Intent(ActivityMain.this, ActivityRecord.class);
-                intent.putExtra("RecordType","Expense");
-                intent.putExtra("RecordScheme","Insert");
+                intent.putExtra("RecordType", "Expense");
+                intent.putExtra("RecordScheme", "Insert");
                 startActivity(intent);
             }
         });
@@ -173,7 +174,7 @@ public class ActivityMain extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(ActivityMain.this, ActivityStatement.class);
-                intent.putExtra("StatementFilterDate","Default");
+                intent.putExtra("StatementFilterDate", "Default");
                 intent.putExtra("StatementFilterAccount", "Default");
                 startActivity(intent);
             }
@@ -190,8 +191,8 @@ public class ActivityMain extends AppCompatActivity {
                 if (!checkDataValidity())
                     return;
                 Intent intent = new Intent(ActivityMain.this, ActivityRecord.class);
-                intent.putExtra("RecordType","Collection");
-                intent.putExtra("RecordScheme","Insert");
+                intent.putExtra("RecordType", "Collection");
+                intent.putExtra("RecordScheme", "Insert");
                 startActivity(intent);
             }
         });
@@ -229,7 +230,7 @@ public class ActivityMain extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(ActivityMain.this, ActivityStatement.class);
-                intent.putExtra("StatementFilterDate","ThisMonth");
+                intent.putExtra("StatementFilterDate", "ThisMonth");
                 intent.putExtra("StatementFilterAccount", "Default");
                 startActivity(intent);
             }
@@ -244,7 +245,7 @@ public class ActivityMain extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(ActivityMain.this, ActivityStatement.class);
-                intent.putExtra("StatementFilterDate","Today");
+                intent.putExtra("StatementFilterDate", "Today");
                 intent.putExtra("StatementFilterAccount", "Default");
                 startActivity(intent);
             }
@@ -259,7 +260,7 @@ public class ActivityMain extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(ActivityMain.this, ActivityStatement.class);
-                intent.putExtra("StatementFilterDate","ThisWeek");
+                intent.putExtra("StatementFilterDate", "ThisWeek");
                 intent.putExtra("StatementFilterAccount", "Default");
                 startActivity(intent);
             }
@@ -274,7 +275,7 @@ public class ActivityMain extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(ActivityMain.this, ActivityStatement.class);
-                intent.putExtra("StatementFilterDate","ThisMonth");
+                intent.putExtra("StatementFilterDate", "ThisMonth");
                 intent.putExtra("StatementFilterAccount", "Default");
                 startActivity(intent);
             }
@@ -289,7 +290,7 @@ public class ActivityMain extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(ActivityMain.this, ActivityStatement.class);
-                intent.putExtra("StatementFilterDate","ThisYear");
+                intent.putExtra("StatementFilterDate", "ThisYear");
                 intent.putExtra("StatementFilterAccount", "Default");
                 startActivity(intent);
             }
@@ -318,6 +319,7 @@ public class ActivityMain extends AppCompatActivity {
 
 
     // 更新数据相关
+
     /**
      * 更新数据
      */

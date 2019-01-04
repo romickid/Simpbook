@@ -145,6 +145,7 @@ public class FragmentExpense extends Fragment {
 
 
     // 初始化相关
+
     /**
      * 初始化Id
      */
@@ -295,13 +296,14 @@ public class FragmentExpense extends Fragment {
 
 
     // 分类相关
+
     /**
      * 为SpinnerClass1设置与class1Id实例相同的位置
      *
      * @param class1Id 需要显示的class1实例id
      */
     private void setSpinnerPositionClass1ById(int class1Id) {
-        for(int i = 0; i<listClass1s.size(); i++) {
+        for (int i = 0; i < listClass1s.size(); i++) {
             if (class1Id == listClass1s.get(i).getId()) {
                 spinnerClass1.setSelection(i);
             }
@@ -314,7 +316,7 @@ public class FragmentExpense extends Fragment {
      * @param class2Id 需要显示的class2实例id
      */
     private void setSpinnerPositionClass2ById(int class2Id) {
-        for(int i = 0; i < listClass2s.size(); i++) {
+        for (int i = 0; i < listClass2s.size(); i++) {
             if (class2Id == listClass2s.get(i).getId()) {
                 spinnerClass2.setSelection(i);
             }
@@ -328,7 +330,7 @@ public class FragmentExpense extends Fragment {
         spinnerClass1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                class1Id = ((Class1)spinnerClass1.getSelectedItem()).getId();
+                class1Id = ((Class1) spinnerClass1.getSelectedItem()).getId();
                 updateListClass2s();
                 adapterClass2 = new SpinnerAdapterClass2(getActivity(), listClass2s);
                 spinnerClass2.setAdapter(adapterClass2);
@@ -343,13 +345,14 @@ public class FragmentExpense extends Fragment {
 
 
     // 账户相关
+
     /**
      * 为SpinnerAccount设置与accountId实例相同的位置
      *
      * @param accountId 需要显示的account实例id
      */
     private void setSpinnerPositionAccountById(int accountId) {
-        for(int i = 0; i < listAccounts.size(); i++) {
+        for (int i = 0; i < listAccounts.size(); i++) {
             if (accountId == listAccounts.get(i).getId()) {
                 spinnerAccount.setSelection(i);
             }
@@ -358,6 +361,7 @@ public class FragmentExpense extends Fragment {
 
 
     // 日期相关
+
     /**
      * 设置日期的默认形式(使用者使用的当天日期)
      */
@@ -379,6 +383,7 @@ public class FragmentExpense extends Fragment {
 
 
     // 备注相关
+
     /**
      * 设置备注的默认形式
      */
@@ -400,6 +405,7 @@ public class FragmentExpense extends Fragment {
 
 
     // 更新数据相关
+
     /**
      * 更新所有一级支出分类信息
      */
@@ -482,6 +488,7 @@ public class FragmentExpense extends Fragment {
 
 
     // 修改数据相关
+
     /**
      * 向数据库中添加数据
      */
@@ -509,13 +516,13 @@ public class FragmentExpense extends Fragment {
      * @return record数据
      */
     private Record getRecordInsert() {
-        int tAccountId = ((Account)spinnerAccount.getSelectedItem()).getId();
+        int tAccountId = ((Account) spinnerAccount.getSelectedItem()).getId();
         float tMoney = getEditTextMoney(editTextMoney);
         int tType = 1; // 1->支出
         Date tDate = getDate(textViewDate);
         String tRemark = textViewRemark.getText().toString();
-        int tClass1Id = ((Class1)spinnerClass1.getSelectedItem()).getId();
-        int tClass2Id = ((Class2)spinnerClass2.getSelectedItem()).getId();
+        int tClass1Id = ((Class1) spinnerClass1.getSelectedItem()).getId();
+        int tClass2Id = ((Class2) spinnerClass2.getSelectedItem()).getId();
         return new Record(tAccountId, tMoney, tType, tDate, tRemark, tClass1Id, tClass2Id);
     }
 
@@ -525,13 +532,13 @@ public class FragmentExpense extends Fragment {
      * @return record数据
      */
     private Record getRecordUpdate(int tId) {
-        int tAccountId = ((Account)spinnerAccount.getSelectedItem()).getId();
+        int tAccountId = ((Account) spinnerAccount.getSelectedItem()).getId();
         float tMoney = getEditTextMoney(editTextMoney);
         int tType = 1; // 1->支出
         Date tDate = getDate(textViewDate);
         String tRemark = textViewRemark.getText().toString();
-        int tClass1Id = ((Class1)spinnerClass1.getSelectedItem()).getId();
-        int tClass2Id = ((Class2)spinnerClass2.getSelectedItem()).getId();
+        int tClass1Id = ((Class1) spinnerClass1.getSelectedItem()).getId();
+        int tClass2Id = ((Class2) spinnerClass2.getSelectedItem()).getId();
         return new Record(tId, tAccountId, tMoney, tType, tDate, tRemark, tClass1Id, tClass2Id);
     }
 
@@ -541,13 +548,13 @@ public class FragmentExpense extends Fragment {
      * @return collection数据
      */
     private Collection getCollectionInsert() {
-        int tAccountId = ((Account)spinnerAccount.getSelectedItem()).getId();
+        int tAccountId = ((Account) spinnerAccount.getSelectedItem()).getId();
         float tMoney = getEditTextMoney(editTextMoney);
         int tType = 1; // 1->支出
         Date tDate = getDate(textViewDate);
         String tRemark = textViewRemark.getText().toString();
-        int tClass1Id = ((Class1)spinnerClass1.getSelectedItem()).getId();
-        int tClass2Id = ((Class2)spinnerClass2.getSelectedItem()).getId();
+        int tClass1Id = ((Class1) spinnerClass1.getSelectedItem()).getId();
+        int tClass2Id = ((Class2) spinnerClass2.getSelectedItem()).getId();
         return new Collection(tAccountId, tMoney, tType, tDate, tRemark, tClass1Id, tClass2Id);
     }
 

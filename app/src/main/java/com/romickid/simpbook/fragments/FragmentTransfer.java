@@ -128,6 +128,7 @@ public class FragmentTransfer extends Fragment {
 
 
     // 初始化相关
+
     /**
      * 初始化Id
      */
@@ -245,8 +246,8 @@ public class FragmentTransfer extends Fragment {
                         if (messageCollectionInsert.equals("成功")) {
                             displayToast(messageCollectionInsert, getContext(), 0);
                             Intent intent = new Intent(getContext(), ActivityRecord.class);
-                            intent.putExtra("RecordType","Collection");
-                            intent.putExtra("RecordScheme","Insert");
+                            intent.putExtra("RecordType", "Collection");
+                            intent.putExtra("RecordScheme", "Insert");
                             startActivity(intent);
                             getActivity().finish();
                         } else {
@@ -283,19 +284,20 @@ public class FragmentTransfer extends Fragment {
 
 
     // 账户相关
+
     /**
      * 为SpinnerAccount设置与accountId实例相同的位置
      *
      * @param accountFromId 需要显示的发送account实例id
-     * @param accountToId 需要显示的接收account实例id
+     * @param accountToId   需要显示的接收account实例id
      */
     private void setSpinnerPositionAccountById(int accountFromId, int accountToId) {
-        for(int i = 0; i < listAccounts.size(); i++) {
+        for (int i = 0; i < listAccounts.size(); i++) {
             if (accountFromId == listAccounts.get(i).getId()) {
                 spinnerAccountFrom.setSelection(i);
             }
         }
-        for(int i = 0; i < listAccounts.size(); i++) {
+        for (int i = 0; i < listAccounts.size(); i++) {
             if (accountToId == listAccounts.get(i).getId()) {
                 spinnerAccountTo.setSelection(i);
             }
@@ -304,6 +306,7 @@ public class FragmentTransfer extends Fragment {
 
 
     // 日期相关
+
     /**
      * 设置日期的默认形式(使用者使用的当天日期)
      */
@@ -325,6 +328,7 @@ public class FragmentTransfer extends Fragment {
 
 
     // 备注相关
+
     /**
      * 设置备注的默认形式
      */
@@ -346,6 +350,7 @@ public class FragmentTransfer extends Fragment {
 
 
     // 更新数据相关
+
     /**
      * 更新所有账户信息
      */
@@ -393,6 +398,7 @@ public class FragmentTransfer extends Fragment {
 
 
     // 修改数据相关
+
     /**
      * 向数据库中添加数据
      */
@@ -420,8 +426,8 @@ public class FragmentTransfer extends Fragment {
      * @return record数据
      */
     private Record getRecordInsert() {
-        int tAccountFromId = ((Account)spinnerAccountFrom.getSelectedItem()).getId();
-        int tAccountToId = ((Account)spinnerAccountTo.getSelectedItem()).getId();
+        int tAccountFromId = ((Account) spinnerAccountFrom.getSelectedItem()).getId();
+        int tAccountToId = ((Account) spinnerAccountTo.getSelectedItem()).getId();
         float tMoney = getEditTextMoney(editTextMoney);
         int tType = 3; // 3->转账
         Date tDate = getDate(textViewDate);
@@ -435,8 +441,8 @@ public class FragmentTransfer extends Fragment {
      * @return record数据
      */
     private Record getRecordUpdate(int tId) {
-        int tAccountFromId = ((Account)spinnerAccountFrom.getSelectedItem()).getId();
-        int tAccountToId = ((Account)spinnerAccountTo.getSelectedItem()).getId();
+        int tAccountFromId = ((Account) spinnerAccountFrom.getSelectedItem()).getId();
+        int tAccountToId = ((Account) spinnerAccountTo.getSelectedItem()).getId();
         float tMoney = getEditTextMoney(editTextMoney);
         int tType = 3; // 3->转账
         Date tDate = getDate(textViewDate);
@@ -450,8 +456,8 @@ public class FragmentTransfer extends Fragment {
      * @return collection数据
      */
     private Collection getCollectionInsert() {
-        int tAccountFromId = ((Account)spinnerAccountFrom.getSelectedItem()).getId();
-        int tAccountToId = ((Account)spinnerAccountTo.getSelectedItem()).getId();
+        int tAccountFromId = ((Account) spinnerAccountFrom.getSelectedItem()).getId();
+        int tAccountToId = ((Account) spinnerAccountTo.getSelectedItem()).getId();
         float tMoney = getEditTextMoney(editTextMoney);
         int tType = 3; // 3->转账
         Date tDate = getDate(textViewDate);

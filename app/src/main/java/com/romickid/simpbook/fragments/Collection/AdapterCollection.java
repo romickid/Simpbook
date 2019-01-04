@@ -50,26 +50,27 @@ public class AdapterCollection extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
     // RecyclerView.Adapter相关
+
     /**
      * 构造函数, 读取需要绘制的CollectionObjects列表
      *
      * @param tListCollectionObjects 传入的CollectionObjects列表
-     * @param tContext 传入的Context
-     * @param tActivity 传入的Activity
-     * @param tFragment 用于更新Listener的Fragment
+     * @param tContext               传入的Context
+     * @param tActivity              传入的Activity
+     * @param tFragment              用于更新Listener的Fragment
      */
     AdapterCollection(ArrayList<HashMap<String, Object>> tListCollectionObjects, Context tContext, Activity tActivity, Fragment tFragment) {
         super();
         this.listCollectionObjects = tListCollectionObjects;
         this.context = tContext;
         this.activity = tActivity;
-        this.onDeleteDataListener = (OnDeleteDataListener)tFragment;
+        this.onDeleteDataListener = (OnDeleteDataListener) tFragment;
     }
 
     /**
      * 根据不同的viewType构建不同的ViewHolder
      *
-     * @param parent default
+     * @param parent   default
      * @param viewType 1:CollectionDefault, 2:CollectionTransfer, 3:CollectionSummarize
      * @return viewHolder
      */
@@ -98,7 +99,7 @@ public class AdapterCollection extends RecyclerView.Adapter<RecyclerView.ViewHol
     /**
      * 根据不同的位置, 为holder构建不同的实例
      *
-     * @param holder 传入的holder实例
+     * @param holder   传入的holder实例
      * @param position 位置(不同位置viewType不同)
      */
     @Override
@@ -106,7 +107,7 @@ public class AdapterCollection extends RecyclerView.Adapter<RecyclerView.ViewHol
         switch (getItemViewType(position)) {
             case 1:
                 ViewHolderCollectionDefault viewHolderCollectionDefault = (ViewHolderCollectionDefault) holder;
-                final Collection collection_1 = (Collection)listCollectionObjects.get(position).get("Object");
+                final Collection collection_1 = (Collection) listCollectionObjects.get(position).get("Object");
 
                 final int class2Id_1 = collection_1.getClass2Id();
                 final Class2 class2_1 = class2Db.getSubcategoryListById(class2Id_1).get(0);
@@ -148,7 +149,7 @@ public class AdapterCollection extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             case 2:
                 ViewHolderCollectionTransfer viewHolderCollectionTransfer = (ViewHolderCollectionTransfer) holder;
-                final Collection collection_2 = (Collection)listCollectionObjects.get(position).get("Object");
+                final Collection collection_2 = (Collection) listCollectionObjects.get(position).get("Object");
 
                 final int accountFromId_2 = collection_2.getAccountId();
                 final int accountToId_2 = collection_2.getToAccountId();
@@ -201,7 +202,7 @@ public class AdapterCollection extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             case 3:
                 ViewHolderCollectionSummarize viewHolderCollectionSummarize = (ViewHolderCollectionSummarize) holder;
-                CollectionSummarize collectionSummarize = (CollectionSummarize)listCollectionObjects.get(position).get("Object");
+                CollectionSummarize collectionSummarize = (CollectionSummarize) listCollectionObjects.get(position).get("Object");
 
                 final String text2 = collectionSummarize.getText();
 
@@ -215,11 +216,11 @@ public class AdapterCollection extends RecyclerView.Adapter<RecyclerView.ViewHol
      * 获取View的类型
      *
      * @param position 数组的位置
-     * @return 类型(1:CollectionDefault, 2:CollectionTransfer, 3:CollectionSummarize)
+     * @return 类型(1 : CollectionDefault, 2 : CollectionTransfer, 3 : CollectionSummarize)
      */
     @Override
     public int getItemViewType(int position) {
-        return (int)listCollectionObjects.get(position).get("CollectionObjectViewType");
+        return (int) listCollectionObjects.get(position).get("CollectionObjectViewType");
     }
 
     /**
@@ -234,6 +235,7 @@ public class AdapterCollection extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
     // 数据库相关
+
     /**
      * 更新数据库
      */
@@ -248,6 +250,7 @@ public class AdapterCollection extends RecyclerView.Adapter<RecyclerView.ViewHol
 
 
     // 删除记录Dialog相关
+
     /**
      * 构建删除模板的Dialog
      *
@@ -263,12 +266,11 @@ public class AdapterCollection extends RecyclerView.Adapter<RecyclerView.ViewHol
                     }
                 })
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                String message = collectionDb.deleteTemplate(collectionDelete);
+                    public void onClick(DialogInterface dialog, int id) {
+                        String message = collectionDb.deleteTemplate(collectionDelete);
                         if (message.equals("成功")) {
                             displayToast(message, context, 0);
-                        }
-                        else {
+                        } else {
                             displayToast(message, context, 1);
                         }
                         onDeleteDataListener.OnDeleteData();

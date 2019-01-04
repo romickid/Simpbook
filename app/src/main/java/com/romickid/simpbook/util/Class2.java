@@ -20,8 +20,8 @@ public class Class2 {
     /**
      * 构造一个Class2实例
      *
-     * @param tName 名称
-     * @param tColor 标识颜色
+     * @param tName     名称
+     * @param tColor    标识颜色
      * @param tFatherId 所属类1Id
      */
     public Class2(String tName, int tColor, int tFatherId) {
@@ -34,9 +34,9 @@ public class Class2 {
     /**
      * 构造一个Class2实例
      *
-     * @param tId Id
-     * @param tName 名称
-     * @param tColor 标识颜色
+     * @param tId       Id
+     * @param tName     名称
+     * @param tColor    标识颜色
      * @param tFatherId 所属类Id
      */
     public Class2(int tId, String tName, int tColor, int tFatherId) {
@@ -49,13 +49,13 @@ public class Class2 {
     /**
      * 构造一个Class2实例
      *
-     * @param tId Id
-     * @param tName 名称
-     * @param tColor 标识颜色
+     * @param tId       Id
+     * @param tName     名称
+     * @param tColor    标识颜色
      * @param tFatherId 所属类1Id
-     * @param tStatus 状态
+     * @param tStatus   状态
      */
-    public Class2(int tId, String tName, int tColor,int tFatherId, int tStatus) {
+    public Class2(int tId, String tName, int tColor, int tFatherId, int tStatus) {
         id = tId;
         name = tName;
         color = tColor;

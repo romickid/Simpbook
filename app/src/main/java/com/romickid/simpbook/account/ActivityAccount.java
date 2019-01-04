@@ -62,6 +62,7 @@ public class ActivityAccount extends AppCompatActivity implements OnDeleteDataLi
 
 
     // 初始化相关
+
     /**
      * 初始化Id
      */
@@ -75,7 +76,7 @@ public class ActivityAccount extends AppCompatActivity implements OnDeleteDataLi
     /**
      * 初始化Toolbar
      */
-    private void initToolbar(){
+    private void initToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -130,6 +131,7 @@ public class ActivityAccount extends AppCompatActivity implements OnDeleteDataLi
 
 
     // 数据相关
+
     /**
      * 更新所有账户信息
      */
@@ -158,12 +160,12 @@ public class ActivityAccount extends AppCompatActivity implements OnDeleteDataLi
      * 获取某个账户类型的listAccounts
      *
      * @param listAccounts 待获取的listAccounts
-     * @param type 账户类型
+     * @param type         账户类型
      * @return 筛选后的listAccounts
      */
     private ArrayList<Account> getListAccountsByType(ArrayList<Account> listAccounts, int type) {
         ArrayList<Account> listReturn = new ArrayList<>();
-        for(Account account: listAccounts) {
+        for (Account account : listAccounts) {
             if (account.getType() == type) {
                 listReturn.add(account);
             }
@@ -181,7 +183,7 @@ public class ActivityAccount extends AppCompatActivity implements OnDeleteDataLi
         ArrayList<HashMap<String, Object>> listReturn = new ArrayList<>();
         HashMap<String, Object> hashMap;
 
-        for(Account account: listAccounts) {
+        for (Account account : listAccounts) {
             hashMap = new HashMap<>();
             hashMap.put("AccountObjectViewType", 1); // 1->AccountDefault
             hashMap.put("Object", account);
@@ -194,7 +196,7 @@ public class ActivityAccount extends AppCompatActivity implements OnDeleteDataLi
      * 获取某个账户类型的AccountSummarizeObject
      *
      * @param listAccounts 待获取的listAccounts
-     * @param type 账户类型
+     * @param type         账户类型
      * @return AccountSummarizeObject
      */
     private HashMap<String, Object> getAccountSummarizeObject(ArrayList<Account> listAccounts, int type) {
