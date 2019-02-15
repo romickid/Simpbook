@@ -17,7 +17,7 @@ The project was completed by the nkucs1416 team in the spring of 2018.<br><br><b
 
 
 # 链接 / Link
-Google Play: https://play.google.com/store/apps/details?id=nkucs1416.simpbook <br><br><br>
+Google Play: https://play.google.com/store/apps/details?id=com.romickid.simpbook <br><br><br>
 
 # 示例 / Demo
 主页 / Home Page <br> 流水页面 / Statement Page <br>
